@@ -1,0 +1,65 @@
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+go
+SELECT TOP 1 * FROM KULLANICILAR WITH ( NOLOCK , INDEX = NDX_KULLANICILAR_02 )  WHERE User_no=1
+go
+set implicit_transactions on 
+go
+select cari_hareket_tipi,cari_efatura_fl from dbo.CARI_HESAPLAR where cari_kod=N'SERHAN'
+go
+SELECT kas_firma_no   FROM KASALAR WITH (NOLOCK) WHERE kas_kod=N'001'
+go
+INSERT INTO MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI 
+(cha_RECid_DBCno,cha_RECid_RECno,cha_SpecRecNo,cha_iptal,cha_fileid,cha_hidden,cha_kilitli,cha_degisti,cha_CheckSum,cha_create_user,cha_create_date,cha_lastup_user,cha_lastup_date,cha_special1,cha_special2,cha_special3,cha_firmano,cha_subeno,cha_evrak_tip,cha_evrakno_seri,cha_evrakno_sira,cha_satir_no,cha_tarihi,cha_tip,cha_cinsi,cha_normal_Iade,cha_tpoz,cha_ticaret_turu,cha_belge_no,cha_belge_tarih,cha_aciklama,cha_satici_kodu,cha_EXIMkodu,cha_projekodu,cha_yat_tes_kodu,cha_cari_cins,cha_kod,cha_ciro_cari_kodu,cha_d_cins,cha_d_kur,cha_altd_kur,cha_grupno,cha_srmrkkodu,cha_kasa_hizmet,cha_kasa_hizkod,cha_karsidcinsi,cha_karsid_kur,cha_karsidgrupno,cha_karsisrmrkkodu,cha_miktari,cha_meblag,cha_aratoplam,cha_vade,cha_Vade_Farki_Yuz,cha_ft_iskonto1,cha_ft_iskonto2,cha_ft_iskonto3,cha_ft_iskonto4,cha_ft_iskonto5,cha_ft_iskonto6,cha_ft_masraf1,cha_ft_masraf2,cha_ft_masraf3,cha_ft_masraf4,cha_isk_mas1,cha_isk_mas2,cha_isk_mas3,cha_isk_mas4,cha_isk_mas5,cha_isk_mas6,cha_isk_mas7,cha_isk_mas8,cha_isk_mas9,cha_isk_mas10,cha_sat_iskmas1,cha_sat_iskmas2,cha_sat_iskmas3,cha_sat_iskmas4,cha_sat_iskmas5,cha_sat_iskmas6,cha_sat_iskmas7,cha_sat_iskmas8,cha_sat_iskmas9,cha_sat_iskmas10,cha_yuvarlama,cha_StFonPntr,cha_stopaj,cha_savsandesfonu,cha_avansmak_damgapul,cha_vergipntr,cha_vergi1,cha_vergi2,cha_vergi3,cha_vergi4,cha_vergi5,cha_vergi6,cha_vergi7,cha_vergi8,cha_vergi9,cha_vergi10,cha_vergisiz_fl,cha_otvtutari,cha_otvvergisiz_fl,cha_oiv_pntr,cha_oivtutari,cha_oiv_vergi,cha_oivergisiz_fl,cha_fis_tarih,cha_fis_sirano,cha_trefno,cha_sntck_poz,cha_reftarihi,cha_istisnakodu,cha_pos_hareketi,cha_meblag_ana_doviz_icin_gecersiz_fl,cha_meblag_alt_doviz_icin_gecersiz_fl,cha_meblag_orj_doviz_icin_gecersiz_fl,cha_sip_recid_dbcno,cha_sip_recid_recno,cha_kirahar_recid_dbcno,cha_kirahar_recid_recno,cha_vardiya_tarihi,cha_vardiya_no,cha_vardiya_evrak_ti,cha_ebelge_cinsi,cha_tevkifat_toplam,cha_ilave_edilecek_kdv1,cha_ilave_edilecek_kdv2,cha_ilave_edilecek_kdv3,cha_ilave_edilecek_kdv4,cha_ilave_edilecek_kdv5,cha_ilave_edilecek_kdv6,cha_ilave_edilecek_kdv7,cha_ilave_edilecek_kdv8,cha_ilave_edilecek_kdv9,cha_ilave_edilecek_kdv10,cha_e_islem_turu,cha_fatura_belge_turu,cha_diger_belge_adi,cha_uuid) VALUES(0,0,0,0,51,0,0,0,0,1,'20251112 12:34:20.100',1,'20251112 12:34:20.100',N'',N'',N'',0,0,64,N'',343,0,'20251112',0,0,0,0,0,N'','20251112',N'',N'',N'',N'',N'',0,N'SERHAN',N'',0,1.000000000000,1.000000000000,0,N'',4,N'001',0,1.000000000000,0,N'',0,1.000000000000,1.000000000000,20251112,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'18991230',0,N'',0,'18991230',0,0,0,0,0,0,0,0,0,'18991230',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,N'',N'')
+go
+SELECT SCOPE_IDENTITY()
+go
+UPDATE MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI SET cha_RECid_RECno=64123 Where cha_RECno = 64123
+go
+SELECT cha_create_date,cha_lastup_date FROM MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI WITH (NOLOCK) WHERE cha_RECno = 64123
+go
+SELECT TOP 1 * FROM EVRAK_ACIKLAMALARI WITH ( NOLOCK , INDEX = NDX_EVRAK_ACIKLAMALARI_02 )  WHERE (egk_dosyano=51 AND egk_hareket_tip=0 AND egk_evr_tip=64 AND egk_evr_seri=N'' AND egk_evr_sira=343 AND egk_evr_ustkod=N'')
+go
+IF @@TRANCOUNT > 0 COMMIT TRAN
+go
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+go
+set implicit_transactions off 
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_EMIRLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_EK_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBASLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBAS_MALIYIL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_EMIRLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='MUHASEBE_FIS_DETAYLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HAREKETLER_SATIS_MALIYETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EBELGE_EVRAK_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='PROJELER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_PERSONEL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='TAKVIMLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='KREDI_SOZLESMESI_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_ADRESLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_YETKILILERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI_USER'
+go
+SELECT TOP 1 * FROM EVRAK_GENEL_PARAMETRELERI WITH ( NOLOCK , INDEX = NDX_EVRAK_GENEL_PARAMETRELERI_02 )  WHERE egp_program_no=42210
+go
+Select TOP 1 IsNull(dov_fiyat1, 1.0) from DOVIZ_KURLARI WITH (NOLOCK) WHERE dov_no=1 AND dov_tarih<='20251112' AND dov_fiyat1>0 ORDER BY dov_tarih DESC
+go

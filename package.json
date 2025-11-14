@@ -1,0 +1,24 @@
+{
+  "name": "erp-web-sync",
+  "version": "1.0.0",
+  "description": "ERP ve Web veritabanı senkronizasyon sistemi",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "setup-db": "node scripts/setup-database.js",
+    "test-connection": "node scripts/test-connection.js",
+    "analyze-logs": "node scripts/analyze-logs.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "mssql": "^10.0.1",
+    "pg": "^8.11.3",
+    "dotenv": "^16.3.1",
+    "winston": "^3.11.0",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

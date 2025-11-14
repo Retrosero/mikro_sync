@@ -1,0 +1,43 @@
+SELECT TOP 1 * FROM KULLANICILAR WITH ( NOLOCK , INDEX = NDX_KULLANICILAR_02 )  WHERE User_no=1
+go
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+go
+set implicit_transactions on 
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTELERI_USER'
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTELERI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTELERI_02 )  WHERE (sfiyat_stokkod=N'deneme' AND sfiyat_listesirano=1 AND sfiyat_deposirano=0 AND sfiyat_odemeplan=0)
+go
+INSERT INTO MikroDB_V15_02.dbo.STOK_SATIS_FIYAT_LISTELERI (sfiyat_RECid_DBCno,sfiyat_RECid_RECno,sfiyat_SpecRECno,sfiyat_iptal,sfiyat_fileid,sfiyat_hidden,sfiyat_kilitli,sfiyat_degisti,sfiyat_checksum,sfiyat_create_user,sfiyat_create_date,sfiyat_lastup_user,sfiyat_lastup_date,sfiyat_special1,sfiyat_special2,sfiyat_special3,sfiyat_stokkod,sfiyat_listesirano,sfiyat_deposirano,sfiyat_odemeplan,sfiyat_fiyati,sfiyat_doviz,sfiyat_iskontokod,sfiyat_deg_nedeni,sfiyat_primyuzdesi,sfiyat_kampanyakod) VALUES(0,0,0,0,228,0,0,0,0,1,'20251113 14:58:03.317',1,'20251113 14:58:03.317',N'',N'',N'',N'deneme',1,0,0,100.000000000000,0,N'',0,0,N'')
+go
+SELECT SCOPE_IDENTITY()
+go
+UPDATE MikroDB_V15_02.dbo.STOK_SATIS_FIYAT_LISTELERI SET sfiyat_RECid_RECno=28519 Where sfiyat_RECno = 28519
+go
+SELECT sfiyat_create_date,sfiyat_lastup_date FROM MikroDB_V15_02.dbo.STOK_SATIS_FIYAT_LISTELERI WITH (NOLOCK) WHERE sfiyat_RECno = 28519
+go
+SELECT COUNT(sfl_RECno) FROM dbo.STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH (NOLOCK, INDEX=NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02) WHERE ((sfl_fiyatuygulama=1)AND(sfl_fiyatformul<>N'')) OR       ((sfl_odepluygulama=1)AND(sfl_odeplformul<>N''))
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+SELECT TOP 1 * FROM STOKLAR WITH ( NOLOCK , INDEX = NDX_STOKLAR_02 )  WHERE sto_kod=N'deneme'
+go
+INSERT INTO MikroDB_V15_02.dbo.STOKLAR (sto_RECid_DBCno,sto_RECid_RECno,sto_SpecRECno,sto_iptal,sto_fileid,sto_hidden,sto_kilitli,sto_degisti,sto_checksum,sto_create_user,sto_create_date,sto_lastup_user,sto_lastup_date,sto_special1,sto_special2,sto_special3,sto_kod,sto_isim,sto_kisa_ismi,sto_yabanci_isim,sto_sat_cari_kod,sto_cins,sto_doviz_cinsi,sto_detay_takip,sto_birim1_ad,sto_birim1_katsayi,sto_birim1_agirlik,sto_birim1_en,sto_birim1_boy,sto_birim1_yukseklik,sto_birim1_dara,sto_birim2_ad,sto_birim2_katsayi,sto_birim2_agirlik,sto_birim2_en,sto_birim2_boy,sto_birim2_yukseklik,sto_birim2_dara,sto_birim3_ad,sto_birim3_katsayi,sto_birim3_agirlik,sto_birim3_en,sto_birim3_boy,sto_birim3_yukseklik,sto_birim3_dara,sto_birim4_ad,sto_birim4_katsayi,sto_birim4_agirlik,sto_birim4_en,sto_birim4_boy,sto_birim4_yukseklik,sto_birim4_dara,sto_muh_kod,sto_muh_Iade_kod,sto_muh_sat_muh_kod,sto_muh_satIadmuhkod,sto_muh_sat_isk_kod,sto_muh_aIiskmuhkod,sto_muh_satmalmuhkod,sto_yurtdisi_satmuhk,sto_ilavemasmuhkod,sto_yatirimtesmuhkod,sto_depsatmuhkod,sto_depsatmalmuhkod,sto_bagortsatmuhkod,sto_bagortsatIadmuhkod,sto_bagortsatIskmuhkod,sto_satfiyfarkmuhkod,sto_yurtdisisatmalmuhkod,sto_bagortsatmalmuhkod,sto_sifirbedsatmalmuhkod,sto_karorani,sto_min_stok,sto_siparis_stok,sto_max_stok,sto_ver_sip_birim,sto_al_sip_birim,sto_siparis_sure,sto_perakende_vergi,sto_toptan_vergi,sto_yer_kod,sto_elk_etk_tipi,sto_raf_etiketli,sto_etiket_bas,sto_satis_dursun,sto_siparis_dursun,sto_malkabul_dursun,sto_malkabul_gun1,sto_malkabul_gun2,sto_malkabul_gun3,sto_malkabul_gun4,sto_malkabul_gun5,sto_malkabul_gun6,sto_malkabul_gun7,sto_siparis_gun1,sto_siparis_gun2,sto_siparis_gun3,sto_siparis_gun4,sto_siparis_gun5,sto_siparis_gun6,sto_siparis_gun7,sto_iskon_yapilamaz,sto_tasfiyede,sto_alt_grup_no,sto_kategori_kodu,sto_urun_sorkod,sto_altgrup_kod,sto_anagrup_kod,sto_uretici_kodu,sto_sektor_kodu,sto_reyon_kodu,sto_muhgrup_kodu,sto_ambalaj_kodu,sto_marka_kodu,sto_beden_kodu,sto_renk_kodu,sto_model_kodu,sto_sezon_kodu,sto_hammadde_kodu,sto_prim_kodu,sto_kalkon_kodu,sto_paket_kodu,sto_pozisyonbayrak_kodu,sto_mkod_artik,sto_kasa_tarti_fl,sto_bedenli_takip,sto_renkDetayli,sto_miktarondalikli_fl,sto_pasif_fl,sto_eksiyedusebilir_fl,sto_GtipNo,sto_puan,sto_komisyon_hzmkodu,sto_komisyon_orani,sto_otvuygulama,sto_otvtutar,sto_otvliste,sto_otvbirimi,sto_prim_orani,sto_garanti_sure,sto_garanti_sure_tipi,sto_iplik_Ne_no,sto_standartmaliyet,sto_kanban_kasa_miktari,sto_oivuygulama,sto_zraporu_stoku_fl,sto_maxiskonto_orani,sto_detay_takibinde_depo_kontrolu_fl,sto_tamamlayici_kodu,sto_oto_barkod_acma_sekli,sto_oto_barkod_kod_yapisi,sto_KasaIskontoOrani,sto_KasaIskontoTutari,sto_gelirpayi,sto_oivtutar,sto_oivturu,sto_giderkodu,sto_oivvergipntr,sto_Tevkifat_turu,sto_SKT_fl,sto_terazi_SKT,sto_RafOmru,sto_KasadaTaksitlenebilir_fl,sto_ufrsfark_kod,sto_iade_ufrsfark_kod,sto_yurticisat_ufrsfark_kod,sto_satiade_ufrsfark_kod,sto_satisk_ufrsfark_kod,sto_alisk_ufrsfark_kod,sto_satmal_ufrsfark_kod,sto_yurtdisisat_ufrsfark_kod,sto_ilavemas_ufrsfark_kod,sto_yatirimtes_ufrsfark_kod,sto_depsat_ufrsfark_kod,sto_depsatmal_ufrsfark_kod,sto_bagortsat_ufrsfark_kod,sto_bagortsatiade_ufrsfark_kod,sto_bagortsatisk_ufrsfark_kod,sto_satfiyfark_ufrsfark_kod,sto_yurtdisisatmal_ufrsfark_kod,sto_bagortsatmal_ufrsfark_kod,sto_sifirbedsatmal_ufrsfark_kod,sto_uretimmaliyet_ufrsfark_kod,sto_uretimkapasite_ufrsfark_kod,sto_degerdusuklugu_ufrs_kod,sto_halrusumyudesi,sto_webe_gonderilecek_fl,sto_min_stok_belirleme_gun,sto_sip_stok_belirleme_gun,sto_max_stok_belirleme_gun,sto_sev_bel_opr_degerlendime_fl,sto_otv_tevkifat_turu) VALUES(0,0,0,0,13,0,0,0,0,1,'20251113 14:58:03.335',1,'20251113 14:58:03.335',N'',N'',N'',N'deneme',N'deneme ürünü',N'',N'',N'',0,0,0,N'',1.000000000000,0,0,0,0,0,N'',0,0,0,0,0,0,N'',0,0,0,0,0,0,N'',0,0,0,0,0,0,N'153',N'153',N'600',N'610',N'611',N'153',N'621',N'601',N'153',N'258',N'600',N'621',N'600',N'610',N'611',N'600',N'621',N'621',N'760',0,0,0,0,0,0,0,4,4,N'',0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',0,0,0,0,0,0,N'',0,N'',0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,N'',0,N'',0,0,0,0,0,N'',0,0,0,0,0,0,N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',N'',0,0,0,0,0,0,0)
+go
+SELECT SCOPE_IDENTITY()
+go
+UPDATE MikroDB_V15_02.dbo.STOKLAR SET sto_RECid_RECno=42646 Where sto_RECno = 42646
+go
+SELECT sto_create_date,sto_lastup_date FROM MikroDB_V15_02.dbo.STOKLAR WITH (NOLOCK) WHERE sto_RECno = 42646
+go
+IF @@TRANCOUNT > 0 COMMIT TRAN
+go
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+go
+set implicit_transactions off SET NO_BROWSETABLE ON
+go
+select * from mye_ImageData Where TableID=0 and RecID_DBCno=0 and RecID_RECno=0 and ImageID = 0
+
+go

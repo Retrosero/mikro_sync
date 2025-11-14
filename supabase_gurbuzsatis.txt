@@ -1,0 +1,1093 @@
+| table_name                  | column_name                  | data_type                   | is_nullable | column_default                                                |
+| --------------------------- | ---------------------------- | --------------------------- | ----------- | ------------------------------------------------------------- |
+| alis_kalemleri              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| alis_kalemleri              | alis_id                      | uuid                        | NO          | null                                                          |
+| alis_kalemleri              | stok_id                      | uuid                        | YES         | null                                                          |
+| alis_kalemleri              | stok_kodu                    | text                        | NO          | null                                                          |
+| alis_kalemleri              | stok_adi                     | text                        | NO          | null                                                          |
+| alis_kalemleri              | barkod                       | text                        | YES         | null                                                          |
+| alis_kalemleri              | miktar                       | numeric                     | NO          | null                                                          |
+| alis_kalemleri              | birim_fiyat                  | numeric                     | NO          | null                                                          |
+| alis_kalemleri              | iskonto_orani                | numeric                     | NO          | 0                                                             |
+| alis_kalemleri              | kdv_orani                    | numeric                     | NO          | 18                                                            |
+| alis_kalemleri              | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| alis_kalemleri              | sira_no                      | integer                     | NO          | 1                                                             |
+| alis_kalemleri              | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| alislar                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| alislar                     | tedarikci_id                 | uuid                        | YES         | null                                                          |
+| alislar                     | fatura_no                    | text                        | NO          | null                                                          |
+| alislar                     | fatura_tarihi                | date                        | NO          | CURRENT_DATE                                                  |
+| alislar                     | vade_tarihi                  | date                        | YES         | null                                                          |
+| alislar                     | aciklama                     | text                        | YES         | null                                                          |
+| alislar                     | ara_toplam                   | numeric                     | NO          | 0                                                             |
+| alislar                     | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| alislar                     | toplam_tutar                 | numeric                     | NO          | 0                                                             |
+| alislar                     | indirim_tutari               | numeric                     | NO          | 0                                                             |
+| alislar                     | alis_durumu                  | text                        | NO          | 'tamamlandi'::text                                            |
+| alislar                     | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| alislar                     | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| alislar                     | fatura_seri_no               | character varying           | YES         | null                                                          |
+| alislar                     | fatura_sira_no               | integer                     | YES         | null                                                          |
+| alt_todolar                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| alt_todolar                 | ust_todo_id                  | uuid                        | NO          | null                                                          |
+| alt_todolar                 | baslik                       | text                        | NO          | null                                                          |
+| alt_todolar                 | aciklama                     | text                        | YES         | null                                                          |
+| alt_todolar                 | durum                        | text                        | NO          | 'beklemede'::text                                             |
+| alt_todolar                 | sira_no                      | integer                     | NO          | 1                                                             |
+| alt_todolar                 | tamamlanma_tarihi            | date                        | YES         | null                                                          |
+| alt_todolar                 | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| alt_todolar                 | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| ambalaj_turleri             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| ambalaj_turleri             | ambalaj_adi                  | text                        | NO          | null                                                          |
+| ambalaj_turleri             | aciklama                     | text                        | YES         | null                                                          |
+| ambalaj_turleri             | aktif                        | boolean                     | NO          | true                                                          |
+| ambalaj_turleri             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| ambalaj_turleri             | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| arac_giderleri              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| arac_giderleri              | arac_id                      | uuid                        | NO          | null                                                          |
+| arac_giderleri              | gider_tipi                   | text                        | NO          | null                                                          |
+| arac_giderleri              | gider_adi                    | text                        | NO          | null                                                          |
+| arac_giderleri              | tutar                        | numeric                     | NO          | null                                                          |
+| arac_giderleri              | gider_tarihi                 | date                        | NO          | CURRENT_DATE                                                  |
+| arac_giderleri              | km                           | integer                     | YES         | null                                                          |
+| arac_giderleri              | litre                        | numeric                     | YES         | null                                                          |
+| arac_giderleri              | birim_fiyat                  | numeric                     | YES         | null                                                          |
+| arac_giderleri              | istasyon_adi                 | text                        | YES         | null                                                          |
+| arac_giderleri              | fatura_no                    | text                        | YES         | null                                                          |
+| arac_giderleri              | aciklama                     | text                        | YES         | null                                                          |
+| arac_giderleri              | sonraki_bakim_km             | integer                     | YES         | null                                                          |
+| arac_giderleri              | sonraki_bakim_tarihi         | date                        | YES         | null                                                          |
+| arac_giderleri              | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| arac_giderleri              | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| araclar                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| araclar                     | plaka                        | text                        | NO          | null                                                          |
+| araclar                     | marka                        | text                        | NO          | null                                                          |
+| araclar                     | model                        | text                        | NO          | null                                                          |
+| araclar                     | yil                          | integer                     | YES         | null                                                          |
+| araclar                     | renk                         | text                        | YES         | null                                                          |
+| araclar                     | motor_no                     | text                        | YES         | null                                                          |
+| araclar                     | sasi_no                      | text                        | YES         | null                                                          |
+| araclar                     | arac_tipi                    | text                        | NO          | 'binek'::text                                                 |
+| araclar                     | yakit_tipi                   | text                        | YES         | null                                                          |
+| araclar                     | guncel_km                    | integer                     | NO          | 0                                                             |
+| araclar                     | sigorta_bitis_tarihi         | date                        | YES         | null                                                          |
+| araclar                     | kasko_bitis_tarihi           | date                        | YES         | null                                                          |
+| araclar                     | muayene_bitis_tarihi         | date                        | YES         | null                                                          |
+| araclar                     | mtv_bitis_tarihi             | date                        | YES         | null                                                          |
+| araclar                     | aktif                        | boolean                     | NO          | true                                                          |
+| araclar                     | notlar                       | text                        | YES         | null                                                          |
+| araclar                     | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| araclar                     | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| bankalar                    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| bankalar                    | banka_adi                    | text                        | NO          | null                                                          |
+| bankalar                    | sube_adi                     | text                        | YES         | null                                                          |
+| bankalar                    | hesap_no                     | text                        | NO          | null                                                          |
+| bankalar                    | iban                         | text                        | YES         | null                                                          |
+| bankalar                    | bakiye                       | numeric                     | NO          | 0                                                             |
+| bankalar                    | aktif                        | boolean                     | NO          | true                                                          |
+| bankalar                    | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| bankalar                    | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| barkod_tanimlari            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| barkod_tanimlari            | stok_id                      | uuid                        | NO          | null                                                          |
+| barkod_tanimlari            | barkod                       | text                        | NO          | null                                                          |
+| barkod_tanimlari            | barkod_tipi                  | text                        | NO          | 'ana'::text                                                   |
+| barkod_tanimlari            | carpan                       | integer                     | NO          | 1                                                             |
+| barkod_tanimlari            | aciklama                     | text                        | YES         | null                                                          |
+| barkod_tanimlari            | aktif                        | boolean                     | NO          | true                                                          |
+| barkod_tanimlari            | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| barkod_tanimlari            | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| baski_listesi               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| baski_listesi               | liste_adi                    | text                        | NO          | null                                                          |
+| baski_listesi               | liste_tipi                   | text                        | NO          | null                                                          |
+| baski_listesi               | stok_id                      | uuid                        | YES         | null                                                          |
+| baski_listesi               | kategori_id                  | uuid                        | YES         | null                                                          |
+| baski_listesi               | miktar                       | integer                     | NO          | 1                                                             |
+| baski_listesi               | kagit_boyutu                 | text                        | YES         | null                                                          |
+| baski_listesi               | yazdirma_durumu              | text                        | NO          | 'beklemede'::text                                             |
+| baski_listesi               | olusturan_kullanici_id       | uuid                        | YES         | null                                                          |
+| baski_listesi               | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| baski_listesi               | yazdirma_tarihi              | timestamp with time zone    | YES         | null                                                          |
+| bekleyen_islemler           | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| bekleyen_islemler           | islem_tipi                   | text                        | NO          | null                                                          |
+| bekleyen_islemler           | islem_verisi                 | jsonb                       | YES         | null                                                          |
+| bekleyen_islemler           | onay_durumu                  | text                        | YES         | 'Beklemede'::text                                             |
+| bekleyen_islemler           | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| bekleyen_islemler           | onay_tarihi                  | timestamp with time zone    | YES         | null                                                          |
+| bekleyen_islemler           | red_tarihi                   | timestamp with time zone    | YES         | null                                                          |
+| bekleyen_islemler           | red_nedeni                   | text                        | YES         | null                                                          |
+| bekleyen_islemler           | onaylayan_kullanici          | text                        | YES         | null                                                          |
+| bekleyen_islemler           | reddeden_kullanici           | text                        | YES         | null                                                          |
+| bekleyen_islemler           | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| bekleyen_islemler           | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| belge_degisiklik_loglari    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| belge_degisiklik_loglari    | belge_tipi                   | text                        | NO          | null                                                          |
+| belge_degisiklik_loglari    | belge_id                     | uuid                        | YES         | null                                                          |
+| belge_degisiklik_loglari    | islem_tipi                   | text                        | NO          | null                                                          |
+| belge_degisiklik_loglari    | eski_deger                   | jsonb                       | YES         | null                                                          |
+| belge_degisiklik_loglari    | yeni_deger                   | jsonb                       | YES         | null                                                          |
+| belge_degisiklik_loglari    | hata_mesaji                  | text                        | YES         | null                                                          |
+| belge_degisiklik_loglari    | aciklama                     | text                        | YES         | null                                                          |
+| belge_degisiklik_loglari    | kullanici_id                 | uuid                        | YES         | null                                                          |
+| belge_degisiklik_loglari    | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| bildirim_temizleme_loglari  | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| bildirim_temizleme_loglari  | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| bildirim_temizleme_loglari  | operation                    | text                        | NO          | 'cleanup_old_notifications'::text                             |
+| bildirim_temizleme_loglari  | deleted_count                | integer                     | NO          | 0                                                             |
+| bildirim_temizleme_loglari  | execution_time_ms            | integer                     | NO          | null                                                          |
+| bildirim_temizleme_loglari  | status                       | text                        | NO          | null                                                          |
+| bildirim_temizleme_loglari  | error_message                | text                        | YES         | null                                                          |
+| bildirim_temizleme_loglari  | metadata                     | jsonb                       | YES         | '{}'::jsonb                                                   |
+| bildirimler                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| bildirimler                 | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| bildirimler                 | updated_at                   | timestamp with time zone    | NO          | now()                                                         |
+| bildirimler                 | kullanici_id                 | uuid                        | NO          | null                                                          |
+| bildirimler                 | baslik                       | text                        | NO          | null                                                          |
+| bildirimler                 | icerik                       | text                        | NO          | null                                                          |
+| bildirimler                 | tip                          | text                        | NO          | null                                                          |
+| bildirimler                 | oncelik                      | text                        | NO          | 'orta'::text                                                  |
+| bildirimler                 | okundu                       | boolean                     | NO          | false                                                         |
+| bildirimler                 | okunma_tarihi                | timestamp with time zone    | YES         | null                                                          |
+| bildirimler                 | kaynak_tip                   | text                        | YES         | null                                                          |
+| bildirimler                 | kaynak_id                    | text                        | YES         | null                                                          |
+| bildirimler                 | kaynak_url                   | text                        | YES         | null                                                          |
+| bildirimler                 | metadata                     | jsonb                       | YES         | '{}'::jsonb                                                   |
+| birim_turleri               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| birim_turleri               | birim_adi                    | text                        | NO          | null                                                          |
+| birim_turleri               | aciklama                     | text                        | YES         | null                                                          |
+| birim_turleri               | aktif                        | boolean                     | NO          | true                                                          |
+| birim_turleri               | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| birim_turleri               | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| bolgeler                    | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| bolgeler                    | bolge_adi                    | text                        | NO          | null                                                          |
+| bolgeler                    | aciklama                     | text                        | YES         | null                                                          |
+| bolgeler                    | olusturma_tarihi             | timestamp with time zone    | NO          | timezone('UTC'::text, now())                                  |
+| bolgeler                    | guncelleme_tarihi            | timestamp with time zone    | NO          | timezone('UTC'::text, now())                                  |
+| bolgeler                    | aktif                        | boolean                     | NO          | true                                                          |
+| cargo_package_products      | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cargo_package_products      | package_id                   | uuid                        | NO          | null                                                          |
+| cargo_package_products      | product_name                 | text                        | NO          | null                                                          |
+| cargo_package_products      | product_image                | text                        | YES         | '/placeholder.svg'::text                                      |
+| cargo_package_products      | quantity                     | integer                     | NO          | 1                                                             |
+| cargo_package_products      | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| cargo_packages              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cargo_packages              | tracking_number              | text                        | NO          | null                                                          |
+| cargo_packages              | recipient                    | text                        | NO          | 'Alıcı Bilgisi Girilecek'::text                               |
+| cargo_packages              | phone                        | text                        | YES         | ''::text                                                      |
+| cargo_packages              | cargo_company                | text                        | NO          | 'Kargo Şirketi Girilecek'::text                               |
+| cargo_packages              | added_by                     | text                        | NO          | 'Admin'::text                                                 |
+| cargo_packages              | added_at                     | timestamp with time zone    | YES         | now()                                                         |
+| cargo_packages              | status                       | text                        | NO          | 'pending'::text                                               |
+| cargo_packages              | notes                        | text                        | YES         | ''::text                                                      |
+| cargo_packages              | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| cargo_packages              | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| cari_hesap_hareketleri      | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cari_hesap_hareketleri      | cari_hesap_id                | uuid                        | NO          | null                                                          |
+| cari_hesap_hareketleri      | hareket_tipi                 | text                        | NO          | null                                                          |
+| cari_hesap_hareketleri      | tutar                        | numeric                     | NO          | null                                                          |
+| cari_hesap_hareketleri      | onceki_bakiye                | numeric                     | NO          | null                                                          |
+| cari_hesap_hareketleri      | sonraki_bakiye               | numeric                     | NO          | null                                                          |
+| cari_hesap_hareketleri      | belge_no                     | text                        | YES         | null                                                          |
+| cari_hesap_hareketleri      | belge_tipi                   | text                        | YES         | null                                                          |
+| cari_hesap_hareketleri      | referans_id                  | uuid                        | YES         | null                                                          |
+| cari_hesap_hareketleri      | aciklama                     | text                        | YES         | null                                                          |
+| cari_hesap_hareketleri      | vade_tarihi                  | date                        | YES         | null                                                          |
+| cari_hesap_hareketleri      | islem_tarihi                 | timestamp with time zone    | NO          | now()                                                         |
+| cari_hesap_hareketleri      | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| cari_hesap_hareketleri      | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| cari_hesap_hareketleri      | sira_no                      | integer                     | YES         | null                                                          |
+| cari_hesaplar               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cari_hesaplar               | cari_kodu                    | text                        | NO          | null                                                          |
+| cari_hesaplar               | cari_adi                     | text                        | NO          | null                                                          |
+| cari_hesaplar               | cari_tipi                    | text                        | NO          | 'Musteri'::text                                               |
+| cari_hesaplar               | vergi_no                     | text                        | YES         | null                                                          |
+| cari_hesaplar               | tc_no                        | text                        | YES         | null                                                          |
+| cari_hesaplar               | adres                        | text                        | YES         | null                                                          |
+| cari_hesaplar               | il                           | text                        | YES         | null                                                          |
+| cari_hesaplar               | ilce                         | text                        | YES         | null                                                          |
+| cari_hesaplar               | posta_kodu                   | text                        | YES         | null                                                          |
+| cari_hesaplar               | telefon                      | text                        | YES         | null                                                          |
+| cari_hesaplar               | cep_telefon                  | text                        | YES         | null                                                          |
+| cari_hesaplar               | eposta                       | text                        | YES         | null                                                          |
+| cari_hesaplar               | web_sitesi                   | text                        | YES         | null                                                          |
+| cari_hesaplar               | yetkili_kisi                 | text                        | YES         | null                                                          |
+| cari_hesaplar               | borc_limiti                  | numeric                     | YES         | 0                                                             |
+| cari_hesaplar               | bakiye                       | numeric                     | NO          | 0                                                             |
+| cari_hesaplar               | kdv_muafiyeti                | boolean                     | NO          | false                                                         |
+| cari_hesaplar               | aktif                        | boolean                     | NO          | true                                                          |
+| cari_hesaplar               | notlar                       | text                        | YES         | null                                                          |
+| cari_hesaplar               | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| cari_hesaplar               | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| cari_hesaplar               | musteri_tipi_id              | uuid                        | YES         | null                                                          |
+| cari_hesaplar               | bolge_id                     | uuid                        | YES         | null                                                          |
+| cari_hesaplar               | konum                        | text                        | YES         | null                                                          |
+| cari_hesaplar               | vergi_dairesi                | text                        | YES         | null                                                          |
+| cari_hesaplar               | vergi_levhasi_url            | text                        | YES         | null                                                          |
+| cari_notlar                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cari_notlar                 | cari_hesap_id                | uuid                        | NO          | null                                                          |
+| cari_notlar                 | icerik                       | text                        | NO          | null                                                          |
+| cari_notlar                 | olusturan_id                 | uuid                        | YES         | null                                                          |
+| cari_notlar                 | olusturan_adi                | text                        | YES         | null                                                          |
+| cari_notlar                 | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| cek_senet_takip             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| cek_senet_takip             | belge_tipi                   | text                        | NO          | null                                                          |
+| cek_senet_takip             | belge_no                     | text                        | NO          | null                                                          |
+| cek_senet_takip             | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| cek_senet_takip             | tutar                        | numeric                     | NO          | null                                                          |
+| cek_senet_takip             | vade_tarihi                  | date                        | NO          | null                                                          |
+| cek_senet_takip             | durum                        | text                        | NO          | 'beklemede'::text                                             |
+| cek_senet_takip             | banka_adi                    | text                        | YES         | null                                                          |
+| cek_senet_takip             | aciklama                     | text                        | YES         | null                                                          |
+| cek_senet_takip             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| cek_senet_takip             | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| firma_ayarlari              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| firma_ayarlari              | firma_adi                    | text                        | NO          | null                                                          |
+| firma_ayarlari              | adres                        | text                        | YES         | null                                                          |
+| firma_ayarlari              | telefon                      | text                        | YES         | null                                                          |
+| firma_ayarlari              | eposta                       | text                        | YES         | null                                                          |
+| firma_ayarlari              | vergi_no                     | text                        | YES         | null                                                          |
+| firma_ayarlari              | vergi_dairesi                | text                        | YES         | null                                                          |
+| firma_ayarlari              | web_sitesi                   | text                        | YES         | null                                                          |
+| firma_ayarlari              | logo_url                     | text                        | YES         | null                                                          |
+| firma_ayarlari              | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| firma_ayarlari              | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| firma_ayarlari              | banka_adi                    | text                        | YES         | null                                                          |
+| firma_ayarlari              | banka_sube                   | text                        | YES         | null                                                          |
+| firma_ayarlari              | hesap_no                     | text                        | YES         | null                                                          |
+| firma_ayarlari              | iban                         | text                        | YES         | null                                                          |
+| firma_banka_hesaplari       | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| firma_banka_hesaplari       | banka_adi                    | text                        | NO          | null                                                          |
+| firma_banka_hesaplari       | iban                         | text                        | NO          | null                                                          |
+| firma_banka_hesaplari       | hesap_no                     | text                        | YES         | null                                                          |
+| firma_banka_hesaplari       | sube                         | text                        | YES         | null                                                          |
+| firma_banka_hesaplari       | tahsilat_makbuzunda_goster   | boolean                     | NO          | true                                                          |
+| firma_banka_hesaplari       | sira_no                      | integer                     | NO          | 1                                                             |
+| firma_banka_hesaplari       | aktif                        | boolean                     | NO          | true                                                          |
+| firma_banka_hesaplari       | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| firma_banka_hesaplari       | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| fiyat_tanimlari             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| fiyat_tanimlari             | fiyat_adi                    | text                        | NO          | null                                                          |
+| fiyat_tanimlari             | aciklama                     | text                        | YES         | null                                                          |
+| fiyat_tanimlari             | varsayilan                   | boolean                     | YES         | false                                                         |
+| fiyat_tanimlari             | aktif                        | boolean                     | YES         | true                                                          |
+| fiyat_tanimlari             | sira_no                      | integer                     | YES         | 1                                                             |
+| fiyat_tanimlari             | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| fiyat_tanimlari             | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| giderler                    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| giderler                    | gider_no                     | text                        | NO          | null                                                          |
+| giderler                    | gider_adi                    | text                        | NO          | null                                                          |
+| giderler                    | gider_kategorisi             | text                        | NO          | null                                                          |
+| giderler                    | tutar                        | numeric                     | NO          | null                                                          |
+| giderler                    | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| giderler                    | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| giderler                    | gider_tarihi                 | date                        | NO          | CURRENT_DATE                                                  |
+| giderler                    | odeme_sekli                  | text                        | NO          | 'nakit'::text                                                 |
+| giderler                    | banka_id                     | uuid                        | YES         | null                                                          |
+| giderler                    | tedarikci_id                 | uuid                        | YES         | null                                                          |
+| giderler                    | fatura_no                    | text                        | YES         | null                                                          |
+| giderler                    | aciklama                     | text                        | YES         | null                                                          |
+| giderler                    | belge_url                    | text                        | YES         | null                                                          |
+| giderler                    | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| giderler                    | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| giderler                    | kasa_id                      | uuid                        | YES         | null                                                          |
+| giderler                    | fatura_seri_no               | character varying           | YES         | null                                                          |
+| giderler                    | fatura_sira_no               | integer                     | YES         | null                                                          |
+| iade_kalemleri              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| iade_kalemleri              | iade_id                      | uuid                        | NO          | null                                                          |
+| iade_kalemleri              | stok_id                      | uuid                        | NO          | null                                                          |
+| iade_kalemleri              | satis_kalemi_id              | uuid                        | YES         | null                                                          |
+| iade_kalemleri              | miktar                       | integer                     | NO          | null                                                          |
+| iade_kalemleri              | birim_fiyat                  | numeric                     | NO          | null                                                          |
+| iade_kalemleri              | kdv_orani                    | numeric                     | NO          | 18                                                            |
+| iade_kalemleri              | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| iade_kalemleri              | sira_no                      | integer                     | NO          | 1                                                             |
+| iade_kalemleri              | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| iade_kalemleri              | stok_kodu                    | text                        | NO          | null                                                          |
+| iadeler                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| iadeler                     | iade_no                      | text                        | NO          | null                                                          |
+| iadeler                     | satis_id                     | uuid                        | YES         | null                                                          |
+| iadeler                     | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| iadeler                     | iade_tarihi                  | date                        | NO          | CURRENT_DATE                                                  |
+| iadeler                     | iade_tipi                    | text                        | NO          | 'tam'::text                                                   |
+| iadeler                     | iade_nedeni                  | text                        | YES         | null                                                          |
+| iadeler                     | ara_toplam                   | numeric                     | NO          | 0                                                             |
+| iadeler                     | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| iadeler                     | toplam_tutar                 | numeric                     | NO          | 0                                                             |
+| iadeler                     | iade_sekli                   | text                        | NO          | 'nakit'::text                                                 |
+| iadeler                     | iade_durumu                  | text                        | NO          | 'tamamlandi'::text                                            |
+| iadeler                     | notlar                       | text                        | YES         | null                                                          |
+| iadeler                     | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| iadeler                     | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| ilceler                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| ilceler                     | ilce_adi                     | text                        | NO          | null                                                          |
+| ilceler                     | il_id                        | uuid                        | YES         | null                                                          |
+| ilceler                     | aktif                        | boolean                     | YES         | true                                                          |
+| ilceler                     | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| ilceler                     | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| iller                       | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| iller                       | il_adi                       | text                        | NO          | null                                                          |
+| iller                       | il_kodu                      | text                        | YES         | null                                                          |
+| iller                       | aktif                        | boolean                     | YES         | true                                                          |
+| iller                       | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| iller                       | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| kasa_hareketleri            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| kasa_hareketleri            | kasa_id                      | uuid                        | NO          | null                                                          |
+| kasa_hareketleri            | hareket_tipi                 | text                        | NO          | null                                                          |
+| kasa_hareketleri            | tutar                        | numeric                     | NO          | null                                                          |
+| kasa_hareketleri            | onceki_bakiye                | numeric                     | NO          | null                                                          |
+| kasa_hareketleri            | sonraki_bakiye               | numeric                     | NO          | null                                                          |
+| kasa_hareketleri            | aciklama                     | text                        | YES         | null                                                          |
+| kasa_hareketleri            | belge_tipi                   | text                        | YES         | null                                                          |
+| kasa_hareketleri            | belge_no                     | text                        | YES         | null                                                          |
+| kasa_hareketleri            | referans_id                  | uuid                        | YES         | null                                                          |
+| kasa_hareketleri            | islem_tarihi                 | timestamp with time zone    | YES         | now()                                                         |
+| kasa_hareketleri            | olusturan_kullanici          | text                        | YES         | null                                                          |
+| kasa_hareketleri            | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| kasalar                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| kasalar                     | kasa_adi                     | text                        | NO          | null                                                          |
+| kasalar                     | kasa_tipi                    | text                        | NO          | null                                                          |
+| kasalar                     | banka_id                     | uuid                        | YES         | null                                                          |
+| kasalar                     | baslangic_bakiyesi           | numeric                     | YES         | 0                                                             |
+| kasalar                     | guncel_bakiye                | numeric                     | YES         | 0                                                             |
+| kasalar                     | aktif                        | boolean                     | YES         | true                                                          |
+| kasalar                     | aciklama                     | text                        | YES         | null                                                          |
+| kasalar                     | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| kasalar                     | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| kategoriler                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| kategoriler                 | kategori_adi                 | text                        | NO          | null                                                          |
+| kategoriler                 | ust_kategori_id              | uuid                        | YES         | null                                                          |
+| kategoriler                 | aciklama                     | text                        | YES         | null                                                          |
+| kategoriler                 | aktif                        | boolean                     | NO          | true                                                          |
+| kategoriler                 | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| kategoriler                 | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| kategoriler                 | parent_id                    | uuid                        | YES         | null                                                          |
+| kategoriler                 | level                        | integer                     | YES         | 0                                                             |
+| kategoriler                 | path                         | ARRAY                       | YES         | null                                                          |
+| kategoriler                 | display_order                | integer                     | YES         | null                                                          |
+| kategoriler                 | is_xml_category              | boolean                     | YES         | false                                                         |
+| kategoriler                 | is_visible                   | boolean                     | YES         | true                                                          |
+| kategoriler                 | xml_id                       | text                        | YES         | null                                                          |
+| kullanici_ayarlari          | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| kullanici_ayarlari          | user_id                      | uuid                        | NO          | null                                                          |
+| kullanici_ayarlari          | fatura_seri                  | text                        | YES         | null                                                          |
+| kullanici_ayarlari          | fatura_sira                  | integer                     | YES         | 1                                                             |
+| kullanici_ayarlari          | tanimli_arac_id              | uuid                        | YES         | null                                                          |
+| kullanici_ayarlari          | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| kullanici_ayarlari          | updated_at                   | timestamp with time zone    | NO          | now()                                                         |
+| kullanicilar                | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| kullanicilar                | kullanici_adi                | text                        | NO          | null                                                          |
+| kullanicilar                | ad                           | text                        | NO          | null                                                          |
+| kullanicilar                | soyad                        | text                        | NO          | null                                                          |
+| kullanicilar                | eposta                       | text                        | YES         | null                                                          |
+| kullanicilar                | telefon                      | text                        | YES         | null                                                          |
+| kullanicilar                | rol                          | text                        | NO          | 'kullanici'::text                                             |
+| kullanicilar                | aktif                        | boolean                     | NO          | true                                                          |
+| kullanicilar                | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| kullanicilar                | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| kullanicilar                | sifre_hash                   | text                        | NO          | null                                                          |
+| markalar                    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| markalar                    | marka_adi                    | text                        | NO          | null                                                          |
+| markalar                    | aciklama                     | text                        | YES         | null                                                          |
+| markalar                    | aktif                        | boolean                     | NO          | true                                                          |
+| markalar                    | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| markalar                    | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| musteri_tipleri             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| musteri_tipleri             | tip_adi                      | text                        | NO          | null                                                          |
+| musteri_tipleri             | aciklama                     | text                        | YES         | null                                                          |
+| musteri_tipleri             | aktif                        | boolean                     | NO          | true                                                          |
+| musteri_tipleri             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| musteri_tipleri             | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| onay_bekleyen_islemler      | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| onay_bekleyen_islemler      | islem_tipi                   | text                        | NO          | null                                                          |
+| onay_bekleyen_islemler      | islem_verisi                 | jsonb                       | NO          | null                                                          |
+| onay_bekleyen_islemler      | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| onay_bekleyen_islemler      | olusturan_kullanici_id       | uuid                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | onay_durumu                  | text                        | NO          | 'Beklemede'::text                                             |
+| onay_bekleyen_islemler      | onay_tarihi                  | timestamp with time zone    | YES         | null                                                          |
+| onay_bekleyen_islemler      | onaylayan_kullanici_id       | uuid                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | red_nedeni                   | text                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | referans_id                  | uuid                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | stok_id                      | uuid                        | YES         | null                                                          |
+| onay_bekleyen_islemler      | notlar                       | text                        | YES         | null                                                          |
+| page_view_settings          | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| page_view_settings          | page_name                    | character varying           | NO          | null                                                          |
+| page_view_settings          | setting_key                  | character varying           | NO          | null                                                          |
+| page_view_settings          | setting_value                | boolean                     | NO          | true                                                          |
+| page_view_settings          | created_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| page_view_settings          | updated_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| product_validation_settings | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| product_validation_settings | field_name                   | text                        | NO          | null                                                          |
+| product_validation_settings | field_label                  | text                        | NO          | null                                                          |
+| product_validation_settings | is_required                  | boolean                     | NO          | true                                                          |
+| product_validation_settings | validation_type              | text                        | NO          | 'basic'::text                                                 |
+| product_validation_settings | description                  | text                        | YES         | null                                                          |
+| product_validation_settings | display_order                | integer                     | YES         | 1                                                             |
+| product_validation_settings | active                       | boolean                     | NO          | true                                                          |
+| product_validation_settings | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| product_validation_settings | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| reyon_tanimlari             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| reyon_tanimlari             | reyon_kodu                   | text                        | NO          | null                                                          |
+| reyon_tanimlari             | reyon_adi                    | text                        | NO          | null                                                          |
+| reyon_tanimlari             | aciklama                     | text                        | YES         | null                                                          |
+| reyon_tanimlari             | aktif                        | boolean                     | NO          | true                                                          |
+| reyon_tanimlari             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| reyon_tanimlari             | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| satis_kalemleri             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| satis_kalemleri             | satis_id                     | uuid                        | NO          | null                                                          |
+| satis_kalemleri             | stok_id                      | uuid                        | YES         | null                                                          |
+| satis_kalemleri             | miktar                       | integer                     | NO          | null                                                          |
+| satis_kalemleri             | birim_fiyat                  | numeric                     | NO          | null                                                          |
+| satis_kalemleri             | indirim_orani                | numeric                     | NO          | 0                                                             |
+| satis_kalemleri             | kdv_orani                    | numeric                     | NO          | 18                                                            |
+| satis_kalemleri             | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| satis_kalemleri             | sira_no                      | integer                     | NO          | 1                                                             |
+| satis_kalemleri             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| satis_kalemleri             | notlar                       | text                        | YES         | null                                                          |
+| satis_kalemleri             | xml_stok_id                  | uuid                        | YES         | null                                                          |
+| satislar                    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| satislar                    | satis_no                     | text                        | NO          | null                                                          |
+| satislar                    | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| satislar                    | siparis_id                   | uuid                        | YES         | null                                                          |
+| satislar                    | satis_tarihi                 | date                        | NO          | CURRENT_DATE                                                  |
+| satislar                    | satis_tipi                   | text                        | NO          | 'perakende'::text                                             |
+| satislar                    | odeme_sekli                  | text                        | NO          | 'nakit'::text                                                 |
+| satislar                    | ara_toplam                   | numeric                     | NO          | 0                                                             |
+| satislar                    | indirim_tutari               | numeric                     | NO          | 0                                                             |
+| satislar                    | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| satislar                    | toplam_tutar                 | numeric                     | NO          | 0                                                             |
+| satislar                    | odenen_tutar                 | numeric                     | NO          | 0                                                             |
+| satislar                    | kalan_tutar                  | numeric                     | NO          | 0                                                             |
+| satislar                    | satis_durumu                 | text                        | NO          | 'tamamlandi'::text                                            |
+| satislar                    | notlar                       | text                        | YES         | null                                                          |
+| satislar                    | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| satislar                    | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| satislar                    | siparis_kaynak               | text                        | YES         | 'satis_uygulamasi'::text                                      |
+| satislar                    | kasa_id                      | uuid                        | YES         | null                                                          |
+| satislar                    | banka_id                     | uuid                        | YES         | null                                                          |
+| satislar                    | cek_no                       | text                        | YES         | null                                                          |
+| satislar                    | senet_no                     | text                        | YES         | null                                                          |
+| satislar                    | vade_tarihi                  | date                        | YES         | null                                                          |
+| satislar                    | dekont_no                    | text                        | YES         | null                                                          |
+| satislar                    | fatura_seri_no               | character varying           | YES         | null                                                          |
+| satislar                    | fatura_sira_no               | integer                     | YES         | null                                                          |
+| sayilan_urunler             | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| sayilan_urunler             | stok_id                      | uuid                        | YES         | null                                                          |
+| sayilan_urunler             | sayilan_miktar               | numeric                     | NO          | 0                                                             |
+| sayilan_urunler             | raf_kodu                     | text                        | YES         | null                                                          |
+| sayilan_urunler             | sayim_tarihi                 | timestamp with time zone    | YES         | now()                                                         |
+| sayilan_urunler             | sayim_yapan_kullanici        | text                        | YES         | null                                                          |
+| sayilan_urunler             | notlar                       | text                        | YES         | null                                                          |
+| sayilan_urunler             | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sayilan_urunler             | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sayilan_urunler             | onaya_gonderilme_tarihi      | timestamp with time zone    | YES         | null                                                          |
+| sayilan_urunler             | onaylanma_tarihi             | timestamp with time zone    | YES         | null                                                          |
+| sayilan_urunler             | red_tarihi                   | timestamp with time zone    | YES         | null                                                          |
+| sayilan_urunler             | onay_islem_id                | uuid                        | YES         | null                                                          |
+| sayilan_urunler             | durum                        | USER-DEFINED                | NO          | 'beklemede'::sayim_durumu                                     |
+| sayilan_urunler             | onceki_miktar                | numeric                     | YES         | 0                                                             |
+| sayilan_urunler             | stok_kodu                    | text                        | YES         | null                                                          |
+| sayilan_urunler             | stok_adi                     | text                        | YES         | null                                                          |
+| sayilan_urunler             | sayim_oturumu_id             | text                        | YES         | null                                                          |
+| sayim_kalemleri             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sayim_kalemleri             | sayim_id                     | uuid                        | NO          | null                                                          |
+| sayim_kalemleri             | stok_id                      | uuid                        | NO          | null                                                          |
+| sayim_kalemleri             | sistem_miktari               | integer                     | NO          | null                                                          |
+| sayim_kalemleri             | sayilan_miktar               | integer                     | YES         | null                                                          |
+| sayim_kalemleri             | fark_miktari                 | integer                     | YES         | null                                                          |
+| sayim_kalemleri             | birim_fiyat                  | numeric                     | YES         | null                                                          |
+| sayim_kalemleri             | fark_tutari                  | numeric                     | YES         | null                                                          |
+| sayim_kalemleri             | aciklama                     | text                        | YES         | null                                                          |
+| sayim_kalemleri             | sayim_durumu                 | text                        | NO          | 'beklemede'::text                                             |
+| sayim_kalemleri             | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| sayim_kalemleri             | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| sayim_oturumlari            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sayim_oturumlari            | oturum_adi                   | character varying           | NO          | null                                                          |
+| sayim_oturumlari            | baslangic_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| sayim_oturumlari            | bitis_tarihi                 | timestamp with time zone    | YES         | null                                                          |
+| sayim_oturumlari            | durum                        | character varying           | YES         | 'devam_ediyor'::character varying                             |
+| sayim_oturumlari            | oturum_aciklama              | text                        | YES         | null                                                          |
+| sayim_oturumlari            | oturum_sahibi                | character varying           | YES         | null                                                          |
+| sayim_oturumlari            | toplam_urun_sayisi           | integer                     | YES         | 0                                                             |
+| sayim_oturumlari            | sayilan_urun_sayisi          | integer                     | YES         | 0                                                             |
+| sayim_oturumlari            | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sayim_oturumlari            | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sayim_oturumu_urunleri      | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sayim_oturumu_urunleri      | sayim_oturumu_id             | uuid                        | NO          | null                                                          |
+| sayim_oturumu_urunleri      | stok_id                      | uuid                        | YES         | null                                                          |
+| sayim_oturumu_urunleri      | stok_kodu                    | character varying           | NO          | null                                                          |
+| sayim_oturumu_urunleri      | stok_adi                     | character varying           | NO          | null                                                          |
+| sayim_oturumu_urunleri      | barkod                       | character varying           | YES         | null                                                          |
+| sayim_oturumu_urunleri      | raf_kodu                     | character varying           | YES         | null                                                          |
+| sayim_oturumu_urunleri      | marka                        | character varying           | YES         | null                                                          |
+| sayim_oturumu_urunleri      | kategori                     | character varying           | YES         | null                                                          |
+| sayim_oturumu_urunleri      | ekleme_tarihi                | timestamp with time zone    | NO          | now()                                                         |
+| sayim_oturumu_urunleri      | sayildi_mi                   | boolean                     | NO          | false                                                         |
+| sayim_oturumu_urunleri      | sayilan_miktar               | integer                     | YES         | 0                                                             |
+| sayim_oturumu_urunleri      | sayim_tarihi                 | timestamp with time zone    | YES         | null                                                          |
+| sayimlar                    | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sayimlar                    | sayim_no                     | text                        | NO          | null                                                          |
+| sayimlar                    | sayim_adi                    | text                        | NO          | null                                                          |
+| sayimlar                    | sayim_tarihi                 | date                        | NO          | CURRENT_DATE                                                  |
+| sayimlar                    | sayim_durumu                 | text                        | NO          | 'devam_ediyor'::text                                          |
+| sayimlar                    | sayim_tipi                   | text                        | NO          | 'genel'::text                                                 |
+| sayimlar                    | kategori_id                  | uuid                        | YES         | null                                                          |
+| sayimlar                    | raf_kodu                     | text                        | YES         | null                                                          |
+| sayimlar                    | notlar                       | text                        | YES         | null                                                          |
+| sayimlar                    | olusturan_kullanici_id       | uuid                        | YES         | null                                                          |
+| sayimlar                    | tamamlayan_kullanici_id      | uuid                        | YES         | null                                                          |
+| sayimlar                    | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| sayimlar                    | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| siparis_adet_uyusmazliklari | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparis_adet_uyusmazliklari | siparis_durum_id             | uuid                        | NO          | null                                                          |
+| siparis_adet_uyusmazliklari | stok_id                      | uuid                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | urun_kodu                    | text                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | urun_adi                     | text                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | istenilen_adet               | integer                     | NO          | null                                                          |
+| siparis_adet_uyusmazliklari | toplanan_adet                | integer                     | NO          | null                                                          |
+| siparis_adet_uyusmazliklari | fark                         | integer                     | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | onay_durumu                  | text                        | YES         | 'bekliyor'::text                                              |
+| siparis_adet_uyusmazliklari | yonetici_karar_adet          | integer                     | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | aciklama                     | text                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | kontrol_notu                 | text                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | tespit_tarihi                | timestamp with time zone    | YES         | now()                                                         |
+| siparis_adet_uyusmazliklari | karar_tarihi                 | timestamp with time zone    | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | tespit_eden_kullanici_id     | uuid                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | karar_veren_kullanici_id     | uuid                        | YES         | null                                                          |
+| siparis_adet_uyusmazliklari | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_adet_uyusmazliklari | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_durum_gecmisi       | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparis_durum_gecmisi       | siparis_durum_id             | uuid                        | YES         | null                                                          |
+| siparis_durum_gecmisi       | eski_durum                   | text                        | YES         | null                                                          |
+| siparis_durum_gecmisi       | yeni_durum                   | text                        | NO          | null                                                          |
+| siparis_durum_gecmisi       | kullanici_id                 | text                        | YES         | null                                                          |
+| siparis_durum_gecmisi       | degisiklik_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| siparis_durum_gecmisi       | aciklama                     | text                        | YES         | null                                                          |
+| siparis_durum_gecmisi       | islem_tipi                   | text                        | YES         | null                                                          |
+| siparis_durum_gecmisi       | degisiklik_verisi            | jsonb                       | YES         | null                                                          |
+| siparis_durum_gecmisi       | adet_farklari                | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparis_durumlari           | siparis_id                   | text                        | NO          | null                                                          |
+| siparis_durumlari           | siparis_tipi                 | text                        | NO          | 'onaylanmis'::text                                            |
+| siparis_durumlari           | durum                        | text                        | NO          | 'hazirlanacak'::text                                          |
+| siparis_durumlari           | musteri_adi                  | text                        | YES         | null                                                          |
+| siparis_durumlari           | siparis_numarasi             | text                        | YES         | null                                                          |
+| siparis_durumlari           | toplam_tutar                 | numeric                     | YES         | 0                                                             |
+| siparis_durumlari           | urun_sayisi                  | integer                     | YES         | 0                                                             |
+| siparis_durumlari           | hazirlayan_kullanici_id      | uuid                        | YES         | null                                                          |
+| siparis_durumlari           | hazirlama_baslama_tarihi     | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | hazirlama_bitis_tarihi       | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | kontrol_kullanici_id         | uuid                        | YES         | null                                                          |
+| siparis_durumlari           | kontrol_tarihi               | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | yukleme_kullanici_id         | uuid                        | YES         | null                                                          |
+| siparis_durumlari           | yukleme_tarihi               | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | siparis_verisi               | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | hazirlama_verisi             | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | notlar                       | text                        | YES         | null                                                          |
+| siparis_durumlari           | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_durumlari           | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_durumlari           | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| siparis_durumlari           | onay_durumu                  | text                        | YES         | null                                                          |
+| siparis_durumlari           | onaylayan_kullanici_id       | uuid                        | YES         | null                                                          |
+| siparis_durumlari           | onay_tarihi                  | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | red_nedeni                   | text                        | YES         | null                                                          |
+| siparis_durumlari           | adet_uyusmazligi             | boolean                     | YES         | false                                                         |
+| siparis_durumlari           | uyusmazlik_detayi            | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | orijinal_siparis_verisi      | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | yonetici_duzenleme_verisi    | jsonb                       | YES         | null                                                          |
+| siparis_durumlari           | duzenleme_sayisi             | integer                     | YES         | 0                                                             |
+| siparis_durumlari           | son_duzenleme_tarihi         | timestamp with time zone    | YES         | null                                                          |
+| siparis_durumlari           | kontrol_referans_tipi        | text                        | YES         | 'orijinal'::text                                              |
+| siparis_durumlari           | kontrol_gecmisi              | jsonb                       | YES         | '[]'::jsonb                                                   |
+| siparis_durumlari           | yeniden_kontrol_sayisi       | integer                     | YES         | 0                                                             |
+| siparis_durumlari           | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| siparis_gecmisi             | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| siparis_gecmisi             | siparis_id                   | uuid                        | YES         | null                                                          |
+| siparis_gecmisi             | durum                        | USER-DEFINED                | YES         | null                                                          |
+| siparis_gecmisi             | kullanici_id                 | uuid                        | YES         | null                                                          |
+| siparis_gecmisi             | aciklama                     | text                        | YES         | null                                                          |
+| siparis_gecmisi             | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_kalemleri           | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparis_kalemleri           | siparis_id                   | uuid                        | NO          | null                                                          |
+| siparis_kalemleri           | stok_id                      | uuid                        | NO          | null                                                          |
+| siparis_kalemleri           | miktar                       | integer                     | NO          | null                                                          |
+| siparis_kalemleri           | birim_fiyat                  | numeric                     | NO          | null                                                          |
+| siparis_kalemleri           | indirim_orani                | numeric                     | NO          | 0                                                             |
+| siparis_kalemleri           | kdv_orani                    | numeric                     | NO          | 18                                                            |
+| siparis_kalemleri           | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| siparis_kalemleri           | sira_no                      | integer                     | NO          | 1                                                             |
+| siparis_kalemleri           | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| siparis_kalemleri           | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| siparis_kontrol_kayitlari   | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparis_kontrol_kayitlari   | siparis_durum_id             | uuid                        | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | kontrol_tipi                 | text                        | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | kontrol_referans_tipi        | text                        | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | sonuc                        | text                        | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | beklenen_veriler             | jsonb                       | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | bulunan_veriler              | jsonb                       | NO          | null                                                          |
+| siparis_kontrol_kayitlari   | farklar                      | jsonb                       | YES         | null                                                          |
+| siparis_kontrol_kayitlari   | kontrol_eden_kullanici_id    | uuid                        | YES         | null                                                          |
+| siparis_kontrol_kayitlari   | kontrol_tarihi               | timestamp with time zone    | YES         | now()                                                         |
+| siparis_kontrol_kayitlari   | notlar                       | text                        | YES         | null                                                          |
+| siparis_kontrol_kayitlari   | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_urun_farkliliklari  | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| siparis_urun_farkliliklari  | siparis_id                   | uuid                        | YES         | null                                                          |
+| siparis_urun_farkliliklari  | urun_id                      | uuid                        | YES         | null                                                          |
+| siparis_urun_farkliliklari  | istenen_miktar               | numeric                     | YES         | null                                                          |
+| siparis_urun_farkliliklari  | hazirlanan_miktar            | numeric                     | YES         | null                                                          |
+| siparis_urun_farkliliklari  | fark_nedeni                  | text                        | YES         | null                                                          |
+| siparis_urun_farkliliklari  | onay_durumu                  | USER-DEFINED                | YES         | 'onay_bekliyor'::order_status                                 |
+| siparis_urun_farkliliklari  | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparis_urun_farkliliklari  | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| siparisler                  | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| siparisler                  | siparis_no                   | text                        | NO          | null                                                          |
+| siparisler                  | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| siparisler                  | siparis_tarihi               | date                        | NO          | CURRENT_DATE                                                  |
+| siparisler                  | teslim_tarihi                | date                        | YES         | null                                                          |
+| siparisler                  | siparis_durumu               | text                        | NO          | 'beklemede'::text                                             |
+| siparisler                  | ara_toplam                   | numeric                     | NO          | 0                                                             |
+| siparisler                  | indirim_tutari               | numeric                     | NO          | 0                                                             |
+| siparisler                  | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| siparisler                  | toplam_tutar                 | numeric                     | NO          | 0                                                             |
+| siparisler                  | teslimat_adresi              | text                        | YES         | null                                                          |
+| siparisler                  | kargo_firmasi                | text                        | YES         | null                                                          |
+| siparisler                  | kargo_takip_no               | text                        | YES         | null                                                          |
+| siparisler                  | notlar                       | text                        | YES         | null                                                          |
+| siparisler                  | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| siparisler                  | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| siparisler                  | durum                        | USER-DEFINED                | YES         | 'onay_bekliyor'::order_status                                 |
+| siparisler                  | hazirlayan_kullanici         | uuid                        | YES         | null                                                          |
+| siparisler                  | kontrol_eden_kullanici       | uuid                        | YES         | null                                                          |
+| siparisler                  | onaylayan_kullanici          | uuid                        | YES         | null                                                          |
+| siparisler                  | hazirlama_baslangic          | timestamp with time zone    | YES         | null                                                          |
+| siparisler                  | hazirlama_bitis              | timestamp with time zone    | YES         | null                                                          |
+| siparisler                  | kontrol_baslangic            | timestamp with time zone    | YES         | null                                                          |
+| siparisler                  | kontrol_bitis                | timestamp with time zone    | YES         | null                                                          |
+| siparisler                  | onay_tarihi                  | timestamp with time zone    | YES         | null                                                          |
+| siparisler                  | red_nedeni                   | text                        | YES         | null                                                          |
+| stok_hareketleri            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| stok_hareketleri            | stok_id                      | uuid                        | NO          | null                                                          |
+| stok_hareketleri            | hareket_tipi                 | text                        | NO          | null                                                          |
+| stok_hareketleri            | miktar                       | integer                     | NO          | null                                                          |
+| stok_hareketleri            | onceki_miktar                | integer                     | NO          | null                                                          |
+| stok_hareketleri            | sonraki_miktar               | integer                     | NO          | null                                                          |
+| stok_hareketleri            | birim_fiyat                  | numeric                     | YES         | null                                                          |
+| stok_hareketleri            | toplam_tutar                 | numeric                     | YES         | null                                                          |
+| stok_hareketleri            | belge_no                     | text                        | YES         | null                                                          |
+| stok_hareketleri            | belge_tipi                   | text                        | YES         | null                                                          |
+| stok_hareketleri            | referans_id                  | uuid                        | YES         | null                                                          |
+| stok_hareketleri            | aciklama                     | text                        | YES         | null                                                          |
+| stok_hareketleri            | islem_tarihi                 | timestamp with time zone    | NO          | now()                                                         |
+| stok_hareketleri            | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| stok_hareketleri            | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| stok_satis_fiyat_listeleri  | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| stok_satis_fiyat_listeleri  | liste_adi                    | text                        | NO          | null                                                          |
+| stok_satis_fiyat_listeleri  | stok_id                      | uuid                        | NO          | null                                                          |
+| stok_satis_fiyat_listeleri  | fiyat                        | numeric                     | NO          | null                                                          |
+| stok_satis_fiyat_listeleri  | baslangic_tarihi             | date                        | YES         | null                                                          |
+| stok_satis_fiyat_listeleri  | bitis_tarihi                 | date                        | YES         | null                                                          |
+| stok_satis_fiyat_listeleri  | aktif                        | boolean                     | NO          | true                                                          |
+| stok_satis_fiyat_listeleri  | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| stok_satis_fiyat_listeleri  | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| stoklar                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| stoklar                     | stok_kodu                    | text                        | NO          | null                                                          |
+| stoklar                     | stok_adi                     | text                        | NO          | null                                                          |
+| stoklar                     | barkod                       | text                        | YES         | null                                                          |
+| stoklar                     | kategori_id                  | uuid                        | YES         | null                                                          |
+| stoklar                     | marka_id                     | uuid                        | YES         | null                                                          |
+| stoklar                     | birim_turu                   | text                        | NO          | 'Adet'::text                                                  |
+| stoklar                     | ambalaj                      | text                        | YES         | null                                                          |
+| stoklar                     | raf_kodu                     | text                        | YES         | null                                                          |
+| stoklar                     | eldeki_miktar                | integer                     | NO          | 0                                                             |
+| stoklar                     | minimum_stok                 | integer                     | NO          | 0                                                             |
+| stoklar                     | maksimum_stok                | integer                     | YES         | null                                                          |
+| stoklar                     | alis_fiyati                  | numeric                     | NO          | 0                                                             |
+| stoklar                     | satis_fiyati                 | numeric                     | NO          | 0                                                             |
+| stoklar                     | kdv_orani                    | numeric                     | NO          | 18                                                            |
+| stoklar                     | stok_durumu                  | text                        | NO          | 'normal'::text                                                |
+| stoklar                     | resim_url                    | text                        | YES         | null                                                          |
+| stoklar                     | aciklama                     | text                        | YES         | null                                                          |
+| stoklar                     | aktif                        | boolean                     | NO          | true                                                          |
+| stoklar                     | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| stoklar                     | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| stoklar                     | resim_url_2                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_3                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_4                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_5                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_6                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_7                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_8                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_9                  | text                        | YES         | null                                                          |
+| stoklar                     | resim_url_10                 | text                        | YES         | null                                                          |
+| stoklar                     | ana_resim_sira               | integer                     | YES         | 1                                                             |
+| stoklar                     | resim_metadata               | jsonb                       | YES         | '{}'::jsonb                                                   |
+| stoklar                     | olcu                         | text                        | YES         | null                                                          |
+| stoklar                     | ek_resimler                  | ARRAY                       | YES         | '{}'::text[]                                                  |
+| stoklar                     | display_order                | integer                     | YES         | null                                                          |
+| stoklar                     | koliadeti                    | integer                     | YES         | 1                                                             |
+| sync_conflicts              | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sync_conflicts              | table_name                   | text                        | NO          | null                                                          |
+| sync_conflicts              | record_id                    | text                        | NO          | null                                                          |
+| sync_conflicts              | local_data                   | jsonb                       | YES         | null                                                          |
+| sync_conflicts              | remote_data                  | jsonb                       | YES         | null                                                          |
+| sync_conflicts              | conflict_type                | text                        | NO          | null                                                          |
+| sync_conflicts              | resolution_status            | text                        | YES         | 'pending'::text                                               |
+| sync_conflicts              | resolved_by                  | text                        | YES         | null                                                          |
+| sync_conflicts              | resolved_at                  | timestamp with time zone    | YES         | null                                                          |
+| sync_conflicts              | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sync_logs                   | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sync_logs                   | table_name                   | text                        | NO          | null                                                          |
+| sync_logs                   | operation                    | text                        | NO          | null                                                          |
+| sync_logs                   | record_id                    | text                        | NO          | null                                                          |
+| sync_logs                   | sync_status                  | text                        | YES         | 'pending'::text                                               |
+| sync_logs                   | conflict_resolution          | text                        | YES         | null                                                          |
+| sync_logs                   | error_message                | text                        | YES         | null                                                          |
+| sync_logs                   | local_timestamp              | timestamp with time zone    | YES         | now()                                                         |
+| sync_logs                   | remote_timestamp             | timestamp with time zone    | YES         | null                                                          |
+| sync_logs                   | sync_direction               | text                        | NO          | null                                                          |
+| sync_logs                   | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sync_queue                  | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sync_queue                  | table_name                   | text                        | NO          | null                                                          |
+| sync_queue                  | operation                    | text                        | NO          | null                                                          |
+| sync_queue                  | record_id                    | text                        | NO          | null                                                          |
+| sync_queue                  | data_snapshot                | jsonb                       | YES         | null                                                          |
+| sync_queue                  | priority                     | integer                     | YES         | 5                                                             |
+| sync_queue                  | retry_count                  | integer                     | YES         | 0                                                             |
+| sync_queue                  | max_retries                  | integer                     | YES         | 3                                                             |
+| sync_queue                  | scheduled_at                 | timestamp with time zone    | YES         | now()                                                         |
+| sync_queue                  | processed_at                 | timestamp with time zone    | YES         | null                                                          |
+| sync_queue                  | status                       | text                        | YES         | 'pending'::text                                               |
+| sync_queue                  | error_message                | text                        | YES         | null                                                          |
+| sync_queue                  | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sync_settings               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| sync_settings               | table_name                   | text                        | NO          | null                                                          |
+| sync_settings               | sync_enabled                 | boolean                     | YES         | true                                                          |
+| sync_settings               | last_sync                    | timestamp with time zone    | YES         | null                                                          |
+| sync_settings               | sync_interval_minutes        | integer                     | YES         | 5                                                             |
+| sync_settings               | conflict_resolution_strategy | text                        | YES         | 'timestamp'::text                                             |
+| sync_settings               | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| sync_settings               | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| tahsilatlar                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| tahsilatlar                 | tahsilat_no                  | text                        | NO          | null                                                          |
+| tahsilatlar                 | cari_hesap_id                | uuid                        | NO          | null                                                          |
+| tahsilatlar                 | tahsilat_tarihi              | date                        | NO          | CURRENT_DATE                                                  |
+| tahsilatlar                 | tahsilat_tipi                | text                        | NO          | 'nakit'::text                                                 |
+| tahsilatlar                 | tutar                        | numeric                     | NO          | null                                                          |
+| tahsilatlar                 | banka_id                     | uuid                        | YES         | null                                                          |
+| tahsilatlar                 | cek_no                       | text                        | YES         | null                                                          |
+| tahsilatlar                 | cek_vade_tarihi              | date                        | YES         | null                                                          |
+| tahsilatlar                 | aciklama                     | text                        | YES         | null                                                          |
+| tahsilatlar                 | tahsilat_durumu              | text                        | NO          | 'tahsil_edildi'::text                                         |
+| tahsilatlar                 | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| tahsilatlar                 | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| tahsilatlar                 | tediye_tipi                  | text                        | YES         | null                                                          |
+| tahsilatlar                 | vade_tarihi                  | date                        | NO          | CURRENT_DATE                                                  |
+| tahsilatlar                 | banka_adi                    | text                        | YES         | null                                                          |
+| tahsilatlar                 | dekont_no                    | text                        | YES         | null                                                          |
+| tahsilatlar                 | resim_urls                   | jsonb                       | YES         | '[]'::jsonb                                                   |
+| tahsilatlar                 | kasa_id                      | uuid                        | YES         | null                                                          |
+| teklif_kalemleri            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| teklif_kalemleri            | teklif_id                    | uuid                        | NO          | null                                                          |
+| teklif_kalemleri            | stok_id                      | uuid                        | NO          | null                                                          |
+| teklif_kalemleri            | miktar                       | integer                     | NO          | null                                                          |
+| teklif_kalemleri            | birim_fiyat                  | numeric                     | NO          | null                                                          |
+| teklif_kalemleri            | indirim_orani                | numeric                     | NO          | 0                                                             |
+| teklif_kalemleri            | toplam_tutar                 | numeric                     | NO          | null                                                          |
+| teklif_kalemleri            | aciklama                     | text                        | YES         | null                                                          |
+| teklif_kalemleri            | sira_no                      | integer                     | NO          | 1                                                             |
+| teklif_kalemleri            | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| teklifler                   | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| teklifler                   | teklif_no                    | text                        | NO          | null                                                          |
+| teklifler                   | cari_hesap_id                | uuid                        | YES         | null                                                          |
+| teklifler                   | teklif_tarihi                | date                        | NO          | CURRENT_DATE                                                  |
+| teklifler                   | gecerlilik_tarihi            | date                        | YES         | null                                                          |
+| teklifler                   | teklif_durumu                | text                        | NO          | 'hazırlaniyor'::text                                          |
+| teklifler                   | ara_toplam                   | numeric                     | NO          | 0                                                             |
+| teklifler                   | indirim_tutari               | numeric                     | NO          | 0                                                             |
+| teklifler                   | kdv_tutari                   | numeric                     | NO          | 0                                                             |
+| teklifler                   | toplam_tutar                 | numeric                     | NO          | 0                                                             |
+| teklifler                   | notlar                       | text                        | YES         | null                                                          |
+| teklifler                   | ozel_sartlar                 | text                        | YES         | null                                                          |
+| teklifler                   | teslimat_suresi              | text                        | YES         | null                                                          |
+| teklifler                   | odeme_sartlari               | text                        | YES         | null                                                          |
+| teklifler                   | olusturan_kullanici_id       | uuid                        | YES         | null                                                          |
+| teklifler                   | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| teklifler                   | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| teslimat_siparisleri        | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| teslimat_siparisleri        | teslimat_id                  | uuid                        | NO          | null                                                          |
+| teslimat_siparisleri        | siparis_id                   | text                        | NO          | null                                                          |
+| teslimat_siparisleri        | rut_sirasi                   | integer                     | NO          | 1                                                             |
+| teslimat_siparisleri        | teslimat_durumu              | text                        | NO          | 'beklemede'::text                                             |
+| teslimat_siparisleri        | teslimat_saati               | timestamp with time zone    | YES         | null                                                          |
+| teslimat_siparisleri        | teslimat_notu                | text                        | YES         | null                                                          |
+| teslimat_siparisleri        | koordinat_lat                | numeric                     | YES         | null                                                          |
+| teslimat_siparisleri        | koordinat_lng                | numeric                     | YES         | null                                                          |
+| teslimat_siparisleri        | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| teslimat_siparisleri        | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| teslimatlar                 | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| teslimatlar                 | teslimat_no                  | text                        | NO          | null                                                          |
+| teslimatlar                 | arac_id                      | uuid                        | YES         | null                                                          |
+| teslimatlar                 | sofor_kullanici_id           | uuid                        | YES         | null                                                          |
+| teslimatlar                 | teslimat_durumu              | text                        | NO          | 'basladi'::text                                               |
+| teslimatlar                 | baslangic_tarihi             | timestamp with time zone    | YES         | null                                                          |
+| teslimatlar                 | bitis_tarihi                 | timestamp with time zone    | YES         | null                                                          |
+| teslimatlar                 | toplam_siparis_sayisi        | integer                     | NO          | 0                                                             |
+| teslimatlar                 | teslim_edilen_sayisi         | integer                     | NO          | 0                                                             |
+| teslimatlar                 | notlar                       | text                        | YES         | null                                                          |
+| teslimatlar                 | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| teslimatlar                 | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| todo_dosyalar               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| todo_dosyalar               | todo_id                      | uuid                        | NO          | null                                                          |
+| todo_dosyalar               | dosya_adi                    | text                        | NO          | null                                                          |
+| todo_dosyalar               | dosya_url                    | text                        | NO          | null                                                          |
+| todo_dosyalar               | dosya_tipi                   | text                        | NO          | null                                                          |
+| todo_dosyalar               | dosya_boyutu                 | integer                     | YES         | null                                                          |
+| todo_dosyalar               | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| todolar                     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| todolar                     | baslik                       | text                        | NO          | null                                                          |
+| todolar                     | aciklama                     | text                        | YES         | null                                                          |
+| todolar                     | oncelik                      | text                        | NO          | 'orta'::text                                                  |
+| todolar                     | kategori                     | text                        | NO          | 'genel'::text                                                 |
+| todolar                     | durum                        | text                        | NO          | 'beklemede'::text                                             |
+| todolar                     | baslangic_tarihi             | date                        | YES         | null                                                          |
+| todolar                     | bitis_tarihi                 | date                        | YES         | null                                                          |
+| todolar                     | tamamlanma_tarihi            | date                        | YES         | null                                                          |
+| todolar                     | atanan_kullanici_id          | uuid                        | YES         | null                                                          |
+| todolar                     | olusturan_kullanici_id       | uuid                        | YES         | null                                                          |
+| todolar                     | tamamlama_yuzde              | integer                     | NO          | 0                                                             |
+| todolar                     | notlar                       | text                        | YES         | null                                                          |
+| todolar                     | olusturma_tarihi             | timestamp with time zone    | NO          | now()                                                         |
+| todolar                     | guncelleme_tarihi            | timestamp with time zone    | NO          | now()                                                         |
+| todolar                     | resim_url                    | ARRAY                       | YES         | null                                                          |
+| urun_barkodlari             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| urun_barkodlari             | stok_id                      | uuid                        | NO          | null                                                          |
+| urun_barkodlari             | barkod                       | character varying           | NO          | null                                                          |
+| urun_barkodlari             | barkod_tipi                  | character varying           | YES         | 'standart'::character varying                                 |
+| urun_barkodlari             | aktif                        | boolean                     | YES         | true                                                          |
+| urun_barkodlari             | aciklama                     | text                        | YES         | null                                                          |
+| urun_barkodlari             | olusturma_tarihi             | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| urun_barkodlari             | guncelleme_tarihi            | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| urun_fiyat_listeleri        | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| urun_fiyat_listeleri        | stok_id                      | uuid                        | NO          | null                                                          |
+| urun_fiyat_listeleri        | fiyat_tanimi_id              | uuid                        | NO          | null                                                          |
+| urun_fiyat_listeleri        | fiyat                        | numeric                     | NO          | 0                                                             |
+| urun_fiyat_listeleri        | baslangic_tarihi             | date                        | YES         | null                                                          |
+| urun_fiyat_listeleri        | bitis_tarihi                 | date                        | YES         | null                                                          |
+| urun_fiyat_listeleri        | aktif                        | boolean                     | YES         | true                                                          |
+| urun_fiyat_listeleri        | olusturma_tarihi             | timestamp with time zone    | YES         | now()                                                         |
+| urun_fiyat_listeleri        | guncelleme_tarihi            | timestamp with time zone    | YES         | now()                                                         |
+| urun_resimleri              | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| urun_resimleri              | stok_id                      | uuid                        | YES         | null                                                          |
+| urun_resimleri              | resim_urls                   | ARRAY                       | YES         | '{}'::text[]                                                  |
+| urun_resimleri              | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| urun_resimleri              | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| urun_sayimlari              | id                           | integer                     | NO          | nextval('urun_sayimlari_id_seq'::regclass)                    |
+| urun_sayimlari              | stok_id                      | uuid                        | YES         | null                                                          |
+| urun_sayimlari              | stok_kodu                    | character varying           | NO          | null                                                          |
+| urun_sayimlari              | stok_adi                     | character varying           | NO          | null                                                          |
+| urun_sayimlari              | barkod                       | character varying           | YES         | null                                                          |
+| urun_sayimlari              | sayilan_miktar               | integer                     | NO          | 0                                                             |
+| urun_sayimlari              | onceki_miktar                | integer                     | YES         | 0                                                             |
+| urun_sayimlari              | raf_kodu                     | character varying           | YES         | null                                                          |
+| urun_sayimlari              | sayim_tarihi                 | timestamp with time zone    | YES         | now()                                                         |
+| urun_sayimlari              | sayim_yapan_kullanici        | character varying           | YES         | null                                                          |
+| urun_sayimlari              | notlar                       | text                        | YES         | null                                                          |
+| urun_sayimlari              | sayim_oturumu_id             | uuid                        | YES         | gen_random_uuid()                                             |
+| urun_sayimlari              | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| urun_sayimlari              | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| urun_varyantlari            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| urun_varyantlari            | varyant_grup_id              | uuid                        | NO          | null                                                          |
+| urun_varyantlari            | stok_id                      | uuid                        | NO          | null                                                          |
+| urun_varyantlari            | varyant_ozellikleri          | jsonb                       | YES         | null                                                          |
+| urun_varyantlari            | sira_no                      | integer                     | YES         | 0                                                             |
+| urun_varyantlari            | olusturma_tarihi             | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| urun_varyantlari            | varyant_adi                  | character varying           | YES         | null                                                          |
+| urun_varyantlari            | varyant_kodu                 | character varying           | YES         | null                                                          |
+| urun_varyantlari            | varyant_barkod               | character varying           | YES         | null                                                          |
+| urun_varyantlari            | resim_url_1                  | text                        | YES         | null                                                          |
+| urun_varyantlari            | resim_url_2                  | text                        | YES         | null                                                          |
+| urun_varyantlari            | resim_url_3                  | text                        | YES         | null                                                          |
+| urun_varyantlari            | resim_url_4                  | text                        | YES         | null                                                          |
+| urun_varyantlari            | resim_url_5                  | text                        | YES         | null                                                          |
+| urun_varyantlari            | satis_fiyati                 | numeric                     | YES         | null                                                          |
+| urun_varyantlari            | alis_fiyati                  | numeric                     | YES         | null                                                          |
+| urun_varyantlari            | eldeki_miktar                | numeric                     | YES         | 0                                                             |
+| urun_varyantlari            | minimum_stok                 | numeric                     | YES         | 0                                                             |
+| urun_varyantlari            | aktif                        | boolean                     | YES         | true                                                          |
+| urun_varyantlari            | guncelleme_tarihi            | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| user_fatura_ayarlari        | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| user_fatura_ayarlari        | user_id                      | text                        | NO          | null                                                          |
+| user_fatura_ayarlari        | fatura_seri_no               | character varying           | NO          | 'A'::character varying                                        |
+| user_fatura_ayarlari        | fatura_sira_no               | integer                     | NO          | 1                                                             |
+| user_fatura_ayarlari        | created_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| user_fatura_ayarlari        | updated_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| user_page_restrictions      | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| user_page_restrictions      | kullanici_id                 | uuid                        | NO          | null                                                          |
+| user_page_restrictions      | page_name                    | text                        | NO          | null                                                          |
+| user_page_restrictions      | allowed                      | boolean                     | NO          | true                                                          |
+| user_page_restrictions      | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| user_page_restrictions      | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| user_page_view_settings     | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| user_page_view_settings     | user_id                      | uuid                        | NO          | '00000000-0000-0000-0000-000000000000'::uuid                  |
+| user_page_view_settings     | page_name                    | character varying           | NO          | null                                                          |
+| user_page_view_settings     | setting_key                  | character varying           | NO          | null                                                          |
+| user_page_view_settings     | setting_value                | text                        | NO          | true                                                          |
+| user_page_view_settings     | created_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| user_page_view_settings     | updated_at                   | timestamp with time zone    | YES         | CURRENT_TIMESTAMP                                             |
+| user_page_view_settings     | order_number                 | integer                     | NO          | nextval('user_page_view_settings_order_number_seq'::regclass) |
+| user_profiles               | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| user_profiles               | user_id                      | uuid                        | YES         | null                                                          |
+| user_profiles               | full_name                    | text                        | NO          | null                                                          |
+| user_profiles               | email                        | text                        | NO          | null                                                          |
+| user_profiles               | role                         | text                        | NO          | 'Employee'::text                                              |
+| user_profiles               | permissions                  | jsonb                       | YES         | '{}'::jsonb                                                   |
+| user_profiles               | is_active                    | boolean                     | YES         | true                                                          |
+| user_profiles               | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| user_profiles               | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| v_onay_bekleyen_siparisler  | id                           | uuid                        | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | siparis_id                   | text                        | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | siparis_numarasi             | text                        | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | musteri_adi                  | text                        | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | toplam_tutar                 | numeric                     | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | onay_durumu                  | text                        | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | adet_uyusmazligi             | boolean                     | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | duzenleme_sayisi             | integer                     | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | yeniden_kontrol_sayisi       | integer                     | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | uyusmazlik_sayisi            | bigint                      | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | created_at                   | timestamp with time zone    | YES         | null                                                          |
+| v_onay_bekleyen_siparisler  | updated_at                   | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | id                           | uuid                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | siparis_id                   | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | siparis_numarasi             | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | musteri_adi                  | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | durum                        | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | onay_durumu                  | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | adet_uyusmazligi             | boolean                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | duzenleme_sayisi             | integer                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | yeniden_kontrol_sayisi       | integer                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | kontrol_referans_tipi        | text                        | YES         | null                                                          |
+| v_siparis_akis_ozeti        | hazirlayan_email             | character varying           | YES         | null                                                          |
+| v_siparis_akis_ozeti        | kontrol_eden_email           | character varying           | YES         | null                                                          |
+| v_siparis_akis_ozeti        | onaylayan_email              | character varying           | YES         | null                                                          |
+| v_siparis_akis_ozeti        | yukleyen_email               | character varying           | YES         | null                                                          |
+| v_siparis_akis_ozeti        | hazirlama_baslama_tarihi     | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | hazirlama_bitis_tarihi       | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | kontrol_tarihi               | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | onay_tarihi                  | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | yukleme_tarihi               | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | hazirlama_suresi_dk          | numeric                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | kontrol_suresi_dk            | numeric                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | yukleme_suresi_dk            | numeric                     | YES         | null                                                          |
+| v_siparis_akis_ozeti        | created_at                   | timestamp with time zone    | YES         | null                                                          |
+| v_siparis_akis_ozeti        | updated_at                   | timestamp with time zone    | YES         | null                                                          |
+| v_xml_feed_primary_keys     | feed_id                      | uuid                        | YES         | null                                                          |
+| v_xml_feed_primary_keys     | target_table                 | text                        | YES         | null                                                          |
+| v_xml_feed_primary_keys     | primary_key_columns          | ARRAY                       | YES         | null                                                          |
+| varyant_gruplari            | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| varyant_gruplari            | grup_adi                     | character varying           | NO          | null                                                          |
+| varyant_gruplari            | ana_stok_id                  | uuid                        | NO          | null                                                          |
+| varyant_gruplari            | aciklama                     | text                        | YES         | null                                                          |
+| varyant_gruplari            | aktif                        | boolean                     | YES         | true                                                          |
+| varyant_gruplari            | olusturma_tarihi             | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| varyant_gruplari            | guncelleme_tarihi            | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| varyant_ozellikleri         | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| varyant_ozellikleri         | ozellik_adi                  | character varying           | NO          | null                                                          |
+| varyant_ozellikleri         | ozellik_degeri               | character varying           | NO          | null                                                          |
+| varyant_ozellikleri         | sira_no                      | integer                     | YES         | 0                                                             |
+| varyant_ozellikleri         | aktif                        | boolean                     | YES         | true                                                          |
+| varyant_ozellikleri         | olusturma_tarihi             | timestamp without time zone | YES         | CURRENT_TIMESTAMP                                             |
+| varyant_ozellikleri         | renk_kodu                    | character varying           | YES         | null                                                          |
+| varyant_ozellikleri         | resim_url                    | text                        | YES         | null                                                          |
+| xml_category_mappings       | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| xml_category_mappings       | feed_id                      | uuid                        | NO          | null                                                          |
+| xml_category_mappings       | xml_category_value           | text                        | NO          | null                                                          |
+| xml_category_mappings       | kategori_id                  | uuid                        | NO          | null                                                          |
+| xml_feed_fields             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| xml_feed_fields             | feed_id                      | uuid                        | NO          | null                                                          |
+| xml_feed_fields             | field_path                   | text                        | NO          | null                                                          |
+| xml_feed_fields             | sample_value                 | text                        | YES         | null                                                          |
+| xml_feed_fields             | last_seen_at                 | timestamp with time zone    | NO          | now()                                                         |
+| xml_feed_mappings           | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| xml_feed_mappings           | feed_id                      | uuid                        | NO          | null                                                          |
+| xml_feed_mappings           | target_table                 | text                        | NO          | null                                                          |
+| xml_feed_mappings           | target_column                | text                        | NO          | null                                                          |
+| xml_feed_mappings           | xml_field_path               | text                        | NO          | null                                                          |
+| xml_feed_mappings           | data_type                    | text                        | NO          | 'text'::text                                                  |
+| xml_feed_mappings           | default_value                | text                        | YES         | null                                                          |
+| xml_feed_mappings           | is_required                  | boolean                     | NO          | false                                                         |
+| xml_feed_mappings           | is_primary_key               | boolean                     | NO          | false                                                         |
+| xml_feed_mappings           | enabled                      | boolean                     | NO          | true                                                          |
+| xml_feed_mappings           | transform                    | jsonb                       | YES         | null                                                          |
+| xml_feed_mappings           | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xml_feed_mappings           | updated_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xml_feeds                   | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| xml_feeds                   | name                         | text                        | NO          | null                                                          |
+| xml_feeds                   | url                          | text                        | NO          | null                                                          |
+| xml_feeds                   | item_selector                | text                        | NO          | '//product'::text                                             |
+| xml_feeds                   | conflict_columns             | ARRAY                       | NO          | ARRAY['stok_kodu'::text]                                      |
+| xml_feeds                   | last_sample_xml              | text                        | YES         | null                                                          |
+| xml_feeds                   | settings                     | jsonb                       | NO          | '{}'::jsonb                                                   |
+| xml_feeds                   | is_active                    | boolean                     | NO          | true                                                          |
+| xml_feeds                   | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xml_feeds                   | updated_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xml_feeds                   | user_id                      | uuid                        | YES         | null                                                          |
+| xml_feeds                   | last_synced_at               | timestamp with time zone    | YES         | null                                                          |
+| xml_import_runs             | id                           | uuid                        | NO          | gen_random_uuid()                                             |
+| xml_import_runs             | feed_id                      | uuid                        | NO          | null                                                          |
+| xml_import_runs             | started_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xml_import_runs             | finished_at                  | timestamp with time zone    | YES         | null                                                          |
+| xml_import_runs             | status                       | text                        | NO          | 'pending'::text                                               |
+| xml_import_runs             | inserted_count               | integer                     | NO          | 0                                                             |
+| xml_import_runs             | updated_count                | integer                     | NO          | 0                                                             |
+| xml_import_runs             | skipped_count                | integer                     | NO          | 0                                                             |
+| xml_import_runs             | error_message                | text                        | YES         | null                                                          |
+| xml_import_runs             | raw_log                      | jsonb                       | YES         | null                                                          |
+| xmleslestirme               | id                           | bigint                      | NO          | null                                                          |
+| xmleslestirme               | created_at                   | timestamp with time zone    | NO          | now()                                                         |
+| xmleslestirme               | tanim_tipi                   | text                        | NO          | null                                                          |
+| xmleslestirme               | xml_alani                    | text                        | NO          | null                                                          |
+| xmllink                     | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| xmllink                     | url                          | text                        | NO          | null                                                          |
+| xmllink                     | last_synced_at               | timestamp with time zone    | YES         | null                                                          |
+| xmllink                     | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| xmllink                     | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| xmllink                     | sync_interval_minutes        | integer                     | YES         | 0                                                             |
+| xmlurunler                  | id                           | uuid                        | NO          | uuid_generate_v4()                                            |
+| xmlurunler                  | product_code                 | text                        | NO          | null                                                          |
+| xmlurunler                  | product_id                   | integer                     | NO          | null                                                          |
+| xmlurunler                  | barcode                      | text                        | YES         | null                                                          |
+| xmlurunler                  | mpn                          | text                        | YES         | null                                                          |
+| xmlurunler                  | rafno                        | text                        | YES         | null                                                          |
+| xmlurunler                  | alt_baslik2                  | text                        | YES         | null                                                          |
+| xmlurunler                  | alt_baslik                   | text                        | YES         | null                                                          |
+| xmlurunler                  | name                         | text                        | NO          | null                                                          |
+| xmlurunler                  | main_category                | text                        | YES         | null                                                          |
+| xmlurunler                  | main_category_id             | integer                     | YES         | null                                                          |
+| xmlurunler                  | category                     | text                        | YES         | null                                                          |
+| xmlurunler                  | category_id                  | integer                     | YES         | null                                                          |
+| xmlurunler                  | sub_category                 | text                        | YES         | null                                                          |
+| xmlurunler                  | sub_category_id              | integer                     | YES         | null                                                          |
+| xmlurunler                  | price                        | numeric                     | NO          | null                                                          |
+| xmlurunler                  | currency_type                | text                        | NO          | 'TRL'::text                                                   |
+| xmlurunler                  | tax                          | numeric                     | YES         | null                                                          |
+| xmlurunler                  | stock                        | integer                     | NO          | null                                                          |
+| xmlurunler                  | brand                        | text                        | YES         | null                                                          |
+| xmlurunler                  | origin                       | text                        | YES         | null                                                          |
+| xmlurunler                  | images                       | ARRAY                       | YES         | null                                                          |
+| xmlurunler                  | width                        | numeric                     | YES         | null                                                          |
+| xmlurunler                  | height                       | numeric                     | YES         | null                                                          |
+| xmlurunler                  | depth                        | numeric                     | YES         | null                                                          |
+| xmlurunler                  | desi                         | numeric                     | YES         | null                                                          |
+| xmlurunler                  | weight                       | numeric                     | YES         | null                                                          |
+| xmlurunler                  | created_at                   | timestamp with time zone    | YES         | now()                                                         |
+| xmlurunler                  | updated_at                   | timestamp with time zone    | YES         | now()                                                         |
+| xmlurunler                  | images1                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images2                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images3                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images4                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images5                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images6                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images7                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images8                      | text                        | YES         | null                                                          |
+| xmlurunler                  | images9                      | text                        | YES         | null                                                          |
+| xmlurunler                  | category_id_xml              | text                        | YES         | null                                                          |
+| xmlurunler                  | kategori_id                  | uuid                        | YES         | null                                                          |

@@ -1,0 +1,89 @@
+SELECT TOP 1 * FROM PROJELER WITH ( NOLOCK , INDEX = NDX_PROJELER_02 )  WHERE pro_kodu=N''
+go
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+go
+SELECT TOP 1 * FROM KULLANICILAR WITH ( NOLOCK , INDEX = NDX_KULLANICILAR_02 )  WHERE User_no=1
+go
+set implicit_transactions on 
+go
+SELECT TOP 1 * FROM ODEME_EMIRLERI WITH ( NOLOCK , INDEX = NDX_ODEME_EMIRLERI_02 )  WHERE (sck_tip=9 AND sck_refno=N'FK-000-000-2025-00000012')
+go
+INSERT INTO MikroDB_V15_02.dbo.ODEME_EMIRLERI (sck_RECid_DBCno,sck_RECid_RECno,sck_SpecRECno,sck_iptal,sck_fileid,sck_hidden,sck_kilitli,sck_degisti,sck_checksum,sck_create_user,sck_create_date,sck_lastup_user,sck_lastup_date,sck_special1,sck_special2,sck_special3,sck_firmano,sck_subeno,sck_tip,sck_refno,sck_bankano,sck_borclu,sck_vdaire_no,sck_vade,sck_tutar,sck_doviz,sck_odenen,sck_degerleme_islendi,sck_banka_adres1,sck_sube_adres2,sck_borclu_tel,sck_hesapno_sehir,sck_no,sck_duzen_tarih,sck_sahip_cari_cins,sck_sahip_cari_kodu,sck_sahip_cari_grupno,sck_nerede_cari_cins,sck_nerede_cari_kodu,sck_nerede_cari_grupno,sck_ilk_hareket_tarihi,sck_ilk_evrak_seri,sck_ilk_evrak_sira_no,sck_ilk_evrak_satir_no,sck_son_hareket_tarihi,sck_doviz_kur,sck_sonpoz,sck_imza,sck_srmmrk,sck_kesideyeri,Sck_TCMB_Banka_kodu,Sck_TCMB_Sube_kodu,Sck_TCMB_il_kodu,SckTasra_fl,sck_projekodu,sck_masraf1,sck_masraf1_isleme,sck_masraf2,sck_masraf2_isleme,sck_odul_katkisi_tutari,sck_servis_komisyon_tutari,sck_erken_odeme_faiz_tutari,sck_odul_katkisi_tutari_islendi_fl,sck_servis_komisyon_tutari_islendi_fl,sck_erken_odeme_faiz_tutari_islendi_fl,sck_kredi_karti_tipi,sck_taksit_sayisi,sck_kacinci_taksit,sck_uye_isyeri_no,sck_kredi_karti_no,sck_provizyon_kodu) VALUES(0,0,0,0,54,0,0,0,0,1,'20251112 12:42:09.154',1,'20251112 12:42:09.154',N'',N'',N'',0,0,9,N'FK-000-000-2025-00000012',N'10',N'FIRMA',N'','20251112',1.000000000000,0,0,0,N'ENPARA - A',N'',N'',N'',N'','18991230',0,N'',0,0,N'',0,'18991230',N'',0,0,'18991230',1.000000000000,0,0,N'',N'',N'',N'',N'',0,N'',0,0,0,0,0,0,0,0,0,0,0,0,0,N'',N'',N'')
+go
+SELECT SCOPE_IDENTITY()
+go
+UPDATE MikroDB_V15_02.dbo.ODEME_EMIRLERI SET sck_RECid_RECno=20910 Where sck_RECno = 20910
+go
+SELECT sck_create_date,sck_lastup_date FROM MikroDB_V15_02.dbo.ODEME_EMIRLERI WITH (NOLOCK) WHERE sck_RECno = 20910
+go
+select cari_hareket_tipi,cari_efatura_fl from dbo.CARI_HESAPLAR where cari_kod=N'SERHAN'
+go
+SELECT ban_firma_no   FROM BANKALAR WITH (NOLOCK) WHERE ban_kod=N'10'
+go
+INSERT INTO MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI 
+(cha_RECid_DBCno,cha_RECid_RECno,cha_SpecRecNo,cha_iptal,cha_fileid,cha_hidden,cha_kilitli,cha_degisti,cha_CheckSum,cha_create_user,cha_create_date,cha_lastup_user,cha_lastup_date,cha_special1,cha_special2,cha_special3,cha_firmano,cha_subeno,cha_evrak_tip,cha_evrakno_seri,cha_evrakno_sira,cha_satir_no,cha_tarihi,cha_tip,cha_cinsi,cha_normal_Iade,cha_tpoz,cha_ticaret_turu,cha_belge_no,cha_belge_tarih,cha_aciklama,cha_satici_kodu,cha_EXIMkodu,cha_projekodu,cha_yat_tes_kodu,cha_cari_cins,cha_kod,cha_ciro_cari_kodu,cha_d_cins,cha_d_kur,cha_altd_kur,cha_grupno,cha_srmrkkodu,cha_kasa_hizmet,cha_kasa_hizkod,cha_karsidcinsi,cha_karsid_kur,cha_karsidgrupno,cha_karsisrmrkkodu,cha_miktari,cha_meblag,cha_aratoplam,cha_vade,cha_Vade_Farki_Yuz,cha_ft_iskonto1,cha_ft_iskonto2,cha_ft_iskonto3,cha_ft_iskonto4,cha_ft_iskonto5,cha_ft_iskonto6,cha_ft_masraf1,cha_ft_masraf2,cha_ft_masraf3,cha_ft_masraf4,cha_isk_mas1,cha_isk_mas2,cha_isk_mas3,cha_isk_mas4,cha_isk_mas5,cha_isk_mas6,cha_isk_mas7,cha_isk_mas8,cha_isk_mas9,cha_isk_mas10,cha_sat_iskmas1,cha_sat_iskmas2,cha_sat_iskmas3,cha_sat_iskmas4,cha_sat_iskmas5,cha_sat_iskmas6,cha_sat_iskmas7,cha_sat_iskmas8,cha_sat_iskmas9,cha_sat_iskmas10,cha_yuvarlama,cha_StFonPntr,cha_stopaj,cha_savsandesfonu,cha_avansmak_damgapul,cha_vergipntr,cha_vergi1,cha_vergi2,cha_vergi3,cha_vergi4,cha_vergi5,cha_vergi6,cha_vergi7,cha_vergi8,cha_vergi9,cha_vergi10,cha_vergisiz_fl,cha_otvtutari,cha_otvvergisiz_fl,cha_oiv_pntr,cha_oivtutari,cha_oiv_vergi,cha_oivergisiz_fl,cha_fis_tarih,cha_fis_sirano,cha_trefno,cha_sntck_poz,cha_reftarihi,cha_istisnakodu,cha_pos_hareketi,cha_meblag_ana_doviz_icin_gecersiz_fl,cha_meblag_alt_doviz_icin_gecersiz_fl,cha_meblag_orj_doviz_icin_gecersiz_fl,cha_sip_recid_dbcno,cha_sip_recid_recno,cha_kirahar_recid_dbcno,cha_kirahar_recid_recno,cha_vardiya_tarihi,cha_vardiya_no,cha_vardiya_evrak_ti,cha_ebelge_cinsi,cha_tevkifat_toplam,cha_ilave_edilecek_kdv1,cha_ilave_edilecek_kdv2,cha_ilave_edilecek_kdv3,cha_ilave_edilecek_kdv4,cha_ilave_edilecek_kdv5,cha_ilave_edilecek_kdv6,cha_ilave_edilecek_kdv7,cha_ilave_edilecek_kdv8,cha_ilave_edilecek_kdv9,cha_ilave_edilecek_kdv10,cha_e_islem_turu,cha_fatura_belge_turu,cha_diger_belge_adi,cha_uuid) VALUES(0,0,0,0,51,0,0,0,0,1,'20251112 12:42:09.163',1,'20251112 12:42:09.163',N'',N'',N'',0,0,64,N'',347,0,'20251112',0,22,0,0,0,N'','20251112',N'',N'',N'',N'',N'',0,N'SERHAN',N'',0,1.000000000000,1.000000000000,0,N'',2,N'10',0,1.000000000000,0,N'',0,1.000000000000,1.000000000000,20251112,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'18991230',0,N'FK-000-000-2025-00000012',1,'18991230',0,0,0,0,0,0,0,0,0,'18991230',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,N'',N'')
+go
+SELECT SCOPE_IDENTITY()
+go
+SELECT TOP 1 * FROM ODEME_EMIRLERI WITH ( NOLOCK , INDEX = NDX_ODEME_EMIRLERI_02 )  WHERE (sck_tip=9 AND sck_refno=N'FK-000-000-2025-00000012')
+go
+SELECT * FROM dbo.fn_DegerliKagitHareketleri(9,N'FK-000-000-2025-00000012') ORDER BY A DESC,D,B 
+go
+SELECT TOP 1 * FROM ODEME_EMIRLERI WITH ( UPDLOCK , INDEX = NDX_ODEME_EMIRLERI_00 )  WHERE sck_RECno=20910
+go
+UPDATE MikroDB_V15_02.dbo.ODEME_EMIRLERI SET sck_lastup_date='20251112 12:42:09.254',sck_sahip_cari_cins=2,sck_sahip_cari_kodu=N'10',sck_sahip_cari_grupno=8,sck_nerede_cari_kodu=N'SERHAN',sck_ilk_hareket_tarihi='20251112',sck_ilk_evrak_sira_no=347,sck_son_hareket_tarihi='20251112',sck_sonpoz=1 Where sck_RECno = 20910
+go
+SELECT sck_create_date,sck_lastup_date FROM MikroDB_V15_02.dbo.ODEME_EMIRLERI WITH (NOLOCK) WHERE sck_RECno = 20910
+go
+UPDATE MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI SET cha_RECid_RECno=64127,cha_karsidgrupno=8 Where cha_RECno = 64127
+go
+SELECT cha_create_date,cha_lastup_date FROM MikroDB_V15_02.dbo.CARI_HESAP_HAREKETLERI WITH (NOLOCK) WHERE cha_RECno = 64127
+go
+SELECT TOP 1 * FROM EVRAK_ACIKLAMALARI WITH ( NOLOCK , INDEX = NDX_EVRAK_ACIKLAMALARI_02 )  WHERE (egk_dosyano=51 AND egk_hareket_tip=0 AND egk_evr_tip=64 AND egk_evr_seri=N'' AND egk_evr_sira=347 AND egk_evr_ustkod=N'')
+go
+IF @@TRANCOUNT > 0 COMMIT TRAN
+go
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+go
+set implicit_transactions off 
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_EMIRLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_EK_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBASLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBAS_MALIYIL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_EMIRLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='MUHASEBE_FIS_DETAYLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HAREKETLER_SATIS_MALIYETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EBELGE_EVRAK_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='PROJELER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_PERSONEL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='TAKVIMLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='KREDI_SOZLESMESI_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_ADRESLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_YETKILILERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI_USER'
+go
+SELECT TOP 1 * FROM EVRAK_GENEL_PARAMETRELERI WITH ( NOLOCK , INDEX = NDX_EVRAK_GENEL_PARAMETRELERI_02 )  WHERE egp_program_no=42210
+go
+Select TOP 1 IsNull(dov_fiyat1, 1.0) from DOVIZ_KURLARI WITH (NOLOCK) WHERE dov_no=1 AND dov_tarih<='20251112' AND dov_fiyat1>0 ORDER BY dov_tarih DESC
+go
+Select MAX(cha_evrakno_sira) FROM CARI_HESAP_HAREKETLERI WITH (NOLOCK, INDEX=NDX_CARI_HESAP_HAREKETLERI_04) WHERE (cha_evrak_tip=64) AND  (cha_evrakno_seri=N'')
+go
