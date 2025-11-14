@@ -10,7 +10,8 @@ MS SQL (ERP) ve PostgreSQL (Web) veritabanları arasında trigger bazlı, gerçe
 - ✅ **Hata Toleranslı**: Otomatik retry mekanizması
 - ✅ **Mapping Sistemi**: Esnek kod eşleştirme
 - ✅ **Transaction Güvenli**: Atomik işlemler
-- ✅ **Loglama**: Detaylı işlem kayıtları
+- ✅ **Gelişmiş Log Sistemi**: Detaylı hata tespiti ve performans takibi
+- ✅ **Log Analiz Aracı**: Otomatik log analizi ve raporlama
 - ✅ **Monitoring**: Queue ve log takibi
 
 ## 📋 Senkronizasyon Yönleri
@@ -55,7 +56,9 @@ Detaylı kurulum için: [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md)
 - [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md) - 5 dakikada kurulum
 - [KURULUM.md](KURULUM.md) - Detaylı kurulum kılavuzu
 - [PROJE-YAPISI.md](PROJE-YAPISI.md) - Mimari ve modül açıklamaları
+- [LOG-SISTEMI.md](LOG-SISTEMI.md) - Gelişmiş log sistemi dokümantasyonu
 - [Mapping.md](Mapping.md) - Alan eşleştirme tabloları
+- [CHANGELOG.md](CHANGELOG.md) - Versiyon geçmişi
 
 ## 🔄 Çalışma Prensibi
 
@@ -123,9 +126,25 @@ MAX_RETRY_COUNT=3
 
 ## 📊 Monitoring
 
+### Log Analizi
+```bash
+# Otomatik log analizi
+npm run analyze-logs
+
+# Belirli bir dosyayı analiz et
+npm run analyze-logs error.log
+```
+
 ### Gerçek Zamanlı Log
 ```bash
+# Tüm loglar
 tail -f logs/combined.log
+
+# Sadece hatalar
+tail -f logs/error.log
+
+# Sadece senkronizasyon
+tail -f logs/sync.log
 ```
 
 ### Queue Durumu
@@ -140,6 +159,8 @@ FROM sync_logs
 WHERE created_at > NOW() - INTERVAL '1 hour'
 GROUP BY status;
 ```
+
+Detaylı bilgi için: [LOG-SISTEMI.md](LOG-SISTEMI.md)
 
 ## 🛠️ Sorun Giderme
 
