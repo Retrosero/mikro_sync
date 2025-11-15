@@ -331,9 +331,36 @@ Sorun yaşarsanız:
    - https://supabase.com/docs
    - https://github.com/supabase/supabase/discussions
 
+## ❓ Sık Sorulan Sorular
+
+### Anon/Public Key veya Service Role Key ile bağlanamaz mıyız?
+
+**Hayır.** Bu key'ler Supabase REST API için kullanılır. Bizim projemiz **doğrudan PostgreSQL veritabanına** bağlanır.
+
+**Neden?**
+- ✅ Trigger'lar çalışmalı (REST API'de çalışmaz)
+- ✅ Transaction güvenliği gerekli
+- ✅ Yüksek performans önemli
+- ✅ Batch işlemler yapıyoruz
+
+**Detaylı açıklama için:** [SUPABASE-BAGLANTI-YONTEMLERI.md](SUPABASE-BAGLANTI-YONTEMLERI.md)
+
+### Database şifremi unuttum, nasıl sıfırlarım?
+
+1. Supabase Dashboard → Settings → Database
+2. "Database Password" bölümünde "Reset Database Password"
+3. Yeni şifreyi `.env` dosyanıza girin
+
+### Connection pooling kullanmalı mıyım?
+
+**Hayır, gerek yok.** Projemiz zaten connection pooling kullanıyor (max: 10 connection).
+
+Supabase'in pooler'ını (port 6543) sadece çok yüksek trafikte kullanın.
+
 ## 🔗 Faydalı Linkler
 
 - **Supabase Dashboard:** https://supabase.com/dashboard
 - **Database Settings:** https://supabase.com/dashboard/project/_/settings/database
 - **Connection Pooling:** https://supabase.com/docs/guides/database/connecting-to-postgres#connection-pooler
 - **SSL Configuration:** https://supabase.com/docs/guides/database/connecting-to-postgres#ssl-enforcement
+- **Bağlantı Yöntemleri:** [SUPABASE-BAGLANTI-YONTEMLERI.md](SUPABASE-BAGLANTI-YONTEMLERI.md)
