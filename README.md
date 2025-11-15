@@ -31,6 +31,8 @@ MS SQL (ERP) ve PostgreSQL (Web) veritabanları arasında trigger bazlı, gerçe
 
 ## ⚡ Hızlı Başlangıç
 
+### Yerel PostgreSQL ile
+
 ```bash
 # 1. Bağımlılıkları kur
 npm install
@@ -49,11 +51,37 @@ npm run setup-db
 npm start
 ```
 
-Detaylı kurulum için: [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md)
+### Supabase ile
+
+```bash
+# 1. Bağımlılıkları kur
+npm install
+
+# 2. Supabase bağlantı bilgilerini al
+# Dashboard → Settings → Database → Connection string
+
+# 3. .env dosyasını oluştur
+cp .env.example .env
+# Supabase bilgilerini gir (PG_HOST, PG_PASSWORD, PG_SSL=true)
+
+# 4. Supabase kurulum ve test
+npm run supabase-setup
+
+# 5. Veritabanı tablolarını oluştur
+npm run setup-db
+
+# 6. Başlat
+npm start
+```
+
+Detaylı kurulum için: 
+- [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md) - Yerel kurulum
+- [SUPABASE-BAGLANTI.md](SUPABASE-BAGLANTI.md) - Supabase kurulum
 
 ## 📚 Dokümantasyon
 
 - [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md) - 5 dakikada kurulum
+- [SUPABASE-BAGLANTI.md](SUPABASE-BAGLANTI.md) - Supabase bağlantı kılavuzu ⭐ YENİ
 - [KURULUM.md](KURULUM.md) - Detaylı kurulum kılavuzu
 - [PROJE-YAPISI.md](PROJE-YAPISI.md) - Mimari ve modül açıklamaları
 - [LOG-SISTEMI.md](LOG-SISTEMI.md) - Gelişmiş log sistemi dokümantasyonu

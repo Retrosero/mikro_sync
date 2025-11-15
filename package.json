@@ -9,6 +9,7 @@
     "setup-db": "node scripts/setup-database.js",
     "test-connection": "node scripts/test-connection.js",
     "analyze-logs": "node scripts/analyze-logs.js",
+    "supabase-setup": "node scripts/supabase-setup.js",
     "test": "jest"
   },
   "dependencies": {

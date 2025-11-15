@@ -6,8 +6,20 @@ module.exports = {
   database: process.env.PG_DATABASE,
   user: process.env.PG_USER,
   password: process.env.PG_PASSWORD,
-  ssl: process.env.PG_SSL === 'true' ? { rejectUnauthorized: false } : false,
-  max: 10,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 10000
+  // SSL - Supabase için gerekli
+  ssl: process.env.PG_SSL === 'true' ? { 
+    rejectUnauthorized: false 
+  } : false,
+  // Connection Pool
+  max: parseInt(process.env.PG_MAX_CONNECTIONS || '10'),
+  min: 2,
+  idleTimeoutMillis: parseInt(process.env.PG_IDLE_TIMEOUT || '30000'),
+  connectionTimeoutMillis: parseInt(process.env.PG_CONNECTION_TIMEOUT || '10000'),
+  // Supabase için özel ayarlar
+  statement_timeout: 30000, // 30 saniye
+  query_timeout: 30000,
+  application_name: 'mikro_sync',
+  // Keepalive - Supabase bağlantısını canlı tutar
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 10000
 };
