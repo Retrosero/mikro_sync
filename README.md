@@ -80,8 +80,10 @@ Detaylı kurulum için:
 
 ## 📚 Dokümantasyon
 
-- [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md) - 5 dakikada kurulum
-- [SUPABASE-BAGLANTI.md](SUPABASE-BAGLANTI.md) - Supabase bağlantı kılavuzu ⭐ YENİ
+- [HIZLI-BASLANGIC.md](HIZLI-BASLANGIC.md) - 5 dakikada kurulum (yerel)
+- [SUPABASE-HIZLI-BASLANGIC.md](SUPABASE-HIZLI-BASLANGIC.md) - Supabase hızlı kurulum ⭐ YENİ
+- [SUPABASE-BAGLANTI.md](SUPABASE-BAGLANTI.md) - Supabase detaylı kılavuz
+- [SUPABASE-BAGLANTI-YONTEMLERI.md](SUPABASE-BAGLANTI-YONTEMLERI.md) - API vs Database
 - [KURULUM.md](KURULUM.md) - Detaylı kurulum kılavuzu
 - [PROJE-YAPISI.md](PROJE-YAPISI.md) - Mimari ve modül açıklamaları
 - [LOG-SISTEMI.md](LOG-SISTEMI.md) - Gelişmiş log sistemi dokümantasyonu

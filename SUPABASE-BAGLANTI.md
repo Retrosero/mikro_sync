@@ -67,29 +67,61 @@ DATABASE_URL=postgresql://postgres:YourPassword@db.xxxxxxxxxxxxx.supabase.co:543
 
 ## 📍 Supabase Bilgilerini Nereden Bulacaksınız?
 
-### Adım 1: Supabase Dashboard'a Giriş
-1. https://supabase.com/dashboard adresine gidin
-2. Projenizi seçin
+### Yöntem 1: Project Settings (Önerilen)
 
-### Adım 2: Database Settings
-1. Sol menüden **Settings** → **Database** seçin
-2. **Connection string** bölümünde bilgileri bulacaksınız
+1. **Supabase Dashboard'a gidin:** https://supabase.com/dashboard
+2. **Projenizi seçin**
+3. Sol menüden **Project Settings** (⚙️ ikonu) tıklayın
+4. **Database** sekmesine tıklayın
+5. Aşağı kaydırın, **Connection parameters** bölümünü bulun
 
-### Adım 3: Bilgileri Kopyalayın
-
-**Connection Info** sekmesinde:
+**Burada göreceksiniz:**
 ```
 Host: db.xxxxxxxxxxxxx.supabase.co
 Database name: postgres
 Port: 5432
-User: postgres
-Password: [Proje oluştururken belirlediğiniz]
+User: postgres.xxxxxxxxxxxxx
 ```
 
-**Connection string** sekmesinde:
+**Şifre için:**
+- Aynı sayfada "Database password" bölümünde
+- "Reset database password" butonuna tıklayın
+- Yeni şifre oluşturun ve kaydedin
+
+### Yöntem 2: Connect Butonu
+
+1. **Supabase Dashboard'da projenizi seçin**
+2. Sol menüden **Database** tıklayın
+3. Sağ üstte **Connect** butonuna tıklayın
+4. Açılan pencerede **Connection string** sekmesini seçin
+5. **URI** formatını göreceksiniz:
+
 ```
-URI: postgresql://postgres:[YOUR-PASSWORD]@db.xxxxxxxxxxxxx.supabase.co:5432/postgres
+postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
 ```
+
+**veya**
+
+**Direct connection** sekmesini seçin:
+```
+postgresql://postgres:[YOUR-PASSWORD]@db.xxxxxxxxxxxxx.supabase.co:5432/postgres
+```
+
+### Yöntem 3: SQL Editor'den
+
+1. Sol menüden **SQL Editor** tıklayın
+2. Yeni bir query açın
+3. Şu komutu çalıştırın:
+
+```sql
+SELECT 
+  current_database() as database,
+  current_user as user,
+  inet_server_addr() as host,
+  inet_server_port() as port;
+```
+
+Bu size mevcut bağlantı bilgilerini verecektir.
 
 ## 🔐 SSL Bağlantısı
 
@@ -264,26 +296,111 @@ MAX_RETRY_COUNT=3
 LOG_LEVEL=info
 ```
 
-## 🔍 Bağlantı Bilgilerini Bulma Adımları
+## 🎯 Adım Adım Görsel Rehber
 
-### 1. Supabase Dashboard
+### 1️⃣ Dashboard'a Giriş
 ```
-https://supabase.com/dashboard/project/[PROJECT-ID]
-```
-
-### 2. Settings → Database
-```
-Settings (sol menü) → Database → Connection string
+https://supabase.com/dashboard
+↓
+Projenizi seçin (örn: "gurbuzsatis")
 ```
 
-### 3. Bilgileri Kopyala
-- **URI** sekmesinden connection string'i kopyalayın
-- Veya **Connection Info** sekmesinden ayrı ayrı bilgileri alın
+### 2️⃣ Bağlantı Bilgilerini Bulma
 
-### 4. Şifreyi Değiştirme (Gerekirse)
+**YOL 1: Project Settings (ÖNERİLEN)**
 ```
-Settings → Database → Database Password → Reset Database Password
+Sol menü → ⚙️ Project Settings
+↓
+Database sekmesi
+↓
+Aşağı kaydır
+↓
+"Connection parameters" bölümü
+↓
+Host: db.xxxxx.supabase.co ← KOPYALA
+Port: 5432
+Database: postgres
+User: postgres
 ```
+
+**YOL 2: Connect Butonu**
+```
+Sol menü → Database
+↓
+Sağ üst → Connect butonu
+↓
+"Connection string" sekmesi
+↓
+URI'yi kopyala ve parçala:
+postgresql://postgres:[PASSWORD]@db.xxxxx.supabase.co:5432/postgres
+           ↑        ↑           ↑                        ↑      ↑
+         user   password      host                    port  database
+```
+
+### 3️⃣ Şifre Sıfırlama
+```
+Project Settings → Database
+↓
+"Database password" bölümü
+↓
+"Reset database password" butonu
+↓
+Yeni şifre oluştur
+↓
+KOPYALA ve .env dosyasına yapıştır
+```
+
+### 4️⃣ .env Dosyasını Doldur
+```
+PG_HOST=db.xxxxxxxxxxxxx.supabase.co     ← Project Settings'den
+PG_PORT=5432                              ← Sabit
+PG_DATABASE=postgres                      ← Sabit
+PG_USER=postgres                          ← Sabit
+PG_PASSWORD=YeniOlusturdugunuzSifre       ← Reset password'den
+PG_SSL=true                               ← Sabit (Supabase için zorunlu)
+```
+
+## 🔍 Bağlantı Bilgilerini Bulma Adımları (Güncel Arayüz)
+
+### Adım 1: Dashboard'a Giriş
+```
+https://supabase.com/dashboard
+```
+
+### Adım 2: Projenizi Seçin
+- Ana sayfada projenizi bulun ve tıklayın
+
+### Adım 3: Bağlantı Bilgilerini Bulun
+
+**Seçenek A: Project Settings (En Kolay)**
+1. Sol menüden **⚙️ Project Settings** tıklayın
+2. **Database** sekmesine tıklayın
+3. Aşağı kaydırın
+4. **Connection parameters** bölümünde bilgileri göreceksiniz
+
+**Seçenek B: Connect Butonu**
+1. Sol menüden **Database** tıklayın
+2. Sağ üstte **Connect** butonuna tıklayın
+3. **Connection string** veya **Direct connection** sekmesini seçin
+
+**Seçenek C: SQL Editor**
+1. Sol menüden **SQL Editor** tıklayın
+2. Şu komutu çalıştırın:
+```sql
+SELECT 
+  current_setting('listen_addresses') as host,
+  current_database() as database,
+  current_user as user;
+```
+
+### Adım 4: Şifreyi Alın/Sıfırlayın
+
+**Şifre Sıfırlama:**
+1. **Project Settings** → **Database**
+2. "Database password" bölümünde
+3. **Reset database password** butonuna tıklayın
+4. Yeni şifreyi kopyalayın ve güvenli bir yere kaydedin
+5. `.env` dosyanıza yapıştırın
 
 ## ✅ Kontrol Listesi
 
