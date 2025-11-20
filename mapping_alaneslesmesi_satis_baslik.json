@@ -1,0 +1,51 @@
+[
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"satis_tarihi",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_tarihi; cha_belge_tarih",
+    "Not":"Trace'e göre ikisi aynı tarih."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"satis_no",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_evrakno_seri; cha_evrakno_sira",
+    "Not":"Seri-Sıra parse edilmeli: 'A-001' -> seri='A', sira=1."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"cari_hesap_id -> (kod)",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_kod",
+    "Not":"INT_KodMap_Cari ile lookup."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"toplam_tutar",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_meblag; cha_aratoplam",
+    "Not":"Trace örneğinde eşit."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"notlar",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_aciklama",
+    "Not":null
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"odeme_sekli",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_tpoz; cha_cari_cins",
+    "Not":"Sadece veresiye ise başlık yazılır (cha_tpoz=0; cari_cins=0). Peşinde yazılmaz."
+  },
+  {
+    "Web Tablo":"(otomatik)",
+    "Web Alan":"(—)",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_evrak_tip=63; cha_tip=0; cha_cinsi=6; cha_normal_iade=0",
+    "Not":"Satış faturası (normal)."
+  }
+]

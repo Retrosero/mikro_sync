@@ -1,0 +1,65 @@
+[
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"tahsilat_tarihi",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_tarihi; cha_belge_tarih",
+    "Not":null
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"tahsilat_no",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_evrakno_seri; cha_evrakno_sira",
+    "Not":"Seri-Sıra parse edilmeli."
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"cari_hesap_id -> (kod)",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_kod",
+    "Not":"Açıkhesap tahsilatı ise müşteri cari kodu."
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"tutar",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_meblag; cha_aratoplam",
+    "Not":null
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"aciklama",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_aciklama",
+    "Not":null
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"tahsilat_tipi='nakit'",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_tpoz=1; cha_cari_cins=4; cha_kod=<kasa_kodu>",
+    "Not":"Kasadan kapanış. Kasa kodu INT_KodMap_Kasa'dan."
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"tahsilat_tipi in ('kredi_karti','havale')",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_tpoz=1; cha_cari_cins=2; cha_kod=<banka_kodu>",
+    "Not":"Bankadan kapanış. Banka kodu INT_KodMap_Banka'dan."
+  },
+  {
+    "Web Tablo":"tahsilatlar",
+    "Web Alan":"cek\/senet alanları",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"(ilgili alanlar\/ek tablolar)",
+    "Not":"ERP modülüne göre; yoksa 'cha_aciklama'ya yaz."
+  },
+  {
+    "Web Tablo":"(konfig)",
+    "Web Alan":"(—)",
+    "ERP Tablo":"CARI_HESAP_HAREKETLERI",
+    "ERP Alan":"cha_evrak_tip; cha_tip; cha_cinsi; cha_normal_iade",
+    "Not":"OdemeYeri & belge türüne göre INT_CariHareketMap'ten çek."
+  }
+]

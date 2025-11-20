@@ -1,0 +1,86 @@
+[
+  {
+    "Web Tablo":"satis_kalemleri",
+    "Web Alan":"satis_id -> (başlık)",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_fat_recid_recno",
+    "Not":"Başlıktaki cha_RECno'ya bağlanır (SP içinde)."
+  },
+  {
+    "Web Tablo":"satis_kalemleri",
+    "Web Alan":"stok_id -> (stok_kod)",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_stok_kod",
+    "Not":"INT_KodMap_Stok ile lookup."
+  },
+  {
+    "Web Tablo":"satis_kalemleri",
+    "Web Alan":"miktar",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_miktar",
+    "Not":null
+  },
+  {
+    "Web Tablo":"satis_kalemleri",
+    "Web Alan":"toplam_tutar",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_tutar",
+    "Not":null
+  },
+  {
+    "Web Tablo":"satis_kalemleri",
+    "Web Alan":"kdv_orani -> (pointer)",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_vergi_pntr",
+    "Not":"INT_KdvPointerMap: oran→pntr."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"satis_tarihi",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_tarih; sth_belge_tarih",
+    "Not":null
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"satis_no",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_evrakno_seri; sth_evrakno_sira",
+    "Not":"Seri-Sıra parse edilmeli."
+  },
+  {
+    "Web Tablo":"satislar",
+    "Web Alan":"cari_hesap_id -> (kod)",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_cari_kodu",
+    "Not":"Cari kod ile uyumlu olmalı."
+  },
+  {
+    "Web Tablo":"konfig",
+    "Web Alan":"depo_cikis",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_cikis_depo_no",
+    "Not":"INT_DepoMap'ten alınır."
+  },
+  {
+    "Web Tablo":"konfig",
+    "Web Alan":"depo_giris",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_giris_depo_no",
+    "Not":"Gerekirse; satışta genellikle çıkış depo."
+  },
+  {
+    "Web Tablo":"(otomatik)",
+    "Web Alan":"(—)",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"sth_tip=1; sth_cins=0; sth_normal_iade=0; sth_evraktip=4",
+    "Not":"Satış stok çıkışı."
+  },
+  {
+    "Web Tablo":"kural",
+    "Web Alan":"XML ürün",
+    "ERP Tablo":"STOK_HAREKETLERI",
+    "ERP Alan":"(—)",
+    "Not":"XML ürünlerde stok hareketi yazma (satırı atla)."
+  }
+]

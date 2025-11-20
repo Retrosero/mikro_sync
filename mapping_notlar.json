@@ -1,0 +1,30 @@
+[
+  {
+    "Baslik":"Notlar",
+    "Icerik":"Oluşturulma: 2025-11-12 13:11"
+  },
+  {
+    "Baslik":"Kullanım",
+    "Icerik":"Bu dosyadaki tablolar senkronizasyon konfigürasyonunu merkezi yönetmek için tasarlanmıştır."
+  },
+  {
+    "Baslik":"Adım 1",
+    "Icerik":"INT_*Map tablolarını kurumunuza göre doldurun (None olan alanlar)."
+  },
+  {
+    "Baslik":"Adım 2",
+    "Icerik":"Kod eşleştirmelerini (Cari\/Stok\/Banka\/Kasa) ilgili şablon tablolara girin."
+  },
+  {
+    "Baslik":"Adım 3",
+    "Icerik":"KDV oran→pntr haritasını güncelleyin."
+  },
+  {
+    "Baslik":"Adım 4",
+    "Icerik":"SP'leriniz map tablosundan değerleri çekerek INSERT\/UPDATE yapsın."
+  },
+  {
+    "Baslik":"Hatırlatma",
+    "Icerik":"SESSION_CONTEXT('SYNC_ORIGIN')='WEB' kullanarak tetikleyici döngülerini engelleyin."
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "WebBelgeTuru":"satis_fatura",
+    "OdemeYeri":"acikhesap",
+    "IadeMi":0,
+    "cha_evrak_tip":63.0,
+    "cha_tip":0.0,
+    "cha_cinsi":6.0,
+    "cha_normal_iade":0,
+    "cha_tpoz":0,
+    "cha_cari_cins":0,
+    "Aciklama":"Satış Faturası (veresiye)"
+  },
+  {
+    "WebBelgeTuru":"tahsilat",
+    "OdemeYeri":"kasa",
+    "IadeMi":0,
+    "cha_evrak_tip":null,
+    "cha_tip":null,
+    "cha_cinsi":null,
+    "cha_normal_iade":0,
+    "cha_tpoz":1,
+    "cha_cari_cins":4,
+    "Aciklama":"Nakitte kasadan kapanış (kurum ayarı)"
+  },
+  {
+    "WebBelgeTuru":"tahsilat",
+    "OdemeYeri":"banka",
+    "IadeMi":0,
+    "cha_evrak_tip":null,
+    "cha_tip":null,
+    "cha_cinsi":null,
+    "cha_normal_iade":0,
+    "cha_tpoz":1,
+    "cha_cari_cins":2,
+    "Aciklama":"Kart\/Havale bankadan kapanış"
+  },
+  {
+    "WebBelgeTuru":"tahsilat",
+    "OdemeYeri":"cek",
+    "IadeMi":0,
+    "cha_evrak_tip":null,
+    "cha_tip":null,
+    "cha_cinsi":null,
+    "cha_normal_iade":0,
+    "cha_tpoz":1,
+    "cha_cari_cins":0,
+    "Aciklama":"Çek tahsilatı (kurum şeması)"
+  },
+  {
+    "WebBelgeTuru":"tahsilat",
+    "OdemeYeri":"senet",
+    "IadeMi":0,
+    "cha_evrak_tip":null,
+    "cha_tip":null,
+    "cha_cinsi":null,
+    "cha_normal_iade":0,
+    "cha_tpoz":1,
+    "cha_cari_cins":0,
+    "Aciklama":"Senet tahsilatı (kurum şeması)"
+  }
+]

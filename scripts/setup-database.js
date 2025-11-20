@@ -6,37 +6,31 @@ const path = require('path');
 
 async function setupPostgreSQL() {
   logger.info('PostgreSQL setup başlıyor...');
-  
+
   const sqlFile = await fs.readFile(
-    path.join(__dirname, 'sql', 'postgresql-setup.sql'), 
+    path.join(__dirname, 'sql', 'postgresql-setup.sql'),
     'utf8'
   );
-  
-  const statements = sqlFile.split(';').filter(s => s.trim());
-  
-  for (const statement of statements) {
-    if (statement.trim()) {
-      try {
-        await pgService.query(statement);
-      } catch (error) {
-        logger.error('PostgreSQL setup hatası:', error.message);
-      }
-    }
+
+  try {
+    await pgService.query(sqlFile);
+    logger.info('PostgreSQL setup tamamlandı');
+  } catch (error) {
+    logger.error('PostgreSQL setup hatası:', error.message);
+    throw error;
   }
-  
-  logger.info('PostgreSQL setup tamamlandı');
 }
 
 async function setupMSSQL() {
   logger.info('MS SQL setup başlıyor...');
-  
+
   const sqlFile = await fs.readFile(
-    path.join(__dirname, 'sql', 'mssql-setup.sql'), 
+    path.join(__dirname, 'sql', 'mssql-setup.sql'),
     'utf8'
   );
-  
+
   const statements = sqlFile.split('GO').filter(s => s.trim());
-  
+
   for (const statement of statements) {
     if (statement.trim()) {
       try {
@@ -46,7 +40,7 @@ async function setupMSSQL() {
       }
     }
   }
-  
+
   logger.info('MS SQL setup tamamlandı');
 }
 

@@ -1,0 +1,14 @@
+[
+  {
+    "WebBelgeTuru":"satis_fatura",
+    "Yon":"cikis",
+    "erp_depo_no":1.0,
+    "Aciklama":"Satış çıkış deposu örnek 1"
+  },
+  {
+    "WebBelgeTuru":"satis_fatura",
+    "Yon":"giris",
+    "erp_depo_no":null,
+    "Aciklama":"Genelde boş; ihtiyaca göre"
+  }
+]

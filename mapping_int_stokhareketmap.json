@@ -1,0 +1,29 @@
+[
+  {
+    "WebBelgeTuru":"satis_fatura",
+    "IadeMi":0,
+    "sth_tip":1.0,
+    "sth_cins":0.0,
+    "sth_normal_iade":0,
+    "sth_evraktip":4.0,
+    "Aciklama":"Satış stok çıkışı (trace'e göre kesin)"
+  },
+  {
+    "WebBelgeTuru":"alis_fatura",
+    "IadeMi":0,
+    "sth_tip":null,
+    "sth_cins":null,
+    "sth_normal_iade":0,
+    "sth_evraktip":null,
+    "Aciklama":"Alış stok girişi (trace ile doldur)"
+  },
+  {
+    "WebBelgeTuru":"satis_iade",
+    "IadeMi":1,
+    "sth_tip":null,
+    "sth_cins":null,
+    "sth_normal_iade":1,
+    "sth_evraktip":null,
+    "Aciklama":"Satış iade (trace ile doldur)"
+  }
+]
