@@ -10,8 +10,8 @@ class StokTransformer {
         stok_adi: erpStok.sto_isim,
         birim_turu: erpStok.sto_birim1_ad || 'Adet',
         alis_fiyati: erpStok.sto_standartmaliyet || 0,
-        satis_fiyati: erpStok.sto_satisfiyati || 0,
-        aciklama: erpStok.sto_aciklama || '',
+        satis_fiyati: 0, // Fiyat STOK_SATIS_FIYAT_LISTELERI tablosundan gelecek
+        aciklama: '', // ERP'de bu alan yok
         olcu: erpStok.sto_sektor_kodu || '',
         raf_kodu: erpStok.sto_reyon_kodu || '',
         ambalaj: erpStok.sto_ambalaj_kodu || '',
@@ -48,8 +48,8 @@ class StokTransformer {
     try {
       return {
         fiyat: erpFiyat.sfiyat_fiyati,
-        baslangic_tarihi: erpFiyat.sfiyat_bas_tarih,
-        bitis_tarihi: erpFiyat.sfiyat_bit_tarih,
+        baslangic_tarihi: null, // ERP'de bu alan yok
+        bitis_tarihi: null, // ERP'de bu alan yok
         olusturma_tarihi: new Date(),
         guncelleme_tarihi: new Date()
       };
