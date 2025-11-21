@@ -13,11 +13,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
+    "joi": "^17.11.0",
     "mssql": "^10.0.1",
     "pg": "^8.11.3",
-    "dotenv": "^16.3.1",
     "winston": "^3.11.0",
-    "joi": "^17.11.0"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

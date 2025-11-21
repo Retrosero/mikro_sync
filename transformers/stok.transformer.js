@@ -31,7 +31,8 @@ class StokTransformer {
   async transformBarkodFromERP(erpBarkod) {
     try {
       return {
-        barkod: erpBarkod.bar_kod,
+        stok_kodu: erpBarkod.bar_stokkodu,
+        barkod: erpBarkod.bar_kodu,
         barkod_tipi: this.getBarkodTipi(erpBarkod.bar_tipi),
         aktif: erpBarkod.bar_pasif_fl === 0,
         olusturma_tarihi: new Date(),

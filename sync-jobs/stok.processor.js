@@ -238,6 +238,98 @@ class StokProcessor {
       await this.syncSingleStokToWeb(recordData);
     }
   }
+  async syncBarkodlarIncremental(lastSyncTime = null) {
+    try {
+      const direction = 'erp_to_web_barkod';
+
+      if (lastSyncTime === undefined || lastSyncTime === null) {
+        lastSyncTime = await syncStateService.getLastSyncTime('BARKOD_TANIMLARI', direction);
+      }
+
+      const isFirstSync = lastSyncTime === null;
+      logger.info(`Barkod senkronizasyonu başlıyor (${isFirstSync ? 'TAM' : 'İNKREMENTAL'})`);
+
+      let whereClause = 'WHERE 1=1';
+      const params = {};
+
+      if (lastSyncTime) {
+        whereClause += ' AND bar_lastup_date > @lastSyncTime';
+        params.lastSyncTime = lastSyncTime;
+      }
+
+      const query = `
+        SELECT bar_stokkodu, bar_kodu, bar_lastup_date
+        FROM BARKOD_TANIMLARI
+        ${whereClause}
+        ORDER BY bar_lastup_date
+      `;
+
+      const changedRecords = await mssqlService.query(query, params);
+      logger.info(`${changedRecords.length} değişen barkod bulundu`);
+
+      let processedCount = 0;
+      let errorCount = 0;
+
+      for (const erpBarkod of changedRecords) {
+        try {
+          // Transformer'a eksik alanları varsayılan değerlerle gönder
+          const webBarkod = await stokTransformer.transformBarkodFromERP({
+            ...erpBarkod,
+            bar_pasif_fl: 0, // Varsayılan aktif
+            bar_tipi: 1      // Varsayılan tip
+          });
+
+          // Stok ID'sini bul
+          const stokIdResult = await pgService.queryOne(
+            'SELECT id FROM stoklar WHERE stok_kodu = $1',
+            [webBarkod.stok_kodu]
+          );
+
+          if (stokIdResult) {
+            await pgService.query(`
+              INSERT INTO urun_barkodlari (stok_id, barkod, barkod_tipi, aktif, guncelleme_tarihi)
+              VALUES ($1, $2, $3, $4, $5)
+              ON CONFLICT (barkod) DO UPDATE SET
+                stok_id = EXCLUDED.stok_id,
+                barkod_tipi = EXCLUDED.barkod_tipi,
+                aktif = EXCLUDED.aktif,
+                guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+            `, [
+              stokIdResult.id, webBarkod.barkod, webBarkod.barkod_tipi,
+              webBarkod.aktif, new Date()
+            ]);
+            processedCount++;
+          } else {
+            // Stok bulunamadıysa logla veya atla
+            // logger.warn(`Barkod için stok bulunamadı: ${webBarkod.stok_kodu}`);
+          }
+
+          if (processedCount % 100 === 0) {
+            logger.info(`  ${processedCount}/${changedRecords.length} barkod işlendi...`);
+          }
+        } catch (error) {
+          errorCount++;
+          logger.error(`Barkod senkronizasyon hatası (${erpBarkod.bar_kodu}):`, error.message);
+        }
+      }
+
+      await syncStateService.updateSyncTime(
+        'BARKOD_TANIMLARI',
+        direction,
+        processedCount,
+        errorCount === 0,
+        errorCount > 0 ? `${errorCount} hata oluştu` : null
+      );
+
+      logger.info(`Barkod senkronizasyonu tamamlandı: ${processedCount} başarılı, ${errorCount} hata`);
+      return processedCount;
+
+    } catch (error) {
+      logger.error('Barkod senkronizasyon hatası:', error);
+      await syncStateService.updateSyncTime('BARKOD_TANIMLARI', 'erp_to_web_barkod', 0, false, error.message);
+      throw error;
+    }
+  }
 }
 
 module.exports = new StokProcessor();
