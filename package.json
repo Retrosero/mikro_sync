@@ -10,6 +10,13 @@
     "test-connection": "node scripts/test-connection.js",
     "analyze-logs": "node scripts/analyze-logs.js",
     "supabase-setup": "node scripts/supabase-setup.js",
+    "sync": "node scripts/fast_bulk_sync.js",
+    "sync-full": "node run-full-bulk-sync.js",
+    "setup-triggers": "node scripts/setup-auto-update-triggers.js",
+    "test-triggers": "node test-auto-update-triggers.js",
+    "test-erp-to-web": "node test-erp-to-web.js",
+    "test-eldeki-miktar": "node test-eldeki-miktar.js",
+    "create-price-mappings": "node create-fiyat-liste-mappings.js",
     "test": "jest"
   },
   "dependencies": {

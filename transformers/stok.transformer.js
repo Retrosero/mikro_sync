@@ -5,6 +5,13 @@ class StokTransformer {
   // ERP → Web: Stok Kartı
   async transformFromERP(erpStok) {
     try {
+      // koliadeti'yi integer'a çevir, başarısız olursa 0 yap
+      let koliadeti = 0;
+      if (erpStok.sto_kalkon_kodu) {
+        const parsed = parseInt(erpStok.sto_kalkon_kodu);
+        koliadeti = isNaN(parsed) ? 0 : parsed;
+      }
+
       return {
         stok_kodu: erpStok.sto_kod,
         stok_adi: erpStok.sto_isim,
@@ -15,7 +22,7 @@ class StokTransformer {
         olcu: erpStok.sto_sektor_kodu || '',
         raf_kodu: erpStok.sto_reyon_kodu || '',
         ambalaj: erpStok.sto_ambalaj_kodu || '',
-        koliadeti: erpStok.sto_kalkon_kodu || 0,
+        koliadeti: koliadeti,
         katalog_adi: erpStok.sto_yabanci_isim || '',
         aktif: true,
         olusturma_tarihi: new Date(),

@@ -5,12 +5,61 @@
 const pgService = require('../services/postgresql.service');
 const mssqlService = require('../services/mssql.service');
 const stokTransformer = require('../transformers/stok.transformer');
-const fiyatTransformer = require('../transformers/stok.transformer');
-const cariProcessor = require('../sync-jobs/cari.processor'); // Re-using processor logic where possible or duplicating for bulk
+const eldekiMiktarProcessor = require('../sync-jobs/eldeki-miktar.processor');
 const logger = require('../utils/logger');
 const syncStateService = require('../services/sync-state.service');
 
-const BATCH_SIZE = parseInt(process.env.BATCH_SIZE) || 500;
+const BATCH_SIZE = parseInt(process.env.BATCH_SIZE) || 4000;
+
+// --- YARDIMCI FONKSİYONLAR ---
+
+/**
+ * Ana barkodları (barkod_tipi = 'ana') stoklar tablosuna günceller
+ */
+async function updateMainBarcodes() {
+    try {
+        await pgService.query(`
+            UPDATE stoklar s
+            SET barkod = ub.barkod,
+                guncelleme_tarihi = NOW()
+            FROM urun_barkodlari ub
+            WHERE ub.stok_id = s.id 
+              AND ub.barkod_tipi = 'ana'
+              AND ub.aktif = true
+              AND (s.barkod IS NULL OR s.barkod != ub.barkod)
+        `);
+    } catch (error) {
+        logger.warn('Ana barkod güncelleme hatası:', error.message);
+    }
+}
+
+/**
+ * Ana fiyatları (ilk fiyat listesi) stoklar tablosuna günceller
+ */
+async function updateMainPrices() {
+    try {
+        // İlk fiyat listesindeki fiyatları ana fiyat olarak kullan
+        const firstPriceList = await pgService.queryOne(`
+            SELECT web_fiyat_tanimi_id 
+            FROM int_kodmap_fiyat_liste 
+            WHERE erp_liste_no = 1
+        `);
+        
+        if (firstPriceList) {
+            await pgService.query(`
+                UPDATE stoklar s
+                SET satis_fiyati = ufl.fiyat,
+                    guncelleme_tarihi = NOW()
+                FROM urun_fiyat_listeleri ufl
+                WHERE ufl.stok_id = s.id 
+                  AND ufl.fiyat_tanimi_id = $1
+                  AND (s.satis_fiyati IS NULL OR s.satis_fiyati != ufl.fiyat)
+            `, [firstPriceList.web_fiyat_tanimi_id]);
+        }
+    } catch (error) {
+        logger.warn('Ana fiyat güncelleme hatası:', error.message);
+    }
+}
 
 // --- STOK ---
 async function bulkSyncStocks() {
@@ -51,7 +100,9 @@ async function bulkSyncStocks() {
       ambalaj = EXCLUDED.ambalaj,
       koliadeti = EXCLUDED.koliadeti,
       aktif = EXCLUDED.aktif,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE stoklar.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR stoklar.guncelleme_tarihi IS NULL`;
         await pgService.query(sql, values);
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} stok aktarıldı...`);
     }
@@ -122,9 +173,14 @@ async function bulkSyncBarkod() {
       stok_id = EXCLUDED.stok_id,
       barkod_tipi = EXCLUDED.barkod_tipi,
       aktif = EXCLUDED.aktif,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE urun_barkodlari.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR urun_barkodlari.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
+        
+        // Ana barkodları stoklar tablosuna güncelle
+        await updateMainBarcodes();
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} barkod aktarıldı...`);
     }
     console.log('');
@@ -177,9 +233,14 @@ async function bulkSyncPrices() {
     ) VALUES ${placeholders.join(', ')}
     ON CONFLICT (stok_id, fiyat_tanimi_id) DO UPDATE SET
       fiyat = EXCLUDED.fiyat,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE urun_fiyat_listeleri.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR urun_fiyat_listeleri.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
+        
+        // Ana fiyatları stoklar tablosuna güncelle
+        await updateMainPrices();
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} fiyat aktarıldı...`);
     }
     console.log('');
@@ -237,7 +298,9 @@ async function bulkSyncCari() {
       eposta = EXCLUDED.eposta,
       vergi_dairesi = EXCLUDED.vergi_dairesi,
       vergi_no = EXCLUDED.vergi_no,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE cari_hesaplar.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR cari_hesaplar.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} cari aktarıldı...`);
@@ -315,7 +378,9 @@ async function bulkSyncCariHareket() {
       onceki_bakiye = EXCLUDED.onceki_bakiye,
       sonraki_bakiye = EXCLUDED.sonraki_bakiye,
       aciklama = EXCLUDED.aciklama,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE cari_hesap_hareketleri.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR cari_hesap_hareketleri.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} cari hareket aktarıldı...`);
@@ -398,7 +463,9 @@ async function bulkSyncStokHareket() {
       onceki_miktar = EXCLUDED.onceki_miktar,
       sonraki_miktar = EXCLUDED.sonraki_miktar,
       toplam_tutar = EXCLUDED.toplam_tutar,
-      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi`;
+      guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
+    WHERE stok_hareketleri.guncelleme_tarihi < EXCLUDED.guncelleme_tarihi 
+       OR stok_hareketleri.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} stok hareket aktarıldı...`);
@@ -426,6 +493,9 @@ async function bulkSyncStokHareket() {
         await bulkSyncCari();
         await bulkSyncCariHareket();
         await bulkSyncStokHareket();
+        
+        // Eldeki miktar senkronizasyonu
+        await eldekiMiktarProcessor.syncToWeb(null, BATCH_SIZE);
 
         logger.info('✅ Tüm bulk senkronizasyonları başarıyla tamamlandı');
     } catch (err) {
