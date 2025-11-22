@@ -16,6 +16,9 @@
     "test-triggers": "node test-auto-update-triggers.js",
     "test-erp-to-web": "node test-erp-to-web.js",
     "test-eldeki-miktar": "node test-eldeki-miktar.js",
+    "test-cari": "node test-cari-eslestirme.js",
+    "test-foreign-keys": "node test-foreign-keys.js",
+    "fix-cari": "node fix-eksik-cariler.js",
     "create-price-mappings": "node create-fiyat-liste-mappings.js",
     "test": "jest"
   },

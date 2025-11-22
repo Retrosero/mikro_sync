@@ -339,8 +339,25 @@ async function bulkSyncCariHareket() {
         let idx = 1;
 
         for (const erp of batch) {
-            const cariId = cariMap.get(erp.cha_kod);
-            if (!cariId) continue;
+            let cariId = cariMap.get(erp.cha_kod);
+            
+            // Eğer cari bulunamazsa, otomatik oluştur
+            if (!cariId) {
+                try {
+                    const newCari = await pgService.queryOne(`
+                        INSERT INTO cari_hesaplar (cari_kodu, cari_adi, olusturma_tarihi, guncelleme_tarihi)
+                        VALUES ($1, $2, NOW(), NOW())
+                        RETURNING id
+                    `, [erp.cha_kod, `[Otomatik] Cari ${erp.cha_kod}`]);
+                    
+                    cariId = newCari.id;
+                    cariMap.set(erp.cha_kod, cariId);
+                    logger.info(`Otomatik cari oluşturuldu: ${erp.cha_kod}`);
+                } catch (e) {
+                    logger.warn(`Cari oluşturulamadı (${erp.cha_kod}): ${e.message}`);
+                    continue;
+                }
+            }
 
             // cha_tip: 0 (Borç/Satış) -> cikis, 1 (Alacak/Tahsilat) -> giris
             const hareketTipi = erp.cha_tip === 0 ? 'cikis' : 'giris';
@@ -423,9 +440,27 @@ async function bulkSyncStokHareket() {
 
         for (const erp of batch) {
             const stokId = stokMap.get(erp.sth_stok_kod);
-            const cariId = cariMap.get(erp.sth_cari_kodu);
+            let cariId = cariMap.get(erp.sth_cari_kodu);
 
-            if (!stokId || !cariId) continue;
+            if (!stokId) continue;
+            
+            // Eğer cari bulunamazsa, otomatik oluştur
+            if (!cariId) {
+                try {
+                    const newCari = await pgService.queryOne(`
+                        INSERT INTO cari_hesaplar (cari_kodu, cari_adi, olusturma_tarihi, guncelleme_tarihi)
+                        VALUES ($1, $2, NOW(), NOW())
+                        RETURNING id
+                    `, [erp.sth_cari_kodu, `[Otomatik] Cari ${erp.sth_cari_kodu}`]);
+                    
+                    cariId = newCari.id;
+                    cariMap.set(erp.sth_cari_kodu, cariId);
+                    logger.info(`Otomatik cari oluşturuldu: ${erp.sth_cari_kodu}`);
+                } catch (e) {
+                    logger.warn(`Cari oluşturulamadı (${erp.sth_cari_kodu}): ${e.message}`);
+                    continue;
+                }
+            }
 
             // sth_tip: 0 (Giriş/Alış) -> giris, 1 (Çıkış/Satış) -> cikis
             const hareketTipi = erp.sth_tip === 0 ? 'giris' : 'cikis';
