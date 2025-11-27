@@ -44,7 +44,7 @@ async function updateMainPrices() {
             FROM int_kodmap_fiyat_liste 
             WHERE erp_liste_no = 1
         `);
-        
+
         if (firstPriceList) {
             await pgService.query(`
                 UPDATE stoklar s
@@ -178,7 +178,7 @@ async function bulkSyncBarkod() {
        OR urun_barkodlari.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
-        
+
         // Ana barkodları stoklar tablosuna güncelle
         await updateMainBarcodes();
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} barkod aktarıldı...`);
@@ -238,7 +238,7 @@ async function bulkSyncPrices() {
        OR urun_fiyat_listeleri.guncelleme_tarihi IS NULL`;
 
         await pgService.query(sql, values);
-        
+
         // Ana fiyatları stoklar tablosuna güncelle
         await updateMainPrices();
         process.stdout.write(`\r   🚀 ${Math.min(i + BATCH_SIZE, changed.length)} / ${changed.length} fiyat aktarıldı...`);
@@ -322,7 +322,8 @@ async function bulkSyncCariHareket() {
         params.lastSync = lastSync;
     }
     const query = `
-    SELECT cha_RECno, cha_tarihi, cha_evrakno_seri, cha_evrakno_sira, cha_kod, cha_meblag, cha_aciklama, cha_lastup_date, cha_tip
+    SELECT cha_RECno, cha_tarihi, cha_evrakno_seri, cha_evrakno_sira, cha_kod, cha_meblag, cha_aciklama, cha_lastup_date, 
+           cha_tip, cha_evrak_tip, cha_cinsi, cha_tpoz, cha_cari_cins, cha_normal_Iade
     FROM CARI_HESAP_HAREKETLERI ${where} ORDER BY cha_lastup_date`;
 
     const changed = await mssqlService.query(query, params);
@@ -340,7 +341,7 @@ async function bulkSyncCariHareket() {
 
         for (const erp of batch) {
             let cariId = cariMap.get(erp.cha_kod);
-            
+
             // Eğer cari bulunamazsa, otomatik oluştur
             if (!cariId) {
                 try {
@@ -349,7 +350,7 @@ async function bulkSyncCariHareket() {
                         VALUES ($1, $2, NOW(), NOW())
                         RETURNING id
                     `, [erp.cha_kod, `[Otomatik] Cari ${erp.cha_kod}`]);
-                    
+
                     cariId = newCari.id;
                     cariMap.set(erp.cha_kod, cariId);
                     logger.info(`Otomatik cari oluşturuldu: ${erp.cha_kod}`);
@@ -362,14 +363,35 @@ async function bulkSyncCariHareket() {
             // cha_tip: 0 (Borç/Satış) -> cikis, 1 (Alacak/Tahsilat) -> giris
             const hareketTipi = erp.cha_tip === 0 ? 'cikis' : 'giris';
 
+            // Belge tipini mapping'e göre belirle
+            let belgeTipi = 'diger';
 
+            // Satış Faturası: cha_evrak_tip=63, cha_tip=0, cha_cinsi=6, cha_normal_Iade=0
+            if (erp.cha_evrak_tip === 63 && erp.cha_tip === 0 && erp.cha_cinsi === 6 && erp.cha_normal_Iade === 0) {
+                belgeTipi = 'satis';
+            }
+            // Tahsilat: cha_evrak_tip=1, cha_tip=1 (Genelleştirildi)
+            else if (erp.cha_evrak_tip === 1 && erp.cha_tip === 1) {
+                belgeTipi = 'tahsilat';
+            }
+            // Satış İade: cha_evrak_tip=63, cha_tip=0, cha_normal_Iade=1
+            else if (erp.cha_evrak_tip === 63 && erp.cha_tip === 0 && erp.cha_normal_Iade === 1) {
+                belgeTipi = 'iade';
+            }
+            // İade (Özel Durum - AHMET ER vb.): cha_evrak_tip=0, cha_tip=1, cha_cinsi=6, cha_normal_Iade=1
+            else if (erp.cha_evrak_tip === 0 && erp.cha_tip === 1 && erp.cha_cinsi === 6 && erp.cha_normal_Iade === 1) {
+                belgeTipi = 'iade';
+            }
 
             const web = {
                 erp_recno: erp.cha_RECno,
                 cari_hesap_id: cariId,
                 islem_tarihi: erp.cha_tarihi,
                 hareket_tipi: hareketTipi,
+                belge_tipi: belgeTipi,
                 belge_no: (erp.cha_evrakno_seri || '') + (erp.cha_evrakno_sira || ''),
+                fatura_seri_no: erp.cha_evrakno_seri,
+                fatura_sira_no: erp.cha_evrakno_sira,
                 tutar: erp.cha_meblag,
                 onceki_bakiye: 0,
                 sonraki_bakiye: 0,
@@ -377,20 +399,23 @@ async function bulkSyncCariHareket() {
                 guncelleme_tarihi: new Date()
             };
 
-            values.push(web.erp_recno, web.cari_hesap_id, web.islem_tarihi, web.hareket_tipi, web.belge_no, web.tutar, web.onceki_bakiye, web.sonraki_bakiye, web.aciklama, web.guncelleme_tarihi);
-            placeholders.push(`($${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++})`);
+            values.push(web.erp_recno, web.cari_hesap_id, web.islem_tarihi, web.hareket_tipi, web.belge_tipi, web.belge_no, web.fatura_seri_no, web.fatura_sira_no, web.tutar, web.onceki_bakiye, web.sonraki_bakiye, web.aciklama, web.guncelleme_tarihi);
+            placeholders.push(`($${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++})`);
         }
 
         if (values.length === 0) continue;
 
         const sql = `INSERT INTO cari_hesap_hareketleri (
-      erp_recno, cari_hesap_id, islem_tarihi, hareket_tipi, belge_no, tutar, onceki_bakiye, sonraki_bakiye, aciklama, guncelleme_tarihi
+      erp_recno, cari_hesap_id, islem_tarihi, hareket_tipi, belge_tipi, belge_no, fatura_seri_no, fatura_sira_no, tutar, onceki_bakiye, sonraki_bakiye, aciklama, guncelleme_tarihi
     ) VALUES ${placeholders.join(', ')}
     ON CONFLICT (erp_recno) DO UPDATE SET
       cari_hesap_id = EXCLUDED.cari_hesap_id,
       islem_tarihi = EXCLUDED.islem_tarihi,
       hareket_tipi = EXCLUDED.hareket_tipi,
+      belge_tipi = EXCLUDED.belge_tipi,
       belge_no = EXCLUDED.belge_no,
+      fatura_seri_no = EXCLUDED.fatura_seri_no,
+      fatura_sira_no = EXCLUDED.fatura_sira_no,
       tutar = EXCLUDED.tutar,
       onceki_bakiye = EXCLUDED.onceki_bakiye,
       sonraki_bakiye = EXCLUDED.sonraki_bakiye,
@@ -419,7 +444,8 @@ async function bulkSyncStokHareket() {
         params.lastSync = lastSync;
     }
     const query = `
-    SELECT sth_RECno, sth_stok_kod, sth_cari_kodu, sth_tarih, sth_evrakno_seri, sth_evrakno_sira, sth_miktar, sth_tutar, sth_lastup_date, sth_tip
+    SELECT sth_RECno, sth_stok_kod, sth_cari_kodu, sth_tarih, sth_evrakno_seri, sth_evrakno_sira, sth_miktar, sth_tutar, sth_lastup_date, 
+           sth_tip, sth_cins, sth_normal_iade, sth_evraktip
     FROM STOK_HAREKETLERI ${where} ORDER BY sth_lastup_date`;
 
     const changed = await mssqlService.query(query, params);
@@ -443,7 +469,7 @@ async function bulkSyncStokHareket() {
             let cariId = cariMap.get(erp.sth_cari_kodu);
 
             if (!stokId) continue;
-            
+
             // Eğer cari bulunamazsa, otomatik oluştur
             if (!cariId) {
                 try {
@@ -452,7 +478,7 @@ async function bulkSyncStokHareket() {
                         VALUES ($1, $2, NOW(), NOW())
                         RETURNING id
                     `, [erp.sth_cari_kodu, `[Otomatik] Cari ${erp.sth_cari_kodu}`]);
-                    
+
                     cariId = newCari.id;
                     cariMap.set(erp.sth_cari_kodu, cariId);
                     logger.info(`Otomatik cari oluşturuldu: ${erp.sth_cari_kodu}`);
@@ -465,13 +491,36 @@ async function bulkSyncStokHareket() {
             // sth_tip: 0 (Giriş/Alış) -> giris, 1 (Çıkış/Satış) -> cikis
             const hareketTipi = erp.sth_tip === 0 ? 'giris' : 'cikis';
 
+            // Belge tipini mapping'e göre belirle
+            let belgeTipi = 'diger';
+
+            // Satış: sth_tip=1, sth_cins=0, sth_normal_iade=0, sth_evraktip=4
+            if (erp.sth_tip === 1 && erp.sth_cins === 0 && erp.sth_normal_iade === 0 && erp.sth_evraktip === 4) {
+                belgeTipi = 'satis';
+            }
+            // Alış: sth_tip=0, sth_cins=0, sth_normal_iade=0, sth_evraktip=3
+            else if (erp.sth_tip === 0 && erp.sth_cins === 0 && erp.sth_normal_iade === 0 && erp.sth_evraktip === 3) {
+                belgeTipi = 'alis';
+            }
+            // Satış İade: sth_tip=1, sth_cins=0, sth_normal_iade=1, sth_evraktip=4
+            else if (erp.sth_tip === 1 && erp.sth_cins === 0 && erp.sth_normal_iade === 1 && erp.sth_evraktip === 4) {
+                belgeTipi = 'iade';
+            }
+            // Alış İade: sth_tip=0, sth_cins=0, sth_normal_iade=1, sth_evraktip=3
+            else if (erp.sth_tip === 0 && erp.sth_cins === 0 && erp.sth_normal_iade === 1 && erp.sth_evraktip === 3) {
+                belgeTipi = 'iade';
+            }
+
             const web = {
                 erp_recno: erp.sth_RECno,
                 stok_id: stokId,
                 cari_hesap_id: cariId,
                 islem_tarihi: erp.sth_tarih,
                 hareket_tipi: hareketTipi,
+                belge_tipi: belgeTipi,
                 belge_no: (erp.sth_evrakno_seri || '') + (erp.sth_evrakno_sira || ''),
+                fatura_seri_no: erp.sth_evrakno_seri,
+                fatura_sira_no: erp.sth_evrakno_sira,
                 miktar: erp.sth_miktar,
                 onceki_miktar: 0,
                 sonraki_miktar: 0,
@@ -479,21 +528,24 @@ async function bulkSyncStokHareket() {
                 guncelleme_tarihi: new Date()
             };
 
-            values.push(web.erp_recno, web.stok_id, web.cari_hesap_id, web.islem_tarihi, web.hareket_tipi, web.belge_no, web.miktar, web.onceki_miktar, web.sonraki_miktar, web.toplam_tutar, web.guncelleme_tarihi);
-            placeholders.push(`($${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++})`);
+            values.push(web.erp_recno, web.stok_id, web.cari_hesap_id, web.islem_tarihi, web.hareket_tipi, web.belge_tipi, web.belge_no, web.fatura_seri_no, web.fatura_sira_no, web.miktar, web.onceki_miktar, web.sonraki_miktar, web.toplam_tutar, web.guncelleme_tarihi);
+            placeholders.push(`($${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++}, $${idx++})`);
         }
 
         if (values.length === 0) continue;
 
         const sql = `INSERT INTO stok_hareketleri (
-      erp_recno, stok_id, cari_hesap_id, islem_tarihi, hareket_tipi, belge_no, miktar, onceki_miktar, sonraki_miktar, toplam_tutar, guncelleme_tarihi
+      erp_recno, stok_id, cari_hesap_id, islem_tarihi, hareket_tipi, belge_tipi, belge_no, fatura_seri_no, fatura_sira_no, miktar, onceki_miktar, sonraki_miktar, toplam_tutar, guncelleme_tarihi
     ) VALUES ${placeholders.join(', ')}
     ON CONFLICT (erp_recno) DO UPDATE SET
       stok_id = EXCLUDED.stok_id,
       cari_hesap_id = EXCLUDED.cari_hesap_id,
       islem_tarihi = EXCLUDED.islem_tarihi,
       hareket_tipi = EXCLUDED.hareket_tipi,
+      belge_tipi = EXCLUDED.belge_tipi,
       belge_no = EXCLUDED.belge_no,
+      fatura_seri_no = EXCLUDED.fatura_seri_no,
+      fatura_sira_no = EXCLUDED.fatura_sira_no,
       miktar = EXCLUDED.miktar,
       onceki_miktar = EXCLUDED.onceki_miktar,
       sonraki_miktar = EXCLUDED.sonraki_miktar,
@@ -528,7 +580,7 @@ async function bulkSyncStokHareket() {
         await bulkSyncCari();
         await bulkSyncCariHareket();
         await bulkSyncStokHareket();
-        
+
         // Eldeki miktar senkronizasyonu
         await eldekiMiktarProcessor.syncToWeb(null, BATCH_SIZE);
 

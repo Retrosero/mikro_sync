@@ -8,6 +8,7 @@ const logger = require('../utils/logger');
 class StokProcessor {
   constructor() {
     this.tableName = 'STOKLAR';
+    this.categoryMap = new Map(); // erp_id -> web_id
   }
 
   /**
@@ -30,6 +31,10 @@ class StokProcessor {
       if (!isFirstSync) {
         logger.info(`Son senkronizasyon: ${lastSyncTime.toLocaleString('tr-TR')}`);
       }
+
+      // Kategorileri belleğe yükle
+      await this.loadCategories();
+      logger.info(`${this.categoryMap.size} kategori eşleşmesi yüklendi.`);
 
       // Değişen kayıtları getir
       const changedRecords = await this.getChangedRecordsFromERP(lastSyncTime);
@@ -72,6 +77,24 @@ class StokProcessor {
   }
 
   /**
+   * Kategorileri veritabanından çeker ve map'e yükler
+   */
+  async loadCategories() {
+    try {
+      const categories = await pgService.query('SELECT id, erp_id FROM kategoriler WHERE erp_id IS NOT NULL');
+      this.categoryMap.clear();
+      for (const cat of categories) {
+        const erpId = cat.erp_id ? cat.erp_id.trim() : null;
+        if (erpId) {
+          this.categoryMap.set(erpId, cat.id);
+        }
+      }
+    } catch (error) {
+      logger.error('Kategori yükleme hatası:', error);
+    }
+  }
+
+  /**
    * ERP'den değişen kayıtları getirir
    * @param {Date|null} lastSyncTime - Son senkronizasyon zamanı
    * @returns {Promise<Array>} Değişen kayıtlar
@@ -89,7 +112,8 @@ class StokProcessor {
       SELECT 
         sto_kod, sto_isim, sto_birim1_ad, sto_standartmaliyet,
         sto_sektor_kodu, sto_reyon_kodu, sto_ambalaj_kodu, 
-        sto_kalkon_kodu, sto_yabanci_isim, sto_lastup_date
+        sto_kalkon_kodu, sto_yabanci_isim, sto_lastup_date,
+        sto_altgrup_kod, sto_anagrup_kod
       FROM STOKLAR
       ${whereClause}
       ORDER BY sto_lastup_date
@@ -106,46 +130,87 @@ class StokProcessor {
     // Stok verilerini transform et
     const webStok = await stokTransformer.transformFromERP(erpStok);
 
-    // Mapping kontrolü
+    // Kategori ID belirle
+    let kategoriId = null;
+    const altGrupKod = erpStok.sto_altgrup_kod ? erpStok.sto_altgrup_kod.trim() : null;
+    const anaGrupKod = erpStok.sto_anagrup_kod ? erpStok.sto_anagrup_kod.trim() : null;
+
+    if (altGrupKod && this.categoryMap.has(altGrupKod)) {
+      kategoriId = this.categoryMap.get(altGrupKod);
+    } else if (anaGrupKod && this.categoryMap.has(anaGrupKod)) {
+      kategoriId = this.categoryMap.get(anaGrupKod);
+    }
+
+    let webStokId = null;
+    let isNew = false;
+
+    // 1. Mapping kontrolü (Stok tablosuyla join yaparak)
     const existingMapping = await pgService.queryOne(
-      'SELECT web_stok_id FROM int_kodmap_stok WHERE erp_stok_kod = $1',
+      `SELECT m.web_stok_id 
+       FROM int_kodmap_stok m
+       JOIN stoklar s ON m.web_stok_id = s.id
+       WHERE m.erp_stok_kod = $1`,
       [erpStok.sto_kod]
     );
 
-    let webStokId;
-
     if (existingMapping) {
-      // Mevcut stok - güncelle
       webStokId = existingMapping.web_stok_id;
+    } else {
+      // 2. Stok kodu kontrolü (Mapping yoksa veya geçersizse)
+      const existingStok = await pgService.queryOne(
+        'SELECT id FROM stoklar WHERE stok_kodu = $1',
+        [webStok.stok_kodu]
+      );
 
+      if (existingStok) {
+        webStokId = existingStok.id;
+
+        // Eski mapping varsa temizle (temizlik için)
+        await pgService.query('DELETE FROM int_kodmap_stok WHERE erp_stok_kod = $1', [erpStok.sto_kod]);
+
+        // Yeni mapping ekle
+        await pgService.query(
+          `INSERT INTO int_kodmap_stok (web_stok_id, erp_stok_kod) VALUES ($1, $2)`,
+          [webStokId, erpStok.sto_kod]
+        );
+      } else {
+        isNew = true;
+      }
+    }
+
+    if (!isNew) {
+      // Mevcut stok - güncelle
       await pgService.query(
         `UPDATE stoklar SET 
           stok_adi = $1, birim_turu = $2, alis_fiyati = $3, 
           satis_fiyati = $4, aciklama = $5, olcu = $6, 
           raf_kodu = $7, ambalaj = $8, koliadeti = $9, 
-          guncelleme_tarihi = NOW()
-         WHERE id = $10`,
+          kategori_id = $10, guncelleme_tarihi = NOW()
+         WHERE id = $11`,
         [
           webStok.stok_adi, webStok.birim_turu, webStok.alis_fiyati,
           webStok.satis_fiyati, webStok.aciklama, webStok.olcu,
           webStok.raf_kodu, webStok.ambalaj, webStok.koliadeti,
-          webStokId
+          kategoriId, webStokId
         ]
       );
       logger.debug(`Stok güncellendi: ${erpStok.sto_kod}`);
     } else {
       // Yeni stok - ekle
+      // Emin olmak için mapping'i tekrar temizle
+      await pgService.query('DELETE FROM int_kodmap_stok WHERE erp_stok_kod = $1', [erpStok.sto_kod]);
+
       const result = await pgService.queryOne(
         `INSERT INTO stoklar (
           stok_kodu, stok_adi, birim_turu, alis_fiyati, satis_fiyati,
-          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif, kategori_id
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         RETURNING id`,
         [
           webStok.stok_kodu, webStok.stok_adi, webStok.birim_turu,
           webStok.alis_fiyati, webStok.satis_fiyati, webStok.aciklama,
           webStok.olcu, webStok.raf_kodu, webStok.ambalaj,
-          webStok.koliadeti, webStok.aktif
+          webStok.koliadeti, webStok.aktif, kategoriId
         ]
       );
 
