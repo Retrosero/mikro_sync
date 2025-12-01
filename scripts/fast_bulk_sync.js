@@ -556,6 +556,11 @@ async function main() {
         console.log('='.repeat(70));
         console.log();
 
+        // 0. Silinen Kayıtlar (En başta çalışmalı)
+        const syncDeletedRecords = require('./sync-deleted-from-erp');
+        await syncDeletedRecords();
+        console.log();
+
         // 1. Temel Veriler
         await bulkSyncCategories();
         await bulkSyncStoklar();
