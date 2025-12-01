@@ -1,0 +1,95 @@
+﻿
+> erp-web-sync@1.0.0 sync
+> node scripts/fast_bulk_sync.js
+
+======================================================================
+HIZLI TOPLU ERP ÔåÆ WEB SENKRONIZASYONU (ULTRA FAST)
+Batch Boyutu: 4000
+======================================================================
+
+======================================================================
+1. KATEGOR─░ SENKRONIZASYONU (ULTRA HIZLI)
+======================================================================
+2025-11-29 13:59:22 [[32minfo[39m] [db-connection]: MS SQL ba─şlant─▒s─▒ ba┼şar─▒l─▒
+5 ana grup bulundu.
+2025-11-29 13:59:22 [[32minfo[39m] [db-connection]: PostgreSQL ba─şlant─▒s─▒ ba┼şar─▒l─▒
+Ô£ô 5 ana grup senkronize edildi (0 yeni, 5 g├╝ncellendi).
+94 alt grup bulundu.
+Ô£ô 94 alt grup senkronize edildi (0 yeni, 94 g├╝ncellendi) - 1.78sn.
+
+======================================================================
+2. STOK SENKRONIZASYONU (ULTRA HIZLI MOD)
+======================================================================
+99 kategori e┼şle┼şmesi y├╝klendi.
+3717 eldeki miktar verisi y├╝klendi.
+Toplam 3937 aktif stok bulundu.
+  Batch tamamland─▒: 3937/3937 stok (3937 kay─▒t, 3.57sn)
+Ô£ô 3937 stok senkronize edildi.
+
+======================================================================
+3. BARKOD SENKRONIZASYONU (ULTRA HIZLI MOD)
+======================================================================
+Toplam 3961 barkod bulundu.
+  Batch tamamland─▒: 3961/3961 barkod (3961 kay─▒t, 1.27sn)
+Ô£ô 3961 barkod senkronize edildi.
+
+======================================================================
+4. F─░YAT SENKRONIZASYONU (ULTRA HIZLI MOD)
+======================================================================
+5 fiyat tan─▒m─▒ y├╝klendi.
+Toplam 11398 fiyat bulundu.
+  Batch tamamland─▒: 4000/11398 fiyat (4000 kay─▒t, 1.52sn)
+  Batch tamamland─▒: 8000/11398 fiyat (4000 kay─▒t, 1.69sn)
+  Batch tamamland─▒: 11398/11398 fiyat (3398 kay─▒t, 1.55sn)
+Ô£ô 11398 fiyat senkronize edildi.
+
+======================================================================
+5. KASA SENKRONIZASYONU
+======================================================================
+2025-11-29 13:59:34 [[32minfo[39m]: Kasa senkronizasyonu ba┼şl─▒yor (─░NKREMENTAL)
+2025-11-29 13:59:34 [[32minfo[39m]: 0 de─şi┼şen kasa bulundu
+2025-11-29 13:59:34 [[32minfo[39m]: Sync state g├╝ncellendi: KASALAR (erp_to_web) - 0 kay─▒t
+2025-11-29 13:59:34 [[32minfo[39m]: Kasa senkronizasyonu tamamland─▒: 0 ba┼şar─▒l─▒, 0 hata
+Ô£ô 0 kasa senkronize edildi.
+
+======================================================================
+6. BANKA SENKRONIZASYONU
+======================================================================
+2025-11-29 13:59:34 [[32minfo[39m]: Banka senkronizasyonu ba┼şl─▒yor (─░NKREMENTAL)
+2025-11-29 13:59:34 [[31merror[39m]: MS SQL sorgu hatas─▒: {"error":"Invalid column name 'ban_iban'."}
+2025-11-29 13:59:34 [[31merror[39m]: Banka senkronizasyon hatas─▒: Invalid column name 'ban_iban'.
+2025-11-29 13:59:35 [[32minfo[39m]: Sync state g├╝ncellendi: BANKALAR (erp_to_web) - 0 kay─▒t
+node.exe : 
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], Remo 
+   teException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+===============================================================
+=======
+Ô£ù SENKRONIZASYON BA┼ŞARISIZ!
+===============================================================
+=======
+Hata: Invalid column name 'ban_iban'.
+Stack: RequestError: Invalid column name 'ban_iban'.
+    at handleError (C:\Users\G├╝rb├╝z Oyuncak\Documents\GitHub\
+mikro_sync\node_modules\mssql\lib\tedious\request.js:384:15)
+    at Connection.emit (node:events:518:28)
+    at Connection.emit (C:\Users\G├╝rb├╝z Oyuncak\Documents\Git
+Hub\mikro_sync\node_modules\tedious\lib\connection.js:959:18)
+    at RequestTokenHandler.onErrorMessage (C:\Users\G├╝rb├╝z Oy
+uncak\Documents\GitHub\mikro_sync\node_modules\tedious\lib\toke
+n\handler.js:285:21)
+    at Readable.<anonymous> (C:\Users\G├╝rb├╝z Oyuncak\Document
+s\GitHub\mikro_sync\node_modules\tedious\lib\token\token-stream
+-parser.js:18:33)
+    at Readable.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushObjectMode (node:internal/streams/re
+adable:538:3)
+    at Readable.push (node:internal/streams/readable:393:5)
+    at nextAsync (node:internal/streams/from:194:22)
+2025-11-29 13:59:35 [[32minfo[39m]: PostgreSQL ba─şlant─▒s─▒ kapat─▒ld─▒
+2025-11-29 13:59:35 [[32minfo[39m]: MS SQL ba─şlant─▒s─▒ kapat─▒ld─▒

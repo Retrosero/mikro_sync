@@ -40,8 +40,8 @@ class StokTransformer {
       return {
         stok_kodu: erpBarkod.bar_stokkodu,
         barkod: erpBarkod.bar_kodu,
-        barkod_tipi: this.getBarkodTipi(erpBarkod.bar_tipi),
-        aktif: erpBarkod.bar_pasif_fl === 0,
+        barkod_tipi: this.getBarkodTipi(erpBarkod.bar_barkodtipi),
+        aktif: erpBarkod.bar_iptal === 0,
         olusturma_tarihi: new Date(),
         guncelleme_tarihi: new Date()
       };

@@ -6,6 +6,7 @@ const logger = require('../utils/logger');
 class StokHareketProcessor {
     constructor() {
         this.tableName = 'STOK_HAREKETLERI';
+        this.BATCH_SIZE = 2000;
     }
 
     async syncToWeb(lastSyncTime = null) {
@@ -16,26 +17,66 @@ class StokHareketProcessor {
                 lastSyncTime = await syncStateService.getLastSyncTime(this.tableName, direction);
             }
 
+            // Web tarafındaki tablo boş mu kontrol et
+            const countResult = await pgService.query('SELECT COUNT(*) as count FROM stok_hareketleri');
+            const isWebTableEmpty = parseInt(countResult[0].count) === 0;
+
+            if (isWebTableEmpty) {
+                logger.info('Web tarafındaki stok_hareketleri tablosu boş, TAM senkronizasyon zorlanıyor.');
+                lastSyncTime = null;
+            }
+
             const isFirstSync = lastSyncTime === null;
             logger.info(`Stok Hareket senkronizasyonu başlıyor (${isFirstSync ? 'TAM' : 'İNKREMENTAL'})`);
 
+            // Tüm kayıtları çek (Bellek sorunu olursa burası da batch yapılmalı ama 64k kayıt sorun olmaz)
             const changedRecords = await this.getChangedRecordsFromERP(lastSyncTime);
-            logger.info(`${changedRecords.length} değişen stok hareket bulundu`);
+            logger.info(`${changedRecords.length} değişen stok hareket bulundu. Bulk işlem başlıyor...`);
 
+            if (changedRecords.length === 0) {
+                return 0;
+            }
+
+            // 1. Gerekli ID'leri önbelleğe al (Stok ve Cari)
+            logger.info('Stok ve Cari ID eşleşmeleri hazırlanıyor...');
+            const stokKodlari = [...new Set(changedRecords.map(r => r.sth_stok_kod).filter(k => k))];
+            const cariKodlari = [...new Set(changedRecords.map(r => r.sth_cari_kodu).filter(k => k))];
+
+            // Stok ID'lerini çek
+            let stokMap = new Map();
+            if (stokKodlari.length > 0) {
+                // Çok fazla parametre hatası almamak için stokları da parça parça çekelim
+                for (let i = 0; i < stokKodlari.length; i += 5000) {
+                    const chunk = stokKodlari.slice(i, i + 5000);
+                    const stoklar = await pgService.query('SELECT id, stok_kodu FROM stoklar WHERE stok_kodu = ANY($1)', [chunk]);
+                    stoklar.forEach(s => stokMap.set(s.stok_kodu, s.id));
+                }
+            }
+
+            // Cari ID'lerini çek
+            let cariMap = new Map();
+            if (cariKodlari.length > 0) {
+                for (let i = 0; i < cariKodlari.length; i += 5000) {
+                    const chunk = cariKodlari.slice(i, i + 5000);
+                    const cariler = await pgService.query('SELECT id, cari_kodu FROM cari_hesaplar WHERE cari_kodu = ANY($1)', [chunk]);
+                    cariler.forEach(c => cariMap.set(c.cari_kodu, c.id));
+                }
+            }
+            logger.info(`Eşleşmeler hazır: ${stokMap.size} stok, ${cariMap.size} cari.`);
+
+            // 2. Batch İşleme
             let processedCount = 0;
             let errorCount = 0;
 
-            for (const erpHareket of changedRecords) {
+            for (let i = 0; i < changedRecords.length; i += this.BATCH_SIZE) {
+                const batch = changedRecords.slice(i, i + this.BATCH_SIZE);
                 try {
-                    await this.syncSingleHareketToWeb(erpHareket);
-                    processedCount++;
-
-                    if (processedCount % 100 === 0) {
-                        logger.info(`  ${processedCount}/${changedRecords.length} hareket işlendi...`);
-                    }
+                    await this.processBatch(batch, stokMap, cariMap);
+                    processedCount += batch.length;
+                    logger.info(`  ${processedCount}/${changedRecords.length} hareket işlendi...`);
                 } catch (error) {
-                    errorCount++;
-                    logger.error(`Stok Hareket senkronizasyon hatası (RECno: ${erpHareket.sth_RECno}):`, error.message);
+                    errorCount += batch.length;
+                    logger.error(`Batch hatası (${i}-${i + batch.length}):`, error.message);
                 }
             }
 
@@ -73,6 +114,8 @@ class StokHareketProcessor {
         sth_stok_kod, sth_cari_kodu,
         sth_miktar, sth_tutar, sth_vergi,
         sth_tip, sth_cins, sth_normal_iade, sth_evraktip,
+        sth_fat_recid_recno,
+        sth_iskonto1, sth_iskonto2, sth_iskonto3, sth_iskonto4, sth_iskonto5, sth_iskonto6,
         sth_lastup_date
       FROM STOK_HAREKETLERI
       ${whereClause}
@@ -82,45 +125,92 @@ class StokHareketProcessor {
         return await mssqlService.query(query, params);
     }
 
-    async syncSingleHareketToWeb(erpHareket) {
-        // Web tarafındaki tablo yapısını varsayıyoruz
-        // stok_hareketleri: erp_recno, stok_id, cari_hesap_id, tarih, belge_no, miktar, tutar, guncelleme_tarihi
+    async processBatch(batch, stokMap, cariMap) {
+        const rows = [];
 
-        const webHareket = {
-            erp_recno: erpHareket.sth_RECno,
-            stok_kodu: erpHareket.sth_stok_kod,
-            cari_kodu: erpHareket.sth_cari_kodu,
-            tarih: erpHareket.sth_tarih,
-            belge_no: (erpHareket.sth_evrakno_seri || '') + (erpHareket.sth_evrakno_sira || ''),
-            miktar: erpHareket.sth_miktar,
-            tutar: erpHareket.sth_tutar,
-            guncelleme_tarihi: new Date()
-        };
+        for (const erpHareket of batch) {
+            const stokId = stokMap.get(erpHareket.sth_stok_kod);
+            // Stok bulunamazsa hareketi atla veya logla (burada atlıyoruz ama istenirse null ile de gidilebilir)
+            if (!stokId) continue;
 
-        await pgService.query(`
-      INSERT INTO stok_hareketleri (
-        erp_recno, stok_id, cari_hesap_id, tarih, belge_no, miktar, tutar, guncelleme_tarihi
-      )
-      VALUES (
-        $1, 
-        (SELECT id FROM stoklar WHERE stok_kodu = $2 LIMIT 1),
-        (SELECT id FROM cari_hesaplar WHERE cari_kodu = $3 LIMIT 1),
-        $4, $5, $6, $7, $8
-      )
-      ON CONFLICT (erp_recno) 
-      DO UPDATE SET 
-        stok_id = (SELECT id FROM stoklar WHERE stok_kodu = $2 LIMIT 1),
-        cari_hesap_id = (SELECT id FROM cari_hesaplar WHERE cari_kodu = $3 LIMIT 1),
-        tarih = EXCLUDED.tarih,
-        belge_no = EXCLUDED.belge_no,
-        miktar = EXCLUDED.miktar,
-        tutar = EXCLUDED.tutar,
-        guncelleme_tarihi = EXCLUDED.guncelleme_tarihi
-    `, [
-            webHareket.erp_recno, webHareket.stok_kodu, webHareket.cari_kodu,
-            webHareket.tarih, webHareket.belge_no, webHareket.miktar,
-            webHareket.tutar, webHareket.guncelleme_tarihi
-        ]);
+            const cariId = cariMap.get(erpHareket.sth_cari_kodu) || null;
+            const hareketTipi = erpHareket.sth_tip === 0 ? 'giris' : 'cikis';
+            const belgeTipi = 'fatura';
+
+            rows.push({
+                erp_recno: erpHareket.sth_RECno,
+                stok_id: stokId,
+                cari_hesap_id: cariId,
+                islem_tarihi: erpHareket.sth_tarih,
+                belge_no: (erpHareket.sth_evrakno_seri || '') + (erpHareket.sth_evrakno_sira || ''),
+                miktar: erpHareket.sth_miktar,
+                toplam_tutar: erpHareket.sth_tutar,
+                guncelleme_tarihi: new Date(),
+                fatura_seri_no: erpHareket.sth_evrakno_seri,
+                fatura_sira_no: erpHareket.sth_evrakno_sira,
+                fat_recid_recno: erpHareket.sth_fat_recid_recno,
+                hareket_tipi: hareketTipi,
+                belge_tipi: belgeTipi,
+                onceki_miktar: 0,
+                sonraki_miktar: 0,
+                iskonto1: erpHareket.sth_iskonto1 || 0,
+                iskonto2: erpHareket.sth_iskonto2 || 0,
+                iskonto3: erpHareket.sth_iskonto3 || 0,
+                iskonto4: erpHareket.sth_iskonto4 || 0,
+                iskonto5: erpHareket.sth_iskonto5 || 0,
+                iskonto6: erpHareket.sth_iskonto6 || 0
+            });
+        }
+
+        if (rows.length === 0) return;
+
+        const columns = [
+            'erp_recno', 'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
+            'miktar', 'toplam_tutar', 'guncelleme_tarihi', 'fatura_seri_no',
+            'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+        ];
+
+        const updateColumns = [
+            'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
+            'miktar', 'toplam_tutar', 'guncelleme_tarihi', 'fatura_seri_no',
+            'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+        ];
+
+        const { query, values } = this.buildBulkUpsertQuery(
+            'stok_hareketleri',
+            columns,
+            rows,
+            'erp_recno',
+            updateColumns
+        );
+
+        await pgService.query(query, values);
+    }
+
+    buildBulkUpsertQuery(tableName, columns, rows, conflictTarget, updateColumns) {
+        const placeholders = [];
+        const values = [];
+        let paramIndex = 1;
+
+        rows.forEach(row => {
+            const rowPlaceholders = [];
+            columns.forEach(col => {
+                rowPlaceholders.push(`$${paramIndex++}`);
+                values.push(row[col]);
+            });
+            placeholders.push(`(${rowPlaceholders.join(', ')})`);
+        });
+
+        let query = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES ${placeholders.join(', ')}`;
+
+        if (conflictTarget) {
+            query += ` ON CONFLICT (${conflictTarget}) DO UPDATE SET `;
+            query += updateColumns.map(col => `${col} = EXCLUDED.${col}`).join(', ');
+        }
+
+        return { query, values };
     }
 }
 
