@@ -6,7 +6,7 @@ class SatisTransformer {
   async transformSatisBaslik(webSatis) {
     try {
       const cariKod = await lookupTables.getCariKod(webSatis.cari_hesap_id);
-      
+
       if (!cariKod) {
         throw new Error(`Cari mapping bulunamadı: ${webSatis.cari_hesap_id}`);
       }
@@ -14,7 +14,7 @@ class SatisTransformer {
       // Ödeme şekline göre cha_tpoz ve cha_cari_cins belirleme
       let chaTpoz = 0;
       let chaCariCins = 0;
-      
+
       if (webSatis.odeme_sekli === 'veresiye' || webSatis.odeme_sekli === 'acikhesap') {
         chaTpoz = 0;
         chaCariCins = 0;
@@ -41,7 +41,18 @@ class SatisTransformer {
         cha_evrak_tip: 63,
         cha_tip: 0,
         cha_cinsi: 6,
-        cha_normal_iade: 0
+        cha_normal_Iade: 0,
+        // Standart Değerler
+        cha_d_cins: 0, // TL
+        cha_d_kur: 1,
+        cha_altd_kur: 1,
+        cha_karsid_kur: 1,
+        cha_create_user: 1,
+        cha_lastup_user: 1,
+        cha_firmano: 0,
+        cha_subeno: 0,
+        cha_kasa_hizmet: 0,
+        cha_kasa_hizkod: ''
       };
     } catch (error) {
       logger.error('Satış başlık transform hatası:', error);

@@ -6,7 +6,7 @@ class TahsilatTransformer {
   async transformTahsilat(webTahsilat) {
     try {
       const cariKod = await lookupTables.getCariKod(webTahsilat.cari_hesap_id);
-      
+
       if (!cariKod) {
         throw new Error(`Cari mapping bulunamadı: ${webTahsilat.cari_hesap_id}`);
       }
@@ -56,10 +56,21 @@ class TahsilatTransformer {
         cha_evrak_tip: chaEvrakTip,
         cha_tip: 1,
         cha_cinsi: 0,
-        cha_normal_iade: 0,
+        cha_normal_Iade: 0,
         cha_evrakno_sira: webTahsilat.tahsilat_sira_no,
         cha_evrakno_seri: webTahsilat.tahsilat_seri_no || '',
-        cha_vade: webTahsilat.vade_tarihi || webTahsilat.tahsilat_tarihi
+        cha_vade: 0, // Trace'de 0 görünüyor (integer gün sayısı olabilir)
+        // Standart Değerler
+        cha_d_cins: 0, // TL
+        cha_d_kur: 1,
+        cha_altd_kur: 1,
+        cha_karsid_kur: 1,
+        cha_create_user: 1,
+        cha_lastup_user: 1,
+        cha_firmano: 0,
+        cha_subeno: 0,
+        cha_kasa_hizmet: 0,
+        cha_kasa_hizkod: ''
       };
     } catch (error) {
       logger.error('Tahsilat transform hatası:', error);
@@ -88,7 +99,8 @@ class TahsilatTransformer {
         sck_tip: 0, // Müşteriden alınan
         sck_doviz: 1, // TL
         sck_odenen: 0, // Henüz ödenmedi
-        sck_iptal: 0
+        sck_iptal: 0,
+        sck_refno: `WEB-${webTahsilat.tahsilat_tipi === 'cek' ? 'CEK' : 'SEN'}-${new Date().getFullYear()}-${webTahsilat.id.substring(0, 8)}`
       };
     } catch (error) {
       logger.error('Ödeme emri transform hatası:', error);
@@ -97,10 +109,10 @@ class TahsilatTransformer {
   }
 
   formatCekAciklama(cekNo, bankaAdi, subeAdi, hesapNo) {
-    return '/' + 
-      (cekNo || '') + '/' + 
-      (bankaAdi || '') + '/' + 
-      (subeAdi || '') + '/' + 
+    return '/' +
+      (cekNo || '') + '/' +
+      (bankaAdi || '') + '/' +
+      (subeAdi || '') + '/' +
       (hesapNo || '');
   }
 
