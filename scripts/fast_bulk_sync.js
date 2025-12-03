@@ -620,6 +620,14 @@ async function main() {
         console.log(`✓ ${cariHareketCount} cari hareket senkronize edildi.`);
         console.log();
 
+        console.log('='.repeat(70));
+        console.log('11. DEPO SENKRONIZASYONU');
+        console.log('='.repeat(70));
+        const depoProcessor = require('../sync-jobs/depo.processor');
+        const depoCount = await depoProcessor.syncToWeb(null);
+        console.log(`✓ ${depoCount} depo senkronize edildi.`);
+        console.log();
+
         // NOT: Satış ve Tahsilat processor'ları Web->ERP yönünde çalışıyor
         // ERP->Web senkronizasyonu için ayrı processor'lar gerekiyor
 
