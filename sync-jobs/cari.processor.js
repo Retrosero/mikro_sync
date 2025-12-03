@@ -6,6 +6,7 @@ const logger = require('../utils/logger');
 class CariProcessor {
     constructor() {
         this.tableName = 'CARI_HESAPLAR';
+        this.BATCH_SIZE = 2000;
     }
 
     async syncToWeb(lastSyncTime = null) {
@@ -25,17 +26,16 @@ class CariProcessor {
             let processedCount = 0;
             let errorCount = 0;
 
-            for (const erpCari of changedRecords) {
+            // Batch işleme
+            for (let i = 0; i < changedRecords.length; i += this.BATCH_SIZE) {
+                const batch = changedRecords.slice(i, i + this.BATCH_SIZE);
                 try {
-                    await this.syncSingleCariToWeb(erpCari);
-                    processedCount++;
-
-                    if (processedCount % 100 === 0) {
-                        logger.info(`  ${processedCount}/${changedRecords.length} cari işlendi...`);
-                    }
+                    await this.processBatch(batch);
+                    processedCount += batch.length;
+                    logger.info(`  ${processedCount}/${changedRecords.length} cari işlendi...`);
                 } catch (error) {
-                    errorCount++;
-                    logger.error(`Cari senkronizasyon hatası (${erpCari.cari_kod}):`, error.message);
+                    errorCount += batch.length;
+                    logger.error(`Batch hatası (${i}-${i + batch.length}):`, error.message);
                 }
             }
 
@@ -79,6 +79,57 @@ class CariProcessor {
     `;
 
         return await mssqlService.query(query, params);
+    }
+
+    async processBatch(batch) {
+        if (batch.length === 0) return;
+
+        const rows = batch.map(erpCari => ({
+            cari_kodu: erpCari.cari_kod,
+            cari_adi: (erpCari.cari_unvan1 + ' ' + (erpCari.cari_unvan2 || '')).trim(),
+            telefon: erpCari.cari_CepTel,
+            eposta: erpCari.cari_EMail,
+            vergi_dairesi: erpCari.cari_vdaire_adi,
+            vergi_no: erpCari.cari_vdaire_no,
+            guncelleme_tarihi: new Date()
+        }));
+
+        const columns = ['cari_kodu', 'cari_adi', 'telefon', 'eposta', 'vergi_dairesi', 'vergi_no', 'guncelleme_tarihi'];
+        const updateColumns = ['cari_adi', 'telefon', 'eposta', 'vergi_dairesi', 'vergi_no', 'guncelleme_tarihi'];
+
+        const { query, values } = this.buildBulkUpsertQuery(
+            'cari_hesaplar',
+            columns,
+            rows,
+            'cari_kodu',
+            updateColumns
+        );
+
+        await pgService.query(query, values);
+    }
+
+    buildBulkUpsertQuery(tableName, columns, rows, conflictTarget, updateColumns) {
+        const placeholders = [];
+        const values = [];
+        let paramIndex = 1;
+
+        rows.forEach(row => {
+            const rowPlaceholders = [];
+            columns.forEach(col => {
+                rowPlaceholders.push(`$${paramIndex++}`);
+                values.push(row[col]);
+            });
+            placeholders.push(`(${rowPlaceholders.join(', ')})`);
+        });
+
+        let query = `INSERT INTO ${tableName} (${columns.join(', ')}) VALUES ${placeholders.join(', ')}`;
+
+        if (conflictTarget) {
+            query += ` ON CONFLICT (${conflictTarget}) DO UPDATE SET `;
+            query += updateColumns.map(col => `${col} = EXCLUDED.${col}`).join(', ');
+        }
+
+        return { query, values };
     }
 
     async syncSingleCariToWeb(erpCari) {

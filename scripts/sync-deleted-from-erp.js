@@ -103,6 +103,38 @@ async function syncDeletedRecords() {
                         }
                     }
                     success = true;
+
+                } else if (log.table_name === 'CARI_HESAP_HAREKETLERI') {
+                    // Cari hareket silindiğinde: record_id = cha_RECno
+                    const recno = parseInt(log.record_id);
+
+                    const deleted = await pgService.query(
+                        'DELETE FROM cari_hesap_hareketleri WHERE erp_recno = $1',
+                        [recno]
+                    );
+
+                    if (deleted.rowCount > 0) {
+                        console.log(`✓ Cari hareket silindi: RECno ${recno}`);
+                    } else {
+                        console.log(`! Cari hareket bulunamadı: RECno ${recno}`);
+                    }
+                    success = true;
+
+                } else if (log.table_name === 'STOK_HAREKETLERI') {
+                    // Stok hareket silindiğinde: record_id = sth_RECno
+                    const recno = parseInt(log.record_id);
+
+                    const deleted = await pgService.query(
+                        'DELETE FROM stok_hareketleri WHERE erp_recno = $1',
+                        [recno]
+                    );
+
+                    if (deleted.rowCount > 0) {
+                        console.log(`✓ Stok hareket silindi: RECno ${recno}`);
+                    } else {
+                        console.log(`! Stok hareket bulunamadı: RECno ${recno}`);
+                    }
+                    success = true;
                 }
 
                 if (success) {

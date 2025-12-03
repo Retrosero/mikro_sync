@@ -9,6 +9,20 @@ class StokHareketProcessor {
         this.BATCH_SIZE = 2000;
     }
 
+    // ERP vergi kodunu (sth_vergi_pntr) KDV oranına çevir
+    mapVergiPntrToKdvOrani(vergiPntr) {
+        const mapping = {
+            0: 0,   // Tanımsız Vergi
+            1: 0,   // YOK
+            2: 1,   // VERGİ %1
+            3: 10,  // VERGİ %10
+            4: 20,  // VERGİ %20
+            5: 26,  // VERGİ %26
+            6: 0    // VERGİ ÖZEL MATRAJ
+        };
+        return mapping[vergiPntr] !== undefined ? mapping[vergiPntr] : 0;
+    }
+
     async syncToWeb(lastSyncTime = null) {
         try {
             const direction = 'erp_to_web';
@@ -112,7 +126,7 @@ class StokHareketProcessor {
         sth_RECno, sth_tarih, sth_belge_tarih,
         sth_evrakno_sira, sth_evrakno_seri,
         sth_stok_kod, sth_cari_kodu,
-        sth_miktar, sth_tutar, sth_vergi,
+        sth_miktar, sth_tutar, sth_vergi, sth_vergi_pntr,
         sth_tip, sth_cins, sth_normal_iade, sth_evraktip,
         sth_fat_recid_recno,
         sth_iskonto1, sth_iskonto2, sth_iskonto3, sth_iskonto4, sth_iskonto5, sth_iskonto6,
@@ -145,6 +159,8 @@ class StokHareketProcessor {
                 belge_no: (erpHareket.sth_evrakno_seri || '') + (erpHareket.sth_evrakno_sira || ''),
                 miktar: erpHareket.sth_miktar,
                 toplam_tutar: erpHareket.sth_tutar,
+                kdv_orani: this.mapVergiPntrToKdvOrani(erpHareket.sth_vergi_pntr || 0),
+                kdv_tutari: erpHareket.sth_vergi || 0,
                 guncelleme_tarihi: new Date(),
                 fatura_seri_no: erpHareket.sth_evrakno_seri,
                 fatura_sira_no: erpHareket.sth_evrakno_sira,
@@ -166,14 +182,14 @@ class StokHareketProcessor {
 
         const columns = [
             'erp_recno', 'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
-            'miktar', 'toplam_tutar', 'guncelleme_tarihi', 'fatura_seri_no',
+            'miktar', 'toplam_tutar', 'kdv_orani', 'kdv_tutari', 'guncelleme_tarihi', 'fatura_seri_no',
             'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
             'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
         ];
 
         const updateColumns = [
             'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
-            'miktar', 'toplam_tutar', 'guncelleme_tarihi', 'fatura_seri_no',
+            'miktar', 'toplam_tutar', 'kdv_orani', 'kdv_tutari', 'guncelleme_tarihi', 'fatura_seri_no',
             'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
             'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
         ];
