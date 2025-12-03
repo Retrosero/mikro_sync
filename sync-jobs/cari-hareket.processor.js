@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
 class CariHareketProcessor {
     constructor() {
         this.tableName = 'CARI_HESAP_HAREKETLERI';
-        this.BATCH_SIZE = 4000;
+        this.BATCH_SIZE = 2000;
     }
 
     // ERP'den gelen hareket bilgilerine göre hareket tipini belirle
@@ -102,23 +102,29 @@ class CariHareketProcessor {
                 return 0;
             }
 
-            // 1. Banka kodlarını al
+            // 1. Banka ve Kasa kodlarını al
             const bankaKodlari = await mssqlService.query('SELECT ban_kod FROM BANKALAR');
-            const bankaKodSet = new Set(bankaKodlari.map(b => b.ban_kod));
-            logger.info(`${bankaKodSet.size} banka kodu yüklendi.`);
+            const kasaKodlari = await mssqlService.query('SELECT kas_kod FROM KASALAR');
+
+            const ozelKodSet = new Set([
+                ...bankaKodlari.map(b => b.ban_kod),
+                ...kasaKodlari.map(k => k.kas_kod)
+            ]);
+
+            logger.info(`${ozelKodSet.size} özel kod (Banka+Kasa) yüklendi.`);
 
             // 2. Gerekli ID'leri önbelleğe al (Cari)
             logger.info('Cari ID eşleşmeleri hazırlanıyor...');
 
-            // Normal cari kodları (banka kodu olmayanlar)
+            // Normal cari kodları (özel kod olmayanlar)
             const cariKodlari = [...new Set(changedRecords
-                .filter(r => !bankaKodSet.has(r.cha_kod))
+                .filter(r => !ozelKodSet.has(r.cha_kod))
                 .map(r => r.cha_kod)
                 .filter(k => k))];
 
-            // Banka işlemlerindeki müşteri isimleri
+            // Özel kodlu işlemlerdeki müşteri isimleri
             const cariIsimleri = [...new Set(changedRecords
-                .filter(r => bankaKodSet.has(r.cha_kod) && r.cha_ciro_cari_kodu)
+                .filter(r => ozelKodSet.has(r.cha_kod) && r.cha_ciro_cari_kodu)
                 .map(r => r.cha_ciro_cari_kodu.trim())
                 .filter(i => i))];
 
@@ -168,7 +174,7 @@ class CariHareketProcessor {
             for (let i = 0; i < changedRecords.length; i += this.BATCH_SIZE) {
                 const batch = changedRecords.slice(i, i + this.BATCH_SIZE);
                 try {
-                    await this.processBatch(batch, cariMapByKod, cariMapByAdi, bankaKodSet);
+                    await this.processBatch(batch, cariMapByKod, cariMapByAdi, ozelKodSet);
                     processedCount += batch.length;
                     logger.info(`  ${processedCount}/${changedRecords.length} hareket işlendi...`);
                 } catch (error) {
@@ -220,7 +226,7 @@ class CariHareketProcessor {
         return await mssqlService.query(query, params);
     }
 
-    async processBatch(batch, cariMapByKod, cariMapByAdi, bankaKodSet) {
+    async processBatch(batch, cariMapByKod, cariMapByAdi, ozelKodSet) {
         const rows = [];
 
         // Debug için ilk kaydı logla
@@ -237,7 +243,7 @@ class CariHareketProcessor {
         for (const erpHareket of batch) {
             // Banka/Kasa işlemi kontrolü
             let cariId;
-            if (bankaKodSet.has(erpHareket.cha_kod) && erpHareket.cha_ciro_cari_kodu) {
+            if (ozelKodSet.has(erpHareket.cha_kod) && erpHareket.cha_ciro_cari_kodu) {
                 // Banka/Kasa işlemi - isim ile eşleştir
                 cariId = cariMapByAdi.get(erpHareket.cha_ciro_cari_kodu.trim());
             } else {
@@ -260,6 +266,9 @@ class CariHareketProcessor {
                 erpHareket.cha_cari_cins
             );
 
+            // Banka kodu belirle (Eğer özel kod ise)
+            const bankaKodu = ozelKodSet.has(erpHareket.cha_kod) ? erpHareket.cha_kod : null;
+
             const belgeTipi = 'fatura';
 
             rows.push({
@@ -278,7 +287,8 @@ class CariHareketProcessor {
                 onceki_bakiye: 0,
                 sonraki_bakiye: 0,
                 cha_recno: erpHareket.cha_RECno,
-                cha_kasa_hizkod: erpHareket.cha_kasa_hizkod
+                cha_kasa_hizkod: erpHareket.cha_kasa_hizkod,
+                banka_kodu: bankaKodu
             });
         }
 
@@ -287,13 +297,13 @@ class CariHareketProcessor {
         const columns = [
             'erp_recno', 'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
-            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod'
+            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod', 'banka_kodu'
         ];
 
         const updateColumns = [
             'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
-            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod'
+            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod', 'banka_kodu'
         ];
 
         const { query, values } = this.buildBulkUpsertQuery(
