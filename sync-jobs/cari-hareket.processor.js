@@ -102,19 +102,64 @@ class CariHareketProcessor {
                 return 0;
             }
 
-            // 1. Gerekli ID'leri önbelleğe al (Cari)
-            logger.info('Cari ID eşleşmeleri hazırlanıyor...');
-            const cariKodlari = [...new Set(changedRecords.map(r => r.cha_kod).filter(k => k))];
+            // 1. Banka kodlarını al
+            const bankaKodlari = await mssqlService.query('SELECT ban_kod FROM BANKALAR');
+            const bankaKodSet = new Set(bankaKodlari.map(b => b.ban_kod));
+            logger.info(`${bankaKodSet.size} banka kodu yüklendi.`);
 
-            let cariMap = new Map();
+            // 2. Gerekli ID'leri önbelleğe al (Cari)
+            logger.info('Cari ID eşleşmeleri hazırlanıyor...');
+
+            // Normal cari kodları (banka kodu olmayanlar)
+            const cariKodlari = [...new Set(changedRecords
+                .filter(r => !bankaKodSet.has(r.cha_kod))
+                .map(r => r.cha_kod)
+                .filter(k => k))];
+
+            // Banka işlemlerindeki müşteri isimleri
+            const cariIsimleri = [...new Set(changedRecords
+                .filter(r => bankaKodSet.has(r.cha_kod) && r.cha_ciro_cari_kodu)
+                .map(r => r.cha_ciro_cari_kodu.trim())
+                .filter(i => i))];
+
+            let cariMapByKod = new Map();
+            let cariMapByAdi = new Map();
+
+            // Kod ile mapping
             if (cariKodlari.length > 0) {
                 for (let i = 0; i < cariKodlari.length; i += 5000) {
                     const chunk = cariKodlari.slice(i, i + 5000);
                     const cariler = await pgService.query('SELECT id, cari_kodu FROM cari_hesaplar WHERE cari_kodu = ANY($1)', [chunk]);
-                    cariler.forEach(c => cariMap.set(c.cari_kodu, c.id));
+                    cariler.forEach(c => cariMapByKod.set(c.cari_kodu, c.id));
                 }
             }
-            logger.info(`Eşleşmeler hazır: ${cariMap.size} cari.`);
+
+            // İsim ile mapping (hem tam hem kısmi eşleşme)
+            if (cariIsimleri.length > 0) {
+                for (let i = 0; i < cariIsimleri.length; i += 5000) {
+                    const chunk = cariIsimleri.slice(i, i + 5000);
+
+                    // Önce tam eşleşme dene
+                    const tamEslesen = await pgService.query('SELECT id, cari_adi FROM cari_hesaplar WHERE cari_adi = ANY($1)', [chunk]);
+                    tamEslesen.forEach(c => cariMapByAdi.set(c.cari_adi, c.id));
+
+                    // Tam eşleşmeyen isimleri bul
+                    const eslesmeyenler = chunk.filter(isim => !cariMapByAdi.has(isim));
+
+                    // cari_kodu ile eşleştir
+                    for (const isim of eslesmeyenler) {
+                        const cariKodEslesen = await pgService.query(
+                            'SELECT id, cari_kodu FROM cari_hesaplar WHERE cari_kodu = $1 LIMIT 1',
+                            [isim]
+                        );
+                        if (cariKodEslesen.length > 0) {
+                            cariMapByAdi.set(isim, cariKodEslesen[0].id);
+                        }
+                    }
+                }
+            }
+
+            logger.info(`Eşleşmeler hazır: ${cariMapByKod.size} kod, ${cariMapByAdi.size} isim.`);
 
             // 2. Batch İşleme
             let processedCount = 0;
@@ -123,7 +168,7 @@ class CariHareketProcessor {
             for (let i = 0; i < changedRecords.length; i += this.BATCH_SIZE) {
                 const batch = changedRecords.slice(i, i + this.BATCH_SIZE);
                 try {
-                    await this.processBatch(batch, cariMap);
+                    await this.processBatch(batch, cariMapByKod, cariMapByAdi, bankaKodSet);
                     processedCount += batch.length;
                     logger.info(`  ${processedCount}/${changedRecords.length} hareket işlendi...`);
                 } catch (error) {
@@ -175,7 +220,7 @@ class CariHareketProcessor {
         return await mssqlService.query(query, params);
     }
 
-    async processBatch(batch, cariMap) {
+    async processBatch(batch, cariMapByKod, cariMapByAdi, bankaKodSet) {
         const rows = [];
 
         // Debug için ilk kaydı logla
@@ -190,12 +235,16 @@ class CariHareketProcessor {
         }
 
         for (const erpHareket of batch) {
-            // cha_kod='001' ise cha_ciro_cari_kodu'nu kullan (kasa/banka işlemleri)
-            const cariKod = erpHareket.cha_kod === '001' && erpHareket.cha_ciro_cari_kodu
-                ? erpHareket.cha_ciro_cari_kodu
-                : erpHareket.cha_kod;
+            // Banka/Kasa işlemi kontrolü
+            let cariId;
+            if (bankaKodSet.has(erpHareket.cha_kod) && erpHareket.cha_ciro_cari_kodu) {
+                // Banka/Kasa işlemi - isim ile eşleştir
+                cariId = cariMapByAdi.get(erpHareket.cha_ciro_cari_kodu.trim());
+            } else {
+                // Normal işlem - kod ile eşleştir
+                cariId = cariMapByKod.get(erpHareket.cha_kod);
+            }
 
-            const cariId = cariMap.get(cariKod);
             if (!cariId) continue;
 
             const hareketTipi = this.mapHareketTipi(
