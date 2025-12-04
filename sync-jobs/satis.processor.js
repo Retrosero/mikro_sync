@@ -35,7 +35,7 @@ class SatisProcessor {
       }
 
       // Transaction başlat
-      let evrakSeri, evrakNo;
+      let evrakSeri, evrakNo, chaRecno;
       await mssqlService.transaction(async (transaction) => {
         // 1. Başlık verilerini hazırla
         const baslikData = await satisTransformer.transformSatisBaslik(webSatis);
@@ -78,7 +78,7 @@ class SatisProcessor {
         evrakNo = baslikData.cha_evrakno_sira;
 
         // 2. Cari hareket oluştur (her durumda - muhasebe programı için gerekli)
-        const chaRecno = await this.insertCariHareket(baslikData, transaction);
+        chaRecno = await this.insertCariHareket(baslikData, transaction);
 
         // RECid_RECno güncelle
         await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
@@ -117,16 +117,17 @@ class SatisProcessor {
       // Web'de de cari hareket kaydı oluştur (erp_recno ile)
       await pgService.query(`
         INSERT INTO cari_hesap_hareketleri (
-          erp_recno, cari_hesap_id, islem_tarihi, belge_no, tutar, aciklama,
+          erp_recno, cha_recno, cari_hesap_id, islem_tarihi, belge_no, tutar, aciklama,
           fatura_seri_no, fatura_sira_no, hareket_tipi, hareket_turu, belge_tipi,
-          guncelleme_tarihi
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+          onceki_bakiye, sonraki_bakiye, guncelleme_tarihi
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, NOW())
         ON CONFLICT (erp_recno) DO UPDATE SET
           cari_hesap_id = EXCLUDED.cari_hesap_id,
           tutar = EXCLUDED.tutar,
           guncelleme_tarihi = NOW()
       `, [
         chaRecno,
+        chaRecno, // cha_recno alanına da aynı değer
         webSatis.cari_hesap_id,
         webSatis.satis_tarihi,
         evrakSeri + evrakNo,
@@ -136,7 +137,9 @@ class SatisProcessor {
         evrakNo,
         'Satış',
         webSatis.hareket_turu || 'Açık Hesap',
-        'fatura'
+        'fatura',
+        0, // onceki_bakiye
+        0  // sonraki_bakiye
       ]);
 
     } catch (error) {
