@@ -12,6 +12,17 @@ class SatisProcessor {
 
   async syncToERP(webSatis) {
     try {
+      // Mükerrer kayıt kontrolü (int_satis_mapping tablosundan)
+      const existing = await pgService.query(
+        'SELECT erp_evrak_seri, erp_evrak_no FROM int_satis_mapping WHERE web_satis_id = $1',
+        [webSatis.id]
+      );
+
+      if (existing.length > 0) {
+        logger.warn(`Bu satış zaten ERP'ye aktarılmış: ${webSatis.id}, Evrak: ${existing[0].erp_evrak_seri}-${existing[0].erp_evrak_no}`);
+        return;
+      }
+
       // Satış kalemlerini çek
       const kalemler = await pgService.query(
         'SELECT * FROM satis_kalemleri WHERE satis_id = $1 ORDER BY sira_no',
@@ -24,36 +35,53 @@ class SatisProcessor {
       }
 
       // Transaction başlat
+      let evrakSeri, evrakNo;
       await mssqlService.transaction(async (transaction) => {
         // 1. Başlık verilerini hazırla
         const baslikData = await satisTransformer.transformSatisBaslik(webSatis);
 
         // Sıra numarası kontrolü - her zaman yeni numara al
         if (!baslikData.cha_evrakno_sira) {
+          // Önce mapping tablosundan en büyük numarayı al
+          const mappingMax = await pgService.query(
+            'SELECT COALESCE(MAX(erp_evrak_no), 0) + 1 as max_no FROM int_satis_mapping WHERE erp_evrak_seri = $1',
+            [baslikData.cha_evrakno_seri]
+          );
+
           // Son evrak numarasını al ve 1 artır
           const request = transaction.request();
           request.input('evrak_tip', baslikData.cha_evrak_tip);
           request.input('evrakno_seri', baslikData.cha_evrakno_seri);
-          
+
           const result = await request.query(`
-            SELECT ISNULL(MAX(cha_evrakno_sira), 0) + 1 as yeni_evrak_no
-            FROM CARI_HESAP_HAREKETLERI
-            WHERE cha_evrak_tip = @evrak_tip AND cha_evrakno_seri = @evrakno_seri
+            SELECT MAX(MaxNo) as yeni_evrak_no FROM (
+                SELECT ISNULL(MAX(cha_evrakno_sira), 0) + 1 as MaxNo
+                FROM CARI_HESAP_HAREKETLERI
+                WHERE cha_evrak_tip = @evrak_tip AND cha_evrakno_seri = @evrakno_seri
+                UNION ALL
+                SELECT ISNULL(MAX(sth_evrakno_sira), 0) + 1 as MaxNo
+                FROM STOK_HAREKETLERI
+                WHERE sth_evraktip = @evrak_tip AND sth_evrakno_seri = @evrakno_seri
+            ) as T
           `);
-          
-          baslikData.cha_evrakno_sira = result.recordset[0].yeni_evrak_no;
-          logger.info(`Yeni evrak numarası alındı: ${baslikData.cha_evrakno_sira}`);
+
+          // İki sonuçtan en büyüğünü al
+          const erpMax = result.recordset[0].yeni_evrak_no;
+          const webMax = mappingMax[0].max_no;
+          baslikData.cha_evrakno_sira = Math.max(erpMax, webMax);
+
+          logger.info(`Yeni evrak numarası alındı: ${baslikData.cha_evrakno_sira} (ERP: ${erpMax}, Web: ${webMax})`);
         }
 
-        // 2. Sadece veresiye satışlarda başlık yaz
-        let chaRecno = null;
-        if (webSatis.odeme_sekli === 'veresiye' || webSatis.odeme_sekli === 'acikhesap') {
-          // CARI_HESAP_HAREKETLERI'ne ekle
-          chaRecno = await this.insertCariHareket(baslikData, transaction);
+        // Evrak bilgilerini kaydet
+        evrakSeri = baslikData.cha_evrakno_seri;
+        evrakNo = baslikData.cha_evrakno_sira;
 
-          // RECid_RECno güncelle
-          await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
-        }
+        // 2. Cari hareket oluştur (her durumda - muhasebe programı için gerekli)
+        const chaRecno = await this.insertCariHareket(baslikData, transaction);
+
+        // RECid_RECno güncelle
+        await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
 
         // 3. Satır verilerini yaz
         let satirNo = 0; // Satır numarası 0'dan başlayacak
@@ -63,7 +91,7 @@ class SatisProcessor {
           // Başlıktaki evrak numarasını kullan
           satirData.sth_evrakno_sira = baslikData.cha_evrakno_sira;
           satirData.sth_evrakno_seri = baslikData.cha_evrakno_seri;
-          
+
           // Satır numarasını ayarla
           satirData.sth_satirno = satirNo;
 
@@ -72,13 +100,45 @@ class SatisProcessor {
 
           // RECid_RECno güncelle
           await mssqlService.updateRecIdRecNo('STOK_HAREKETLERI', 'sth_RECno', sthRecno, transaction);
-          
+
           // Satır numarasını artır
           satirNo++;
         }
 
         logger.info(`Satış ERP'ye yazıldı: ${webSatis.id}, EvrakNo: ${baslikData.cha_evrakno_sira}`);
       });
+
+      // Mapping tablosuna kaydet
+      await pgService.query(
+        'INSERT INTO int_satis_mapping (web_satis_id, erp_evrak_seri, erp_evrak_no) VALUES ($1, $2, $3) ON CONFLICT (web_satis_id) DO NOTHING',
+        [webSatis.id, evrakSeri, evrakNo]
+      );
+
+      // Web'de de cari hareket kaydı oluştur (erp_recno ile)
+      await pgService.query(`
+        INSERT INTO cari_hesap_hareketleri (
+          erp_recno, cari_hesap_id, islem_tarihi, belge_no, tutar, aciklama,
+          fatura_seri_no, fatura_sira_no, hareket_tipi, hareket_turu, belge_tipi,
+          guncelleme_tarihi
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+        ON CONFLICT (erp_recno) DO UPDATE SET
+          cari_hesap_id = EXCLUDED.cari_hesap_id,
+          tutar = EXCLUDED.tutar,
+          guncelleme_tarihi = NOW()
+      `, [
+        chaRecno,
+        webSatis.cari_hesap_id,
+        webSatis.satis_tarihi,
+        evrakSeri + evrakNo,
+        webSatis.toplam_tutar,
+        webSatis.notlar || '',
+        evrakSeri,
+        evrakNo,
+        'Satış',
+        webSatis.hareket_turu || 'Açık Hesap',
+        'fatura'
+      ]);
+
     } catch (error) {
       logger.error('Satış ERP senkronizasyon hatası:', error);
       throw error;

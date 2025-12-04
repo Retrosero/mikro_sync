@@ -7,12 +7,12 @@ function formatDateOnlyForMSSQL(date) {
   if (!date) {
     date = new Date();
   }
-  
+
   const d = new Date(date);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day} 00:00:00.000`;
 }
 
@@ -21,7 +21,7 @@ function formatDateTimeForMSSQL(date) {
   if (!date) {
     date = new Date();
   }
-  
+
   const d = new Date(date);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -30,7 +30,7 @@ function formatDateTimeForMSSQL(date) {
   const minutes = String(d.getMinutes()).padStart(2, '0');
   const seconds = String(d.getSeconds()).padStart(2, '0');
   const milliseconds = String(d.getMilliseconds()).padStart(3, '0');
-  
+
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
 
@@ -49,6 +49,18 @@ class SatisTransformer {
       let chaCariCins = 0;
 
       if (webSatis.odeme_sekli === 'veresiye' || webSatis.odeme_sekli === 'acikhesap') {
+        chaTpoz = 0;
+        chaCariCins = 0;
+      }
+
+      // Hareket türüne göre tpoz ve cari_cins belirle (Kullanıcı isteği)
+      if (webSatis.hareket_turu === 'Kasadan K.') {
+        chaTpoz = 1;
+        chaCariCins = 4;
+      } else if (webSatis.hareket_turu === 'Bankadan K.') {
+        chaTpoz = 1;
+        chaCariCins = 2;
+      } else if (webSatis.hareket_turu === 'Açık Hesap') {
         chaTpoz = 0;
         chaCariCins = 0;
       }
@@ -227,7 +239,7 @@ class SatisTransformer {
         sth_tip: 1,
         sth_cins: 0,
         sth_normal_iade: 0,
-        sth_evraktip: 4,
+        sth_evraktip: 63, // Satış Faturası
         sth_evrakno_sira: webSatis.fatura_sira_no,
         sth_evrakno_seri: webSatis.fatura_seri_no || '',
         sth_malkbl_sevk_tarihi: formatDateOnlyForMSSQL(webSatis.satis_tarihi),

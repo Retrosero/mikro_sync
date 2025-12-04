@@ -75,7 +75,21 @@ class LookupTables {
 
   async getCariKod(webCariId) {
     await this.refreshCache();
-    const kod = this.cache.cari.get(webCariId);
+    let kod = this.cache.cari.get(webCariId);
+
+    if (!kod) {
+      // Cache'de yoksa doğrudan cari_hesaplar tablosuna bak
+      try {
+        const result = await pgService.query('SELECT cari_kodu FROM cari_hesaplar WHERE id = $1', [webCariId]);
+        if (result.length > 0) {
+          kod = result[0].cari_kodu;
+          this.cache.cari.set(webCariId, kod);
+        }
+      } catch (err) {
+        logger.error(`Cari kodu sorgulama hatası (${webCariId}):`, err);
+      }
+    }
+
     if (!kod) {
       logger.mappingError('cari', webCariId, {
         availableMappings: this.cache.cari.size,
@@ -87,7 +101,21 @@ class LookupTables {
 
   async getStokKod(webStokId) {
     await this.refreshCache();
-    const kod = this.cache.stok.get(webStokId);
+    let kod = this.cache.stok.get(webStokId);
+
+    if (!kod) {
+      // Cache'de yoksa doğrudan stoklar tablosuna bak
+      try {
+        const result = await pgService.query('SELECT stok_kodu FROM stoklar WHERE id = $1', [webStokId]);
+        if (result.length > 0) {
+          kod = result[0].stok_kodu;
+          this.cache.stok.set(webStokId, kod);
+        }
+      } catch (err) {
+        logger.error(`Stok kodu sorgulama hatası (${webStokId}):`, err);
+      }
+    }
+
     if (!kod) {
       logger.mappingError('stok', webStokId, {
         availableMappings: this.cache.stok.size,

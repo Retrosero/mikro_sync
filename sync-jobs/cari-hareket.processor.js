@@ -64,11 +64,11 @@ class CariHareketProcessor {
             return 'Açık Hesap';
         } else if (cha_tpoz === 1) {
             if (cha_cari_cins === 4) {
-                return 'Kasa';
+                return 'Kasadan K.';
             } else if (cha_cari_cins === 2) {
-                return 'Banka';
+                return 'Bankadan K.';
             } else {
-                return 'Kasa'; // Varsayılan
+                return 'Kasadan K.'; // Varsayılan
             }
         }
 
