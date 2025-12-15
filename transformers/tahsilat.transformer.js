@@ -44,10 +44,32 @@ class TahsilatTransformer {
         chaAciklama = 'SENET - ' + (webTahsilat.aciklama || '');
       }
 
+      // Banka/Kasa işlemlerinde müşteri adını al
+      let chaCiroCariKodu = '';
+      let chaGrupno = 0;
+
+      if (chaCariCins === 2 || chaCariCins === 4) {
+        // Banka veya Kasa işlemi - müşteri adını ve kodunu al
+        const pgService = require('../services/postgresql.service');
+        const cariInfo = await pgService.query(
+          'SELECT cari_adi, cari_kodu FROM cari_hesaplar WHERE id = $1',
+          [webTahsilat.cari_hesap_id]
+        );
+
+        if (cariInfo.length > 0) {
+          chaCiroCariKodu = cariInfo[0].cari_kodu; // Müşteri KODU
+          chaAciklama = cariInfo[0].cari_adi; // Müşteri ADI
+        }
+
+        // Grupno: Banka=1, Kasa=0
+        chaGrupno = chaCariCins === 2 ? 1 : 0;
+      }
+
       return {
         cha_tarihi: webTahsilat.tahsilat_tarihi,
         cha_belge_tarih: webTahsilat.tahsilat_tarihi,
         cha_kod: chaKod,
+        cha_ciro_cari_kodu: chaCiroCariKodu,
         cha_meblag: webTahsilat.tutar,
         cha_aratoplam: webTahsilat.tutar,
         cha_aciklama: chaAciklama,
@@ -60,6 +82,7 @@ class TahsilatTransformer {
         cha_evrakno_sira: webTahsilat.tahsilat_sira_no,
         cha_evrakno_seri: webTahsilat.tahsilat_seri_no || '',
         cha_vade: 0, // Trace'de 0 görünüyor (integer gün sayısı olabilir)
+        cha_grupno: chaGrupno,
         // Standart Değerler
         cha_d_cins: 0, // TL
         cha_d_kur: 1,

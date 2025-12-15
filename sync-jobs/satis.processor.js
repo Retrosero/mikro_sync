@@ -34,11 +34,66 @@ class SatisProcessor {
         return;
       }
 
+      // cari_hesap_hareketleri tablosundan hareket_turu, banka_kodu, kasa_kodu ve ERP alanlarını al
+      // 1. Önce kesin eşleşme (belge_no = satis_id) ile ara
+      let cariHareket = await pgService.query(
+        `SELECT id, hareket_turu, banka_kodu, kasa_kodu, banka_id, kasa_id, cha_tpoz, cha_cari_cins, cha_grupno
+         FROM cari_hesap_hareketleri 
+         WHERE belge_no = $1 
+         AND hareket_tipi = 'Satış'
+         LIMIT 1`,
+        [webSatis.id.toString()]
+      );
+
+      // 2. Bulunamadıysa eski yöntemle (tutar + cari + son hareket) ara
+      if (cariHareket.length === 0) {
+        cariHareket = await pgService.query(
+          `SELECT id, hareket_turu, banka_kodu, kasa_kodu, banka_id, kasa_id, cha_tpoz, cha_cari_cins, cha_grupno
+           FROM cari_hesap_hareketleri 
+           WHERE cari_hesap_id = $1 
+           AND tutar = $2
+           AND hareket_tipi = 'Satış'
+           ORDER BY 
+             (CASE WHEN banka_kodu IS NOT NULL OR kasa_kodu IS NOT NULL THEN 1 ELSE 0 END) DESC,
+             guncelleme_tarihi DESC 
+           LIMIT 1`,
+          [webSatis.cari_hesap_id, webSatis.toplam_tutar]
+        );
+      }
+
+      // Eğer cari_hesap_hareketleri'nde varsa, oradan al
+      if (cariHareket.length > 0) {
+        webSatis.hareket_turu = cariHareket[0].hareket_turu;
+        webSatis.banka_kodu = cariHareket[0].banka_kodu;
+        webSatis.kasa_kodu = cariHareket[0].kasa_kodu;
+        webSatis.banka_id = cariHareket[0].banka_id; // ID'leri de al
+        webSatis.kasa_id = cariHareket[0].kasa_id;
+        webSatis.cha_tpoz = cariHareket[0].cha_tpoz;
+        webSatis.cha_cari_cins = cariHareket[0].cha_cari_cins;
+        webSatis.cha_grupno = cariHareket[0].cha_grupno;
+        logger.info(`Cari hareket bulundu: tur=${cariHareket[0].hareket_turu}, banka=${cariHareket[0].banka_kodu}, kasa=${cariHareket[0].kasa_kodu}`);
+
+        // Eğer banka_id var ama banka_kodu yoksa, bankalar tablosundan bul
+        if (webSatis.banka_id && !webSatis.banka_kodu) {
+          const bankaKayit = await pgService.query('SELECT ban_kod FROM bankalar WHERE id = $1', [webSatis.banka_id]);
+          if (bankaKayit.length > 0) {
+            webSatis.banka_kodu = bankaKayit[0].ban_kod;
+            logger.info(`Banka tablosundan kod tamamlandı: ${webSatis.banka_kodu}`);
+          }
+        }
+      } else {
+        logger.warn(`Cari hareket bulunamadı: satis_id=${webSatis.id}, cari=${webSatis.cari_hesap_id}, tutar=${webSatis.toplam_tutar}`);
+      }
+
       // Transaction başlat
       let evrakSeri, evrakNo, chaRecno;
+
+      // Başlık verilerini transaction öncesi hazırla (Web'e INSERT için gerekli)
+      const baslikData = await satisTransformer.transformSatisBaslik(webSatis);
+
       await mssqlService.transaction(async (transaction) => {
-        // 1. Başlık verilerini hazırla
-        const baslikData = await satisTransformer.transformSatisBaslik(webSatis);
+        // ... (Transaction logic remains same)
+        // 1. Başlık verileri zaten hazır
 
         // Sıra numarası kontrolü - her zaman yeni numara al
         if (!baslikData.cha_evrakno_sira) {
@@ -119,11 +174,20 @@ class SatisProcessor {
         INSERT INTO cari_hesap_hareketleri (
           erp_recno, cha_recno, cari_hesap_id, islem_tarihi, belge_no, tutar, aciklama,
           fatura_seri_no, fatura_sira_no, hareket_tipi, hareket_turu, belge_tipi,
-          onceki_bakiye, sonraki_bakiye, guncelleme_tarihi
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, NOW())
+          onceki_bakiye, sonraki_bakiye, cha_tpoz, cha_cari_cins, cha_grupno, 
+          banka_kodu, kasa_kodu, banka_id, kasa_id, guncelleme_tarihi
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, NOW())
         ON CONFLICT (erp_recno) DO UPDATE SET
           cari_hesap_id = EXCLUDED.cari_hesap_id,
           tutar = EXCLUDED.tutar,
+          cha_tpoz = EXCLUDED.cha_tpoz,
+          cha_cari_cins = EXCLUDED.cha_cari_cins,
+          cha_grupno = EXCLUDED.cha_grupno,
+          banka_kodu = EXCLUDED.banka_kodu,
+          kasa_kodu = EXCLUDED.kasa_kodu,
+          banka_id = EXCLUDED.banka_id,
+          kasa_id = EXCLUDED.kasa_id,
+          hareket_turu = EXCLUDED.hareket_turu,
           guncelleme_tarihi = NOW()
       `, [
         chaRecno,
@@ -139,7 +203,14 @@ class SatisProcessor {
         webSatis.hareket_turu || 'Açık Hesap',
         'fatura',
         0, // onceki_bakiye
-        0  // sonraki_bakiye
+        0, // sonraki_bakiye
+        baslikData.cha_tpoz,
+        baslikData.cha_cari_cins,
+        baslikData.cha_grupno,
+        webSatis.banka_kodu || null,
+        webSatis.kasa_kodu || null,
+        webSatis.banka_id || null,
+        webSatis.kasa_id || null
       ]);
 
     } catch (error) {

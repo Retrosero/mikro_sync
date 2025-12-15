@@ -1,4 +1,5 @@
 const lookupTables = require('../mappings/lookup-tables');
+const pgService = require('../services/postgresql.service');
 const logger = require('../utils/logger');
 const crypto = require('crypto');
 
@@ -38,33 +39,83 @@ class SatisTransformer {
   // Web → ERP: Satış Başlık
   async transformSatisBaslik(webSatis) {
     try {
+      logger.info(`transformSatisBaslik BAŞLIYOR: ID=${webSatis.id} HareketTuru=${webSatis.hareket_turu} BankaKodu=${webSatis.banka_kodu} KasaKodu=${webSatis.kasa_kodu}`);
       const cariKod = await lookupTables.getCariKod(webSatis.cari_hesap_id);
 
       if (!cariKod) {
         throw new Error(`Cari mapping bulunamadı: ${webSatis.cari_hesap_id}`);
       }
 
-      // Ödeme şekline göre cha_tpoz ve cha_cari_cins belirleme
-      let chaTpoz = 0;
-      let chaCariCins = 0;
+      // Ödeme şekline göre cha_tpoz, cha_cari_cins, cha_grupno belirleme
+      let chaTpoz, chaCariCins, chaGrupno;
 
-      if (webSatis.odeme_sekli === 'veresiye' || webSatis.odeme_sekli === 'acikhesap') {
-        chaTpoz = 0;
+      // KULLANICI İSTEĞİ: cha_tpoz ve cha_grupno HER ZAMAN 1 OLMALI
+      chaTpoz = 1;
+      chaGrupno = 1;
+      chaCariCins = 0; // Varsayılan
+
+      // Hareket türü normalizasyonu (küçük harf, trim)
+      const hTur = (webSatis.hareket_turu || '').toLowerCase().trim();
+
+      // Hareket türüne veya mevcut ID'lere göre cari_cins belirle
+      if (hTur === 'kasadan k.' || hTur === 'nakit' || webSatis.kasa_id || webSatis.kasa_kodu) {
+        chaCariCins = 4; // Kasa (Öncelik: Hareket türü veya Kasa verisi varsa)
+      } else if (hTur === 'bankadan k.' || hTur === 'kredi kartı' || hTur === 'havale' || webSatis.banka_id || webSatis.banka_kodu) {
+        chaCariCins = 2; // Banka (Öncelik: Hareket türü veya Banka verisi varsa)
+      } else if (hTur === 'çek' || hTur === 'senet') {
         chaCariCins = 0;
+      } else {
+        // Diğer durumlar (Açık Hesap vs) - Kullanıcı isteği Tpoz=1 olduğu için burası da 1 gidecek (yukarıda set edildi)
+        // Ancak cari_cins 0 kalacak.
       }
 
-      // Hareket türüne göre tpoz ve cari_cins belirle (Kullanıcı isteği)
-      if (webSatis.hareket_turu === 'Kasadan K.') {
-        chaTpoz = 1;
-        chaCariCins = 4;
-      } else if (webSatis.hareket_turu === 'Bankadan K.') {
-        chaTpoz = 1;
-        chaCariCins = 2;
-      } else if (webSatis.hareket_turu === 'Açık Hesap') {
-        chaTpoz = 0;
-        chaCariCins = 0;
-      }
+      // Override logic for specific requests if check needed
+      // chaTpoz ve chaGrupno yukarıda 1 set edildi.
+
       // Peşin satışlarda başlık yazılmaz, sadece tahsilat yazılır
+
+      // Banka/Kasa işlemlerinde kod ve ciro_cari_kodu ayarla
+      let chaKod = cariKod;
+      let chaCiroCariKodu = '';
+      let chaAciklama = webSatis.notlar || ''; // Varsayılan not
+
+      // chaCariCins 2 (Banka) veya 4 (Kasa) ise mapping yap
+      if (chaCariCins === 2 || chaCariCins === 4) {
+        // Bu durumda cha_kod -> Kasa/Banka Kodu olmalı
+        // cha_ciro_cari_kodu -> Asıl Cari Kodu olmalı (Kullanıcı isteği)
+
+        // 1. Asıl Cari Kodunu ciro_cari_kodu'na taşı
+        chaCiroCariKodu = cariKod;
+
+        // 2. Müşteri Adını açıklamaya ekle
+        const cariInfo = await pgService.query(
+          'SELECT cari_adi FROM cari_hesaplar WHERE id = $1',
+          [webSatis.cari_hesap_id]
+        );
+        if (cariInfo.length > 0) {
+          chaAciklama = cariInfo[0].cari_adi + (webSatis.notlar ? ' - ' + webSatis.notlar : '');
+        }
+
+        // 3. cha_kod'u belirle (Banka veya Kasa Kodu)
+        // 3. cha_kod'u belirle (Banka veya Kasa Kodu)
+        let mappedCode = null;
+
+        if (chaCariCins === 2 && webSatis.banka_id) {
+          mappedCode = await lookupTables.getBankaKod(webSatis.banka_id);
+        } else if (chaCariCins === 4 && webSatis.kasa_id) {
+          mappedCode = await lookupTables.getKasaKod(webSatis.kasa_id);
+        }
+
+        if (mappedCode) {
+          chaKod = mappedCode;
+        } else if (webSatis.banka_kodu) {
+          // Kullanıcı isteği: Web'deki banka_kodu alanı (Kasa için de kullanılabilir)
+          // Özellikle "Bankadan K." ise buradaki değeri kullan
+          chaKod = webSatis.banka_kodu;
+        } else if (webSatis.kasa_kodu) {
+          chaKod = webSatis.kasa_kodu;
+        }
+      }
 
       return {
         cha_tarihi: webSatis.satis_tarihi,
@@ -73,11 +124,11 @@ class SatisTransformer {
         cha_evrakno_seri: webSatis.fatura_seri_no || '',
         cha_belge_no: '',
         cha_satir_no: 0, // Processor'da sırayla artırılacak
-        cha_kod: cariKod,
-        cha_ciro_cari_kodu: '',
+        cha_kod: chaKod,
+        cha_ciro_cari_kodu: chaCiroCariKodu,
         cha_meblag: webSatis.toplam_tutar,
         cha_aratoplam: webSatis.ara_toplam,
-        cha_aciklama: webSatis.notlar || '',
+        cha_aciklama: chaAciklama,
         cha_tpoz: chaTpoz,
         cha_cari_cins: chaCariCins,
         cha_ft_iskonto1: webSatis.indirim_tutari || 0,
@@ -105,7 +156,7 @@ class SatisTransformer {
         cha_kasa_hizkod: '',
         // Yeni alanlar
         cha_ticaret_turu: 0,
-        cha_grupno: 0,
+        cha_grupno: chaGrupno,
         cha_srmrkkodu: '',
         cha_karsidcinsi: 0,
         cha_special1: '',
@@ -230,16 +281,16 @@ class SatisTransformer {
         sth_iskonto6: webKalem.indirim_tutari6 || 0,
         sth_tutar: webKalem.toplam_tutar,
         sth_vergi: webKalem.kdv_tutari || 0,
-        sth_vergi_pntr: kdvPointer,
+        sth_vergi_pntr: 1, // Kullanıcı isteği: sth_vergi_pntr=1
         sth_tarih: webSatis.satis_tarihi,
         sth_belge_tarih: webSatis.satis_tarihi,
         sth_cari_kodu: cariKod,
         sth_cikis_depo_no: 1,
-        sth_giris_depo_no: 0,
+        sth_giris_depo_no: 1, // Kullanıcı isteği: sth_giris_depo_no=1
         sth_tip: 1,
         sth_cins: 0,
         sth_normal_iade: 0,
-        sth_evraktip: 63, // Satış Faturası
+        sth_evraktip: 4, // Kullanıcı isteği: sth_evraktip=4
         sth_evrakno_sira: webSatis.fatura_sira_no,
         sth_evrakno_seri: webSatis.fatura_seri_no || '',
         sth_malkbl_sevk_tarihi: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
@@ -315,7 +366,7 @@ class SatisTransformer {
         sth_oiv_pntr: 0,
         sth_oiv_vergi: 0,
         sth_oivvergisiz_fl: 0,
-        sth_fiyat_liste_no: 0,
+        sth_fiyat_liste_no: 1, // Kullanıcı isteği: sth_fiyat_liste_no=1
         sth_oivtutari: 0,
         sth_Tevkifat_turu: 0,
         sth_nakliyedeposu: 0,

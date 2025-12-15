@@ -56,7 +56,15 @@ class CariHareketProcessor {
     }
 
     // Ödeme yerini (hareket türünü) belirle
-    mapHareketTuru(cha_tpoz, cha_cari_cins) {
+    mapHareketTuru(cha_tpoz, cha_cari_cins, hareketTipi = null) {
+        // Eğer hareket_tipi "Tahsilat - X" formatındaysa, sadece X kısmını al
+        if (hareketTipi && hareketTipi.includes(' - ')) {
+            const parts = hareketTipi.split(' - ');
+            if (parts.length === 2) {
+                return parts[1].trim(); // "Tahsilat - Nakit" -> "Nakit"
+            }
+        }
+
         // cha_tpoz: 0=Açık Hesap, 1=Nakit/Kasa/Banka
         // cha_cari_cins: 0=Normal, 2=Banka, 4=Kasa
 
@@ -216,7 +224,7 @@ class CariHareketProcessor {
         cha_evrakno_sira, cha_evrakno_seri,
         cha_kod, cha_ciro_cari_kodu, cha_meblag, cha_aratoplam,
         cha_aciklama, cha_cinsi, cha_evrak_tip, cha_tip, cha_normal_Iade as cha_normal_iade,
-        cha_kasa_hizkod, cha_tpoz, cha_cari_cins,
+        cha_kasa_hizkod, cha_tpoz, cha_cari_cins, cha_grupno,
         cha_lastup_date
       FROM CARI_HESAP_HAREKETLERI
       ${whereClause}
@@ -263,11 +271,26 @@ class CariHareketProcessor {
 
             const hareketTuru = this.mapHareketTuru(
                 erpHareket.cha_tpoz,
-                erpHareket.cha_cari_cins
+                erpHareket.cha_cari_cins,
+                hareketTipi // hareket_tipi'yi parametre olarak geç
             );
 
             // Banka kodu belirle (Eğer özel kod ise)
-            const bankaKodu = ozelKodSet.has(erpHareket.cha_kod) ? erpHareket.cha_kod : null;
+            let bankaKodu = null;
+            let kasaKodu = null;
+
+            if (ozelKodSet.has(erpHareket.cha_kod)) {
+                // cha_cari_cins (2=Banka, 4=Kasa) kontrolü
+                if (erpHareket.cha_cari_cins === 2) {
+                    bankaKodu = erpHareket.cha_kod;
+                } else if (erpHareket.cha_cari_cins === 4) {
+                    kasaKodu = erpHareket.cha_kod;
+                } else {
+                    // cha_cari_cins güvenilir değilse cha_kod'a bakarak karar verilebilir ama şimdilik kod setine güven
+                    // Varsayılan olarak banka_kodu kabul et (eski mantık)
+                    bankaKodu = erpHareket.cha_kod;
+                }
+            }
 
             const belgeTipi = 'fatura';
 
@@ -288,7 +311,11 @@ class CariHareketProcessor {
                 sonraki_bakiye: 0,
                 cha_recno: erpHareket.cha_RECno,
                 cha_kasa_hizkod: erpHareket.cha_kasa_hizkod,
-                banka_kodu: bankaKodu
+                banka_kodu: bankaKodu,
+                kasa_kodu: kasaKodu, // Yeni alan
+                cha_tpoz: erpHareket.cha_tpoz,
+                cha_cari_cins: erpHareket.cha_cari_cins,
+                cha_grupno: erpHareket.cha_grupno
             });
         }
 
@@ -297,13 +324,15 @@ class CariHareketProcessor {
         const columns = [
             'erp_recno', 'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
-            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod', 'banka_kodu'
+            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
+            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno'
         ];
 
         const updateColumns = [
             'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
-            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye', 'cha_recno', 'cha_kasa_hizkod', 'banka_kodu'
+            'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
+            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno'
         ];
 
         const { query, values } = this.buildBulkUpsertQuery(
