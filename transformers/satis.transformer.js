@@ -52,21 +52,25 @@ class SatisTransformer {
       // KULLANICI İSTEĞİ: cha_tpoz ve cha_grupno HER ZAMAN 1 OLMALI
       chaTpoz = 1;
       chaGrupno = 1;
-      chaCariCins = 0; // Varsayılan
+      // Ödeme Şekli normalizasyonu (küçük harf, trim)
+      const oSekli = (webSatis.odeme_sekli || '').toLowerCase().trim();
 
-      // Hareket türü normalizasyonu (küçük harf, trim)
-      const hTur = (webSatis.hareket_turu || '').toLowerCase().trim();
-
-      // Hareket türüne veya mevcut ID'lere göre cari_cins belirle
-      if (hTur === 'kasadan k.' || hTur === 'nakit' || webSatis.kasa_id || webSatis.kasa_kodu) {
-        chaCariCins = 4; // Kasa (Öncelik: Hareket türü veya Kasa verisi varsa)
-      } else if (hTur === 'bankadan k.' || hTur === 'kredi kartı' || hTur === 'havale' || webSatis.banka_id || webSatis.banka_kodu) {
-        chaCariCins = 2; // Banka (Öncelik: Hareket türü veya Banka verisi varsa)
-      } else if (hTur === 'çek' || hTur === 'senet') {
+      // Ödeme şekline veya mevcut ID'lere göre cari_cins belirle
+      // Nakit veya Kasa
+      if (oSekli === 'nakit' || webSatis.kasa_id || webSatis.kasa_kodu) {
+        chaCariCins = 4; // Kasa
+      }
+      // Banka (Kredi Kartı, Havale)
+      else if (oSekli === 'kredi_karti' || oSekli === 'havale' || webSatis.banka_id || webSatis.banka_kodu) {
+        chaCariCins = 2; // Banka
+      }
+      // Çek / Senet (Eğer ödeme şeklinde gelirse)
+      else if (oSekli === 'cek' || oSekli === 'senet') {
         chaCariCins = 0;
-      } else {
-        // Diğer durumlar (Açık Hesap vs) - Kullanıcı isteği Tpoz=1 olduğu için burası da 1 gidecek (yukarıda set edildi)
-        // Ancak cari_cins 0 kalacak.
+      }
+      else {
+        // Diğer durumlar (Veresiye/Açık Hesap)
+        // chaCariCins = 0;
       }
 
       // Override logic for specific requests if check needed

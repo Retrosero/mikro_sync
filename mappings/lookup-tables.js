@@ -127,12 +127,40 @@ class LookupTables {
 
   async getBankaKod(webBankaId) {
     await this.refreshCache();
-    return this.cache.banka.get(webBankaId);
+    let kod = this.cache.banka.get(webBankaId);
+
+    if (!kod) {
+      // Cache'de yoksa doğrudan bankalar tablosuna bak
+      try {
+        const result = await pgService.query('SELECT ban_kod FROM bankalar WHERE id = $1', [webBankaId]);
+        if (result.length > 0) {
+          kod = result[0].ban_kod;
+          this.cache.banka.set(webBankaId, kod);
+        }
+      } catch (err) {
+        logger.error(`Banka kodu sorgulama hatası (${webBankaId}):`, err);
+      }
+    }
+    return kod;
   }
 
   async getKasaKod(webKasaId) {
     await this.refreshCache();
-    return this.cache.kasa.get(webKasaId);
+    let kod = this.cache.kasa.get(webKasaId);
+
+    if (!kod) {
+      // Cache'de yoksa doğrudan kasalar tablosuna bak
+      try {
+        const result = await pgService.query('SELECT kasa_kodu FROM kasalar WHERE id = $1', [webKasaId]);
+        if (result.length > 0) {
+          kod = result[0].kasa_kodu;
+          this.cache.kasa.set(webKasaId, kod);
+        }
+      } catch (err) {
+        logger.error(`Kasa kodu sorgulama hatası (${webKasaId}):`, err);
+      }
+    }
+    return kod;
   }
 
   async getFiyatListeNo(webFiyatTanimiId) {

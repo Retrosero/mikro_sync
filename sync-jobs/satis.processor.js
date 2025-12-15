@@ -169,6 +169,19 @@ class SatisProcessor {
         [webSatis.id, evrakSeri, evrakNo]
       );
 
+      // Eğer banka_id var ama banka_kodu yoksa, bankalar tablosundan bul (Tekrar kontrol)
+      if (webSatis.banka_id && !webSatis.banka_kodu) {
+        const bankaKayit = await pgService.query('SELECT ban_kod FROM bankalar WHERE id = $1', [webSatis.banka_id]);
+        if (bankaKayit.length > 0) {
+          webSatis.banka_kodu = bankaKayit[0].ban_kod;
+        }
+      }
+
+      // Hareket türü düzeltmesi: Eğer banka_id varsa ve hareket türü Açık Hesap ise, Bankadan K. yap
+      if (webSatis.banka_id && (webSatis.hareket_turu === 'Açık Hesap' || !webSatis.hareket_turu)) {
+        webSatis.hareket_turu = 'Bankadan K.';
+      }
+
       // Web'de de cari hareket kaydı oluştur (erp_recno ile)
       await pgService.query(`
         INSERT INTO cari_hesap_hareketleri (
