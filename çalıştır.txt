@@ -6,3 +6,5 @@ npm run sync	Sadece ERP → Web senkronizasyonu
 npm run sync-bidirectional	Çift yönlü senkronizasyon (ERP ↔ Web)
 npm run sync-queue-worker	Web → ERP worker (sürekli çalışır)
 npm run setup-web-to-erp-triggers	Trigger'ları kur/güncelle
+npm run sync-web-to-erp	Web → ERP senkronizasyonu
+node web-to-erp-sync.js

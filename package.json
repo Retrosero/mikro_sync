@@ -13,6 +13,7 @@
     "sync": "node scripts/fast_bulk_sync.js",
     "sync-full": "node run-full-bulk-sync.js",
     "sync-bidirectional": "node scripts/bidirectional-sync.js",
+    "sync-web-to-erp": "node web-to-erp-sync.js",
     "setup-triggers": "node scripts/setup-auto-update-triggers.js",
     "setup-web-to-erp-triggers": "node scripts/setup-web-to-erp-triggers.js",
     "sync-queue-worker": "node services/sync-queue-worker.js",
