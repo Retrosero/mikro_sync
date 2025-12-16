@@ -12,33 +12,33 @@ class TahsilatProcessor {
   async syncToERP(webTahsilat) {
     try {
       await mssqlService.transaction(async (transaction) => {
-        // 1. Tahsilat verilerini hazırla
-        const tahsilatData = await tahsilatTransformer.transformTahsilat(webTahsilat);
+        let odemeEmriRefno = null;
+
+        // Çek/Senet/Havale/Kredi Kartı ise önce ODEME_EMIRLERI kaydını oluştur
+        if (['cek', 'senet', 'havale', 'kredi_karti'].includes(webTahsilat.tahsilat_tipi)) {
+          const odemeEmriData = await tahsilatTransformer.transformOdemeEmri(webTahsilat);
+          if (odemeEmriData) {
+            odemeEmriRefno = odemeEmriData.sck_refno;
+            const sckRecno = await this.insertOdemeEmri(odemeEmriData, transaction);
+            await mssqlService.updateRecIdRecNo('ODEME_EMIRLERI', 'sck_RECno', sckRecno, transaction);
+
+            logger.info(`Ödeme Emri ERP'ye yazıldı: ${webTahsilat.id}, Refno: ${odemeEmriRefno}, RecNo: ${sckRecno}`);
+          }
+        }
+
+        // Tahsilat verilerini hazırla (odemeEmriRefno ile)
+        const tahsilatData = await tahsilatTransformer.transformTahsilat(webTahsilat, odemeEmriRefno);
 
         // Sıra numarası kontrolü
         if (!tahsilatData.cha_evrakno_sira) {
           tahsilatData.cha_evrakno_sira = await mssqlService.getNextEvrakNo(tahsilatData.cha_evrak_tip, tahsilatData.cha_evrakno_seri);
         }
 
-        // Çek/Senet ise önce ODEME_EMIRLERI, sonra CARI_HESAP_HAREKETLERI (Trace sırası)
-        if (webTahsilat.tahsilat_tipi === 'cek' || webTahsilat.tahsilat_tipi === 'senet') {
-          const odemeEmriData = await tahsilatTransformer.transformOdemeEmri(webTahsilat);
-          if (odemeEmriData) {
-            const sckRecno = await this.insertOdemeEmri(odemeEmriData, transaction);
-            await mssqlService.updateRecIdRecNo('ODEME_EMIRLERI', 'sck_RECno', sckRecno, transaction);
-          }
+        // CARI_HESAP_HAREKETLERI kaydını oluştur
+        const chaRecno = await this.insertCariHareket(tahsilatData, transaction);
+        await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
 
-          // Sonra Cari Hareket
-          const chaRecno = await this.insertCariHareket(tahsilatData, transaction);
-          await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
-
-        } else {
-          // Nakit/Kredi Kartı ise sadece Cari Hareket (veya önce Cari Hareket)
-          const chaRecno = await this.insertCariHareket(tahsilatData, transaction);
-          await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
-        }
-
-        logger.info(`Tahsilat ERP'ye yazıldı: ${webTahsilat.id}, EvrakNo: ${tahsilatData.cha_evrakno_sira}`);
+        logger.info(`Tahsilat ERP'ye yazıldı: ${webTahsilat.id}, EvrakNo: ${tahsilatData.cha_evrakno_sira}, RecNo: ${chaRecno}`);
       });
     } catch (error) {
       logger.error('Tahsilat ERP senkronizasyon hatası:', error);
@@ -53,6 +53,11 @@ class TahsilatProcessor {
       request.input(key, data[key]);
     });
 
+    // Şu anki tarih-saat
+    const now = new Date();
+    request.input('cha_create_date', now);
+    request.input('cha_lastup_date', now);
+
     const result = await request.query(`
       INSERT INTO CARI_HESAP_HAREKETLERI (
         cha_tarihi, cha_belge_tarih, cha_kod, cha_meblag, cha_aratoplam,
@@ -62,6 +67,9 @@ class TahsilatProcessor {
         cha_d_cins, cha_d_kur, cha_altd_kur, cha_karsid_kur,
         cha_create_user, cha_lastup_user, cha_firmano, cha_subeno,
         cha_kasa_hizmet, cha_kasa_hizkod,
+        cha_ciro_cari_kodu, cha_grupno, cha_karsidgrupno,
+        cha_trefno, cha_sntck_poz,
+        cha_create_date, cha_lastup_date,
         cha_RECid_DBCno, cha_RECid_RECno, cha_SpecRecNo, cha_iptal, 
         cha_fileid, cha_hidden, cha_kilitli, cha_degisti, cha_CheckSum,
         cha_projekodu, cha_yat_tes_kodu, cha_satici_kodu, cha_EXIMkodu
@@ -74,6 +82,9 @@ class TahsilatProcessor {
         @cha_d_cins, @cha_d_kur, @cha_altd_kur, @cha_karsid_kur,
         @cha_create_user, @cha_lastup_user, @cha_firmano, @cha_subeno,
         @cha_kasa_hizmet, @cha_kasa_hizkod,
+        @cha_ciro_cari_kodu, @cha_grupno, @cha_karsidgrupno,
+        @cha_trefno, @cha_sntck_poz,
+        @cha_create_date, @cha_lastup_date,
         0, 0, 0, 0, 51, 0, 0, 0, 0,
         '', '', '', ''
       );
@@ -96,21 +107,35 @@ class TahsilatProcessor {
     request.input('sck_firmano', 0);
     request.input('sck_subeno', 0);
 
+    // Şu anki tarih-saat
+    const now = new Date();
+    request.input('sck_create_date', now);
+    request.input('sck_lastup_date', now);
+
     const result = await request.query(`
       INSERT INTO ODEME_EMIRLERI (
-        sck_no, sck_banka_adres1, sck_sube_adres2, sck_hesapno_sehir,
-        sck_tutar, sck_vade, sck_duzen_tarih, sck_sahip_cari_kodu,
-        sck_tip, sck_doviz, sck_odenen, sck_iptal, sck_refno,
+        sck_tip, sck_refno, sck_bankano, sck_borclu, sck_vdaire_no, sck_vade,
+        sck_tutar, sck_doviz, sck_odenen, sck_degerleme_islendi,
+        sck_banka_adres1, sck_sube_adres2, sck_borclu_tel, sck_hesapno_sehir,
+        sck_no, sck_duzen_tarih, sck_sahip_cari_kodu,
+        sck_iptal, sck_sahip_cari_cins, sck_sahip_cari_grupno,
+        sck_nerede_cari_cins, sck_nerede_cari_kodu, sck_nerede_cari_grupno,
         sck_create_user, sck_lastup_user, sck_firmano, sck_subeno,
+        sck_create_date, sck_lastup_date,
         sck_RECid_DBCno, sck_RECid_RECno, sck_SpecRECno,
         sck_fileid, sck_hidden, sck_kilitli, sck_degisti, sck_checksum
       )
       VALUES (
-        @sck_no, @sck_banka_adres1, @sck_sube_adres2, @sck_hesapno_sehir,
-        @sck_tutar, @sck_vade, @sck_duzen_tarih, @sck_sahip_cari_kodu,
-        @sck_tip, @sck_doviz, @sck_odenen, @sck_iptal, @sck_refno,
+        @sck_tip, @sck_refno, '', @sck_borclu, @sck_vdaire_no, @sck_vade,
+        @sck_tutar, @sck_doviz, @sck_odenen, @sck_degerleme_islendi,
+        @sck_banka_adres1, @sck_sube_adres2, @sck_borclu_tel, @sck_hesapno_sehir,
+        @sck_no, @sck_duzen_tarih, @sck_sahip_cari_kodu,
+        @sck_iptal, 0, 0,
+        0, '', 0,
         @sck_create_user, @sck_lastup_user, @sck_firmano, @sck_subeno,
-        0, 0, 0, 0, 54, 0, 0, 0, 0
+        @sck_create_date, @sck_lastup_date,
+        0, 0, 0,
+        54, 0, 0, 0, 0
       );
       SELECT SCOPE_IDENTITY() AS sck_RECno;
     `);
