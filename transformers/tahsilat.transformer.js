@@ -26,14 +26,21 @@ class TahsilatTransformer {
       let chaCiroCariKodu = '';
 
       if (webTahsilat.tahsilat_tipi === 'nakit') {
-        // NAKİT: Trace'de cha_cari_cins=4 (Kasa), cha_kod=kasa_kodu, cha_cinsi=0
-        chaCariCins = 4;
-        chaKasaHizmet = 4; // Kasa
+        // NAKİT: User Request Update -> cha_cari_cins=0, cha_kod=cariKod, cha_ciro_cari_kodu=''
+        chaCariCins = 0;
+        chaKasaHizmet = 4; // Kasa (Hizmet Tipi Kasa)
+
+        // Kasa kodunu sadece Hizot Kodu alanına yazıyoruz, cha_kod Müşteri kalıyor
         const kasaKod = await lookupTables.getKasaKod(webTahsilat.kasa_id);
         if (kasaKod) {
-          chaKod = kasaKod;
           chaKasaHizkod = kasaKod;
+        } else {
+          logger.warn(`Tahsilat ${webTahsilat.id} için Kasa Kodu bulunamadı!`);
         }
+
+        chaKod = cariKod; // İstenen: Müşteri Kodu
+        chaCiroCariKodu = ''; // İstenen: Boş
+
         chaCinsi = 0;
         chaAciklama = webTahsilat.aciklama || 'tahsilat-nakit';
 
@@ -64,10 +71,12 @@ class TahsilatTransformer {
         chaTrefno = odemeEmriRefno || '';
         chaSntckPoz = 0;
         // Senet bilgilerini açıklamaya ekle
-        chaAciklama = this.formatSenetAciklama(
-          webTahsilat.banka_adi,
-          webTahsilat.sube_adi
-        );
+        // User Request: Açıklama /CARI ADI/ şeklinde olmalı
+        const pgService = require('../services/postgresql.service');
+        const cariResult = await pgService.query('SELECT cari_adi FROM cari_hesaplar WHERE id = $1', [webTahsilat.cari_hesap_id]);
+        const cariAdi = cariResult.length > 0 ? (cariResult[0].cari_adi || '') : '';
+
+        chaAciklama = `/${cariAdi}/`;
 
       } else if (webTahsilat.tahsilat_tipi === 'havale') {
         // HAVALE: Trace'de cha_cari_cins=0, cha_kod=cari_kod, cha_cinsi=17, cha_kasa_hizkod=banka_kod, cha_sntck_poz=2
@@ -119,6 +128,8 @@ class TahsilatTransformer {
         }
       }
 
+      logger.info(`Tahsilat Transform (${webTahsilat.tahsilat_tipi}): chaKod=${chaKod}, chaCiroCariKodu=${chaCiroCariKodu}, chaKasaHizmet=${chaKasaHizmet}`);
+
       return {
         cha_tarihi: webTahsilat.tahsilat_tarihi,
         cha_belge_tarih: webTahsilat.tahsilat_tarihi,
@@ -149,7 +160,7 @@ class TahsilatTransformer {
         cha_lastup_user: 1,
         cha_firmano: 0,
         cha_subeno: 0,
-        cha_kasa_hizmet: chaCariCins === 4 ? 4 : (chaCariCins === 2 ? 2 : 0),
+        cha_kasa_hizmet: chaKasaHizmet,
         cha_kasa_hizkod: chaKasaHizkod,
 
         // Diğer Standart Değerler (NULL gitmemesi gerekenler)
