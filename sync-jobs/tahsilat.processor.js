@@ -147,20 +147,10 @@ class TahsilatProcessor {
   async insertOdemeEmri(data, transaction) {
     const request = transaction.request();
 
+    // Transformer'dan gelen tüm verileri input olarak ekle
     Object.keys(data).forEach(key => {
       request.input(key, data[key]);
     });
-
-    // Default değerler
-    request.input('sck_create_user', 1);
-    request.input('sck_lastup_user', 1);
-    request.input('sck_firmano', 0);
-    request.input('sck_subeno', 0);
-
-    // Şu anki tarih-saat
-    const now = new Date();
-    request.input('sck_create_date', now);
-    request.input('sck_lastup_date', now);
 
     const result = await request.query(`
       INSERT INTO ODEME_EMIRLERI (
@@ -173,19 +163,39 @@ class TahsilatProcessor {
         sck_create_user, sck_lastup_user, sck_firmano, sck_subeno,
         sck_create_date, sck_lastup_date,
         sck_RECid_DBCno, sck_RECid_RECno, sck_SpecRECno,
-        sck_fileid, sck_hidden, sck_kilitli, sck_degisti, sck_checksum
+        sck_fileid, sck_hidden, sck_kilitli, sck_degisti, sck_checksum,
+        sck_ilk_hareket_tarihi, sck_ilk_evrak_seri, sck_ilk_evrak_sira_no, 
+        sck_ilk_evrak_satir_no, sck_son_hareket_tarihi, sck_doviz_kur,
+        sck_sonpoz, sck_imza, sck_srmmrk, sck_kesideyeri,
+        Sck_TCMB_Banka_kodu, Sck_TCMB_Sube_kodu, Sck_TCMB_il_kodu, SckTasra_fl,
+        sck_projekodu, sck_masraf1, sck_masraf1_isleme, sck_masraf2, sck_masraf2_isleme,
+        sck_odul_katkisi_tutari, sck_servis_komisyon_tutari, sck_erken_odeme_faiz_tutari,
+        sck_odul_katkisi_tutari_islendi_fl, sck_servis_komisyon_tutari_islendi_fl, 
+        sck_erken_odeme_faiz_tutari_islendi_fl, sck_kredi_karti_tipi,
+        sck_taksit_sayisi, sck_kacinci_taksit, sck_uye_isyeri_no,
+        sck_kredi_karti_no, sck_provizyon_kodu, sck_special1, sck_special2, sck_special3
       )
       VALUES (
-        @sck_tip, @sck_refno, '', @sck_borclu, @sck_vdaire_no, @sck_vade,
+        @sck_tip, @sck_refno, @sck_bankano, @sck_borclu, @sck_vdaire_no, @sck_vade,
         @sck_tutar, @sck_doviz, @sck_odenen, @sck_degerleme_islendi,
         @sck_banka_adres1, @sck_sube_adres2, @sck_borclu_tel, @sck_hesapno_sehir,
         @sck_no, @sck_duzen_tarih, @sck_sahip_cari_kodu,
-        @sck_iptal, 0, 0,
-        0, '', 0,
+        @sck_iptal, @sck_sahip_cari_cins, @sck_sahip_cari_grupno,
+        @sck_nerede_cari_cins, @sck_nerede_cari_kodu, @sck_nerede_cari_grupno,
         @sck_create_user, @sck_lastup_user, @sck_firmano, @sck_subeno,
         @sck_create_date, @sck_lastup_date,
-        0, 0, 0,
-        54, 0, 0, 0, 0
+        @sck_RECid_DBCno, @sck_RECid_RECno, @sck_SpecRECno,
+        @sck_fileid, @sck_hidden, @sck_kilitli, @sck_degisti, @sck_checksum,
+        @sck_ilk_hareket_tarihi, @sck_ilk_evrak_seri, @sck_ilk_evrak_sira_no,
+        @sck_ilk_evrak_satir_no, @sck_son_hareket_tarihi, @sck_doviz_kur,
+        @sck_sonpoz, @sck_imza, @sck_srmmrk, @sck_kesideyeri,
+        @Sck_TCMB_Banka_kodu, @Sck_TCMB_Sube_kodu, @Sck_TCMB_il_kodu, @SckTasra_fl,
+        @sck_projekodu, @sck_masraf1, @sck_masraf1_isleme, @sck_masraf2, @sck_masraf2_isleme,
+        @sck_odul_katkisi_tutari, @sck_servis_komisyon_tutari, @sck_erken_odeme_faiz_tutari,
+        @sck_odul_katkisi_tutari_islendi_fl, @sck_servis_komisyon_tutari_islendi_fl,
+        @sck_erken_odeme_faiz_tutari_islendi_fl, @sck_kredi_karti_tipi,
+        @sck_taksit_sayisi, @sck_kacinci_taksit, @sck_uye_isyeri_no,
+        @sck_kredi_karti_no, @sck_provizyon_kodu, @sck_special1, @sck_special2, @sck_special3
       );
       SELECT SCOPE_IDENTITY() AS sck_RECno;
     `);

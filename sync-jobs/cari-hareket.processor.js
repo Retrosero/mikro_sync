@@ -225,6 +225,8 @@ class CariHareketProcessor {
         cha_kod, cha_ciro_cari_kodu, cha_meblag, cha_aratoplam,
         cha_aciklama, cha_cinsi, cha_evrak_tip, cha_tip, cha_normal_Iade as cha_normal_iade,
         cha_kasa_hizkod, cha_tpoz, cha_cari_cins, cha_grupno,
+        cha_ft_iskonto1, cha_ft_iskonto2, cha_ft_iskonto3,
+        cha_ft_iskonto4, cha_ft_iskonto5, cha_ft_iskonto6,
         cha_lastup_date
       FROM CARI_HESAP_HAREKETLERI
       ${whereClause}
@@ -315,7 +317,14 @@ class CariHareketProcessor {
                 kasa_kodu: kasaKodu, // Yeni alan
                 cha_tpoz: erpHareket.cha_tpoz,
                 cha_cari_cins: erpHareket.cha_cari_cins,
-                cha_grupno: erpHareket.cha_grupno
+                cha_grupno: erpHareket.cha_grupno,
+                // İskonto Alanları Mapping
+                iskonto1: erpHareket.cha_ft_iskonto1 || 0,
+                iskonto2: erpHareket.cha_ft_iskonto2 || 0,
+                iskonto3: erpHareket.cha_ft_iskonto3 || 0,
+                iskonto4: erpHareket.cha_ft_iskonto4 || 0,
+                iskonto5: erpHareket.cha_ft_iskonto5 || 0,
+                iskonto6: erpHareket.cha_ft_iskonto6 || 0
             });
         }
 
@@ -325,14 +334,16 @@ class CariHareketProcessor {
             'erp_recno', 'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
             'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
-            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno'
+            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno',
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
         ];
 
         const updateColumns = [
             'cari_hesap_id', 'islem_tarihi', 'belge_no', 'tutar',
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
             'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
-            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno'
+            'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno',
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
         ];
 
         const { query, values } = this.buildBulkUpsertQuery(
