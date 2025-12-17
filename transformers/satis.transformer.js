@@ -280,12 +280,12 @@ class SatisTransformer {
       return {
         sth_stok_kod: stokKod,
         sth_miktar: webKalem.miktar,
-        sth_iskonto1: webKalem.indirim_tutari || 0,
-        sth_iskonto2: webKalem.indirim_tutari2 || 0,
-        sth_iskonto3: webKalem.indirim_tutari3 || 0,
-        sth_iskonto4: webKalem.indirim_tutari4 || 0,
-        sth_iskonto5: webKalem.indirim_tutari5 || 0,
-        sth_iskonto6: webKalem.indirim_tutari6 || 0,
+        sth_iskonto1: webKalem.iskonto1 || webKalem.indirim_tutari || 0,
+        sth_iskonto2: webKalem.iskonto2 || webKalem.indirim_tutari2 || 0,
+        sth_iskonto3: webKalem.iskonto3 || webKalem.indirim_tutari3 || 0,
+        sth_iskonto4: webKalem.iskonto4 || webKalem.indirim_tutari4 || 0,
+        sth_iskonto5: webKalem.iskonto5 || webKalem.indirim_tutari5 || 0,
+        sth_iskonto6: webKalem.iskonto6 || webKalem.indirim_tutari6 || 0,
         sth_tutar: webKalem.toplam_tutar,
         sth_vergi: webKalem.kdv_tutari || 0,
         sth_vergi_pntr: 1, // Kullanıcı isteği: sth_vergi_pntr=1
