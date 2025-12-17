@@ -70,7 +70,7 @@ class SatisTransformer {
       }
       else {
         // Diğer durumlar (Veresiye/Açık Hesap)
-        // chaCariCins = 0;
+        chaCariCins = 0;
       }
 
       // Override logic for specific requests if check needed
@@ -118,6 +118,9 @@ class SatisTransformer {
           chaKod = webSatis.banka_kodu;
         } else if (webSatis.kasa_kodu) {
           chaKod = webSatis.kasa_kodu;
+        } else if (chaCariCins === 4) {
+          // Nakit satışlarda varsayılan kasa kodu 001
+          chaKod = '001';
         }
       }
 
