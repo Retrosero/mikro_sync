@@ -107,6 +107,23 @@ class SyncQueueWorker {
                 // Processor'a gönder
                 await tahsilatProcessor.syncToERP(entityData);
 
+            } else if (item.entity_type === 'alis') {
+                // Alış verilerini çek
+                const alis = await pgService.query(
+                    `SELECT * FROM alislar WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (alis.length === 0) {
+                    throw new Error(`Alış bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = alis[0];
+
+                // Processor'a gönder
+                const alisProcessor = require('../sync-jobs/alis.processor');
+                await alisProcessor.syncToERP(entityData);
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }
