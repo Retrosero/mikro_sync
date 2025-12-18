@@ -74,7 +74,8 @@ class SatisTransformer {
       }
 
       // İade kontrolü
-      const isIade = webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
+      // DB'de satis_tipi kolonu var, fatura_tipi yok.
+      const isIade = webSatis.satis_tipi === 'iade' || webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
 
       // Override logic for specific requests if check needed
       // chaTpoz ve chaGrupno yukarıda 1 set edildi.
@@ -281,7 +282,7 @@ class SatisTransformer {
       }
 
       // İade kontrolü
-      const isIade = webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
+      const isIade = webSatis.satis_tipi === 'iade' || webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
 
       return {
         sth_stok_kod: stokKod,

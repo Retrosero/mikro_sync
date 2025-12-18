@@ -75,7 +75,35 @@ BEGIN
     END IF;
 END $$;
 
--- 6. Kaynak alanı ekle (eğer yoksa)
+-- 6. Alış Trigger Fonksiyonu
+CREATE OR REPLACE FUNCTION notify_alis_sync()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Sadece Web'den oluşturulan alışlar için sync yap
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('alislar', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 7. Alış Tablosu için Trigger (eğer alislar tablosu varsa)
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'alislar') THEN
+        DROP TRIGGER IF EXISTS alis_sync_trigger ON alislar;
+        CREATE TRIGGER alis_sync_trigger
+        AFTER INSERT OR UPDATE ON alislar
+        FOR EACH ROW EXECUTE FUNCTION notify_alis_sync();
+        
+        RAISE NOTICE 'Alış trigger oluşturuldu';
+    ELSE
+        RAISE NOTICE 'alislar tablosu bulunamadı, trigger oluşturulmadı';
+    END IF;
+END $$;
+
+-- 8. Kaynak alanı ekle (eğer yoksa)
 DO $$
 BEGIN
     IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'satislar') THEN
@@ -93,9 +121,17 @@ BEGIN
             RAISE NOTICE 'tahsilatlar tablosuna kaynak alanı eklendi';
         END IF;
     END IF;
+
+    IF EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'alislar') THEN
+        IF NOT EXISTS (SELECT 1 FROM information_schema.columns 
+                      WHERE table_name = 'alislar' AND column_name = 'kaynak') THEN
+            ALTER TABLE alislar ADD COLUMN kaynak VARCHAR(20) DEFAULT 'web';
+            RAISE NOTICE 'alislar tablosuna kaynak alanı eklendi';
+        END IF;
+    END IF;
 END $$;
 
--- 7. Başarılı kurulum mesajı
+-- 9. Başarılı kurulum mesajı
 DO $$
 BEGIN
     RAISE NOTICE '================================================';
