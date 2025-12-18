@@ -73,6 +73,9 @@ class SatisTransformer {
         chaCariCins = 0;
       }
 
+      // İade kontrolü
+      const isIade = webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
+
       // Override logic for specific requests if check needed
       // chaTpoz ve chaGrupno yukarıda 1 set edildi.
 
@@ -147,7 +150,7 @@ class SatisTransformer {
         cha_evrak_tip: 63,
         cha_tip: 0,
         cha_cinsi: 6,
-        cha_normal_Iade: 0,
+        cha_normal_Iade: isIade ? 1 : 0,
         // Standart Değerler
         cha_d_cins: 0, // TL
         cha_d_kur: 1,
@@ -277,6 +280,9 @@ class SatisTransformer {
         throw new Error(`Stok mapping bulunamadı: ${webKalem.stok_id}`);
       }
 
+      // İade kontrolü
+      const isIade = webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
+
       return {
         sth_stok_kod: stokKod,
         sth_miktar: webKalem.miktar,
@@ -294,9 +300,9 @@ class SatisTransformer {
         sth_cari_kodu: cariKod,
         sth_cikis_depo_no: 1,
         sth_giris_depo_no: 1, // Kullanıcı isteği: sth_giris_depo_no=1
-        sth_tip: 1,
+        sth_tip: isIade ? 1 : 1, // İade: 1 (Giriş), Normal: 1 (Çıkış) - Trace'e göre her ikisi de 1
         sth_cins: 0,
-        sth_normal_iade: 0,
+        sth_normal_iade: isIade ? 1 : 0,
         sth_evraktip: 4, // Kullanıcı isteği: sth_evraktip=4
         sth_evrakno_sira: webSatis.fatura_sira_no,
         sth_evrakno_seri: webSatis.fatura_seri_no || '',

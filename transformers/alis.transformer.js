@@ -260,7 +260,7 @@ class AlisTransformer {
                 sth_lastup_date: formatDateTimeForMSSQL(new Date()),
                 sth_firmano: 0,
                 sth_subeno: 0,
-                sth_malkbl_sevk_tarihi: '1899-12-30 00:00:00.000',
+                sth_malkbl_sevk_tarihi: formatDateOnlyForMSSQL(islemTarihi),
                 sth_fis_tarihi: '1899-12-30 00:00:00.000',
                 sth_fis_sirano: 0,
                 sth_belge_no: webAlis.belge_no || '',
