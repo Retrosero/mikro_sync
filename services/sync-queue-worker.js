@@ -107,7 +107,7 @@ class SyncQueueWorker {
                 // Processor'a gönder
                 await tahsilatProcessor.syncToERP(entityData);
 
-            } else if (item.entity_type === 'alis') {
+            } else if (item.entity_type === 'alis' || item.entity_type === 'alislar') {
                 // Alış verilerini çek
                 const alis = await pgService.query(
                     `SELECT * FROM alislar WHERE id = $1`,

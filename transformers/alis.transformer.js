@@ -31,9 +31,13 @@ class AlisTransformer {
     async transformAlisBaslik(webAlis) {
         try {
             // 1. Cari Kodu Bul
-            const cariKod = await lookupTables.getCariKod(webAlis.cari_hesap_id);
+            // DB'de tedarikci_id olarak tutuluyor olabilir
+            const cariId = webAlis.tedarikci_id || webAlis.cari_hesap_id;
+            const cariKod = await lookupTables.getCariKod(cariId);
+
             if (!cariKod) {
-                throw new Error(`Cari mapping bulunamadı: ${webAlis.cari_hesap_id}`);
+                const keys = Object.keys(webAlis).join(',');
+                throw new Error(`Cari mapping bulunamadı: ${cariId} (Keys: ${keys})`);
             }
 
             // 2. Ödeme Tipi ve Cari Cins Belirle
@@ -106,15 +110,17 @@ class AlisTransformer {
             if (!chaAciklama) {
                 // Cari adını bulup ekleyebiliriz (opsiyonel)
                 const pgService = require('../services/postgresql.service');
-                const cariInfo = await pgService.query('SELECT cari_adi FROM cari_hesaplar WHERE id = $1', [webAlis.cari_hesap_id]);
+                const cariInfo = await pgService.query('SELECT cari_adi FROM cari_hesaplar WHERE id = $1', [cariId]);
                 if (cariInfo.length > 0) {
                     chaAciklama = cariInfo[0].cari_adi;
                 }
             }
 
+            const islemTarihi = webAlis.fatura_tarihi || webAlis.alis_tarihi || new Date();
+
             return {
-                cha_tarihi: webAlis.alis_tarihi || new Date(),
-                cha_belge_tarih: webAlis.alis_tarihi || new Date(),
+                cha_tarihi: islemTarihi,
+                cha_belge_tarih: islemTarihi,
                 cha_evrakno_sira: null, // Processor belirleyecek
                 cha_evrakno_seri: webAlis.fatura_seri_no || '',
                 cha_belge_no: webAlis.belge_no || '',
@@ -211,7 +217,8 @@ class AlisTransformer {
     async transformAlisKalem(webKalem, webAlis) {
         try {
             const stokKod = await lookupTables.getStokKod(webKalem.stok_id);
-            const cariKod = await lookupTables.getCariKod(webAlis.cari_hesap_id);
+            const cariId = webAlis.tedarikci_id || webAlis.cari_hesap_id;
+            const cariKod = await lookupTables.getCariKod(cariId);
 
             if (!stokKod) {
                 throw new Error(`Stok mapping bulunamadı: ${webKalem.stok_id}`);
@@ -219,6 +226,7 @@ class AlisTransformer {
 
             const isIade = webAlis.fatura_tipi === 'iade' || webAlis.iade === true;
             const sthNormalIade = isIade ? 1 : 0;
+            const islemTarihi = webAlis.fatura_tarihi || webAlis.alis_tarihi || new Date();
 
             return {
                 sth_stok_kod: stokKod,
@@ -226,8 +234,8 @@ class AlisTransformer {
                 sth_tutar: webKalem.toplam_tutar,
                 sth_vergi: webKalem.kdv_tutari || 0,
                 sth_vergi_pntr: 1, // Varsayılan KDV Oranı (Mapping gerekebilir)
-                sth_tarih: webAlis.alis_tarihi,
-                sth_belge_tarih: webAlis.alis_tarihi,
+                sth_tarih: islemTarihi,
+                sth_belge_tarih: islemTarihi,
                 sth_cari_kodu: cariKod,
                 sth_cikis_depo_no: 1, // Trace analizine göre her iki taraf da 1 (Alış/İade farketmeksizin)
                 sth_giris_depo_no: 1, // Her zaman giriş depo 1 (Trace'e göre)
