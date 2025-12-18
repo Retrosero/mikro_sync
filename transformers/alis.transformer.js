@@ -229,7 +229,7 @@ class AlisTransformer {
                 sth_tarih: webAlis.alis_tarihi,
                 sth_belge_tarih: webAlis.alis_tarihi,
                 sth_cari_kodu: cariKod,
-                sth_cikis_depo_no: isIade ? 1 : 0, // İade ise Çıkış Depo 1 (Trace'e göre)
+                sth_cikis_depo_no: 1, // Trace analizine göre her iki taraf da 1 (Alış/İade farketmeksizin)
                 sth_giris_depo_no: 1, // Her zaman giriş depo 1 (Trace'e göre)
                 // İskontolar
                 sth_iskonto1: webKalem.iskonto1 || webKalem.indirim_tutari || 0,
