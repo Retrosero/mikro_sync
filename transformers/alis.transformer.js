@@ -285,7 +285,7 @@ class AlisTransformer {
                 sth_oiv_pntr: 0,
                 sth_oiv_vergi: 0,
                 sth_oivvergisiz_fl: 0,
-                sth_fiyat_liste_no: 0,
+                sth_fiyat_liste_no: 1,
                 sth_oivtutari: 0,
                 sth_Tevkifat_turu: 0,
                 sth_nakliyedeposu: 0,

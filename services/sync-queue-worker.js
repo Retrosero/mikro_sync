@@ -124,6 +124,23 @@ class SyncQueueWorker {
                 const alisProcessor = require('../sync-jobs/alis.processor');
                 await alisProcessor.syncToERP(entityData);
 
+            } else if (item.entity_type === 'iade') {
+                // İade verilerini çek
+                const iade = await pgService.query(
+                    `SELECT * FROM iadeler WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (iade.length === 0) {
+                    throw new Error(`İade bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = iade[0];
+
+                // Processor'a gönder
+                const iadeProcessor = require('../sync-jobs/iade.processor');
+                await iadeProcessor.syncToERP(entityData);
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }
