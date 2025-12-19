@@ -57,7 +57,7 @@ class IadeTransformer {
         cha_ticaret_turu: 0,
         cha_belge_no: webIade.iade_no || '',
         cha_belge_tarih: islemTarihi,
-        cha_aciklama: webIade.notlar || 'Satış İadesi',
+        cha_aciklama: webIade.notlar || '',
         cha_cari_cins: chaCariCins,
         cha_kod: chaKod,
         cha_ciro_cari_kodu: chaCiroCariKodu,
