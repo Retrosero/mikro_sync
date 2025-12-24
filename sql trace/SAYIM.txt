@@ -1,0 +1,293 @@
+select dep_adi          from DEPOLAR WITH (NOLOCK) WHERE dep_no=1
+go
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+go
+SELECT TOP 1 * FROM KULLANICILAR WITH ( NOLOCK , INDEX = NDX_KULLANICILAR_02 )  WHERE User_no=1
+go
+set implicit_transactions on 
+go
+SELECT dep_KilitTarihi FROM DEPOLAR WHERE dep_no = 1
+go
+SELECT dep_firmano    FROM DEPOLAR WITH (NOLOCK) WHERE dep_no=1
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+SELECT TOP 1 * FROM STOKLAR WITH ( NOLOCK , INDEX = NDX_STOKLAR_02 )  WHERE sto_kod=N'444'
+go
+INSERT INTO MikroDB_V15_02.dbo.STOK_HAREKETLERI 
+(sth_RECid_DBCno,sth_RECid_RECno,sth_SpecRECno,sth_iptal,sth_fileid,sth_hidden,sth_kilitli,sth_degisti,sth_checksum,sth_create_user,sth_create_date,sth_lastup_user,sth_lastup_date,sth_special1,sth_special2,sth_special3,sth_firmano,sth_subeno,sth_tarih,sth_tip,sth_cins,sth_normal_iade,sth_evraktip,sth_evrakno_seri,sth_evrakno_sira,sth_satirno,sth_belge_no,sth_belge_tarih,sth_stok_kod,sth_isk_mas1,sth_isk_mas2,sth_isk_mas3,sth_isk_mas4,sth_isk_mas5,sth_isk_mas6,sth_isk_mas7,sth_isk_mas8,sth_isk_mas9,sth_isk_mas10,sth_sat_iskmas1,sth_sat_iskmas2,sth_sat_iskmas3,sth_sat_iskmas4,sth_sat_iskmas5,sth_sat_iskmas6,sth_sat_iskmas7,sth_sat_iskmas8,sth_sat_iskmas9,sth_sat_iskmas10,sth_pos_satis,sth_promosyon_fl,sth_cari_cinsi,sth_cari_kodu,sth_cari_grup_no,sth_isemri_gider_kodu,sth_plasiyer_kodu,sth_har_doviz_cinsi,sth_har_doviz_kuru,sth_alt_doviz_kuru,sth_stok_doviz_cinsi,sth_stok_doviz_kuru,sth_miktar,sth_miktar2,sth_birim_pntr,sth_tutar,sth_iskonto1,sth_iskonto2,sth_iskonto3,sth_iskonto4,sth_iskonto5,sth_iskonto6,sth_masraf1,sth_masraf2,sth_masraf3,sth_masraf4,sth_vergi_pntr,sth_vergi,sth_masraf_vergi_pntr,sth_masraf_vergi,sth_netagirlik,sth_odeme_op,sth_aciklama,sth_sip_recid_dbcno,sth_sip_recid_recno,sth_fat_recid_dbcno,sth_fat_recid_recno,sth_giris_depo_no,sth_cikis_depo_no,sth_malkbl_sevk_tarihi,sth_cari_srm_merkezi,sth_stok_srm_merkezi,sth_fis_tarihi,sth_fis_sirano,sth_vergisiz_fl,sth_maliyet_ana,sth_maliyet_alternatif,sth_maliyet_orjinal,sth_adres_no,sth_parti_kodu,sth_lot_no,sth_kons_recid_dbcno,sth_kons_recid_recno,sth_proje_kodu,sth_exim_kodu,sth_otv_pntr,sth_otv_vergi,sth_brutagirlik,sth_disticaret_turu,sth_otvtutari,sth_otvvergisiz_fl,sth_oiv_pntr,sth_oiv_vergi,sth_oivvergisiz_fl,sth_fiyat_liste_no,sth_oivtutari,sth_Tevkifat_turu,sth_nakliyedeposu,sth_nakliyedurumu,sth_yetkili_recid_dbcno,sth_yetkili_recid_recno,sth_taxfree_fl,sth_ilave_edilecek_kdv) 
+VALUES(0,0,0,0,16,0,0,0,0,1,'20251224 10:53:16.546',1,'20251224 10:53:16.546',N'',N'',N'',0,0,'20251224',1,10,0,0,N'',2,0,N'','20251224',N'444',0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,N'',0,N'SAYIM',N'',0,1.000000000000,1.000000000000,0,1.000000000000,1.000000000000,1.000000000000,1,108.500000000000,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,N'',0,0,0,0,0,1,'20251224',N'',N'','18991230',0,0,0,0,0,1,N'',0,0,0,N'',N'',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+go
+SELECT SCOPE_IDENTITY()
+go
+SELECT MIN(dep_no) FROM DEPOLAR WITH (NOLOCK) WHERE (dep_firmano = 0) AND (dep_subeno = 0)
+go
+UPDATE MikroDB_V15_02.dbo.STOK_HAREKETLERI SET sth_RECid_RECno=134276,sth_giris_depo_no=1,sth_maliyet_ana=108.500000000000,sth_maliyet_alternatif=108.500000000000,sth_maliyet_orjinal=108.500000000000 Where sth_RECno = 134276
+go
+SELECT sth_create_date,sth_lastup_date FROM MikroDB_V15_02.dbo.STOK_HAREKETLERI WITH (NOLOCK) WHERE sth_RECno = 134276
+go
+SELECT TOP 1 * FROM EVRAK_ACIKLAMALARI WITH ( NOLOCK , INDEX = NDX_EVRAK_ACIKLAMALARI_02 )  WHERE (egk_dosyano=16 AND egk_hareket_tip=1 AND egk_evr_tip=0 AND egk_evr_seri=N'' AND egk_evr_sira=2 AND egk_evr_ustkod=N'')
+go
+select count(*) from sysobjects where xtype='U' and name ='PROMOSYON_HAREKETLERI_USER'
+go
+DELETE FROM PROMOSYON_HAREKETLERI WHERE prh_evrak_kaynak = 0 AND prh_sth_evraktip = 0 AND prh_evrak_cins = 10 AND prh_sth_evrakno_seri = '' AND prh_sth_evrakno_sira = 2
+go
+IF @@TRANCOUNT > 0 COMMIT TRAN
+go
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+go
+set implicit_transactions off 
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+DELETE FROM #EVRAKSTOKHAREKETLERI WHERE harPaperID='1E14DD2F-A975-4FBD-8E29-E2D82BA7E108'
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SERINO_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ALT_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SON_KULLANICILAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='KIRALAMA_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEPOLAR_ARASI_SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='KONSINYE_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ETIKET_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SATINALMA_TALEPLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='VERILEN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ALINAN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='UFRS_SOZLESMELERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SERINO_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BAG_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ETIKET_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='BAKIM_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BAG_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='IADE_TALEPLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='YUKLEME_KABUL_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='YUKLEME_KABUL_DETAY_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAPLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_ADRESLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_YETKILILERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_MUSTAHSIL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ITHALAT_DOSYALARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='IHRACAT_DOSYALARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_HAREKETLERI_EK_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ETIKET_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EDI_TCGB_KALEMLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='MUHASEBE_FIS_DETAYLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='IADE_TALEPLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='BAKIM_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='BAKIM_KABUL_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SERINO_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BAG_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='BARKOD_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SERINO_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ETIKET_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SATINALMA_TALEPLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='VERILEN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ALINAN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='UFRS_SOZLESMELERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='KONSINYE_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ETIKET_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='SATINALMA_TALEPLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='VERILEN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ALINAN_TEKLIFLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='UFRS_SOZLESMELERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SERINO_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CIHAZ_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BAG_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEPOLAR_ARASI_SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BAG_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='YUKLEME_KABUL_DETAY_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ALT_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='BARKOD_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ALT_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_ANA_GRUPLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_PAKET_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='PROMOPUAN_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='PARTILOT_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_KALKON_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_BEDEN_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_RENK_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HESAP_HAREKETLERI_EK_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBASLAR_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEMIRBAS_MALIYIL_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_EMIRLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='MUHASEBE_FIS_DETAYLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='CARI_HAREKETLER_SATIS_MALIYETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EBELGE_EVRAK_HAREKETLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='DEPOLAR_ARASI_SIPARISLER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI'
+go
+select count(*) from sysobjects where xtype='U' and name ='EVRAK_GENEL_PARAMETRELERI_USER'
+go
+SELECT TOP 1 * FROM EVRAK_GENEL_PARAMETRELERI WITH ( NOLOCK , INDEX = NDX_EVRAK_GENEL_PARAMETRELERI_02 )  WHERE egp_program_no=12160
+go
+Select TOP 1 IsNull(dov_fiyat1, 1.0) from DOVIZ_KURLARI WITH (NOLOCK) WHERE dov_no=1 AND dov_tarih<='20251224' AND dov_fiyat1>0 ORDER BY dov_tarih DESC
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 215 ORDER BY Param_item
+go
+select count(*) from sysobjects where xtype='U' and name ='URETIM_MALZEME_PLANLAMA_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='PROJELER_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='YATIRIM_TESVIKLERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='ODEME_PLANLARI_USER'
+go
+DELETE FROM #EVRAKSTOKHAREKETLERI WHERE harPaperID='F2D143E9-4F57-406C-8852-27CD6703736D'
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+SELECT Param_size,Param_buf FROM VERI_TABANI_PARAMETRELERI WITH (NOLOCK) WHERE Param_id = 5000 ORDER BY Param_item
+go
+select yk_kayitno from dbo.YASAKLI_KAYITLAR WITH (NOLOCK) where yk_kullanicino=1 and yk_tablono=111 and yk_dbcno=0
+go
+IF EXISTS(SELECT * FROM tempdb..sysobjects WHERE name Like N'#STOK_FOYU_1_24122025_104851%') DROP TABLE #STOK_FOYU_1_24122025_104851 
+go
+Select * into #STOK_FOYU_1_24122025_104851 FROM dbo.fn_StokFoy (N'827041','20241231','20250101','20251231',0,N'') 
+go
+SET NO_BROWSETABLE ON
+go
+Select * FROM  #STOK_FOYU_1_24122025_104851 ORDER BY [msg_S_0089],[#msg_S_0077],[msg_S_0094],[msg_S_0090],[msg_S_0157],[#msg_S_0212]
+
+go
+SET NO_BROWSETABLE OFF
+go
+SELECT TOP 1 * FROM STOKLAR WITH ( NOLOCK , INDEX = NDX_STOKLAR_02 )  WHERE sto_kod=N'827041'
+go

@@ -130,6 +130,7 @@ class StokHareketProcessor {
         sth_tip, sth_cins, sth_normal_iade, sth_evraktip,
         sth_fat_recid_recno,
         sth_iskonto1, sth_iskonto2, sth_iskonto3, sth_iskonto4, sth_iskonto5, sth_iskonto6,
+        sth_isemri_gider_kodu,
         sth_lastup_date
       FROM STOK_HAREKETLERI
       ${whereClause}
@@ -149,7 +150,12 @@ class StokHareketProcessor {
 
             const cariId = cariMap.get(erpHareket.sth_cari_kodu) || null;
             const hareketTipi = erpHareket.sth_tip === 0 ? 'giris' : 'cikis';
-            const belgeTipi = 'fatura';
+
+            let belgeTipi = 'fatura';
+            // Sayım fişleri (10)
+            if (erpHareket.sth_cins === 10) {
+                belgeTipi = 'sayim';
+            }
 
             rows.push({
                 erp_recno: erpHareket.sth_RECno,
@@ -174,7 +180,8 @@ class StokHareketProcessor {
                 iskonto3: erpHareket.sth_iskonto3 || 0,
                 iskonto4: erpHareket.sth_iskonto4 || 0,
                 iskonto5: erpHareket.sth_iskonto5 || 0,
-                iskonto6: erpHareket.sth_iskonto6 || 0
+                iskonto6: erpHareket.sth_iskonto6 || 0,
+                sth_isemri_gider_kodu: erpHareket.sth_isemri_gider_kodu || null
             });
         }
 
@@ -184,14 +191,14 @@ class StokHareketProcessor {
             'erp_recno', 'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
             'miktar', 'toplam_tutar', 'kdv_orani', 'kdv_tutari', 'guncelleme_tarihi', 'fatura_seri_no',
             'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
-            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6', 'sth_isemri_gider_kodu'
         ];
 
         const updateColumns = [
             'stok_id', 'cari_hesap_id', 'islem_tarihi', 'belge_no',
             'miktar', 'toplam_tutar', 'kdv_orani', 'kdv_tutari', 'guncelleme_tarihi', 'fatura_seri_no',
             'fatura_sira_no', 'fat_recid_recno', 'hareket_tipi', 'belge_tipi', 'onceki_miktar', 'sonraki_miktar',
-            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6', 'sth_isemri_gider_kodu'
         ];
 
         const { query, values } = this.buildBulkUpsertQuery(
