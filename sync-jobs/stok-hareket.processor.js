@@ -235,6 +235,136 @@ class StokHareketProcessor {
 
         return { query, values };
     }
+
+
+    async syncToERP(webStokHareket) {
+        try {
+            // Check if already synced
+            if (webStokHareket.erp_recno) {
+                logger.warn(`Bu stok hareketi zaten ERP'de var: ${webStokHareket.id} (ERP RECno: ${webStokHareket.erp_recno})`);
+                return;
+            }
+
+            // Get Stok Kodu
+            const stokRes = await pgService.query('SELECT stok_kodu FROM stoklar WHERE id = $1', [webStokHareket.stok_id]);
+            if (stokRes.length === 0) {
+                throw new Error(`Stok bulunamadı Web ID: ${webStokHareket.stok_id}`);
+            }
+            const stokKod = stokRes[0].stok_kodu;
+
+            // Transform
+            const transformer = require('../transformers/stok-hareket.transformer');
+            const erpData = await transformer.transformToERP(webStokHareket, stokKod);
+
+            // Insert to MSSQL
+            const sthRecNo = await this.insertToERP(erpData);
+
+            // Update Web with ERP RecNo
+            await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [sthRecNo, webStokHareket.id]);
+
+            logger.info(`Stok hareketi ERP'ye gönderildi. ID: ${webStokHareket.id} -> RecNo: ${sthRecNo}`);
+
+        } catch (error) {
+            logger.error('Stok Hareket ERP Sync Hatası:', error);
+            throw error;
+        }
+    }
+
+    async insertToERP(data) {
+        return await mssqlService.transaction(async (transaction) => {
+            const request = transaction.request();
+
+            // Parametreleri ekle
+            Object.keys(data).forEach(key => {
+                request.input(key, data[key]);
+            });
+
+            // Default values if missing
+            if (!data.hasOwnProperty('sth_create_user')) request.input('sth_create_user', 1);
+            if (!data.hasOwnProperty('sth_lastup_user')) request.input('sth_lastup_user', 1);
+
+            const result = await request.query(`
+                INSERT INTO STOK_HAREKETLERI (
+                    sth_stok_kod, sth_miktar, sth_tutar, sth_vergi, sth_vergi_pntr,
+                    sth_iskonto1, sth_iskonto2, sth_iskonto3, sth_iskonto4, sth_iskonto5, sth_iskonto6,
+                    sth_tarih, sth_belge_tarih, sth_cari_kodu,
+                    sth_cikis_depo_no, sth_giris_depo_no,
+                    sth_tip, sth_cins, sth_normal_iade, sth_evraktip,
+                    sth_evrakno_sira, sth_evrakno_seri,
+                    sth_create_user, sth_lastup_user, sth_create_date, sth_lastup_date,
+                    sth_firmano, sth_subeno,
+                    sth_har_doviz_cinsi, sth_har_doviz_kuru, sth_alt_doviz_kuru,
+                    sth_stok_doviz_cinsi, sth_stok_doviz_kuru,
+                    sth_RECid_DBCno, sth_RECid_RECno, sth_SpecRECno, sth_iptal,
+                    sth_fileid, sth_hidden, sth_kilitli, sth_degisti, sth_checksum,
+                    sth_satirno, sth_belge_no, sth_fis_tarihi, sth_malkbl_sevk_tarihi,
+                    sth_special1, sth_special2, sth_special3,
+                    sth_isk_mas1, sth_isk_mas2, sth_isk_mas3, sth_isk_mas4, sth_isk_mas5,
+                    sth_isk_mas6, sth_isk_mas7, sth_isk_mas8, sth_isk_mas9, sth_isk_mas10,
+                    sth_sat_iskmas1, sth_sat_iskmas2, sth_sat_iskmas3, sth_sat_iskmas4, sth_sat_iskmas5,
+                    sth_sat_iskmas6, sth_sat_iskmas7, sth_sat_iskmas8, sth_sat_iskmas9, sth_sat_iskmas10,
+                    sth_pos_satis, sth_promosyon_fl, sth_cari_cinsi, sth_cari_grup_no,
+                    sth_isemri_gider_kodu, sth_plasiyer_kodu, sth_miktar2, sth_birim_pntr,
+                    sth_masraf1, sth_masraf2, sth_masraf3, sth_masraf4,
+                    sth_masraf_vergi_pntr, sth_masraf_vergi, sth_netagirlik, sth_odeme_op,
+                    sth_aciklama, sth_sip_recid_dbcno, sth_sip_recid_recno, sth_fat_recid_dbcno, 
+                    sth_fat_recid_recno,
+                    sth_cari_srm_merkezi, sth_stok_srm_merkezi, sth_fis_sirano, sth_vergisiz_fl,
+                    sth_maliyet_ana, sth_maliyet_alternatif, sth_maliyet_orjinal, sth_adres_no,
+                    sth_parti_kodu, sth_lot_no, sth_kons_recid_dbcno, sth_kons_recid_recno,
+                    sth_proje_kodu, sth_exim_kodu, sth_otv_pntr, sth_otv_vergi,
+                    sth_brutagirlik, sth_disticaret_turu, sth_otvtutari, sth_otvvergisiz_fl,
+                    sth_oiv_pntr, sth_oiv_vergi, sth_oivvergisiz_fl, sth_fiyat_liste_no,
+                    sth_oivtutari, sth_Tevkifat_turu, sth_nakliyedeposu, sth_nakliyedurumu,
+                    sth_yetkili_recid_dbcno, sth_yetkili_recid_recno, sth_taxfree_fl, sth_ilave_edilecek_kdv
+                )
+                VALUES (
+                    @sth_stok_kod, @sth_miktar, @sth_tutar, @sth_vergi, @sth_vergi_pntr,
+                    @sth_iskonto1, @sth_iskonto2, @sth_iskonto3, @sth_iskonto4, @sth_iskonto5, @sth_iskonto6,
+                    @sth_tarih, @sth_belge_tarih, @sth_cari_kodu,
+                    @sth_cikis_depo_no, @sth_giris_depo_no,
+                    @sth_tip, @sth_cins, @sth_normal_iade, @sth_evraktip,
+                    @sth_evrakno_sira, @sth_evrakno_seri,
+                    @sth_create_user, @sth_lastup_user, GETDATE(), GETDATE(),
+                    @sth_firmano, @sth_subeno,
+                    @sth_har_doviz_cinsi, @sth_har_doviz_kuru, @sth_alt_doviz_kuru,
+                    @sth_stok_doviz_cinsi, @sth_stok_doviz_kuru,
+                    @sth_RECid_DBCno, 0, @sth_SpecRECno, @sth_iptal,
+                    @sth_fileid, @sth_hidden, @sth_kilitli, @sth_degisti, @sth_checksum,
+                    @sth_satirno, @sth_belge_no, @sth_tarih, @sth_tarih,
+                    @sth_special1, @sth_special2, @sth_special3,
+                    @sth_isk_mas1, @sth_isk_mas2, @sth_isk_mas3, @sth_isk_mas4, @sth_isk_mas5,
+                    @sth_isk_mas6, @sth_isk_mas7, @sth_isk_mas8, @sth_isk_mas9, @sth_isk_mas10,
+                    @sth_sat_iskmas1, @sth_sat_iskmas2, @sth_sat_iskmas3, @sth_sat_iskmas4, @sth_sat_iskmas5,
+                    @sth_sat_iskmas6, @sth_sat_iskmas7, @sth_sat_iskmas8, @sth_sat_iskmas9, @sth_sat_iskmas10,
+                    @sth_pos_satis, @sth_promosyon_fl, @sth_cari_cinsi, @sth_cari_grup_no,
+                    @sth_isemri_gider_kodu, '', @sth_miktar2, @sth_birim_pntr,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    @sth_aciklama, 0, 0, 0, 
+                    0,
+                    0, 0, 0, 0,
+                    @sth_maliyet_ana, 0, 0, 0,
+                    '', 0, 0, 0,
+                    '', '', 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0,
+                    0, 0, 0, 0
+                );
+                SELECT SCOPE_IDENTITY() AS sth_RECno;
+            `);
+
+            const sthRecno = result.recordset[0].sth_RECno;
+
+            // RECid_RECno güncelle
+            await mssqlService.updateRecIdRecNo('STOK_HAREKETLERI', 'sth_RECno', sthRecno, transaction);
+
+            return sthRecno;
+        });
+    }
+
 }
 
 module.exports = new StokHareketProcessor();
+

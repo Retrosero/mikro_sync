@@ -141,6 +141,23 @@ class SyncQueueWorker {
                 const iadeProcessor = require('../sync-jobs/iade.processor');
                 await iadeProcessor.syncToERP(entityData);
 
+            } else if (item.entity_type === 'stok_hareket') {
+                // Stok Hareket verilerini çek
+                const stokHareket = await pgService.query(
+                    `SELECT * FROM stok_hareketleri WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (stokHareket.length === 0) {
+                    throw new Error(`Stok Hareketi bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = stokHareket[0];
+
+                // Processor'a gönder
+                const stokHareketProcessor = require('../sync-jobs/stok-hareket.processor');
+                await stokHareketProcessor.syncToERP(entityData);
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }
