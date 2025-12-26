@@ -340,6 +340,7 @@ class SatisTransformer {
         sth_pos_satis: 0,
         sth_promosyon_fl: 0,
         sth_cari_cinsi: 0,
+        sth_cari_kodu: cariKod,
         sth_cari_grup_no: 0,
         sth_isemri_gider_kodu: '',
         sth_plasiyer_kodu: '',

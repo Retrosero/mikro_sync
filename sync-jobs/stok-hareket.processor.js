@@ -252,22 +252,102 @@ class StokHareketProcessor {
             }
             const stokKod = stokRes[0].stok_kodu;
 
-            // Transform
-            const transformer = require('../transformers/stok-hareket.transformer');
-            const erpData = await transformer.transformToERP(webStokHareket, stokKod);
+            if (webStokHareket.belge_tipi === 'sayim') {
+                // Son sıra numarasını bul (SAYIM_SONUCLARI için)
+                let satirNo = 0;
+                // Transformer tarih stringini oluşturmadan önce biz burada oluşturup sorguda kullanalım
+                const date = new Date(webStokHareket.islem_tarihi);
+                const tarihStr = date.toISOString().slice(0, 10).replace(/-/g, '');
+                const evrakNo = webStokHareket.fatura_sira_no || 1;
+                const depoNo = 1;
 
-            // Insert to MSSQL
-            const sthRecNo = await this.insertToERP(erpData);
+                const maxSeq = await mssqlService.query(
+                    `SELECT MAX(sym_satirno) as max_seq FROM SAYIM_SONUCLARI WHERE sym_tarihi = @tarih AND sym_depono = @depo AND sym_evrakno = @evrak`,
+                    { tarih: tarihStr, depo: depoNo, evrak: evrakNo }
+                );
+                satirNo = (maxSeq[0].max_seq || 0) + 1;
 
-            // Update Web with ERP RecNo
-            await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [sthRecNo, webStokHareket.id]);
+                // SAYIM_SONUCLARI tablosuna yaz
+                const transformer = require('../transformers/sayim.transformer');
+                const erpData = await transformer.transformToERP(webStokHareket, stokKod, satirNo);
+                const symRecNo = await this.insertToSayimSonuclari(erpData);
 
-            logger.info(`Stok hareketi ERP'ye gönderildi. ID: ${webStokHareket.id} -> RecNo: ${sthRecNo}`);
+                // Update Web with ERP RecNo
+                await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [-symRecNo, webStokHareket.id]);
+                logger.info(`Sayım fişi SAYIM_SONUCLARI'na gönderildi. ID: ${webStokHareket.id} -> RecNo: ${symRecNo} (Saved as -${symRecNo}) (Satır: ${satirNo})`);
+
+            } else {
+                // STOK_HAREKETLERI tablosuna yaz (Eski logic)
+
+                // Son sıra numarasını bul
+                let satirNo = 0;
+                if (webStokHareket.fatura_seri_no) {
+                    const maxSeq = await mssqlService.query(
+                        `SELECT MAX(sth_satirno) as max_seq FROM STOK_HAREKETLERI WHERE sth_evrakno_seri = @seri AND sth_evrakno_sira = @sira`,
+                        { seri: webStokHareket.fatura_seri_no, sira: webStokHareket.fatura_sira_no || 0 }
+                    );
+                    satirNo = (maxSeq[0].max_seq || 0) + 1;
+                }
+
+                const transformer = require('../transformers/stok-hareket.transformer');
+                const erpData = await transformer.transformToERP(webStokHareket, stokKod, satirNo);
+
+                // Insert to MSSQL
+                const sthRecNo = await this.insertToERP(erpData);
+
+                // Update Web with ERP RecNo
+                await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [sthRecNo, webStokHareket.id]);
+                logger.info(`Stok hareketi ERP'ye gönderildi. ID: ${webStokHareket.id} -> RecNo: ${sthRecNo}`);
+            }
 
         } catch (error) {
             logger.error('Stok Hareket ERP Sync Hatası:', error);
             throw error;
         }
+    }
+
+    async insertToSayimSonuclari(data) {
+        return await mssqlService.transaction(async (transaction) => {
+            const request = transaction.request();
+
+            Object.keys(data).forEach(key => {
+                request.input(key, data[key]);
+            });
+
+            const result = await request.query(`
+                INSERT INTO SAYIM_SONUCLARI (
+                    sym_RECid_DBCno, sym_RECid_RECno, sym_SpecRECno, sym_iptal, 
+                    sym_fileid, sym_hidden, sym_kilitli, sym_degisti, sym_checksum,
+                    sym_create_user, sym_create_date, sym_lastup_user, sym_lastup_date,
+                    sym_special1, sym_special2, sym_special3,
+                    sym_tarihi, sym_depono, sym_evrakno,
+                    sym_satirno, sym_Stokkodu,
+                    sym_reyonkodu, sym_koridorkodu, sym_rafkodu,
+                    sym_miktar1, sym_miktar2, sym_miktar3, sym_miktar4, sym_miktar5,
+                    sym_birim_pntr, sym_barkod, sym_renkno, sym_bedenno,
+                    sym_parti_kodu, sym_lot_no, sym_serino
+                ) VALUES (
+                    @sym_RECid_DBCno, 0, @sym_SpecRECno, @sym_iptal,
+                    @sym_fileid, @sym_hidden, @sym_kilitli, @sym_degisti, @sym_checksum,
+                    @sym_create_user, @sym_create_date, @sym_lastup_user, @sym_lastup_date,
+                    @sym_special1, @sym_special2, @sym_special3,
+                    @sym_tarihi, @sym_depono, @sym_evrakno,
+                    @sym_satirno, @sym_Stokkodu,
+                    @sym_reyonkodu, @sym_koridorkodu, @sym_rafkodu,
+                    @sym_miktar1, @sym_miktar2, @sym_miktar3, @sym_miktar4, @sym_miktar5,
+                    @sym_birim_pntr, @sym_barkod, @sym_renkno, @sym_bedenno,
+                    @sym_parti_kodu, @sym_lot_no, @sym_serino
+                );
+                SELECT SCOPE_IDENTITY() AS sym_RECno;
+            `);
+
+            const symRecNo = result.recordset[0].sym_RECno;
+
+            // RECid_RECno güncelle
+            await mssqlService.updateRecIdRecNo('SAYIM_SONUCLARI', 'sym_RECno', symRecNo, transaction);
+
+            return symRecNo;
+        });
     }
 
     async insertToERP(data) {
@@ -356,6 +436,12 @@ class StokHareketProcessor {
             `);
 
             const sthRecno = result.recordset[0].sth_RECno;
+            logger.info(`ERP Insert Result - sth_RECno: ${sthRecno} (Type: ${typeof sthRecno})`);
+
+            if (!sthRecno) {
+                logger.error('ERP Insert returned invalid sthRecno:', sthRecno);
+                throw new Error('ERP insert failed to return valid SCOPE_IDENTITY');
+            }
 
             // RECid_RECno güncelle
             await mssqlService.updateRecIdRecNo('STOK_HAREKETLERI', 'sth_RECno', sthRecno, transaction);
@@ -367,4 +453,3 @@ class StokHareketProcessor {
 }
 
 module.exports = new StokHareketProcessor();
-

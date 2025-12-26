@@ -176,7 +176,7 @@ class TahsilatTransformer {
             return webAciklama;
           }
           return (chaAciklama + (webAciklama ? ' ' + webAciklama : '')).trim();
-        })().substring(0, 80),
+        })().substring(0, 40),
         cha_tpoz: chaTpoz,
         cha_cari_cins: chaCariCins,
         cha_evrak_tip: 1,
