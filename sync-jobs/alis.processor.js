@@ -135,6 +135,56 @@ class AlisProcessor {
         const request = transaction.request();
         Object.keys(data).forEach(key => request.input(key, data[key]));
 
+        // NULL olan alanları 0 ile doldur
+        request.input('cha_ft_masraf1', 0);
+        request.input('cha_ft_masraf2', 0);
+        request.input('cha_ft_masraf3', 0);
+        request.input('cha_ft_masraf4', 0);
+        request.input('cha_isk_mas1', 0);
+        request.input('cha_isk_mas2', 0);
+        request.input('cha_isk_mas3', 0);
+        request.input('cha_isk_mas4', 0);
+        request.input('cha_isk_mas5', 0);
+        request.input('cha_isk_mas6', 0);
+        request.input('cha_isk_mas7', 0);
+        request.input('cha_isk_mas8', 0);
+        request.input('cha_isk_mas9', 0);
+        request.input('cha_isk_mas10', 0);
+        request.input('cha_sat_iskmas1', 0);
+        request.input('cha_sat_iskmas2', 0);
+        request.input('cha_sat_iskmas3', 0);
+        request.input('cha_sat_iskmas4', 0);
+        request.input('cha_sat_iskmas5', 0);
+        request.input('cha_sat_iskmas6', 0);
+        request.input('cha_sat_iskmas7', 0);
+        request.input('cha_sat_iskmas8', 0);
+        request.input('cha_sat_iskmas9', 0);
+        request.input('cha_sat_iskmas10', 0);
+        request.input('cha_vergi1', 0);
+        request.input('cha_vergi2', 0);
+        request.input('cha_vergi3', 0);
+        request.input('cha_vergi4', 0);
+        request.input('cha_vergi5', 0);
+        request.input('cha_vergi6', 0);
+        request.input('cha_vergi7', 0);
+        request.input('cha_vergi8', 0);
+        request.input('cha_vergi9', 0);
+        request.input('cha_vergi10', 0);
+        request.input('cha_ilave_edilecek_kdv1', 0);
+        request.input('cha_ilave_edilecek_kdv2', 0);
+        request.input('cha_ilave_edilecek_kdv3', 0);
+        request.input('cha_ilave_edilecek_kdv4', 0);
+        request.input('cha_ilave_edilecek_kdv5', 0);
+        request.input('cha_ilave_edilecek_kdv6', 0);
+        request.input('cha_ilave_edilecek_kdv7', 0);
+        request.input('cha_ilave_edilecek_kdv8', 0);
+        request.input('cha_ilave_edilecek_kdv9', 0);
+        request.input('cha_ilave_edilecek_kdv10', 0);
+        request.input('cha_oiv_vergi', 0);
+        request.input('cha_otvvergisiz_fl', 0);
+        request.input('cha_oivergisiz_fl', 0);
+
+
         const result = await request.query(`
       INSERT INTO CARI_HESAP_HAREKETLERI (
         cha_tarihi, cha_belge_tarih, cha_evrakno_sira, cha_evrakno_seri,
@@ -143,6 +193,11 @@ class AlisProcessor {
         cha_tpoz, cha_cari_cins, cha_evrak_tip, cha_tip, cha_cinsi, cha_normal_Iade,
         cha_vade, cha_ft_iskonto1, cha_ft_iskonto2, cha_ft_iskonto3, 
         cha_ft_iskonto4, cha_ft_iskonto5, cha_ft_iskonto6,
+        cha_ft_masraf1, cha_ft_masraf2, cha_ft_masraf3, cha_ft_masraf4,
+        cha_isk_mas1, cha_isk_mas2, cha_isk_mas3, cha_isk_mas4, cha_isk_mas5,
+        cha_isk_mas6, cha_isk_mas7, cha_isk_mas8, cha_isk_mas9, cha_isk_mas10,
+        cha_sat_iskmas1, cha_sat_iskmas2, cha_sat_iskmas3, cha_sat_iskmas4, cha_sat_iskmas5,
+        cha_sat_iskmas6, cha_sat_iskmas7, cha_sat_iskmas8, cha_sat_iskmas9, cha_sat_iskmas10,
         cha_d_cins, cha_d_kur, cha_altd_kur, cha_karsid_kur,
         cha_create_user, cha_lastup_user, cha_create_date, cha_lastup_date,
         cha_firmano, cha_subeno,
@@ -154,13 +209,18 @@ class AlisProcessor {
         cha_special1, cha_special2, cha_special3,
         cha_karsidgrupno, cha_karsisrmrkkodu, cha_miktari, cha_Vade_Farki_Yuz,
         cha_yuvarlama, cha_StFonPntr, cha_stopaj, cha_savsandesfonu, cha_avansmak_damgapul,
-        cha_vergipntr, cha_vergisiz_fl, cha_otvtutari, cha_oiv_pntr, cha_oivtutari,
+        cha_vergipntr, cha_vergi1, cha_vergi2, cha_vergi3, cha_vergi4, cha_vergi5,
+        cha_vergi6, cha_vergi7, cha_vergi8, cha_vergi9, cha_vergi10,
+        cha_vergisiz_fl, cha_otvtutari, cha_otvvergisiz_fl, cha_oiv_pntr, cha_oivtutari, cha_oiv_vergi, cha_oivergisiz_fl,
         cha_fis_tarih, cha_fis_sirano, cha_trefno,
         cha_sntck_poz, cha_reftarihi, cha_istisnakodu, cha_pos_hareketi,
         cha_meblag_ana_doviz_icin_gecersiz_fl, cha_meblag_alt_doviz_icin_gecersiz_fl, cha_meblag_orj_doviz_icin_gecersiz_fl,
         cha_sip_recid_dbcno, cha_sip_recid_recno, cha_kirahar_recid_dbcno, cha_kirahar_recid_recno,
         cha_vardiya_tarihi, cha_vardiya_no, cha_vardiya_evrak_ti, cha_ebelge_cinsi,
-        cha_tevkifat_toplam, cha_e_islem_turu, cha_fatura_belge_turu, cha_diger_belge_adi, cha_uuid
+        cha_tevkifat_toplam, cha_ilave_edilecek_kdv1, cha_ilave_edilecek_kdv2, cha_ilave_edilecek_kdv3,
+        cha_ilave_edilecek_kdv4, cha_ilave_edilecek_kdv5, cha_ilave_edilecek_kdv6, cha_ilave_edilecek_kdv7,
+        cha_ilave_edilecek_kdv8, cha_ilave_edilecek_kdv9, cha_ilave_edilecek_kdv10,
+        cha_e_islem_turu, cha_fatura_belge_turu, cha_diger_belge_adi, cha_uuid
       )
       VALUES (
         @cha_tarihi, @cha_belge_tarih, @cha_evrakno_sira, @cha_evrakno_seri,
@@ -169,6 +229,11 @@ class AlisProcessor {
         @cha_tpoz, @cha_cari_cins, @cha_evrak_tip, @cha_tip, @cha_cinsi, @cha_normal_Iade,
         @cha_vade, @cha_ft_iskonto1, @cha_ft_iskonto2, @cha_ft_iskonto3,
         @cha_ft_iskonto4, @cha_ft_iskonto5, @cha_ft_iskonto6,
+        @cha_ft_masraf1, @cha_ft_masraf2, @cha_ft_masraf3, @cha_ft_masraf4,
+        @cha_isk_mas1, @cha_isk_mas2, @cha_isk_mas3, @cha_isk_mas4, @cha_isk_mas5,
+        @cha_isk_mas6, @cha_isk_mas7, @cha_isk_mas8, @cha_isk_mas9, @cha_isk_mas10,
+        @cha_sat_iskmas1, @cha_sat_iskmas2, @cha_sat_iskmas3, @cha_sat_iskmas4, @cha_sat_iskmas5,
+        @cha_sat_iskmas6, @cha_sat_iskmas7, @cha_sat_iskmas8, @cha_sat_iskmas9, @cha_sat_iskmas10,
         @cha_d_cins, @cha_d_kur, @cha_altd_kur, @cha_karsid_kur,
         @cha_create_user, @cha_lastup_user, @cha_create_date, @cha_lastup_date,
         @cha_firmano, @cha_subeno,
@@ -179,13 +244,18 @@ class AlisProcessor {
         @cha_special1, @cha_special2, @cha_special3,
         @cha_karsidgrupno, @cha_karsisrmrkkodu, @cha_miktari, @cha_Vade_Farki_Yuz,
         @cha_yuvarlama, @cha_StFonPntr, @cha_stopaj, @cha_savsandesfonu, @cha_avansmak_damgapul,
-        @cha_vergipntr, @cha_vergisiz_fl, @cha_otvtutari, @cha_oiv_pntr, @cha_oivtutari,
+        @cha_vergipntr, @cha_vergi1, @cha_vergi2, @cha_vergi3, @cha_vergi4, @cha_vergi5,
+        @cha_vergi6, @cha_vergi7, @cha_vergi8, @cha_vergi9, @cha_vergi10,
+        @cha_vergisiz_fl, @cha_otvtutari, @cha_otvvergisiz_fl, @cha_oiv_pntr, @cha_oivtutari, @cha_oiv_vergi, @cha_oivergisiz_fl,
         @cha_fis_tarih, @cha_fis_sirano, @cha_trefno,
         @cha_sntck_poz, @cha_reftarihi, @cha_istisnakodu, @cha_pos_hareketi,
         @cha_meblag_ana_doviz_icin_gecersiz_fl, @cha_meblag_alt_doviz_icin_gecersiz_fl, @cha_meblag_orj_doviz_icin_gecersiz_fl,
         @cha_sip_recid_dbcno, @cha_sip_recid_recno, @cha_kirahar_recid_dbcno, @cha_kirahar_recid_recno,
         @cha_vardiya_tarihi, @cha_vardiya_no, @cha_vardiya_evrak_ti, @cha_ebelge_cinsi,
-        @cha_tevkifat_toplam, @cha_e_islem_turu, @cha_fatura_belge_turu, @cha_diger_belge_adi, @cha_uuid
+        @cha_tevkifat_toplam, @cha_ilave_edilecek_kdv1, @cha_ilave_edilecek_kdv2, @cha_ilave_edilecek_kdv3,
+        @cha_ilave_edilecek_kdv4, @cha_ilave_edilecek_kdv5, @cha_ilave_edilecek_kdv6, @cha_ilave_edilecek_kdv7,
+        @cha_ilave_edilecek_kdv8, @cha_ilave_edilecek_kdv9, @cha_ilave_edilecek_kdv10,
+        @cha_e_islem_turu, @cha_fatura_belge_turu, @cha_diger_belge_adi, @cha_uuid
       );
       SELECT SCOPE_IDENTITY() AS cha_RECno;
     `);
@@ -208,6 +278,32 @@ class AlisProcessor {
         request.input('sth_stok_doviz_cinsi', 0);
         request.input('sth_stok_doviz_kuru', 1);
 
+        // İskonto masraf alanları - Kullanıcı isteği: sth_isk_mas1=0, diğerleri=1
+        request.input('sth_isk_mas1', 0);
+        request.input('sth_isk_mas2', 1);
+        request.input('sth_isk_mas3', 1);
+        request.input('sth_isk_mas4', 1);
+        request.input('sth_isk_mas5', 1);
+        request.input('sth_isk_mas6', 1);
+        request.input('sth_isk_mas7', 1);
+        request.input('sth_isk_mas8', 1);
+        request.input('sth_isk_mas9', 1);
+        request.input('sth_isk_mas10', 1);
+        request.input('sth_sat_iskmas1', 0);
+        request.input('sth_sat_iskmas2', 0);
+        request.input('sth_sat_iskmas3', 0);
+        request.input('sth_sat_iskmas4', 0);
+        request.input('sth_sat_iskmas5', 0);
+        request.input('sth_sat_iskmas6', 0);
+        request.input('sth_sat_iskmas7', 0);
+        request.input('sth_sat_iskmas8', 0);
+        request.input('sth_sat_iskmas9', 0);
+        request.input('sth_sat_iskmas10', 0);
+        request.input('sth_masraf1', 0);
+        request.input('sth_masraf2', 0);
+        request.input('sth_masraf3', 0);
+        request.input('sth_masraf4', 0);
+
         const result = await request.query(`
       INSERT INTO STOK_HAREKETLERI (
         sth_stok_kod, sth_miktar, sth_tutar, sth_vergi, sth_vergi_pntr,
@@ -226,6 +322,11 @@ class AlisProcessor {
         sth_special1, sth_special2, sth_special3,
         sth_pos_satis, sth_promosyon_fl, sth_cari_cinsi, sth_cari_grup_no,
         sth_isemri_gider_kodu, sth_plasiyer_kodu, sth_miktar2, sth_birim_pntr,
+        sth_isk_mas1, sth_isk_mas2, sth_isk_mas3, sth_isk_mas4, sth_isk_mas5,
+        sth_isk_mas6, sth_isk_mas7, sth_isk_mas8, sth_isk_mas9, sth_isk_mas10,
+        sth_sat_iskmas1, sth_sat_iskmas2, sth_sat_iskmas3, sth_sat_iskmas4, sth_sat_iskmas5,
+        sth_sat_iskmas6, sth_sat_iskmas7, sth_sat_iskmas8, sth_sat_iskmas9, sth_sat_iskmas10,
+        sth_masraf1, sth_masraf2, sth_masraf3, sth_masraf4,
         sth_masraf_vergi_pntr, sth_masraf_vergi, sth_netagirlik, sth_odeme_op,
         sth_aciklama, sth_sip_recid_dbcno, sth_sip_recid_recno, sth_fat_recid_dbcno,
         sth_cari_srm_merkezi, sth_stok_srm_merkezi, sth_fis_sirano, sth_vergisiz_fl,
@@ -254,6 +355,11 @@ class AlisProcessor {
         '', '', '',
         @sth_pos_satis, @sth_promosyon_fl, @sth_cari_cinsi, 0,
         @sth_isemri_gider_kodu, @sth_plasiyer_kodu, @sth_miktar2, @sth_birim_pntr,
+        @sth_isk_mas1, @sth_isk_mas2, @sth_isk_mas3, @sth_isk_mas4, @sth_isk_mas5,
+        @sth_isk_mas6, @sth_isk_mas7, @sth_isk_mas8, @sth_isk_mas9, @sth_isk_mas10,
+        @sth_sat_iskmas1, @sth_sat_iskmas2, @sth_sat_iskmas3, @sth_sat_iskmas4, @sth_sat_iskmas5,
+        @sth_sat_iskmas6, @sth_sat_iskmas7, @sth_sat_iskmas8, @sth_sat_iskmas9, @sth_sat_iskmas10,
+        @sth_masraf1, @sth_masraf2, @sth_masraf3, @sth_masraf4,
         0, 0, @sth_brutagirlik, 0,
         '', 0, 0, 0,
         '', '', 0, @sth_vergisiz_fl,

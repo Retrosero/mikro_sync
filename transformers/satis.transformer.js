@@ -49,11 +49,21 @@ class SatisTransformer {
       // Ödeme şekline göre cha_tpoz, cha_cari_cins, cha_grupno belirleme
       let chaTpoz, chaCariCins, chaGrupno;
 
-      // KULLANICI İSTEĞİ: cha_tpoz ve cha_grupno HER ZAMAN 1 OLMALI
-      chaTpoz = 1;
-      chaGrupno = 1;
       // Ödeme Şekli normalizasyonu (küçük harf, trim)
       const oSekli = (webSatis.odeme_sekli || '').toLowerCase().trim();
+
+      // Vadeli satış kontrolü (Açık Hesap / Veresiye)
+      const isVadeli = oSekli === 'vadeli' || oSekli === 'acik_hesap' || oSekli === 'veresiye' ||
+        (!webSatis.kasa_id && !webSatis.banka_id && !webSatis.kasa_kodu && !webSatis.banka_kodu);
+
+      // KULLANICI İSTEĞİ: Vadeli satışlarda cha_tpoz=0 ve cha_grupno=0, diğerlerinde 1
+      if (isVadeli) {
+        chaTpoz = 0;
+        chaGrupno = 0;
+      } else {
+        chaTpoz = 1;
+        chaGrupno = 1;
+      }
 
       // Ödeme şekline veya mevcut ID'lere göre cari_cins belirle
       // Nakit veya Kasa

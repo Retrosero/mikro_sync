@@ -233,12 +233,12 @@ class AlisTransformer {
                 sth_miktar: webKalem.miktar,
                 sth_tutar: webKalem.toplam_tutar,
                 sth_vergi: webKalem.kdv_tutari || 0,
-                sth_vergi_pntr: 1, // Varsayılan KDV Oranı (Mapping gerekebilir)
+                sth_vergi_pntr: 1,
                 sth_tarih: islemTarihi,
                 sth_belge_tarih: islemTarihi,
                 sth_cari_kodu: cariKod,
-                sth_cikis_depo_no: 1, // Trace analizine göre her iki taraf da 1 (Alış/İade farketmeksizin)
-                sth_giris_depo_no: 1, // Her zaman giriş depo 1 (Trace'e göre)
+                sth_cikis_depo_no: 1,
+                sth_giris_depo_no: 1,
                 // İskontolar
                 sth_iskonto1: webKalem.iskonto1 || webKalem.indirim_tutari || 0,
                 sth_iskonto2: webKalem.iskonto2 || webKalem.indirim_tutari2 || 0,
@@ -246,14 +246,15 @@ class AlisTransformer {
                 sth_iskonto4: webKalem.iskonto4 || webKalem.indirim_tutari4 || 0,
                 sth_iskonto5: webKalem.iskonto5 || webKalem.indirim_tutari5 || 0,
                 sth_iskonto6: webKalem.iskonto6 || webKalem.indirim_tutari6 || 0,
-                // Sabit Değerler (Trace Analizinden)
-                sth_tip: 0, // 0: Giriş (Alış Normal = Giriş, Alış İade = Girişin İadesi = Çıkış ama tip 0 kalıyor)
+                // Sabit Değerler
+                sth_tip: 0,
                 sth_cins: 0,
                 sth_normal_iade: sthNormalIade,
-                sth_evraktip: 3, // Alış Faturası
-
-                sth_doviz_cinsi: 0,
-                sth_doviz_kuru: 1,
+                sth_evraktip: 3,
+                sth_evrakno_seri: webAlis.fatura_seri_no || 'AL',
+                sth_evrakno_sira: webAlis.fatura_sira_no || 0,
+                sth_satirno: 0, // Processor'da set edilecek
+                sth_belge_no: '',
                 sth_create_user: 1,
                 sth_lastup_user: 1,
                 sth_create_date: formatDateTimeForMSSQL(new Date()),
@@ -263,7 +264,6 @@ class AlisTransformer {
                 sth_malkbl_sevk_tarihi: formatDateOnlyForMSSQL(islemTarihi),
                 sth_fis_tarihi: '1899-12-30 00:00:00.000',
                 sth_fis_sirano: 0,
-                sth_belge_no: webAlis.belge_no || '',
                 sth_special1: '',
                 sth_special2: '',
                 sth_special3: '',
@@ -292,16 +292,25 @@ class AlisTransformer {
                 sth_nakliyedurumu: 0,
                 sth_taxfree_fl: 0,
                 sth_ilave_edilecek_kdv: 0,
-
-                // Diğer Eksik Alanlar
                 sth_pos_satis: 0,
                 sth_promosyon_fl: 0,
                 sth_cari_cinsi: 0,
                 sth_cari_grup_no: 0,
                 sth_isemri_gider_kodu: '',
                 sth_plasiyer_kodu: '',
-                sth_miktar2: webKalem.miktar,
-                sth_birim_pntr: 1
+                sth_miktar2: 0,
+                sth_birim_pntr: 1,
+                sth_netagirlik: 0,
+                sth_odeme_op: 0,
+                sth_aciklama: '',
+                sth_sip_recid_dbcno: 0,
+                sth_sip_recid_recno: 0,
+                sth_cari_srm_merkezi: '',
+                sth_stok_srm_merkezi: '',
+                sth_kons_recid_dbcno: 0,
+                sth_kons_recid_recno: 0,
+                sth_yetkili_recid_dbcno: 0,
+                sth_yetkili_recid_recno: 0
             };
         } catch (error) {
             logger.error('Alış kalem transform hatası:', error);
