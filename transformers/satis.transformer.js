@@ -105,7 +105,8 @@ class SatisTransformer {
         // 1. Asıl Cari Kodunu ciro_cari_kodu'na taşı
         chaCiroCariKodu = cariKod;
 
-        // 2. Müşteri Adını açıklamaya ekle
+        // 2. Müşteri Adını açıklamaya ekle - İPTAL (Kullanıcı isteği: Sadece notlar yazılsın)
+        /*
         const cariInfo = await pgService.query(
           'SELECT cari_adi FROM cari_hesaplar WHERE id = $1',
           [webSatis.cari_hesap_id]
@@ -113,43 +114,61 @@ class SatisTransformer {
         if (cariInfo.length > 0) {
           chaAciklama = cariInfo[0].cari_adi + (webSatis.notlar ? ' - ' + webSatis.notlar : '');
         }
+        */
 
         // 3. cha_kod'u belirle (Banka veya Kasa Kodu)
-        // 3. cha_kod'u belirle (Banka veya Kasa Kodu)
+        // KRİTİK: chaCariCins değerine göre SADECE ilgili kodu kullan!
+        // chaCariCins === 4 (Kasa) ise SADECE kasa_kodu
+        // chaCariCins === 2 (Banka) ise SADECE banka_kodu
         let mappedCode = null;
 
-        if (chaCariCins === 2 && webSatis.banka_id) {
-          mappedCode = await lookupTables.getBankaKod(webSatis.banka_id);
-        } else if (chaCariCins === 4 && webSatis.kasa_id) {
-          mappedCode = await lookupTables.getKasaKod(webSatis.kasa_id);
+        if (chaCariCins === 2) {
+          // BANKA işlemi - SADECE banka bilgilerini kullan
+          if (webSatis.banka_id) {
+            mappedCode = await lookupTables.getBankaKod(webSatis.banka_id);
+          }
+          if (!mappedCode && webSatis.banka_kodu) {
+            mappedCode = webSatis.banka_kodu;
+          }
+          // Banka işleminde kasa kodu ASLA kullanılmamalı
+          if (mappedCode) {
+            chaKod = mappedCode;
+          } else {
+            logger.warn(`UYARI: Banka işlemi için banka kodu bulunamadı! SatışID=${webSatis.id}, banka_id=${webSatis.banka_id}, banka_kodu=${webSatis.banka_kodu}`);
+          }
+        } else if (chaCariCins === 4) {
+          // KASA (NAKİT) işlemi - SADECE kasa bilgilerini kullan
+          if (webSatis.kasa_id) {
+            mappedCode = await lookupTables.getKasaKod(webSatis.kasa_id);
+          }
+          if (!mappedCode && webSatis.kasa_kodu) {
+            mappedCode = webSatis.kasa_kodu;
+          }
+          // Kasa işleminde banka kodu ASLA kullanılmamalı
+          if (mappedCode) {
+            chaKod = mappedCode;
+          } else {
+            // Varsayılan kasa kodu
+            chaKod = '001';
+            logger.warn(`UYARI: Kasa işlemi için kasa kodu bulunamadı, varsayılan 001 kullanılıyor. SatışID=${webSatis.id}, kasa_id=${webSatis.kasa_id}, kasa_kodu=${webSatis.kasa_kodu}`);
+          }
         }
 
-        if (mappedCode) {
-          chaKod = mappedCode;
-        } else if (webSatis.banka_kodu) {
-          // Kullanıcı isteği: Web'deki banka_kodu alanı (Kasa için de kullanılabilir)
-          // Özellikle "Bankadan K." ise buradaki değeri kullan
-          chaKod = webSatis.banka_kodu;
-        } else if (webSatis.kasa_kodu) {
-          chaKod = webSatis.kasa_kodu;
-        } else if (chaCariCins === 4) {
-          // Nakit satışlarda varsayılan kasa kodu 001
-          chaKod = '001';
-        }
+        logger.info(`cha_kod belirlendi: ${chaKod} (chaCariCins=${chaCariCins}, banka_kodu=${webSatis.banka_kodu}, kasa_kodu=${webSatis.kasa_kodu})`);
       }
 
       return {
         cha_tarihi: webSatis.satis_tarihi,
         cha_belge_tarih: webSatis.satis_tarihi,
         cha_evrakno_sira: null, // Processor'da otomatik alınacak
-        cha_evrakno_seri: webSatis.fatura_seri_no || '',
-        cha_belge_no: '',
+        cha_evrakno_seri: (webSatis.fatura_seri_no || '').substring(0, 10),
+        cha_belge_no: (webSatis.belge_no || '').substring(0, 20),
         cha_satir_no: 0, // Processor'da sırayla artırılacak
-        cha_kod: chaKod,
-        cha_ciro_cari_kodu: chaCiroCariKodu,
+        cha_kod: (chaKod || '').substring(0, 25),
+        cha_ciro_cari_kodu: (chaCiroCariKodu || '').substring(0, 25),
         cha_meblag: webSatis.toplam_tutar,
         cha_aratoplam: webSatis.ara_toplam,
-        cha_aciklama: chaAciklama,
+        cha_aciklama: chaAciklama.substring(0, 50),
         cha_tpoz: chaTpoz,
         cha_cari_cins: chaCariCins,
         cha_ft_iskonto1: webSatis.iskonto1 || webSatis.indirim_tutari || 0,
@@ -271,8 +290,7 @@ class SatisTransformer {
         cha_ilave_edilecek_kdv10: 0,
         cha_e_islem_turu: 0,
         cha_fatura_belge_turu: 0,
-        cha_diger_belge_adi: '',
-        cha_uuid: crypto.randomUUID().toUpperCase()
+        cha_diger_belge_adi: ''
       };
     } catch (error) {
       logger.error('Satış başlık transform hatası:', error);
@@ -295,7 +313,7 @@ class SatisTransformer {
       const isIade = webSatis.satis_tipi === 'iade' || webSatis.fatura_tipi === 'iade' || webSatis.iade === true;
 
       return {
-        sth_stok_kod: stokKod,
+        sth_stok_kod: stokKod.substring(0, 25),
         sth_miktar: webKalem.miktar,
         sth_iskonto1: webKalem.iskonto1 || webKalem.indirim_tutari || 0,
         sth_iskonto2: webKalem.iskonto2 || webKalem.indirim_tutari2 || 0,
@@ -308,7 +326,7 @@ class SatisTransformer {
         sth_vergi_pntr: 1, // Kullanıcı isteği: sth_vergi_pntr=1
         sth_tarih: webSatis.satis_tarihi,
         sth_belge_tarih: webSatis.satis_tarihi,
-        sth_cari_kodu: cariKod,
+        sth_cari_kodu: (cariKod || '').substring(0, 25),
         sth_cikis_depo_no: 1,
         sth_giris_depo_no: 1, // Kullanıcı isteği: sth_giris_depo_no=1
         sth_tip: isIade ? 1 : 1, // İade: 1 (Giriş), Normal: 1 (Çıkış) - Trace'e göre her ikisi de 1
@@ -316,10 +334,10 @@ class SatisTransformer {
         sth_normal_iade: isIade ? 1 : 0,
         sth_evraktip: 4, // Kullanıcı isteği: sth_evraktip=4
         sth_evrakno_sira: webSatis.fatura_sira_no,
-        sth_evrakno_seri: webSatis.fatura_seri_no || '',
+        sth_evrakno_seri: (webSatis.fatura_seri_no || '').substring(0, 10),
         sth_malkbl_sevk_tarihi: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
         sth_satirno: 0,
-        sth_belge_no: '',
+        sth_belge_no: (webSatis.belge_no || '').substring(0, 20),
         sth_fis_tarihi: '1899-12-30 00:00:00.000',
         sth_create_date: formatDateTimeForMSSQL(new Date()),
         sth_lastup_date: formatDateTimeForMSSQL(new Date()),

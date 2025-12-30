@@ -276,7 +276,7 @@ class SatisProcessor {
         cha_tevkifat_toplam, cha_ilave_edilecek_kdv1, cha_ilave_edilecek_kdv2, cha_ilave_edilecek_kdv3,
         cha_ilave_edilecek_kdv4, cha_ilave_edilecek_kdv5, cha_ilave_edilecek_kdv6, cha_ilave_edilecek_kdv7,
         cha_ilave_edilecek_kdv8, cha_ilave_edilecek_kdv9, cha_ilave_edilecek_kdv10,
-        cha_e_islem_turu, cha_fatura_belge_turu, cha_diger_belge_adi, cha_uuid
+        cha_e_islem_turu, cha_fatura_belge_turu, cha_diger_belge_adi
       )
       VALUES (
         @cha_tarihi, @cha_belge_tarih, @cha_evrakno_sira, @cha_evrakno_seri,
@@ -312,7 +312,7 @@ class SatisProcessor {
         @cha_tevkifat_toplam, @cha_ilave_edilecek_kdv1, @cha_ilave_edilecek_kdv2, @cha_ilave_edilecek_kdv3,
         @cha_ilave_edilecek_kdv4, @cha_ilave_edilecek_kdv5, @cha_ilave_edilecek_kdv6, @cha_ilave_edilecek_kdv7,
         @cha_ilave_edilecek_kdv8, @cha_ilave_edilecek_kdv9, @cha_ilave_edilecek_kdv10,
-        @cha_e_islem_turu, @cha_fatura_belge_turu, @cha_diger_belge_adi, @cha_uuid
+        @cha_e_islem_turu, @cha_fatura_belge_turu, @cha_diger_belge_adi
       );
       SELECT SCOPE_IDENTITY() AS cha_RECno;
     `);
@@ -323,6 +323,7 @@ class SatisProcessor {
   async insertStokHareket(data, chaRecno, transaction) {
     const request = transaction.request();
 
+    // Parametreleri ekle
     // Parametreleri ekle
     Object.keys(data).forEach(key => {
       request.input(key, data[key]);

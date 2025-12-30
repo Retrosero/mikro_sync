@@ -1,28 +1,28 @@
 const lookupTables = require('../mappings/lookup-tables');
 const logger = require('../utils/logger');
 
-// Tarih formatını MSSQL için dönüştür - SAAT OLMADAN (YYYY-MM-DD 00:00:00.000)
+// Tarih formatını MSSQL için dönüştür - Date objesi olarak
 function formatDateOnlyForMSSQL(date) {
-  if (!date) return '1899-12-30 00:00:00.000';
+  if (!date) return new Date('1899-12-30T00:00:00.000Z');
   const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day} 00:00:00.000`;
+  if (isNaN(d.getTime())) {
+    logger.warn(`Geçersiz tarih değeri tespit edildi (DateOnly): ${date}, default tarih kullanılıyor.`);
+    return new Date('1899-12-30T00:00:00.000Z');
+  }
+  // Saat kısmını sıfırla
+  d.setHours(0, 0, 0, 0);
+  return d;
 }
 
-// Tarih formatını MSSQL için dönüştür - SAAT İLE (YYYY-MM-DD HH:MM:SS.mmm)
+// Tarih formatını MSSQL için dönüştür - Date objesi olarak
 function formatDateTimeForMSSQL(date) {
-  if (!date) return '1899-12-30 00:00:00.000';
+  if (!date) return new Date('1899-12-30T00:00:00.000Z');
   const d = new Date(date);
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  const seconds = String(d.getSeconds()).padStart(2, '0');
-  const milliseconds = String(d.getMilliseconds()).padStart(3, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
+  if (isNaN(d.getTime())) {
+    logger.warn(`Geçersiz tarih değeri tespit edildi (DateTime): ${date}, default tarih kullanılıyor.`);
+    return new Date('1899-12-30T00:00:00.000Z');
+  }
+  return d;
 }
 
 class TahsilatTransformer {
@@ -328,7 +328,7 @@ class TahsilatTransformer {
         sck_create_date: creationDate,
         sck_lastup_date: creationDate,
         sck_vade: formatDateOnlyForMSSQL(webTahsilat.cek_vade_tarihi || webTahsilat.vade_tarihi || webTahsilat.tahsilat_tarihi),
-        sck_duzen_tarih: '1899-12-30 00:00:00.000', // Sabit
+        sck_duzen_tarih: new Date('1899-12-30T00:00:00.000Z'), // Sabit
         sck_ilk_hareket_tarihi: formatDateOnlyForMSSQL(webTahsilat.tahsilat_tarihi),
         sck_son_hareket_tarihi: formatDateOnlyForMSSQL(webTahsilat.tahsilat_tarihi),
         sck_RECid_DBCno: 0,
@@ -468,6 +468,11 @@ class TahsilatTransformer {
     if (!date) return 0;
 
     const d = new Date(date);
+    if (isNaN(d.getTime())) {
+      logger.warn(`Geçersiz tarih değeri tespit edildi (Int): ${date}, 0 döndürülüyor.`);
+      return 0;
+    }
+
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
