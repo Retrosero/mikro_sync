@@ -12,6 +12,9 @@ class SatisProcessor {
 
   async syncToERP(webSatis) {
     try {
+      // DEBUG: Satislar tablosundan gelen değerleri göster
+      logger.info(`syncToERP BAŞLIYOR: ID=${webSatis.id}, odeme_sekli=${webSatis.odeme_sekli}, banka_id=${webSatis.banka_id || 'YOK'}, kasa_id=${webSatis.kasa_id || 'YOK'}`);
+
       // Mükerrer kayıt kontrolü (int_satis_mapping tablosundan)
       const existing = await pgService.query(
         'SELECT erp_evrak_seri, erp_evrak_no FROM int_satis_mapping WHERE web_satis_id = $1',
@@ -62,16 +65,35 @@ class SatisProcessor {
       }
 
       // Eğer cari_hesap_hareketleri'nde varsa, oradan al
+      // ÖNEMLİ: satislar tablosundan gelen banka_id, kasa_id, banka_kodu, kasa_kodu değerlerini KORU!
+      const originalBankaId = webSatis.banka_id;
+      const originalKasaId = webSatis.kasa_id;
+      const originalBankaKodu = webSatis.banka_kodu;
+      const originalKasaKodu = webSatis.kasa_kodu;
+
       if (cariHareket.length > 0) {
         webSatis.hareket_turu = cariHareket[0].hareket_turu;
-        webSatis.banka_kodu = cariHareket[0].banka_kodu;
-        webSatis.kasa_kodu = cariHareket[0].kasa_kodu;
-        webSatis.banka_id = cariHareket[0].banka_id; // ID'leri de al
-        webSatis.kasa_id = cariHareket[0].kasa_id;
+
+        // Kodları sadece satislar tablosunda yoksa cari_hesap_hareketleri'nden al
+        if (!originalBankaKodu && cariHareket[0].banka_kodu) {
+          webSatis.banka_kodu = cariHareket[0].banka_kodu;
+        }
+        if (!originalKasaKodu && cariHareket[0].kasa_kodu) {
+          webSatis.kasa_kodu = cariHareket[0].kasa_kodu;
+        }
+
+        // ID'leri sadece satislar tablosunda yoksa al
+        if (!originalBankaId && cariHareket[0].banka_id) {
+          webSatis.banka_id = cariHareket[0].banka_id;
+        }
+        if (!originalKasaId && cariHareket[0].kasa_id) {
+          webSatis.kasa_id = cariHareket[0].kasa_id;
+        }
+
         webSatis.cha_tpoz = cariHareket[0].cha_tpoz;
         webSatis.cha_cari_cins = cariHareket[0].cha_cari_cins;
         webSatis.cha_grupno = cariHareket[0].cha_grupno;
-        logger.info(`Cari hareket bulundu: tur=${cariHareket[0].hareket_turu}, banka=${cariHareket[0].banka_kodu}, kasa=${cariHareket[0].kasa_kodu}`);
+        logger.info(`Cari hareket bulundu: tur=${cariHareket[0].hareket_turu}, banka=${webSatis.banka_kodu}, kasa=${webSatis.kasa_kodu}`);
 
         // Eğer banka_id var ama banka_kodu yoksa, bankalar tablosundan bul
         if (webSatis.banka_id && !webSatis.banka_kodu) {
@@ -83,6 +105,23 @@ class SatisProcessor {
         }
       } else {
         logger.warn(`Cari hareket bulunamadı: satis_id=${webSatis.id}, cari=${webSatis.cari_hesap_id}, tutar=${webSatis.toplam_tutar}`);
+
+        // DÜZELTME: Cari hareket bulunamadıysa, satislar tablosundaki banka_id ve kasa_id'den kodları al
+        // webSatis zaten satislar tablosundan gelen veri, banka_id ve kasa_id içermeli
+        if (webSatis.banka_id) {
+          const bankaKayit = await pgService.query('SELECT ban_kod FROM bankalar WHERE id = $1', [webSatis.banka_id]);
+          if (bankaKayit.length > 0) {
+            webSatis.banka_kodu = bankaKayit[0].ban_kod;
+            logger.info(`Satış kaydından banka kodu alındı: banka_id=${webSatis.banka_id}, banka_kodu=${webSatis.banka_kodu}`);
+          }
+        }
+        if (webSatis.kasa_id) {
+          const kasaKayit = await pgService.query('SELECT kasa_kodu FROM kasalar WHERE id = $1', [webSatis.kasa_id]);
+          if (kasaKayit.length > 0) {
+            webSatis.kasa_kodu = kasaKayit[0].kasa_kodu;
+            logger.info(`Satış kaydından kasa kodu alındı: kasa_id=${webSatis.kasa_id}, kasa_kodu=${webSatis.kasa_kodu}`);
+          }
+        }
       }
 
       // Transaction başlat

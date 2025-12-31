@@ -52,9 +52,10 @@ class SatisTransformer {
       // Ödeme Şekli normalizasyonu (küçük harf, trim)
       const oSekli = (webSatis.odeme_sekli || '').toLowerCase().trim();
 
-      // Vadeli satış kontrolü (Açık Hesap / Veresiye)
+      // Vadeli satış kontrolü - SADECE ödeme şekline göre
+      // NOT: kasa_id/banka_id kontrolü YAPILMAMALI çünkü bunlar cari_hesap_hareketleri'nden geliyor olabilir
       const isVadeli = oSekli === 'vadeli' || oSekli === 'acik_hesap' || oSekli === 'veresiye' ||
-        (!webSatis.kasa_id && !webSatis.banka_id && !webSatis.kasa_kodu && !webSatis.banka_kodu);
+        oSekli === 'açık hesap' || oSekli === 'acik hesap' || oSekli === '';
 
       // KULLANICI İSTEĞİ: Vadeli satışlarda cha_tpoz=0 ve cha_grupno=0, diğerlerinde 1
       if (isVadeli) {
@@ -65,23 +66,40 @@ class SatisTransformer {
         chaGrupno = 1;
       }
 
-      // Ödeme şekline veya mevcut ID'lere göre cari_cins belirle
-      // Nakit veya Kasa
-      if (oSekli === 'nakit' || webSatis.kasa_id || webSatis.kasa_kodu) {
-        chaCariCins = 4; // Kasa
+      // Ödeme şekline göre cari_cins belirle
+      // KRİTİK: Öncelik sırası - ÖDEME ŞEKLİ ÖNCE, ID'ler SONRA!
+
+      // 1. ÖNCE Vadeli satış kontrolü - isVadeli true ise kesinlikle cari işlemi
+      if (isVadeli) {
+        chaCariCins = 0; // Cari - vadeli satış, cha_kod = cariKod olacak
       }
-      // Banka (Kredi Kartı, Havale)
-      else if (oSekli === 'kredi_karti' || oSekli === 'havale' || webSatis.banka_id || webSatis.banka_kodu) {
+      // 2. Banka kontrolü (Kredi Kartı, Havale)
+      else if (oSekli === 'kredi_karti' || oSekli === 'havale') {
         chaCariCins = 2; // Banka
       }
-      // Çek / Senet (Eğer ödeme şeklinde gelirse)
+      // 3. Nakit
+      else if (oSekli === 'nakit') {
+        chaCariCins = 4; // Kasa
+      }
+      // 4. Çek / Senet
       else if (oSekli === 'cek' || oSekli === 'senet') {
         chaCariCins = 0;
       }
+      // 5. Ödeme şekli belirtilmemiş ama banka_id varsa (satislar tablosundan gelen orijinal değer)
+      else if (webSatis.banka_id) {
+        chaCariCins = 2; // Banka
+      }
+      // 6. Ödeme şekli belirtilmemiş ama kasa_id varsa (satislar tablosundan gelen orijinal değer)
+      else if (webSatis.kasa_id) {
+        chaCariCins = 4; // Kasa
+      }
       else {
-        // Diğer durumlar (Veresiye/Açık Hesap)
+        // Diğer durumlar - varsayılan cari (vadeli)
         chaCariCins = 0;
       }
+
+      // DEBUG: chaCariCins belirleme sonucu
+      logger.info(`chaCariCins belirlendi: ${chaCariCins} (odeme_sekli=${oSekli}, banka_id=${webSatis.banka_id || 'YOK'}, kasa_id=${webSatis.kasa_id || 'YOK'})`);
 
       // İade kontrolü
       // DB'de satis_tipi kolonu var, fatura_tipi yok.
