@@ -267,6 +267,40 @@ class StokHareketProcessor {
                 );
                 satirNo = (maxSeq[0].max_seq || 0) + 1;
 
+                // sayilan_urunler tablosundan sayilan_miktar değerini çek
+                // referans_id üzerinden veya stok_id + tarih ile eşleştir
+                let sayilanMiktar = webStokHareket.miktar; // Varsayılan olarak mevcut miktar
+
+                // Önce referans_id ile dene (eğer varsa)
+                if (webStokHareket.referans_id) {
+                    const sayilanUrunRes = await pgService.query(
+                        `SELECT sayilan_miktar FROM sayilan_urunler WHERE id = $1`,
+                        [webStokHareket.referans_id]
+                    );
+                    if (sayilanUrunRes.length > 0 && sayilanUrunRes[0].sayilan_miktar !== null) {
+                        sayilanMiktar = parseFloat(sayilanUrunRes[0].sayilan_miktar);
+                        logger.info(`Sayım için sayilan_miktar referans_id ile bulundu: ${sayilanMiktar}`);
+                    }
+                }
+
+                // referans_id ile bulunamadıysa stok_id + tarih ile dene
+                if (sayilanMiktar === webStokHareket.miktar) {
+                    const sayilanUrunByStok = await pgService.query(
+                        `SELECT sayilan_miktar FROM sayilan_urunler 
+                         WHERE stok_id = $1 
+                         AND DATE(sayim_tarihi) = DATE($2)
+                         ORDER BY sayim_tarihi DESC LIMIT 1`,
+                        [webStokHareket.stok_id, webStokHareket.islem_tarihi]
+                    );
+                    if (sayilanUrunByStok.length > 0 && sayilanUrunByStok[0].sayilan_miktar !== null) {
+                        sayilanMiktar = parseFloat(sayilanUrunByStok[0].sayilan_miktar);
+                        logger.info(`Sayım için sayilan_miktar stok_id+tarih ile bulundu: ${sayilanMiktar}`);
+                    }
+                }
+
+                // webStokHareket'e sayilan_miktar değerini ekle (transformer'a gönderilecek)
+                webStokHareket.sayilan_miktar = sayilanMiktar;
+
                 // SAYIM_SONUCLARI tablosuna yaz
                 const transformer = require('../transformers/sayim.transformer');
                 const erpData = await transformer.transformToERP(webStokHareket, stokKod, satirNo);

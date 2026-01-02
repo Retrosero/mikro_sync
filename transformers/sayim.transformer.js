@@ -35,7 +35,7 @@ class SayimTransformer {
                 sym_reyonkodu: '0',
                 sym_koridorkodu: '0',
                 sym_rafkodu: '0',
-                sym_miktar1: webData.miktar,
+                sym_miktar1: webData.sayilan_miktar !== undefined ? webData.sayilan_miktar : webData.miktar,
                 sym_miktar2: 0,
                 sym_miktar3: 0,
                 sym_miktar4: 0,
