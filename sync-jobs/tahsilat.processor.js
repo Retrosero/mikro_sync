@@ -1,4 +1,5 @@
 const mssqlService = require('../services/mssql.service');
+const pgService = require('../services/postgresql.service');
 const tahsilatTransformer = require('../transformers/tahsilat.transformer');
 const logger = require('../utils/logger');
 
@@ -11,6 +12,8 @@ class TahsilatProcessor {
 
   async syncToERP(webTahsilat) {
     try {
+      let chaRecno = null;
+
       await mssqlService.transaction(async (transaction) => {
         let odemeEmriRefno = null;
 
@@ -35,11 +38,27 @@ class TahsilatProcessor {
         }
 
         // CARI_HESAP_HAREKETLERI kaydını oluştur
-        const chaRecno = await this.insertCariHareket(tahsilatData, transaction);
+        chaRecno = await this.insertCariHareket(tahsilatData, transaction);
         await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
 
         logger.info(`Tahsilat ERP'ye yazıldı: ${webTahsilat.id}, EvrakNo: ${tahsilatData.cha_evrakno_sira}, RecNo: ${chaRecno}`);
       });
+
+      // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
+      // Böylece sadece ERP'den dönen (erp_recno değeri olan) kayıtlar kalır
+
+      // Cari hareket: tahsilat_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+      const deletedCari = await pgService.query(`
+        DELETE FROM cari_hesap_hareketleri 
+        WHERE belge_no = $1 
+        AND hareket_tipi = 'Tahsilat'
+        AND erp_recno IS NULL
+      `, [webTahsilat.id.toString()]);
+
+      if (deletedCari.rowCount > 0) {
+        logger.info(`✓ ${deletedCari.rowCount} adet orijinal cari hareket silindi (tahsilat_id: ${webTahsilat.id})`);
+      }
+
     } catch (error) {
       logger.error('Tahsilat ERP senkronizasyon hatası:', error);
       throw error;

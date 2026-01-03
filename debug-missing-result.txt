@@ -1,0 +1,19 @@
+=== DEBUG: BULUNAMAYAN KAYITLAR ===
+
+1. CARI HAREKET KONTROLU (RECno: 71795)
+   Web'de bulundu mu: HAYIR
+   ERP'de bulundu mu: HAYIR (silinmis)
+   Web'deki max erp_recno: 71794
+   Aranan recno: 71795
+   Fark: 1
+
+2. STOK HAREKET KONTROLU (RECno: 136886)
+   Web'de bulundu mu: HAYIR
+   ERP'de bulundu mu: HAYIR (silinmis)
+   Web'deki max erp_recno: 136885
+   Aranan recno: 136886
+   Fark: 1
+
+3. SONUC:
+   Bu kayitlar Web'e HICBIR ZAMAN senkronize edilmemis!
+   Cunku ERP'de olusturulup, Web senkronizasyonundan ONCE silindi.

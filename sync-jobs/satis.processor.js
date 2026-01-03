@@ -265,6 +265,34 @@ class SatisProcessor {
         webSatis.kasa_id || null
       ]);
 
+      // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
+      // Böylece sadece ERP'den dönen (erp_recno değeri olan) kayıtlar kalır
+      // Bu sayede ERP'de silme yapıldığında, Web'de de doğru kayıt silinir
+
+      // 1. Cari hareket: satis_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+      const deletedCari = await pgService.query(`
+        DELETE FROM cari_hesap_hareketleri 
+        WHERE belge_no = $1 
+        AND hareket_tipi = 'Satış'
+        AND erp_recno IS NULL
+      `, [webSatis.id.toString()]);
+
+      if (deletedCari.rowCount > 0) {
+        logger.info(`✓ ${deletedCari.rowCount} adet orijinal cari hareket silindi (satis_id: ${webSatis.id})`);
+      }
+
+      // 2. Stok hareketleri: satis_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+      const deletedStok = await pgService.query(`
+        DELETE FROM stok_hareketleri 
+        WHERE belge_no = $1 
+        AND belge_tipi = 'satis'
+        AND erp_recno IS NULL
+      `, [webSatis.id.toString()]);
+
+      if (deletedStok.rowCount > 0) {
+        logger.info(`✓ ${deletedStok.rowCount} adet orijinal stok hareket silindi (satis_id: ${webSatis.id})`);
+      }
+
     } catch (error) {
       logger.error('Satış ERP senkronizasyon hatası:', error);
       throw error;

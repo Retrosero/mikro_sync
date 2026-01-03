@@ -158,6 +158,23 @@ class SyncQueueWorker {
                 const stokHareketProcessor = require('../sync-jobs/stok-hareket.processor');
                 await stokHareketProcessor.syncToERP(entityData);
 
+            } else if (item.entity_type === 'stoklar' || item.entity_type === 'stok') {
+                // Stok verilerini çek
+                const stok = await pgService.query(
+                    `SELECT * FROM stoklar WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (stok.length === 0) {
+                    throw new Error(`Stok bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = stok[0];
+
+                // Processor'a gönder
+                const stokProcessor = require('../sync-jobs/stok.processor');
+                await stokProcessor.syncToERP(entityData);
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }

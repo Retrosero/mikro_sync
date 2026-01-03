@@ -1,0 +1,64 @@
+SELECT TOP 1 * FROM KULLANICILAR WITH ( NOLOCK , INDEX = NDX_KULLANICILAR_02 )  WHERE User_no=1
+go
+SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED
+go
+set implicit_transactions on 
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTELERI_USER'
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTELERI WITH ( UPDLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTELERI_00 )  WHERE sfiyat_RECno=18553
+go
+SELECT COUNT(sfl_RECno) FROM dbo.STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH (NOLOCK, INDEX=NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02) WHERE ((sfl_fiyatuygulama=1)AND(sfl_fiyatformul<>N'')) OR       ((sfl_odepluygulama=1)AND(sfl_odeplformul<>N''))
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOKLAR_USER'
+go
+SELECT TOP 1 * FROM STOKLAR WITH ( NOLOCK , INDEX = NDX_STOKLAR_02 )  WHERE sto_kod=N'00510'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTE_TANIMLARI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTELERI_USER'
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTELERI_USER'
+go
+SELECT * FROM STOK_SATIS_FIYAT_LISTELERI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTELERI_02 )  WHERE (sfiyat_stokkod=N'00510') AND ((sfiyat_RECno <> 18553)) ORDER BY sfiyat_listesirano ASC,sfiyat_deposirano ASC,sfiyat_odemeplan ASC
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02 )  WHERE sfl_sirano=2
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTE_TANIMLARI_USER'
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02 )  WHERE sfl_sirano=1
+go
+Select MAIN.dov_no, MAIN.dov_tarih, MAIN.dov_fiyat1 from dbo.DOVIZ_KURLARI AS MAIN WITH ( NOLOCK ) WHERE (MAIN.dov_tarih = (select max(dov_tarih) from dbo.DOVIZ_KURLARI where (dov_no = MAIN.dov_no) And (MAIN.dov_fiyat1 > 0.0))) Order by dov_no
+go
+SELECT [msg_S_0088], [msg_S_1264], [#msg_S_1533], [msg_S_1532], [msg_S_0984], [#msg_S_1534],[#msg_S_0551], [msg_S_1267], [msg_S_1748]FROM dbo.fn_STOK_FIYATLARI_SECIMI(N'00510','20260102') WHERE ([msg_S_0159] IN (0,0)) AND ([#msg_S_0551] IN (0,0)) ORDER BY [msg_S_0001], [msg_S_1264], [msg_S_0159],[msg_S_0099]
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTELERI WITH ( UPDLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTELERI_00 )  WHERE sfiyat_RECno=18554
+go
+UPDATE MikroDB_V15_02.dbo.STOK_SATIS_FIYAT_LISTELERI SET sfiyat_lastup_user=1,sfiyat_lastup_date='20260102 22:18:16.276',sfiyat_fiyati=2087.500000000000 Where sfiyat_RECno = 18554
+go
+SELECT sfiyat_create_date,sfiyat_lastup_date FROM MikroDB_V15_02.dbo.STOK_SATIS_FIYAT_LISTELERI WITH (NOLOCK) WHERE sfiyat_RECno = 18554
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02 )  WHERE sfl_sirano=3
+go
+select count(*) from sysobjects where xtype='U' and name ='STOK_SATIS_FIYAT_LISTE_TANIMLARI_USER'
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTE_TANIMLARI WITH ( NOLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTE_TANIMLARI_02 )  WHERE sfl_sirano=1
+go
+Select MAIN.dov_no, MAIN.dov_tarih, MAIN.dov_fiyat1 from dbo.DOVIZ_KURLARI AS MAIN WITH ( NOLOCK ) WHERE (MAIN.dov_tarih = (select max(dov_tarih) from dbo.DOVIZ_KURLARI where (dov_no = MAIN.dov_no) And (MAIN.dov_fiyat1 > 0.0))) Order by dov_no
+go
+SELECT [msg_S_0088], [msg_S_1264], [#msg_S_1533], [msg_S_1532], [msg_S_0984], [#msg_S_1534],[#msg_S_0551], [msg_S_1267], [msg_S_1748]FROM dbo.fn_STOK_FIYATLARI_SECIMI(N'00510','20260102') WHERE ([msg_S_0159] IN (0,0)) AND ([#msg_S_0551] IN (0,0)) ORDER BY [msg_S_0001], [msg_S_1264], [msg_S_0159],[msg_S_0099]
+go
+SELECT TOP 1 * FROM STOK_SATIS_FIYAT_LISTELERI WITH ( UPDLOCK , INDEX = NDX_STOK_SATIS_FIYAT_LISTELERI_00 )  WHERE sfiyat_RECno=18555
+go
+SELECT TOP 1 * FROM STOKLAR WITH ( UPDLOCK , INDEX = NDX_STOKLAR_00 )  WHERE sto_RECno=13659
+go
+UPDATE MikroDB_V15_02.dbo.STOKLAR SET sto_lastup_date='20260102 22:18:16.292',sto_isim=N'00510 - LİTTLES PET SHOP ÇİFTLİK TEMALI SETi',sto_yabanci_isim=N'Littles Pet Shop Çiftlik Temali Seti',sto_ambalaj_kodu=N'Poşetli' Where sto_RECno = 13659
+go
+SELECT sto_create_date,sto_lastup_date FROM MikroDB_V15_02.dbo.STOKLAR WITH (NOLOCK) WHERE sto_RECno = 13659
+go
+IF @@TRANCOUNT > 0 COMMIT TRAN
+go
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+go

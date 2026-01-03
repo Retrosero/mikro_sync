@@ -129,6 +129,33 @@ class IadeProcessor {
         'INSERT INTO int_iade_mapping (web_iade_id, erp_evrak_seri, erp_evrak_no) VALUES ($1, $2, $3) ON CONFLICT (web_iade_id) DO NOTHING',
         [webIade.id, evrakSeri, evrakNo]
       );
+
+      // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
+      // Böylece sadece ERP'den dönen (erp_recno değeri olan) kayıtlar kalır
+
+      // 1. Cari hareket: iade_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+      const deletedCari = await pgService.query(`
+        DELETE FROM cari_hesap_hareketleri 
+        WHERE belge_no = $1 
+        AND hareket_tipi = 'satis_iade'
+        AND erp_recno IS NULL
+      `, [webIade.id.toString()]);
+
+      if (deletedCari.rowCount > 0) {
+        logger.info(`✓ ${deletedCari.rowCount} adet orijinal cari hareket silindi (iade_id: ${webIade.id})`);
+      }
+
+      // 2. Stok hareketleri: iade_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+      const deletedStok = await pgService.query(`
+        DELETE FROM stok_hareketleri 
+        WHERE belge_no = $1 
+        AND belge_tipi = 'iade'
+        AND erp_recno IS NULL
+      `, [webIade.id.toString()]);
+
+      if (deletedStok.rowCount > 0) {
+        logger.info(`✓ ${deletedStok.rowCount} adet orijinal stok hareket silindi (iade_id: ${webIade.id})`);
+      }
     } catch (error) {
       logger.error('İade ERP senkronizasyon hatası:', error);
       throw error;

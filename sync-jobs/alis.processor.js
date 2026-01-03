@@ -119,11 +119,32 @@ class AlisProcessor {
                 [webAlis.id, evrakSeri, evrakNo]
             );
 
-            // Web cari_hesap_hareketleri'ne kayıt atma işlemi burada opsiyonel olabilir,
-            // çünkü zaten webAlis tetikleyicisi ile bu sürece girdik. 
-            // Ancak "Cari Hesap Hareketleri" tablosunda görünmesi isteniyorsa eklenebilir. 
-            // Burada bu adımı atlıyorum çünkü kullanıcı özellikle istemedi ve karışıklık yaratabilir.
-            // SatisProcessor'da vardı, burada ihtiyaç olursa eklenir.
+            // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
+            // Böylece sadece ERP'den dönen (erp_recno değeri olan) kayıtlar kalır
+
+            // 1. Cari hareket: alis_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+            const deletedCari = await pgService.query(`
+                DELETE FROM cari_hesap_hareketleri 
+                WHERE belge_no = $1 
+                AND hareket_tipi = 'Alış'
+                AND erp_recno IS NULL
+            `, [webAlis.id.toString()]);
+
+            if (deletedCari.rowCount > 0) {
+                logger.info(`✓ ${deletedCari.rowCount} adet orijinal cari hareket silindi (alis_id: ${webAlis.id})`);
+            }
+
+            // 2. Stok hareketleri: alis_id ile eşleşen ve erp_recno'su NULL olan kayıtları sil
+            const deletedStok = await pgService.query(`
+                DELETE FROM stok_hareketleri 
+                WHERE belge_no = $1 
+                AND belge_tipi = 'alis'
+                AND erp_recno IS NULL
+            `, [webAlis.id.toString()]);
+
+            if (deletedStok.rowCount > 0) {
+                logger.info(`✓ ${deletedStok.rowCount} adet orijinal stok hareket silindi (alis_id: ${webAlis.id})`);
+            }
 
         } catch (error) {
             logger.error('Alış ERP senkronizasyon hatası:', error);
