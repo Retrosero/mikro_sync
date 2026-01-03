@@ -1,0 +1,6 @@
+Bekleyen sync_queue kayitlari kontrol ediliyor...
+
+Bekleyen kayit yok.
+
+--- Istatistikler ---
+  completed: 17

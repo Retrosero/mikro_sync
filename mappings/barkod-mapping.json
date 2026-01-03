@@ -1,0 +1,173 @@
+{
+    "web_table": "urun_barkodlari",
+    "erp_table": "BARKOD_TANIMLARI",
+    "description": "Web urun_barkodlari <-> ERP BARKOD_TANIMLARI barkod eşleşme tablosu",
+    "note": "Trace dosyasından alınan bilgiye göre ERP'de barkodlar ayrı BARKOD_TANIMLARI tablosunda tutulmaktadır.",
+    "created_date": "2026-01-03",
+    "fields": [
+        {
+            "web_field": "id",
+            "erp_field": null,
+            "description": "Web'deki UUID primary key. ERP tarafında karşılığı yok.",
+            "type": "uuid"
+        },
+        {
+            "web_field": "stok_id",
+            "erp_field": "bar_stokkodu",
+            "description": "Web stok_id'si -> int_kodmap_stok tablosu üzerinden ERP stok koduna dönüştürülür",
+            "type": "lookup",
+            "lookup_table": "int_kodmap_stok",
+            "lookup_source": "web_stok_id",
+            "lookup_target": "erp_stok_kod"
+        },
+        {
+            "web_field": "barkod",
+            "erp_field": "bar_kodu",
+            "description": "Barkod değeri. Her iki tarafta da benzersiz olmalı.",
+            "type": "string",
+            "max_length": 50
+        },
+        {
+            "web_field": "barkod_tipi",
+            "erp_field": "bar_barkodtipi",
+            "description": "Barkod tipi. Web'de string (ana, koli, palet), ERP'de integer (1, 2, 3)",
+            "type": "mapped",
+            "mapping": {
+                "ana": 0,
+                "standart": 0,
+                "koli": 2,
+                "palet": 3
+            }
+        },
+        {
+            "web_field": "aktif",
+            "erp_field": "bar_iptal",
+            "description": "Web aktif=true -> ERP bar_iptal=0, Web aktif=false -> ERP bar_iptal=1",
+            "type": "boolean_inverted",
+            "note": "Ters mantık: aktif ise iptal değil"
+        },
+        {
+            "web_field": "aciklama",
+            "erp_field": null,
+            "description": "Web tarafında açıklama alanı. ERP'de karşılığı yok.",
+            "type": "string"
+        },
+        {
+            "web_field": "olusturma_tarihi",
+            "erp_field": "bar_create_date",
+            "description": "Oluşturma tarihi",
+            "type": "datetime"
+        },
+        {
+            "web_field": "guncelleme_tarihi",
+            "erp_field": "bar_lastup_date",
+            "description": "Son güncelleme tarihi",
+            "type": "datetime"
+        }
+    ],
+    "erp_table_schema": {
+        "description": "BARKOD_TANIMLARI tablosunun gerçek şeması (check_barkod_schema.js çıktısından)",
+        "columns": [
+            "bar_RECno",
+            "bar_RECid_DBCno",
+            "bar_RECid_RECno",
+            "bar_SpecRECno",
+            "bar_iptal",
+            "bar_fileid",
+            "bar_hidden",
+            "bar_kilitli",
+            "bar_degisti",
+            "bar_checksum",
+            "bar_create_user",
+            "bar_create_date",
+            "bar_lastup_user",
+            "bar_lastup_date",
+            "bar_special1",
+            "bar_special2",
+            "bar_special3",
+            "bar_kodu",
+            "bar_stokkodu",
+            "bar_partikodu",
+            "bar_lotno",
+            "bar_serino_veya_bagkodu",
+            "bar_barkodtipi",
+            "bar_icerigi",
+            "bar_birimpntr",
+            "bar_master",
+            "bar_bedenpntr",
+            "bar_renkpntr",
+            "bar_baglantitipi",
+            "bar_harrecid_dbcno",
+            "bar_harrecid_recno"
+        ]
+    },
+    "erp_insert_fields": [
+        "bar_RECid_DBCno",
+        "bar_RECid_RECno",
+        "bar_SpecRECno",
+        "bar_iptal",
+        "bar_fileid",
+        "bar_hidden",
+        "bar_kilitli",
+        "bar_degisti",
+        "bar_checksum",
+        "bar_create_user",
+        "bar_create_date",
+        "bar_lastup_user",
+        "bar_lastup_date",
+        "bar_special1",
+        "bar_special2",
+        "bar_special3",
+        "bar_stokkodu",
+        "bar_kodu",
+        "bar_barkodtipi",
+        "bar_birimpntr",
+        "bar_partikodu",
+        "bar_lotno",
+        "bar_serino_veya_bagkodu",
+        "bar_icerigi",
+        "bar_master",
+        "bar_bedenpntr",
+        "bar_renkpntr",
+        "bar_baglantitipi",
+        "bar_harrecid_dbcno",
+        "bar_harrecid_recno"
+    ],
+    "erp_insert_default_values": {
+        "bar_RECid_DBCno": 0,
+        "bar_RECid_RECno": 0,
+        "bar_SpecRECno": 0,
+        "bar_iptal": 0,
+        "bar_fileid": 13,
+        "bar_hidden": 0,
+        "bar_kilitli": 0,
+        "bar_degisti": 0,
+        "bar_checksum": 0,
+        "bar_create_user": 1,
+        "bar_lastup_user": 1,
+        "bar_special1": "",
+        "bar_special2": "",
+        "bar_special3": "",
+        "bar_barkodtipi": 0,
+        "bar_birimpntr": 1,
+        "bar_partikodu": "",
+        "bar_lotno": "",
+        "bar_serino_veya_bagkodu": "",
+        "bar_icerigi": "",
+        "bar_master": 0,
+        "bar_bedenpntr": 0,
+        "bar_renkpntr": 0,
+        "bar_baglantitipi": 0,
+        "bar_harrecid_dbcno": 0,
+        "bar_harrecid_recno": 0
+    },
+    "sync_direction": {
+        "web_to_erp": true,
+        "erp_to_web": true
+    },
+    "sync_triggers": {
+        "web_table_trigger": "urun_barkodlari_sync_trigger",
+        "erp_table_trigger": "trg_BARKOD_TANIMLARI_sync"
+    },
+    "processor_file": "sync-jobs/barkod.processor.js"
+}

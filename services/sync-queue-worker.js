@@ -175,6 +175,29 @@ class SyncQueueWorker {
                 const stokProcessor = require('../sync-jobs/stok.processor');
                 await stokProcessor.syncToERP(entityData);
 
+            } else if (item.entity_type === 'urun_barkodlari' || item.entity_type === 'barkod') {
+                // Barkod verilerini çek
+                const barkod = await pgService.query(
+                    `SELECT * FROM urun_barkodlari WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (barkod.length === 0) {
+                    throw new Error(`Barkod bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = barkod[0];
+
+                // DELETE işlemi için özel kontrol
+                if (item.operation === 'DELETE') {
+                    const barkodProcessor = require('../sync-jobs/barkod.processor');
+                    await barkodProcessor.deleteFromERP(entityData.barkod);
+                } else {
+                    // INSERT veya UPDATE işlemi
+                    const barkodProcessor = require('../sync-jobs/barkod.processor');
+                    await barkodProcessor.syncToERP(entityData);
+                }
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }
