@@ -1,0 +1,21 @@
+{
+  "lastSyncDate": "2026-01-05T12:43:46.740Z",
+  "lastFullSyncDate": "2026-01-05T11:02:45.734Z",
+  "tables": {
+    "pictures": {
+      "lastId": 40887
+    },
+    "product_quantity": {
+      "lastId": 18975
+    },
+    "product_prices": {
+      "lastId": 18975
+    },
+    "product": {
+      "lastId": 19634
+    },
+    "product_info": {
+      "lastId": null
+    }
+  }
+}

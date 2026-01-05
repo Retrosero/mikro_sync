@@ -25,9 +25,11 @@
     "test-foreign-keys": "node test-foreign-keys.js",
     "fix-cari": "node fix-eksik-cariler.js",
     "create-price-mappings": "node create-fiyat-liste-mappings.js",
+    "sync-entegra": "node scripts/entegra-sync.js",
     "test": "jest"
   },
   "dependencies": {
+    "better-sqlite3": "^12.5.0",
     "dotenv": "^16.3.1",
     "joi": "^17.11.0",
     "mssql": "^10.0.1",
