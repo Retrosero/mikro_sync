@@ -40,17 +40,17 @@ const SYNC_STATE_FILE = path.join(__dirname, '../sync-state-entegra.json');
 
 // Tarih alanı eşlemeleri (hangi tabloda hangi tarih alanı kullanılacak)
 const DATE_FIELD_MAPPING = {
-    'order': 'datetime',
-    'order_product': 'order_id', // order_id üzerinden order tablosunun datetime'ına bakılacak
-    'messages': 'date',
-    'product': 'id',  // Tarih alanı yok, id üzerinden son kayıtlar alınır
+    'order': 'id',
+    'order_product': 'order_id',
+    'messages': 'id',
+    'product': 'date_change',
     'product_info': 'id',
     'product_quantity': 'id',
     'product_prices': 'id',
     'pictures': 'id',
     'order_status': null, // Tüm veri her zaman senkronize edilir (az kayıt)
     'message_template': null,
-    'customer': 'date_add'
+    'customer': 'id'
 };
 
 /**
@@ -311,6 +311,29 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
             // Hedef tablo boş - tüm veriyi aktar
             logger.info('Hedef tablo boş, TÜM VERİ aktarılacak');
             query = `SELECT * FROM '${sourceTable}'`;
+        } else if (['order', 'order_product', 'messages', 'customer'].includes(sourceTable)) {
+            // Kullanıcı isteği: Tablo doluysa son id/order_id'yi kontrol et ve sadece yenileri al
+            const idField = sourceTable === 'order_product' ? 'order_id' : 'id';
+            const result = await pgService.queryOne(`SELECT MAX("${idField}") as max_id FROM "${targetTable}"`);
+            const maxId = result ? (result.max_id || 0) : 0;
+            logger.info(`Hedef tablodaki son ${idField}: ${maxId}. Yeni kayıtlar aktarılacak.`);
+            query = `SELECT * FROM '${sourceTable}' WHERE "${idField}" > ${maxId}`;
+        } else if (sourceTable === 'product') {
+            // Kullanıcı isteği: date_change alanını kontrol et ve sadece güncel verileri aktar
+            const result = await pgService.queryOne(`SELECT MAX("date_change") as max_date FROM "${targetTable}"`);
+            let maxDate = result?.max_date;
+
+            if (maxDate) {
+                // Date objesini SQLite formatına çevir (YYYY-MM-DD HH:mm:ss)
+                if (maxDate instanceof Date) {
+                    maxDate = maxDate.toISOString().replace('T', ' ').substring(0, 19);
+                }
+                logger.info(`Hedef tablodaki son date_change: ${maxDate}. Güncel kayıtlar aktarılacak.`);
+                query = `SELECT * FROM '${sourceTable}' WHERE "date_change" > '${maxDate}'`;
+            } else {
+                logger.info('Hedef tabloda date_change verisi yok, TÜM VERİ aktarılacak.');
+                query = `SELECT * FROM '${sourceTable}'`;
+            }
         } else if (dateField === null) {
             // Tarih alanı yok ve az kayıtlı tablo - tümünü senkronize et
             logger.info('Referans tablosu, TÜM VERİ aktarılacak');
@@ -329,29 +352,6 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
                 const minId = Math.max(0, lastId - 1000);
                 logger.info(`Sonraki senkronizasyon, ID > ${minId} olan kayıtlar aktarılacak`);
                 query = `SELECT * FROM '${sourceTable}' WHERE id > ${minId}`;
-            }
-        } else if (dateField === 'order_id') {
-            // order_product için order tablosundaki tarihe bağlı
-            if (isFirstSync) {
-                const oneMonthAgo = new Date();
-                oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-                const dateStr = oneMonthAgo.toISOString().split('T')[0];
-                logger.info(`Günün ilk senkronizasyonu, son 1 ayın kayıtları aktarılacak (${dateStr})`);
-                query = `
-          SELECT op.* FROM '${sourceTable}' op
-          INNER JOIN 'order' o ON op.order_id = o.id
-          WHERE o.datetime >= '${dateStr}'
-        `;
-            } else {
-                const threeDaysAgo = new Date();
-                threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
-                const dateStr = threeDaysAgo.toISOString().split('T')[0];
-                logger.info(`Sonraki senkronizasyon, son 3 günün kayıtları aktarılacak (${dateStr})`);
-                query = `
-          SELECT op.* FROM '${sourceTable}' op
-          INNER JOIN 'order' o ON op.order_id = o.id
-          WHERE o.datetime >= '${dateStr}'
-        `;
             }
         } else {
             // Tarih alanı var
