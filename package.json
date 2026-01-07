@@ -26,6 +26,7 @@
     "fix-cari": "node fix-eksik-cariler.js",
     "create-price-mappings": "node create-fiyat-liste-mappings.js",
     "sync-entegra": "node scripts/entegra-sync.js",
+    "stock-xml": "node scripts/run-stock-xml.js",
     "test": "jest"
   },
   "dependencies": {

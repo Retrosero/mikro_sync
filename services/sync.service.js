@@ -3,6 +3,7 @@ const mssqlService = require('./mssql.service');
 const logger = require('../utils/logger');
 const { handleError, isRetryable } = require('../utils/error-handler');
 const config = require('../config/sync.config');
+const stockXmlService = require('./stock-xml.service');
 
 class SyncService {
   constructor() {
@@ -30,10 +31,13 @@ class SyncService {
       try {
         // PostgreSQL queue'dan işle
         await this.processPostgreSQLQueue();
-        
+
         // MS SQL queue'dan işle
         await this.processMSSQLQueue();
-        
+
+        // Stok XML Oluştur ve Yükle
+        await stockXmlService.checkAndRun();
+
         // Bekle
         await this.sleep(config.syncIntervalMs);
       } catch (error) {

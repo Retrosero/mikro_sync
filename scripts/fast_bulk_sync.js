@@ -1,6 +1,8 @@
 require('dotenv').config();
 const pgService = require('../services/postgresql.service');
 const mssqlService = require('../services/mssql.service');
+const stockXmlService = require('../services/stock-xml.service');
+const { runSync: runEntegraSync } = require('./entegra-sync');
 
 // Env'den batch size al veya varsayılan 5000 kullan
 const BATCH_SIZE = process.env.BATCH_SIZE ? parseInt(process.env.BATCH_SIZE) : 5000;
@@ -627,6 +629,20 @@ async function main() {
         const depoCount = await depoProcessor.syncToWeb(null);
         console.log(`✓ ${depoCount} depo senkronize edildi.`);
         console.log();
+
+        // 12. Stok XML Oluşturma ve Yükleme
+        console.log('='.repeat(70));
+        console.log('12. STOK XML OLUŞTURMA VE YÜKLEME');
+        console.log('='.repeat(70));
+        const xmlGenerated = await stockXmlService.generateXML();
+        if (xmlGenerated) {
+            await stockXmlService.uploadToSSH();
+        }
+        console.log();
+
+        // 13. Entegra SQLITE Senkronizasyonu
+        // Not: runEntegraSync kendi bağlantılarını yönetir ve kapatır
+        await runEntegraSync({ disconnect: false });
 
         // NOT: Satış ve Tahsilat processor'ları Web->ERP yönünde çalışıyor
         // ERP->Web senkronizasyonu için ayrı processor'lar gerekiyor

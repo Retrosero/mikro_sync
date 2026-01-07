@@ -476,7 +476,7 @@ async function syncInvoicePrintToSQLite() {
 /**
  * Ana senkronizasyon fonksiyonu
  */
-async function runSync() {
+async function runSync(options = { disconnect: true }) {
     logger.info('\n' + '='.repeat(80));
     logger.info('ANA ENTEGRA SENKRONIZASYON BAŞLIYOR');
     logger.info('Tarih: ' + new Date().toISOString());
@@ -535,7 +535,9 @@ async function runSync() {
         throw error;
     } finally {
         sqliteService.disconnect();
-        await pgService.disconnect();
+        if (options.disconnect) {
+            await pgService.disconnect();
+        }
     }
 }
 
