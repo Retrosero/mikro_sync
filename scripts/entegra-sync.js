@@ -32,7 +32,11 @@ const TABLE_MAPPING = {
     'product_info': 'entegra_product_info',
     'messages': 'entegra_messages',
     'message_template': 'entegra_message_template',
-    'customer': 'entegra_customer'
+    'customer': 'entegra_customer',
+    'brand': 'entegra_brand',
+    'category': 'entegra_category',
+    'category2': 'entegra_category2',
+    'product_description': 'entegra_product_description'
 };
 
 // Senkronizasyon durumu dosyası
@@ -50,7 +54,11 @@ const DATE_FIELD_MAPPING = {
     'pictures': 'id',
     'order_status': null, // Tüm veri her zaman senkronize edilir (az kayıt)
     'message_template': null,
-    'customer': 'id'
+    'customer': 'id',
+    'brand': null,
+    'category': null,
+    'category2': null,
+    'product_description': 'id'
 };
 
 /**

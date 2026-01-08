@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated At: 08.01.2026 15:14:47 -->
 <Products>
+  <Metadata>
+    <GeneratedAt>08.01.2026 15:14:47</GeneratedAt>
+    <ProductCount>4185</ProductCount>
+  </Metadata>
   <Product>
     <Product_code>00510</Product_code>
     <Name>001 - 00510 - LİTTLES PET SHOP ÇİFTLİK TEMALI SET</Name>
@@ -3691,7 +3696,7 @@
     <grup_kod>O-72</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359093497</barcode>
-    <stock>2</stock>
+    <stock>1</stock>
     <Price>1850</Price>
     <Price2>2412.5</Price2>
     <Pricebayi>1665</Pricebayi>
@@ -9771,7 +9776,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197102871</barcode>
-    <stock>141</stock>
+    <stock>140</stock>
     <Price>340</Price>
     <Price2>525</Price2>
     <Pricebayi>306</Pricebayi>
@@ -14539,7 +14544,7 @@
     <grup_kod>O-40</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>86839792200313</barcode>
-    <stock>1</stock>
+    <stock>0</stock>
     <Price>360</Price>
     <Price2>496</Price2>
     <Pricebayi>324</Pricebayi>
@@ -23163,7 +23168,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359084037</barcode>
-    <stock>227</stock>
+    <stock>221</stock>
     <Price>120</Price>
     <Price2>250</Price2>
     <Pricebayi>108</Pricebayi>
@@ -23307,7 +23312,7 @@
     <grup_kod>O-43</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197092011</barcode>
-    <stock>20</stock>
+    <stock>19</stock>
     <Price>465</Price>
     <Price2>611.5</Price2>
     <Pricebayi>418.5</Pricebayi>
@@ -23595,7 +23600,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8682729626901</barcode>
-    <stock>34</stock>
+    <stock>33</stock>
     <Price>210</Price>
     <Price2>331</Price2>
     <Pricebayi>189</Pricebayi>
@@ -24059,7 +24064,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359083306</barcode>
-    <stock>19</stock>
+    <stock>17</stock>
     <Price>430</Price>
     <Price2>573</Price2>
     <Pricebayi>387</Pricebayi>
@@ -25563,7 +25568,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698555793243</barcode>
-    <stock>60</stock>
+    <stock>59</stock>
     <Price>165</Price>
     <Price2>281.5</Price2>
     <Pricebayi>148.5</Pricebayi>
@@ -28747,7 +28752,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>86976719402032</barcode>
-    <stock>6</stock>
+    <stock>3</stock>
     <Price>395</Price>
     <Price2>593.75</Price2>
     <Pricebayi>355.5</Pricebayi>
@@ -29323,7 +29328,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698568931915</barcode>
-    <stock>18</stock>
+    <stock>17</stock>
     <Price>1250</Price>
     <Price2>1662.5</Price2>
     <Pricebayi>1125</Pricebayi>
@@ -29643,7 +29648,7 @@
     <grup_kod>O-02</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197095418</barcode>
-    <stock>135</stock>
+    <stock>133</stock>
     <Price>85</Price>
     <Price2>139.9</Price2>
     <Pricebayi>76.5</Pricebayi>
@@ -33819,7 +33824,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>662061320000</barcode>
-    <stock>30</stock>
+    <stock>29</stock>
     <Price>475</Price>
     <Price2>622.5</Price2>
     <Pricebayi>427.5</Pricebayi>
@@ -35051,7 +35056,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359093381</barcode>
-    <stock>4</stock>
+    <stock>2</stock>
     <Price>195</Price>
     <Price2>314.5</Price2>
     <Pricebayi>175.5</Pricebayi>
@@ -35067,7 +35072,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359093329</barcode>
-    <stock>4</stock>
+    <stock>2</stock>
     <Price>195</Price>
     <Price2>314.5</Price2>
     <Pricebayi>175.5</Pricebayi>
@@ -42299,7 +42304,7 @@
     <grup_kod>O-32</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8056379177760</barcode>
-    <stock>8</stock>
+    <stock>7</stock>
     <Price>845</Price>
     <Price2>1029.5</Price2>
     <Pricebayi>760.5</Pricebayi>
@@ -43563,7 +43568,7 @@
     <grup_kod></grup_kod>
     <ana_grup_kod></ana_grup_kod>
     <barcode></barcode>
-    <stock>83</stock>
+    <stock>80</stock>
     <Price>11.11</Price>
     <Price2>0</Price2>
     <Pricebayi>0</Pricebayi>
@@ -43595,7 +43600,7 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359076155</barcode>
-    <stock>11</stock>
+    <stock>9</stock>
     <Price>295</Price>
     <Price2>424.5</Price2>
     <Pricebayi>265.5</Pricebayi>
@@ -43611,7 +43616,7 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197092028</barcode>
-    <stock>11</stock>
+    <stock>9</stock>
     <Price>295</Price>
     <Price2>424.5</Price2>
     <Pricebayi>265.5</Pricebayi>
@@ -46219,7 +46224,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684266250137</barcode>
-    <stock>87</stock>
+    <stock>86</stock>
     <Price>185</Price>
     <Price2>303.5</Price2>
     <Pricebayi>166.5</Pricebayi>
@@ -46235,7 +46240,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197106008</barcode>
-    <stock>87</stock>
+    <stock>86</stock>
     <Price>185</Price>
     <Price2>303.5</Price2>
     <Pricebayi>166.5</Pricebayi>
@@ -47835,7 +47840,7 @@
     <grup_kod>O-15</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197099607</barcode>
-    <stock>2</stock>
+    <stock>1</stock>
     <Price>560</Price>
     <Price2>716</Price2>
     <Pricebayi>504</Pricebayi>
@@ -49243,7 +49248,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197094367</barcode>
-    <stock>10</stock>
+    <stock>9</stock>
     <Price>77</Price>
     <Price2>184.7</Price2>
     <Pricebayi>69.3</Pricebayi>
@@ -49451,7 +49456,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683511000565</barcode>
-    <stock>7</stock>
+    <stock>6</stock>
     <Price>200</Price>
     <Price2>320</Price2>
     <Pricebayi>180</Pricebayi>
@@ -50763,7 +50768,7 @@
     <grup_kod>O-11</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6909704092608</barcode>
-    <stock>33</stock>
+    <stock>30</stock>
     <Price>115</Price>
     <Price2>243.75</Price2>
     <Pricebayi>103.5</Pricebayi>
@@ -53531,7 +53536,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>24</stock>
+    <stock>22</stock>
     <Price>150</Price>
     <Price2>287.5</Price2>
     <Pricebayi>135</Pricebayi>
@@ -54562,7 +54567,7 @@
   </Product>
   <Product>
     <Product_code>PL62492</Product_code>
-    <Name>PL62492 - PELUŞ YATAN FİL 70 CM 3 AST</Name>
+    <Name>PL62492 - PELUŞ YATAN FİL 65 CM 3 AST</Name>
     <Brand>HALLEY</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
@@ -58411,7 +58416,7 @@
     <grup_kod>O-41</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>4810344072467</barcode>
-    <stock>9</stock>
+    <stock>7</stock>
     <Price>90</Price>
     <Price2>199</Price2>
     <Pricebayi>81</Pricebayi>
@@ -66011,7 +66016,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359082866</barcode>
-    <stock>5</stock>
+    <stock>4</stock>
     <Price>495</Price>
     <Price2>644.5</Price2>
     <Pricebayi>445.5</Pricebayi>
@@ -66907,7 +66912,7 @@
     <grup_kod>O-42</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6920240114975</barcode>
-    <stock>85</stock>
+    <stock>83</stock>
     <Price>290</Price>
     <Price2>419</Price2>
     <Pricebayi>261</Pricebayi>

@@ -1,28 +1,40 @@
 const lookupTables = require('../mappings/lookup-tables');
 const logger = require('../utils/logger');
 
-// Tarih formatını MSSQL için dönüştür - Date objesi olarak
+// Tarih formatını MSSQL için dönüştür - string olarak (YYYY-MM-DD 00:00:00.000)
 function formatDateOnlyForMSSQL(date) {
-  if (!date) return new Date('1899-12-30T00:00:00.000Z');
+  if (!date) return '1899-12-30 00:00:00.000';
   const d = new Date(date);
   if (isNaN(d.getTime())) {
     logger.warn(`Geçersiz tarih değeri tespit edildi (DateOnly): ${date}, default tarih kullanılıyor.`);
-    return new Date('1899-12-30T00:00:00.000Z');
+    return '1899-12-30 00:00:00.000';
   }
-  // Saat kısmını sıfırla
-  d.setHours(0, 0, 0, 0);
-  return d;
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day} 00:00:00.000`;
 }
 
-// Tarih formatını MSSQL için dönüştür - Date objesi olarak
+// Tarih formatını MSSQL için dönüştür - string olarak (YYYY-MM-DD HH:MM:SS.mmm)
 function formatDateTimeForMSSQL(date) {
-  if (!date) return new Date('1899-12-30T00:00:00.000Z');
+  if (!date) return '1899-12-30 00:00:00.000';
   const d = new Date(date);
   if (isNaN(d.getTime())) {
     logger.warn(`Geçersiz tarih değeri tespit edildi (DateTime): ${date}, default tarih kullanılıyor.`);
-    return new Date('1899-12-30T00:00:00.000Z');
+    return '1899-12-30 00:00:00.000';
   }
-  return d;
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const seconds = String(d.getSeconds()).padStart(2, '0');
+  const ms = String(d.getMilliseconds()).padStart(3, '0');
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${ms}`;
 }
 
 class TahsilatTransformer {
@@ -152,8 +164,8 @@ class TahsilatTransformer {
       logger.info(`Tahsilat Transform (${webTahsilat.tahsilat_tipi}): chaKod=${chaKod}, chaCiroCariKodu=${chaCiroCariKodu}, chaKasaHizmet=${chaKasaHizmet}`);
 
       return {
-        cha_tarihi: webTahsilat.tahsilat_tarihi,
-        cha_belge_tarih: webTahsilat.tahsilat_tarihi,
+        cha_tarihi: formatDateOnlyForMSSQL(webTahsilat.tahsilat_tarihi),
+        cha_belge_tarih: formatDateOnlyForMSSQL(webTahsilat.tahsilat_tarihi),
         cha_kod: chaKod,
         cha_ciro_cari_kodu: chaCiroCariKodu,
         cha_meblag: webTahsilat.tutar,

@@ -3,9 +3,12 @@ const logger = require('../utils/logger');
 class SayimTransformer {
     transformToERP(webData, stokKod, satirNo = 0) {
         try {
-            // Tarih formatla (YYYYMMDD)
+            // Tarih formatla (YYYYMMDD) - Yerel saate göre
             const date = new Date(webData.islem_tarihi);
-            const tarihStr = date.toISOString().slice(0, 10).replace(/-/g, '');
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const tarihStr = `${year}${month}${day}`;
             // Create user date format (YYYYMMDD HH:mm:ss.MS) - Trace formatı '20251226 14:37:43.345' benzeri
             // Ancak MS SQL driver Date objesini kabul eder, manuel stringe gerek kalmayabilir.
             // Trace'deki: '20251226' -> sym_tarihi

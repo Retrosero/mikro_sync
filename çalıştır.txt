@@ -9,3 +9,5 @@ npm run setup-web-to-erp-triggers	Trigger'ları kur/güncelle
 npm run sync-web-to-erp	Web → ERP senkronizasyonu
 node web-to-erp-sync.js sync
 node scripts/entegra-sync.js
+npm run stock-xml
+npm run sync-invoice-settings

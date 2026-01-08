@@ -19,12 +19,12 @@ function formatDateTimeForMSSQL(date) {
 }
 
 function formatDateOnlyForMSSQL(date) {
-  if (!date) return '1899-12-30';
+  if (!date) return '1899-12-30 00:00:00.000';
   const d = new Date(date);
   const year = d.getFullYear();
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
-  return `${year}${month}${day}`;
+  return `${year}-${month}-${day} 00:00:00.000`;
 }
 
 class IadeTransformer {
@@ -49,14 +49,14 @@ class IadeTransformer {
         cha_evrakno_seri: webIade.fatura_seri_no || '',
         cha_evrakno_sira: parseInt(webIade.fatura_sira_no || 0),
         cha_satir_no: 0,
-        cha_tarihi: islemTarihi,
+        cha_tarihi: formatDateOnlyForMSSQL(islemTarihi),
         cha_tip: 1,
         cha_cinsi: 6,
         cha_normal_Iade: 1,
         cha_tpoz: chaTpoz,
         cha_ticaret_turu: 0,
         cha_belge_no: webIade.iade_no || '',
-        cha_belge_tarih: islemTarihi,
+        cha_belge_tarih: formatDateOnlyForMSSQL(islemTarihi),
         cha_aciklama: webIade.notlar || '',
         cha_cari_cins: chaCariCins,
         cha_kod: chaKod,
@@ -196,7 +196,7 @@ class IadeTransformer {
       return {
         sth_firmano: 0,
         sth_subeno: 0,
-        sth_tarih: islemTarihi,
+        sth_tarih: formatDateOnlyForMSSQL(islemTarihi),
         sth_tip: 0,
         sth_cins: 0,
         sth_normal_iade: 1,
@@ -205,7 +205,7 @@ class IadeTransformer {
         sth_evrakno_sira: parseInt(webIade.fatura_sira_no || 0),
         sth_satirno: webKalem.sira_no || 0,
         sth_belge_no: webIade.iade_no || '',
-        sth_belge_tarih: islemTarihi,
+        sth_belge_tarih: formatDateOnlyForMSSQL(islemTarihi),
         sth_stok_kod: stokKod || 'TANIMSIZ_STOK',
         sth_cari_kodu: cariKod,
         sth_miktar: webKalem.miktar,

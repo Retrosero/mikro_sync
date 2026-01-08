@@ -1,7 +1,7 @@
 require('dotenv').config();
-const stockXmlService = require('./services/stock-xml.service');
-const mssqlService = require('./services/mssql.service');
-const logger = require('./utils/logger');
+const stockXmlService = require('../services/stock-xml.service');
+const mssqlService = require('../services/mssql.service');
+const logger = require('../utils/logger');
 
 async function runOnce() {
     try {

@@ -50,7 +50,14 @@ class StockXMLService {
             const rows = await mssqlService.query(query);
             logger.info(`${rows.length} adet stok verisi alındı. XML oluşturuluyor...`, { context: 'stock-xml' });
 
-            let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<Products>\n';
+            const nowStr = new Date().toLocaleString('tr-TR');
+            let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n';
+            xmlContent += `<!-- Generated At: ${nowStr} -->\n`;
+            xmlContent += '<Products>\n';
+            xmlContent += '  <Metadata>\n';
+            xmlContent += `    <GeneratedAt>${nowStr}</GeneratedAt>\n`;
+            xmlContent += `    <ProductCount>${rows.length}</ProductCount>\n`;
+            xmlContent += '  </Metadata>\n';
 
             for (const row of rows) {
                 xmlContent += '  <Product>\n';
@@ -123,13 +130,36 @@ class StockXMLService {
 
             logger.info(`SSH (SCP) ile yükleniyor: ${host}...`, { context: 'stock-xml' });
 
-            // scp -i key -P port localfile user@host:remotepath
-            // Windows'ta scp.exe StrictHostKeyChecking'i sormasın diye: -o StrictHostKeyChecking=no
+            // 1. TEMİZLİK: Önce host üzerindeki eski dosyayı sil
+            const cleanHostCommand = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "rm -f ${remotePath}${fileName}"`;
+            logger.info('Eski dosya host üzerinden temizleniyor...', { context: 'stock-xml' });
+            try { execSync(cleanHostCommand, { stdio: 'pipe' }); } catch (e) { }
+
+            // 2. DİZİN HAZIRLA: Hedef dizini oluştur
+            const mkdirCommand = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "mkdir -p ${remotePath}"`;
+            try { execSync(mkdirCommand, { stdio: 'pipe' }); } catch (e) { }
+
+            // 3. YÜKLE: SCP ile host üzerine yükle
             const scpCommand = `scp.exe -i "${keyPath}" -P ${port} -o StrictHostKeyChecking=no "${this.localFilePath}" ${user}@${host}:${remotePath}${fileName}`;
-
-            logger.info(`Çalıştırılacak komut: ${scpCommand}`, { context: 'stock-xml' });
-
+            logger.info(`Dosya yükleniyor: ${scpCommand}`, { context: 'stock-xml' });
             execSync(scpCommand, { stdio: 'inherit' });
+
+            // 4. DAĞIT: xargs kullanarak tüm aktif Docker konteynırları içine kopyalamayı dene
+            // Bu yöntem $cid gibi değişken kaçış sorunlarını (escaping) ortadan kaldırır.
+            const distributeCommands = [
+                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/usr/share/nginx/html/${fileName} 2>/dev/null || true`,
+                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/app/public/${fileName} 2>/dev/null || true`,
+                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/app/${fileName} 2>/dev/null || true`
+            ];
+
+            logger.info('Docker konteynırları güncelleniyor (xargs)...', { context: 'stock-xml' });
+            for (const cmd of distributeCommands) {
+                const fullCmd = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "${cmd}"`;
+                try {
+                    execSync(fullCmd, { stdio: 'pipe' });
+                } catch (e) { }
+            }
+            logger.info('✅ Docker konteynırları güncellendi.', { context: 'stock-xml' });
 
             logger.info('✅ Stok XML dosyası başarıyla SSH üzerinden sunucuya yüklendi.', { context: 'stock-xml' });
             return true;

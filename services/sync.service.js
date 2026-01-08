@@ -4,6 +4,7 @@ const logger = require('../utils/logger');
 const { handleError, isRetryable } = require('../utils/error-handler');
 const config = require('../config/sync.config');
 const stockXmlService = require('./stock-xml.service');
+const invoiceSettingsService = require('./invoice-settings.service');
 
 class SyncService {
   constructor() {
@@ -34,6 +35,9 @@ class SyncService {
 
         // MS SQL queue'dan işle
         await this.processMSSQLQueue();
+
+        // Pazaryeri Fatura Sıra No Güncelle
+        await invoiceSettingsService.syncInvoiceNumbers();
 
         // Stok XML Oluştur ve Yükle
         await stockXmlService.checkAndRun();

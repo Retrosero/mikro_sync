@@ -6,9 +6,12 @@ class StokHareketTransformer {
             // Hareket tipi: giris -> 0, cikis -> 1
             const sth_tip = webData.hareket_tipi === 'giris' ? 0 : 1;
 
-            // Tarih formatla (YYYYMMDD)
+            // Tarih formatla (YYYYMMDD) - Yerel saate göre (UTC kaymasını engellemek için)
             const date = new Date(webData.islem_tarihi);
-            const tarihStr = date.toISOString().slice(0, 10).replace(/-/g, '');
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const tarihStr = `${year}${month}${day}`;
 
             // Varsayılan değerler
             const defaultValues = {

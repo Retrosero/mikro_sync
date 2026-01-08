@@ -14,6 +14,7 @@ function formatDateOnlyForMSSQL(date) {
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
 
+  // MSSQL için saat bilgisini sıfırlayarak string döndür
   return `${year}-${month}-${day} 00:00:00.000`;
 }
 
@@ -176,8 +177,8 @@ class SatisTransformer {
       }
 
       return {
-        cha_tarihi: webSatis.satis_tarihi,
-        cha_belge_tarih: webSatis.satis_tarihi,
+        cha_tarihi: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
+        cha_belge_tarih: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
         cha_evrakno_sira: null, // Processor'da otomatik alınacak
         cha_evrakno_seri: (webSatis.fatura_seri_no || '').substring(0, 10),
         cha_belge_no: (webSatis.belge_no || '').substring(0, 20),
@@ -342,8 +343,8 @@ class SatisTransformer {
         sth_tutar: webKalem.toplam_tutar,
         sth_vergi: webKalem.kdv_tutari || 0,
         sth_vergi_pntr: 1, // Kullanıcı isteği: sth_vergi_pntr=1
-        sth_tarih: webSatis.satis_tarihi,
-        sth_belge_tarih: webSatis.satis_tarihi,
+        sth_tarih: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
+        sth_belge_tarih: formatDateOnlyForMSSQL(webSatis.satis_tarihi),
         sth_cari_kodu: (cariKod || '').substring(0, 25),
         sth_cikis_depo_no: 1,
         sth_giris_depo_no: 1, // Kullanıcı isteği: sth_giris_depo_no=1

@@ -2,6 +2,7 @@ require('dotenv').config();
 const pgService = require('../services/postgresql.service');
 const mssqlService = require('../services/mssql.service');
 const stockXmlService = require('../services/stock-xml.service');
+const invoiceSettingsService = require('../services/invoice-settings.service');
 const { runSync: runEntegraSync } = require('./entegra-sync');
 
 // Env'den batch size al veya varsayılan 5000 kullan
@@ -349,6 +350,14 @@ async function bulkSyncStoklar() {
         }
 
         console.log(`✓ ${totalProcessed} stok senkronize edildi.`);
+
+        // EK: Kuyruk Temizleme
+        await pgService.query(`
+            DELETE FROM sync_queue 
+            WHERE entity_type IN ('stoklar', 'stok') 
+            AND status = 'pending'
+        `);
+
         console.log();
 
     } catch (error) {
@@ -421,13 +430,19 @@ async function bulkSyncBarkodlar() {
                 await pgService.query(query, values);
             }
 
-            totalProcessed += batch.length;
-            offset += BATCH_SIZE;
-            const batchDuration = ((Date.now() - batchStartTime) / 1000).toFixed(2);
-            console.log(`  Batch tamamlandı: ${totalProcessed}/${totalCount} barkod (${batch.length} kayıt, ${batchDuration}sn)`);
         }
 
-        console.log(`✓ ${totalProcessed} barkod senkronize edildi.`);
+        console.log(`✓ ${totalProcessed} barkod senkronizasyon adımı bitti.`);
+
+        // EK: Kuyruk Temizleme
+        // Bulk sync sırasında tetikleyiciler (triggers) tarafından oluşturulan gereksiz Web -> ERP kayıtlarını temizle
+        const cleanRes = await pgService.query(`
+            DELETE FROM sync_queue 
+            WHERE entity_type = 'urun_barkodlari' 
+            AND status = 'pending'
+        `);
+        if (cleanRes) console.log(`  (Bilgi: ${totalProcessed} barkod için oluşan gereksiz senkronizasyon kuyruğu temizlendi)`);
+
         console.log();
 
     } catch (error) {
@@ -556,6 +571,10 @@ async function main() {
         console.log('HIZLI TOPLU ERP → WEB SENKRONIZASYONU (ULTRA FAST)');
         console.log(`Batch Boyutu: ${BATCH_SIZE}`);
         console.log('='.repeat(70));
+        console.log();
+
+        // 0. Pazaryeri Fatura Sıra No Senkronizasyonu
+        await invoiceSettingsService.syncInvoiceNumbers();
         console.log();
 
         // 0. Silinen Kayıtlar (En başta çalışmalı)

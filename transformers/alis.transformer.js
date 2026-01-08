@@ -16,14 +16,14 @@ function formatDateTimeForMSSQL(date) {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}`;
 }
 
-// Sadece tarih (YYYY-MM-DD)
+// Sadece tarih (YYYY-MM-DD 00:00:00.000) - MSSQL için en güvenli format
 function formatDateOnlyForMSSQL(date) {
-    if (!date) return '1899-12-30';
+    if (!date) return '1899-12-30 00:00:00.000';
     const d = new Date(date);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
     const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day} 00:00:00.000`;
 }
 
 class AlisTransformer {
@@ -119,8 +119,8 @@ class AlisTransformer {
             const islemTarihi = webAlis.fatura_tarihi || webAlis.alis_tarihi || new Date();
 
             return {
-                cha_tarihi: islemTarihi,
-                cha_belge_tarih: islemTarihi,
+                cha_tarihi: formatDateOnlyForMSSQL(islemTarihi),
+                cha_belge_tarih: formatDateOnlyForMSSQL(islemTarihi),
                 cha_evrakno_sira: null, // Processor belirleyecek
                 cha_evrakno_seri: webAlis.fatura_seri_no || '',
                 cha_belge_no: webAlis.belge_no || '',
@@ -234,8 +234,8 @@ class AlisTransformer {
                 sth_tutar: webKalem.toplam_tutar,
                 sth_vergi: webKalem.kdv_tutari || 0,
                 sth_vergi_pntr: 1,
-                sth_tarih: islemTarihi,
-                sth_belge_tarih: islemTarihi,
+                sth_tarih: formatDateOnlyForMSSQL(islemTarihi),
+                sth_belge_tarih: formatDateOnlyForMSSQL(islemTarihi),
                 sth_cari_kodu: cariKod,
                 sth_cikis_depo_no: 1,
                 sth_giris_depo_no: 1,

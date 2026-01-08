@@ -27,6 +27,7 @@
     "create-price-mappings": "node create-fiyat-liste-mappings.js",
     "sync-entegra": "node scripts/entegra-sync.js",
     "stock-xml": "node scripts/run-stock-xml.js",
+    "sync-invoice-settings": "node scripts/test-invoice-sync.js",
     "test": "jest"
   },
   "dependencies": {
