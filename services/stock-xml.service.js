@@ -37,8 +37,12 @@ class StockXMLService {
             ISNULL(SF3.sfiyat_fiyati, 0) AS Pricebayi
         FROM
             STOKLAR S WITH (NOLOCK)
-        LEFT JOIN
-            BARKOD_TANIMLARI B WITH (NOLOCK) ON S.sto_kod = B.bar_stokkodu
+        OUTER APPLY (
+            SELECT TOP 1 bar_kodu 
+            FROM BARKOD_TANIMLARI B WITH (NOLOCK) 
+            WHERE S.sto_kod = B.bar_stokkodu 
+            ORDER BY B.bar_RECno
+        ) B
         LEFT JOIN
             STOK_HAREKETTEN_ELDEKI_MIKTAR_VIEW SHM WITH (NOLOCK) ON S.sto_kod = SHM.sth_stok_kod
         LEFT JOIN
