@@ -230,7 +230,7 @@ async function bulkSyncStoklar() {
                     sto_kod, sto_isim, sto_birim1_ad, sto_standartmaliyet,
                     sto_sektor_kodu, sto_reyon_kodu, sto_ambalaj_kodu, 
                     sto_kalkon_kodu, sto_marka_kodu,
-                    sto_altgrup_kod, sto_anagrup_kod
+                    sto_altgrup_kod, sto_anagrup_kod, sto_create_date
                 FROM STOKLAR
                 WHERE sto_pasif_fl = 0
                 ORDER BY sto_kod
@@ -314,13 +314,14 @@ async function bulkSyncStoklar() {
                     marka_id: markaId,
                     barkod: barkod,
                     eldeki_miktar: eldekiMiktar,
+                    olusturma_tarihi: erpStok.sto_create_date || new Date(),
                     guncelleme_tarihi: new Date()
                 };
             });
 
             // Bulk Upsert Stoklar
-            const columns = ['stok_kodu', 'stok_adi', 'birim_turu', 'alis_fiyati', 'satis_fiyati', 'aciklama', 'olcu', 'raf_kodu', 'ambalaj', 'koliadeti', 'aktif', 'kategori_id', 'marka_id', 'barkod', 'eldeki_miktar', 'guncelleme_tarihi'];
-            const updateColumns = ['stok_adi', 'birim_turu', 'alis_fiyati', 'olcu', 'raf_kodu', 'ambalaj', 'koliadeti', 'kategori_id', 'marka_id', 'barkod', 'eldeki_miktar', 'guncelleme_tarihi'];
+            const columns = ['stok_kodu', 'stok_adi', 'birim_turu', 'alis_fiyati', 'satis_fiyati', 'aciklama', 'olcu', 'raf_kodu', 'ambalaj', 'koliadeti', 'aktif', 'kategori_id', 'marka_id', 'barkod', 'eldeki_miktar', 'olusturma_tarihi', 'guncelleme_tarihi'];
+            const updateColumns = ['stok_adi', 'birim_turu', 'alis_fiyati', 'olcu', 'raf_kodu', 'ambalaj', 'koliadeti', 'kategori_id', 'marka_id', 'barkod', 'eldeki_miktar', 'olusturma_tarihi', 'guncelleme_tarihi'];
 
             const { query, values } = buildBulkUpsertQuery('stoklar', columns, stokRows, 'stok_kodu', updateColumns, 'id, stok_kodu');
 
@@ -585,7 +586,7 @@ async function main() {
         // 1. Temel Veriler
         await bulkSyncCategories();
         await bulkSyncStoklar();
-        await bulkSyncBarkodlar();
+        // await bulkSyncBarkodlar();
 
         // 1.5. Fiyat Tanımları (Fiyatlardan önce olmalı)
         console.log('='.repeat(70));

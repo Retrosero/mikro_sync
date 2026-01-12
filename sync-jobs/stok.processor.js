@@ -113,7 +113,7 @@ class StokProcessor {
         sto_kod, sto_isim, sto_birim1_ad, sto_standartmaliyet,
         sto_sektor_kodu, sto_reyon_kodu, sto_ambalaj_kodu, 
         sto_kalkon_kodu, sto_yabanci_isim, sto_lastup_date,
-        sto_altgrup_kod, sto_anagrup_kod
+        sto_altgrup_kod, sto_anagrup_kod, sto_create_date
       FROM STOKLAR
       ${whereClause}
       ORDER BY sto_lastup_date
@@ -185,13 +185,13 @@ class StokProcessor {
           stok_adi = $1, birim_turu = $2, alis_fiyati = $3, 
           satis_fiyati = $4, aciklama = $5, olcu = $6, 
           raf_kodu = $7, ambalaj = $8, koliadeti = $9, 
-          kategori_id = $10, guncelleme_tarihi = NOW()
-         WHERE id = $11`,
+          kategori_id = $10, olusturma_tarihi = $11, guncelleme_tarihi = NOW()
+         WHERE id = $12`,
         [
           webStok.stok_adi, webStok.birim_turu, webStok.alis_fiyati,
           webStok.satis_fiyati, webStok.aciklama, webStok.olcu,
           webStok.raf_kodu, webStok.ambalaj, webStok.koliadeti,
-          kategoriId, webStokId
+          kategoriId, webStok.olusturma_tarihi, webStokId
         ]
       );
       logger.debug(`Stok güncellendi: ${erpStok.sto_kod}`);
@@ -203,14 +203,14 @@ class StokProcessor {
       const result = await pgService.queryOne(
         `INSERT INTO stoklar (
           stok_kodu, stok_adi, birim_turu, alis_fiyati, satis_fiyati,
-          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif, kategori_id
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
+          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif, kategori_id, olusturma_tarihi
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
         RETURNING id`,
         [
           webStok.stok_kodu, webStok.stok_adi, webStok.birim_turu,
           webStok.alis_fiyati, webStok.satis_fiyati, webStok.aciklama,
           webStok.olcu, webStok.raf_kodu, webStok.ambalaj,
-          webStok.koliadeti, webStok.aktif, kategoriId
+          webStok.koliadeti, webStok.aktif, kategoriId, webStok.olusturma_tarihi
         ]
       );
 

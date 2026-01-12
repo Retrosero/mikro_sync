@@ -25,7 +25,7 @@ class StokTransformer {
         koliadeti: koliadeti,
         katalog_adi: erpStok.sto_yabanci_isim || '',
         aktif: true,
-        olusturma_tarihi: new Date(),
+        olusturma_tarihi: erpStok.sto_create_date || new Date(),
         guncelleme_tarihi: new Date()
       };
     } catch (error) {

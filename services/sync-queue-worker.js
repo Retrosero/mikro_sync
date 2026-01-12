@@ -198,6 +198,23 @@ class SyncQueueWorker {
                     await barkodProcessor.syncToERP(entityData);
                 }
 
+            } else if (item.entity_type === 'cari' || item.entity_type === 'cari_hesaplar') {
+                // Cari verilerini çek
+                const cari = await pgService.query(
+                    `SELECT * FROM cari_hesaplar WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (cari.length === 0) {
+                    throw new Error(`Cari bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = cari[0];
+
+                // Processor'a gönder
+                const cariProcessor = require('../sync-jobs/cari.processor');
+                await cariProcessor.syncToERP(entityData);
+
             } else {
                 throw new Error(`Bilinmeyen entity tipi: ${item.entity_type}`);
             }
