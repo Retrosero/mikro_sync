@@ -13,3 +13,4 @@ npm run stock-xml
 npm run sync-invoice-settings
 
 node scripts/fast_bulk_sync.js
+npm run sync-entegra

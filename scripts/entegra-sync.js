@@ -61,6 +61,24 @@ const DATE_FIELD_MAPPING = {
     'product_description': 'id'
 };
 
+// PERFORMANS: Çok kolonlu tablolar için sadece gerekli kolonları senkronize et
+// null = tüm kolonlar, array = sadece belirtilen kolonlar
+const COLUMN_FILTER = {
+    'product': [
+        'id', 'code', 'name', 'model', 'brand_id', 'category_id', 'price', 'price_old',
+        'quantity', 'stock_status', 'status', 'image', 'weight', 'length', 'width', 'height',
+        'date_added', 'date_change', 'barcode', 'sku', 'tax_rate', 'currency',
+        'minimum', 'subtract', 'shipping', 'sort_order', 'viewed', 'points'
+    ],
+    'category': [
+        'id', 'parent_id', 'name', 'image', 'sort_order', 'status', 'category_id',
+        'level', 'child_count', 'flag'
+    ],
+    'brand': [
+        'id', 'name', 'image', 'sort_order', 'status'
+    ]
+};
+
 /**
  * Senkronizasyon durumunu oku
  */
@@ -108,7 +126,7 @@ function isFirstSyncOfDay(state) {
 function sqliteTypeToPgType(sqliteType) {
     const type = (sqliteType || 'TEXT').toUpperCase();
 
-    if (type.includes('INT')) return 'INTEGER';
+    if (type.includes('INT')) return 'BIGINT';
     if (type.includes('REAL') || type.includes('FLOAT') || type.includes('DOUBLE')) return 'DOUBLE PRECISION';
     if (type.includes('BLOB')) return 'BYTEA';
     if (type.includes('BOOL')) return 'BOOLEAN';
@@ -291,10 +309,18 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
 
     try {
         // SQLite tablo şemasını al
-        const columns = sqliteService.getTableSchema(sourceTable);
+        let columns = sqliteService.getTableSchema(sourceTable);
         if (columns.length === 0) {
             logger.warn(`Tablo bulunamadı veya boş: ${sourceTable}`);
             return { success: false, reason: 'table_not_found' };
+        }
+
+        // PERFORMANS: Kolon filtresi uygula (çok kolonlu tablolar için)
+        const columnFilter = COLUMN_FILTER[sourceTable];
+        if (columnFilter) {
+            const originalCount = columns.length;
+            columns = columns.filter(c => columnFilter.includes(c.name));
+            logger.info(`Kolon filtresi uygulandı: ${originalCount} -> ${columns.length} kolon`);
         }
 
         // PostgreSQL'de tablo var mı kontrol et
@@ -302,6 +328,26 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
         if (!tableExists) {
             logger.info(`PostgreSQL'de tablo oluşturuluyor: ${targetTable}`);
             await createPgTable(targetTable, columns);
+        } else {
+            // Tablo varsa, eksik kolonları TOPLU OLARAK kontrol et (PERFORMANS İYİLEŞTİRMESİ)
+            const existingCols = await pgService.query(`
+                SELECT column_name FROM information_schema.columns 
+                WHERE table_name = $1 AND table_schema = 'public'
+            `, [targetTable]);
+            const existingColSet = new Set(existingCols.map(c => c.column_name));
+
+            const missingCols = columns.filter(c => !existingColSet.has(c.name));
+            if (missingCols.length > 0) {
+                logger.info(`${targetTable}: ${missingCols.length} eksik kolon ekleniyor...`);
+                for (const col of missingCols) {
+                    try {
+                        const pgType = sqliteTypeToPgType(col.type);
+                        await pgService.query(`ALTER TABLE "${targetTable}" ADD COLUMN IF NOT EXISTS "${col.name}" ${pgType}`);
+                    } catch (colError) {
+                        logger.error(`Kolon ekleme hatası (${targetTable}.${col.name}):`, colError.message);
+                    }
+                }
+            }
         }
 
         // Hedef tablodaki kayıt sayısını al
@@ -392,7 +438,8 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
         const hasPrimaryKey = !!pkColumn;
 
         // PK yoksa ve güncelleme yapılacaksa önce tabloyu temizle
-        if (!hasPrimaryKey && targetCount > 0) {
+        // PERFORMANS: Sadece günün ilk senkronizasyonunda veya kayıt varsa temizle
+        if (!hasPrimaryKey && targetCount > 0 && (isFirstSync || rows.length > 0)) {
             logger.info(`PK yok, tablo temizleniyor: ${targetTable}`);
             await pgService.query(`TRUNCATE TABLE "${targetTable}"`);
         }
@@ -451,28 +498,21 @@ async function syncInvoicePrintToSQLite() {
 
         logger.info(`Web'de invoice_print=1 olan ${webOrders.length} kayıt bulundu`);
 
-        // SQLite'da bu kayıtların hangilerinin henüz güncellenmediğini bul
+        // Tek bir transaction içinde toplu güncelleme
         let updatedCount = 0;
+        const db = sqliteService.connect(false);
+        const updateStmt = db.prepare(`UPDATE 'order' SET invoice_print = 1 WHERE id = ? AND (invoice_print IS NULL OR invoice_print != 1)`);
 
-        for (const webOrder of webOrders) {
-            // SQLite'daki mevcut değeri kontrol et
-            const sqliteOrder = sqliteService.queryOne(
-                `SELECT id, invoice_print FROM 'order' WHERE id = ?`,
-                [webOrder.id]
-            );
-
-            if (sqliteOrder && sqliteOrder.invoice_print !== 1) {
-                // SQLite'da güncelle
-                sqliteService.run(
-                    `UPDATE 'order' SET invoice_print = 1 WHERE id = ?`,
-                    [webOrder.id]
-                );
-                updatedCount++;
-                logger.info(`Order #${webOrder.id} invoice_print güncellendi: 0 -> 1`);
+        const updateTransaction = db.transaction((orders) => {
+            for (const order of orders) {
+                const info = updateStmt.run(order.id);
+                if (info.changes > 0) updatedCount++;
             }
-        }
+        });
 
-        logger.info(`Toplam ${updatedCount} kayıt SQLite'da güncellendi`);
+        updateTransaction(webOrders);
+
+        logger.info(`Toplam ${updatedCount} kayıt SQLite'da güncellendi (Transaction ile)`);
         return { updated: updatedCount };
 
     } catch (error) {
@@ -502,10 +542,16 @@ async function runSync(options = { disconnect: true }) {
 
         logger.info(`Günün ilk senkronizasyonu: ${isFirstSync ? 'EVET (son 1 ay)' : 'HAYIR (son 3 gün)'}`);
 
-        // Her tabloyu senkronize et
+        // Her tabloyu senkronize et (Paralel Çalıştırma - 3'erli gruplar halinde)
+        const entries = Object.entries(TABLE_MAPPING);
         const results = {};
-        for (const [sourceTable, targetTable] of Object.entries(TABLE_MAPPING)) {
-            results[sourceTable] = await syncTable(sourceTable, targetTable, state, isFirstSync);
+        const CONCURRENCY = 3;
+
+        for (let i = 0; i < entries.length; i += CONCURRENCY) {
+            const chunk = entries.slice(i, i + CONCURRENCY);
+            await Promise.all(chunk.map(async ([sourceTable, targetTable]) => {
+                results[sourceTable] = await syncTable(sourceTable, targetTable, state, isFirstSync);
+            }));
         }
 
         // invoice_print güncellemelerini yaz

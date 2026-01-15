@@ -219,6 +219,15 @@ async function bulkSyncStoklar() {
         const totalCount = countResult[0].count;
         console.log(`Toplam ${totalCount} aktif stok bulundu.`);
 
+        // PostgreSQL parametre sınırı (65535) kontrolü
+        // Stoklar için 17 kolon kullanıyoruz
+        const STOK_COLUMN_COUNT = 17;
+        const STOK_BATCH_SIZE = Math.min(BATCH_SIZE, Math.floor(65000 / STOK_COLUMN_COUNT));
+
+        if (STOK_BATCH_SIZE < BATCH_SIZE) {
+            console.log(`Bilgi: PostgreSQL parametre sınırı nedeniyle batch boyutu ${BATCH_SIZE} -> ${STOK_BATCH_SIZE} olarak güncellendi.`);
+        }
+
         let offset = 0;
         let totalProcessed = 0;
 
@@ -235,7 +244,7 @@ async function bulkSyncStoklar() {
                 WHERE sto_pasif_fl = 0
                 ORDER BY sto_kod
                 OFFSET ${offset} ROWS
-                FETCH NEXT ${BATCH_SIZE} ROWS ONLY
+                FETCH NEXT ${STOK_BATCH_SIZE} ROWS ONLY
             `);
 
             if (batch.length === 0) break;
@@ -345,7 +354,7 @@ async function bulkSyncStoklar() {
             await pgService.query(mapQuery, mapValues);
 
             totalProcessed += batch.length;
-            offset += BATCH_SIZE;
+            offset += STOK_BATCH_SIZE;
             const batchDuration = ((Date.now() - batchStartTime) / 1000).toFixed(2);
             console.log(`  Batch tamamlandı: ${totalProcessed}/${totalCount} stok (${batch.length} kayıt, ${batchDuration}sn)`);
         }
