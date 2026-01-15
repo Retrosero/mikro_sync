@@ -608,70 +608,60 @@ async function main() {
 
         await bulkSyncFiyatlar();
 
-        // 2. Tanımlar (Kasa, Banka)
+        // 2. Bağımsız Tanımlar - PARALEL ÇALIŞTIR (Kasa, Banka, Depo)
         console.log('='.repeat(70));
-        console.log('6. KASA SENKRONIZASYONU');
+        console.log('6-8. KASA + BANKA + DEPO SENKRONIZASYONU (PARALEL)');
         console.log('='.repeat(70));
+
         const kasaProcessor = require('../sync-jobs/kasa.processor');
-        const kasaCount = await kasaProcessor.syncToWeb(null);
-        console.log(`✓ ${kasaCount} kasa senkronize edildi.`);
-        console.log();
-
-        console.log('='.repeat(70));
-        console.log('7. BANKA SENKRONIZASYONU');
-        console.log('='.repeat(70));
         const bankaProcessor = require('../sync-jobs/banka.processor');
-        const bankaCount = await bankaProcessor.syncToWeb(null);
-        console.log(`✓ ${bankaCount} banka senkronize edildi.`);
+        const depoProcessor = require('../sync-jobs/depo.processor');
+
+        const [kasaCount, bankaCount, depoCount] = await Promise.all([
+            kasaProcessor.syncToWeb(null),
+            bankaProcessor.syncToWeb(null),
+            depoProcessor.syncToWeb(null)
+        ]);
+        console.log(`✓ ${kasaCount} kasa, ${bankaCount} banka, ${depoCount} depo senkronize edildi.`);
         console.log();
 
-        // 3. Cari Hesaplar
+        // 3. Cari Hesaplar (Hareketlerden önce olmalı)
         console.log('='.repeat(70));
-        console.log('8. CARİ HESAPLAR SENKRONIZASYONU');
+        console.log('9. CARİ HESAPLAR SENKRONIZASYONU');
         console.log('='.repeat(70));
         const cariProcessor = require('../sync-jobs/cari.processor');
         const cariCount = await cariProcessor.syncToWeb(null);
         console.log(`✓ ${cariCount} cari hesap senkronize edildi.`);
         console.log();
 
-        // 4. Hareketler
+        // 4. Hareketler - PARALEL ÇALIŞTIR
         console.log('='.repeat(70));
-        console.log('9. STOK HAREKETLERİ SENKRONIZASYONU');
+        console.log('10-11. STOK + CARİ HAREKETLERİ SENKRONIZASYONU (PARALEL)');
         console.log('='.repeat(70));
+
         const stokHareketProcessor = require('../sync-jobs/stok-hareket.processor');
-        const stokHareketCount = await stokHareketProcessor.syncToWeb(null);
-        console.log(`✓ ${stokHareketCount} stok hareketi senkronize edildi.`);
-        console.log();
-
-        console.log('='.repeat(70));
-        console.log('10. CARİ HESAP HAREKETLERİ SENKRONIZASYONU');
-        console.log('='.repeat(70));
         const cariHareketProcessor = require('../sync-jobs/cari-hareket.processor');
-        const cariHareketCount = await cariHareketProcessor.syncToWeb(null);
-        console.log(`✓ ${cariHareketCount} cari hareket senkronize edildi.`);
+
+        const [stokHareketCount, cariHareketCount] = await Promise.all([
+            stokHareketProcessor.syncToWeb(null),
+            cariHareketProcessor.syncToWeb(null)
+        ]);
+        console.log(`✓ ${stokHareketCount} stok hareketi, ${cariHareketCount} cari hareket senkronize edildi.`);
         console.log();
 
-        console.log('='.repeat(70));
-        console.log('11. DEPO SENKRONIZASYONU');
-        console.log('='.repeat(70));
-        const depoProcessor = require('../sync-jobs/depo.processor');
-        const depoCount = await depoProcessor.syncToWeb(null);
-        console.log(`✓ ${depoCount} depo senkronize edildi.`);
-        console.log();
+        // 12. Entegra SQLITE Senkronizasyonu
+        // Not: runEntegraSync kendi bağlantılarını yönetir ve kapatır
+        await runEntegraSync({ disconnect: false });
 
-        // 12. Stok XML Oluşturma ve Yükleme
+        // 13. Stok XML Oluşturma ve Yükleme (EN SON)
         console.log('='.repeat(70));
-        console.log('12. STOK XML OLUŞTURMA VE YÜKLEME');
+        console.log('13. STOK XML OLUŞTURMA VE YÜKLEME');
         console.log('='.repeat(70));
         const xmlGenerated = await stockXmlService.generateXML();
         if (xmlGenerated) {
             await stockXmlService.uploadToSSH();
         }
         console.log();
-
-        // 13. Entegra SQLITE Senkronizasyonu
-        // Not: runEntegraSync kendi bağlantılarını yönetir ve kapatır
-        await runEntegraSync({ disconnect: false });
 
         // NOT: Satış ve Tahsilat processor'ları Web->ERP yönünde çalışıyor
         // ERP->Web senkronizasyonu için ayrı processor'lar gerekiyor

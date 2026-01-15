@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated At: 15.01.2026 12:45:13 -->
+<!-- Generated At: 15.01.2026 17:37:04 -->
 <Products>
   <Metadata>
-    <GeneratedAt>15.01.2026 12:45:13</GeneratedAt>
+    <GeneratedAt>15.01.2026 17:37:04</GeneratedAt>
     <ProductCount>4047</ProductCount>
   </Metadata>
   <Product>
@@ -1485,7 +1485,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672014593</barcode>
-    <stock>106</stock>
+    <stock>105</stock>
     <Price>67.5</Price>
     <Price2>174.25</Price2>
     <Pricebayi>60.75</Pricebayi>
@@ -2404,7 +2404,7 @@
   <Product>
     <Product_code>0783-370</Product_code>
     <Name>0783-370 - RANGE ROVER DEFENDER SESLİ IŞIKLI 3AST</Name>
-    <Brand></Brand>
+    <Brand>KIZIL</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
     <alt_baslik2></alt_baslik2>
@@ -5475,7 +5475,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197078787</barcode>
-    <stock>34</stock>
+    <stock>33</stock>
     <Price>375</Price>
     <Price2>512.5</Price2>
     <Pricebayi>337.5</Pricebayi>
@@ -9201,8 +9201,8 @@
     <Pricebayi>324</Pricebayi>
     <Images>
       <Image1>resimler/22052-maske-bestway-3-renk-12-23552.jpeg</Image1>
-      <Image2>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image2>
-      <Image3>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image3>
+      <Image2>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image2>
+      <Image3>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image3>
       <Image4>resimler/22052-maske-bestway-3-renk-12-23555.jpg</Image4>
       <Image5>resimler/bestway-yetiskin-tek-maske-22052-29219.png</Image5>
       <Image6>resimler/bestway-yetiskin-tek-maske-22052-29221.png</Image6>
@@ -9310,8 +9310,8 @@
     <Images>
       <Image1>resimler/22075-maske-tek-bestway-tempered-silikon-37197.png</Image1>
       <Image2>resimler/22075-maske-tek-bestway-tempered-silikon-37198.png</Image2>
-      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image3>
-      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image4>
+      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image3>
+      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -9928,7 +9928,7 @@
     <grup_kod>D-07</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8697197036886</barcode>
-    <stock>8</stock>
+    <stock>7</stock>
     <Price>595</Price>
     <Price2>843.75</Price2>
     <Pricebayi>535.5</Pricebayi>
@@ -13150,8 +13150,8 @@
     <Images>
       <Image1>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-28969.png</Image1>
       <Image2>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-28970.png</Image2>
-      <Image3>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27490.jpg</Image3>
-      <Image4>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27489.jpg</Image4>
+      <Image3>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27489.jpg</Image3>
+      <Image4>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27490.jpg</Image4>
       <Image5>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27491.jpg</Image5>
       <Image6>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27492.jpg</Image6>
       <Image7>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-29348.png</Image7>
@@ -15415,8 +15415,8 @@
     <Images>
       <Image1>resimler/simit-neon-renkli-51-cm-bestway-36022-28954.png</Image1>
       <Image2>resimler/simit-neon-renkli-51-cm-bestway-36022-28961.png</Image2>
-      <Image3>resimler/simit-neon-renkli-51-cm-bestway-36022-28955.png</Image3>
-      <Image4>resimler/simit-neon-renkli-51-cm-bestway-36022-28956.png</Image4>
+      <Image3>resimler/simit-neon-renkli-51-cm-bestway-36022-28956.png</Image3>
+      <Image4>resimler/simit-neon-renkli-51-cm-bestway-36022-28955.png</Image4>
       <Image5>resimler/simit-neon-renkli-51-cm-bestway-36022-28957.png</Image5>
       <Image6>resimler/simit-neon-renkli-51-cm-bestway-36022-28958.png</Image6>
       <Image7>resimler/simit-neon-renkli-51-cm-bestway-36022-28959.png</Image7>
@@ -19180,7 +19180,7 @@
     <grup_kod>D-04</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>6942138947489</barcode>
-    <stock>13</stock>
+    <stock>12</stock>
     <Price>1000</Price>
     <Price2>1350</Price2>
     <Pricebayi>900</Pricebayi>
@@ -26498,7 +26498,7 @@
     <grup_kod>O-33</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>778988488782</barcode>
-    <stock>1</stock>
+    <stock>0</stock>
     <Price>1100</Price>
     <Price2>1310</Price2>
     <Pricebayi>990</Pricebayi>
@@ -30096,8 +30096,8 @@
     <Images>
       <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image1>
       <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image2>
-      <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image3>
-      <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image4>
+      <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image3>
+      <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image4>
       <Image5>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41474.jpeg</Image5>
     </Images>
   </Product>
@@ -36659,10 +36659,10 @@
     <Price2>485</Price2>
     <Pricebayi>315</Pricebayi>
     <Images>
-      <Image1>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40248.jpg</Image1>
-      <Image2>resimler/ak-839-robota-donusen-araba-pilli-35398.jpg</Image2>
-      <Image3>resimler/ak-839-robota-donusen-araba-pilli-35399.jpg</Image3>
-      <Image4>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40249.jpg</Image4>
+      <Image1>resimler/ak-839-robota-donusen-araba-pilli-35398.jpg</Image1>
+      <Image2>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40248.jpg</Image2>
+      <Image3>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40249.jpg</Image3>
+      <Image4>resimler/ak-839-robota-donusen-araba-pilli-35399.jpg</Image4>
       <Image5>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40250.jpg</Image5>
       <Image6>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40251.jpg</Image6>
       <Image7>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40252.jpg</Image7>
@@ -38513,7 +38513,7 @@
     <grup_kod>O-47</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8685703462489</barcode>
-    <stock>17</stock>
+    <stock>16</stock>
     <Price>250</Price>
     <Price2>375</Price2>
     <Pricebayi>225</Pricebayi>
@@ -40702,7 +40702,7 @@
     <grup_kod>D-12</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8681900554118</barcode>
-    <stock>2</stock>
+    <stock>1</stock>
     <Price>186</Price>
     <Price2>332.5</Price2>
     <Pricebayi>167.4</Pricebayi>
@@ -41004,8 +41004,8 @@
     <Images>
       <Image1>resimler/cnr-51713-maske-set-pc-star-diving-37104.png</Image1>
       <Image2>resimler/cnr-51713-maske-set-pc-star-diving-37085.png</Image2>
-      <Image3>resimler/cnr-51713-maske-set-pc-star-diving-29195.png</Image3>
-      <Image4>resimler/cnr-51713-maske-set-pc-star-diving-29193.png</Image4>
+      <Image3>resimler/cnr-51713-maske-set-pc-star-diving-29193.png</Image3>
+      <Image4>resimler/cnr-51713-maske-set-pc-star-diving-29195.png</Image4>
       <Image5>resimler/cnr-51713-maske-set-pc-star-diving-29196.png</Image5>
       <Image6>resimler/cnr-51713-maske-set-pc-star-diving-29194.png</Image6>
     </Images>
@@ -54296,8 +54296,8 @@
     <Pricebayi>751.5</Pricebayi>
     <Images>
       <Image1>resimler/barbie-malibu-deniz-kizi-bebegi-mattel-lisansli-hhg52-30866.png</Image1>
-      <Image2>https://cdn.dsmcdn.com/ty508/product/media/images/20220815/12/160092273/544336035/2/2_org_zoom.jpg</Image2>
-      <Image3>https://cdn.dsmcdn.com/ty509/product/media/images/20220815/12/160092273/544336035/6/6_org_zoom.jpg</Image3>
+      <Image2>https://cdn.dsmcdn.com/ty509/product/media/images/20220815/12/160092273/544336035/6/6_org_zoom.jpg</Image2>
+      <Image3>https://cdn.dsmcdn.com/ty508/product/media/images/20220815/12/160092273/544336035/2/2_org_zoom.jpg</Image3>
       <Image4>https://cdn.dsmcdn.com/ty509/product/media/images/20220815/12/160092273/544336035/3/3_org_zoom.jpg</Image4>
       <Image5>https://cdn.dsmcdn.com/ty509/product/media/images/20220815/12/160092273/544336035/5/5_org_zoom.jpg</Image5>
       <Image6>https://cdn.dsmcdn.com/ty508/product/media/images/20220815/12/160092273/544336035/1/1_org_zoom.jpg</Image6>
@@ -59199,8 +59199,8 @@
     <Price2>324.4</Price2>
     <Pricebayi>183.6</Pricebayi>
     <Images>
-      <Image1>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30871.png</Image1>
-      <Image2>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30175.png</Image2>
+      <Image1>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30175.png</Image1>
+      <Image2>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30871.png</Image2>
       <Image3>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30176.png</Image3>
     </Images>
   </Product>
@@ -60237,7 +60237,7 @@
     <grup_kod>O-47</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8297445827556</barcode>
-    <stock>114</stock>
+    <stock>113</stock>
     <Price>80</Price>
     <Price2>188</Price2>
     <Pricebayi>72</Pricebayi>
@@ -60433,7 +60433,7 @@
     <grup_kod>O-47</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697445827730</barcode>
-    <stock>31</stock>
+    <stock>0</stock>
     <Price>105</Price>
     <Price2>215.5</Price2>
     <Pricebayi>94.5</Pricebayi>
@@ -62870,8 +62870,8 @@
     <Pricebayi>59.4</Pricebayi>
     <Images>
       <Image1>resimler/mg2019-1-dinazor-22-parca-lego-19815.png</Image1>
-      <Image2>resimler/mg2019-1-dinazor-22-parca-lego-19816.jpg</Image2>
-      <Image3>resimler/mg2019-1-dinazor-22-parca-lego-19817.png</Image3>
+      <Image2>resimler/mg2019-1-dinazor-22-parca-lego-19817.png</Image2>
+      <Image3>resimler/mg2019-1-dinazor-22-parca-lego-19816.jpg</Image3>
     </Images>
   </Product>
   <Product>
@@ -65608,8 +65608,8 @@
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
     <Images>
-      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image1>
-      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image2>
+      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image1>
+      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image2>
       <Image3>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41080.jpeg</Image3>
       <Image4>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41081.jpeg</Image4>
     </Images>
@@ -72074,8 +72074,8 @@
     <Images>
       <Image1>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21187.jpg</Image1>
       <Image2>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21188.jpg</Image2>
-      <Image3>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21189.jpg</Image3>
-      <Image4>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21190.jpg</Image4>
+      <Image3>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21190.jpg</Image3>
+      <Image4>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21189.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -72346,8 +72346,8 @@
     <Pricebayi>108</Pricebayi>
     <Images>
       <Image1>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37374.png</Image1>
-      <Image2>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37373.png</Image2>
-      <Image3>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37372.png</Image3>
+      <Image2>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37372.png</Image2>
+      <Image3>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37373.png</Image3>
     </Images>
   </Product>
   <Product>
@@ -73038,8 +73038,8 @@
     <Price2>474</Price2>
     <Pricebayi>306</Pricebayi>
     <Images>
-      <Image1>resimler/s01002470-oyun-hamuru-cantali-winx-29746.jpg</Image1>
-      <Image2>resimler/s01002470-oyun-hamuru-cantali-winx-30703.png</Image2>
+      <Image1>resimler/s01002470-oyun-hamuru-cantali-winx-30703.png</Image1>
+      <Image2>resimler/s01002470-oyun-hamuru-cantali-winx-29746.jpg</Image2>
       <Image3>resimler/s01002470-oyun-hamuru-cantali-winx-29748.jpg</Image3>
       <Image4>resimler/s01002470-oyun-hamuru-cantali-winx-29749.jpeg</Image4>
     </Images>
@@ -74366,12 +74366,12 @@
       <Image1>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41038.jpeg</Image1>
       <Image2>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41039.jpeg</Image2>
       <Image3>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41071.jpeg</Image3>
-      <Image4>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image4>
-      <Image5>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image5>
+      <Image4>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image4>
+      <Image5>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image5>
       <Image6>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image6>
       <Image7>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image7>
-      <Image8>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image8>
-      <Image9>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image9>
+      <Image8>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image8>
+      <Image9>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image9>
       <Image10>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41075.jpeg</Image10>
     </Images>
   </Product>
@@ -77434,7 +77434,7 @@
   <Product>
     <Product_code>W2087</Product_code>
     <Name>W2087 - UNO OYUN KARTI</Name>
-    <Brand></Brand>
+    <Brand>MATTEL</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
@@ -77444,7 +77444,7 @@
     <barcode>746775036744</barcode>
     <stock>23</stock>
     <Price>310</Price>
-    <Price2>441</Price2>
+    <Price2>487.5</Price2>
     <Pricebayi>279</Pricebayi>
     <Images>
       <Image1>https://productimages.hepsiburada.net/s/38/500/10585357778994.jpg</Image1>
@@ -78974,7 +78974,7 @@
     <grup_kod>O-42</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6920240114975</barcode>
-    <stock>81</stock>
+    <stock>80</stock>
     <Price>290</Price>
     <Price2>419</Price2>
     <Pricebayi>261</Pricebayi>

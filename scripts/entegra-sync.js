@@ -21,22 +21,25 @@ const pgService = require('../services/postgresql.service');
 const logger = require('../utils/logger');
 
 // Senkronize edilecek tablo listesi
+// NOT: Sadece kullanılan tablolar aktif, diğerleri yorum satırında
 const TABLE_MAPPING = {
-    'order': 'entegra_order',
-    'order_status': 'entegra_order_status',
-    'order_product': 'entegra_order_product',
-    'pictures': 'entegra_pictures',
-    'product_quantity': 'entegra_product_quantity',
-    'product_prices': 'entegra_product_prices',
     'product': 'entegra_product',
     'product_info': 'entegra_product_info',
-    'messages': 'entegra_messages',
-    'message_template': 'entegra_message_template',
-    'customer': 'entegra_customer',
-    'brand': 'entegra_brand',
     'category': 'entegra_category',
-    'category2': 'entegra_category2',
-    'product_description': 'entegra_product_description'
+    // Sipariş tabloları (gerekirse aktif et)
+    // 'order': 'entegra_order',
+    // 'order_status': 'entegra_order_status',
+    // 'order_product': 'entegra_order_product',
+    // Diğer tablolar (gerekirse aktif et)
+    // 'pictures': 'entegra_pictures',
+    // 'product_quantity': 'entegra_product_quantity',
+    // 'product_prices': 'entegra_product_prices',
+    // 'messages': 'entegra_messages',
+    // 'message_template': 'entegra_message_template',
+    // 'customer': 'entegra_customer',
+    // 'brand': 'entegra_brand',
+    // 'category2': 'entegra_category2',
+    // 'product_description': 'entegra_product_description'
 };
 
 // Senkronizasyon durumu dosyası
@@ -44,38 +47,36 @@ const SYNC_STATE_FILE = path.join(__dirname, '../sync-state-entegra.json');
 
 // Tarih alanı eşlemeleri (hangi tabloda hangi tarih alanı kullanılacak)
 const DATE_FIELD_MAPPING = {
-    'order': 'id',
-    'order_product': 'order_id',
-    'messages': 'id',
     'product': 'date_change',
     'product_info': 'id',
-    'product_quantity': 'id',
-    'product_prices': 'id',
-    'pictures': 'id',
-    'order_status': null, // Tüm veri her zaman senkronize edilir (az kayıt)
-    'message_template': null,
-    'customer': 'id',
-    'brand': null,
-    'category': null,
-    'category2': null,
-    'product_description': 'id'
+    'category': null, // Tüm veri her zaman senkronize edilir (az kayıt)
+    // Devre dışı tablolar için referans:
+    // 'order': 'id',
+    // 'order_product': 'order_id',
+    // 'messages': 'id',
+    // 'product_quantity': 'id',
+    // 'product_prices': 'id',
+    // 'pictures': 'id',
+    // 'order_status': null,
+    // 'message_template': null,
+    // 'customer': 'id',
+    // 'brand': null,
+    // 'category2': null,
+    // 'product_description': 'id'
 };
 
-// PERFORMANS: Çok kolonlu tablolar için sadece gerekli kolonları senkronize et
-// null = tüm kolonlar, array = sadece belirtilen kolonlar
+// PERFORMANS: Sadece kullanılan kolonları senkronize et
 const COLUMN_FILTER = {
     'product': [
-        'id', 'code', 'name', 'model', 'brand_id', 'category_id', 'price', 'price_old',
-        'quantity', 'stock_status', 'status', 'image', 'weight', 'length', 'width', 'height',
-        'date_added', 'date_change', 'barcode', 'sku', 'tax_rate', 'currency',
-        'minimum', 'subtract', 'shipping', 'sort_order', 'viewed', 'points'
+        'id', 'productName', 'productCode', 'status', 'supplier', 'brand_id',
+        'group', 'category2', 'date_change', 'warehouse_rack_number',
+        'country_of_origin', 'gtin', 'sub_name', 'sub_name2', 'description'
     ],
     'category': [
-        'id', 'parent_id', 'name', 'image', 'sort_order', 'status', 'category_id',
-        'level', 'child_count', 'flag'
+        'id', 'name', 'name_tree'
     ],
-    'brand': [
-        'id', 'name', 'image', 'sort_order', 'status'
+    'product_info': [
+        'product_id', 'salePrice'
     ]
 };
 
