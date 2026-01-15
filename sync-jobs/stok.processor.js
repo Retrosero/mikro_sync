@@ -11,6 +11,12 @@ class StokProcessor {
     this.categoryMap = new Map(); // erp_id -> web_id
   }
 
+  // MS SQL kolon boyutlarına göre string kırpma
+  truncate(str, maxLen) {
+    if (!str) return '';
+    return String(str).substring(0, maxLen);
+  }
+
   /**
    * ERP'den Web'e stok senkronizasyonu (İnkremental)
    * @param {Date|null} lastSyncTime - Son senkronizasyon zamanı (null ise tam senkronizasyon)
@@ -303,6 +309,27 @@ class StokProcessor {
     try {
       logger.info(`Stok ERP'ye senkronize ediliyor: ${webStok.stok_kodu}`);
 
+      // ASORTİ KONTROLÜ
+      // Eğer ürün asorti ise, ERP'de (MSSQL) herhangi bir işlem yapma, sadece Entegra'da güncelle
+      let isAsorti = webStok.is_asorti;
+
+      // Eğer webStok içinde gelmediyse veritabanından kontrol et
+      if (isAsorti === undefined) {
+        const asortiCheck = await pgService.queryOne(
+          'SELECT is_asorti FROM stoklar WHERE stok_kodu = $1',
+          [webStok.stok_kodu]
+        );
+        isAsorti = asortiCheck ? asortiCheck.is_asorti : false;
+      }
+
+      if (isAsorti) {
+        logger.info(`⚠ Ürün asorti olduğu için ERP güncellemesi atlandı: ${webStok.stok_kodu}`);
+
+        // Sadece Entegra SQLite product_quantity tablosunu güncelle
+        await this.updateEntegraQuantity(webStok);
+        return true;
+      }
+
       // 1. Stok koduna göre ERP'deki kaydı bul
       const erpStokResult = await mssqlService.query(
         `SELECT sto_RECno FROM STOKLAR WHERE sto_kod = @stokKod`,
@@ -334,18 +361,21 @@ class StokProcessor {
         WHERE sto_RECno = @stoRecno`,
           {
             lastupDate: updateDate,
-            stokAdi: webStok.stok_adi || '',
-            yabanciIsim: webStok.aciklama || webStok.stok_adi || '',
-            ambalaj: webStok.ambalaj || '',
-            rafKodu: webStok.raf_kodu || '',
-            olcu: webStok.olcu || '',
-            birimTuru: webStok.birim_turu || 'Adet',
+            stokAdi: this.truncate(webStok.stok_adi, 50),
+            yabanciIsim: this.truncate(webStok.aciklama || webStok.stok_adi, 50),
+            ambalaj: this.truncate(webStok.ambalaj, 20),
+            rafKodu: this.truncate(webStok.raf_kodu, 20),
+            olcu: this.truncate(webStok.olcu, 20),
+            birimTuru: this.truncate(webStok.birim_turu || 'Adet', 10),
             stoRecno: stoRecno
           }
         );
 
         logger.info(`✓ Stok bilgileri ERP'ye güncellendi: ${webStok.stok_kodu} (RECno: ${stoRecno})`);
       }
+
+      // Entegra SQLite product_quantity tablosunu güncelle
+      await this.updateEntegraQuantity(webStok);
 
       // Fiyat işlemi else'den sonra da çalışsın (yeni ve güncelleme için)
       if (webStok.satis_fiyati !== undefined && webStok.satis_fiyati !== null) {
@@ -584,13 +614,13 @@ class StokProcessor {
     `, {
       createDate: updateDate,
       lastupDate: updateDate,
-      stokKod: webStok.stok_kodu,
-      stokAdi: webStok.stok_adi || webStok.stok_kodu,
-      yabanciIsim: webStok.aciklama || webStok.stok_adi || '',
-      birimTuru: webStok.birim_turu || 'Adet',
-      olcu: webStok.olcu || '',
-      rafKodu: webStok.raf_kodu || '',
-      ambalaj: webStok.ambalaj || ''
+      stokKod: this.truncate(webStok.stok_kodu, 25),
+      stokAdi: this.truncate(webStok.stok_adi || webStok.stok_kodu, 50),
+      yabanciIsim: this.truncate(webStok.aciklama || webStok.stok_adi, 50),
+      birimTuru: this.truncate(webStok.birim_turu || 'Adet', 10),
+      olcu: this.truncate(webStok.olcu, 20),
+      rafKodu: this.truncate(webStok.raf_kodu, 20),
+      ambalaj: this.truncate(webStok.ambalaj, 20)
     });
 
     const stoRecno = insertResult[0].sto_RECno;
@@ -602,6 +632,54 @@ class StokProcessor {
     );
 
     return stoRecno;
+  }
+
+  /**
+   * Entegra SQLite product_quantity tablosundaki stok miktarını güncelle
+   * @param {Object} webStok - Web stok kaydı
+   */
+  async updateEntegraQuantity(webStok) {
+    try {
+      // eldeki_miktar yoksa işlem yapma
+      if (webStok.eldeki_miktar === undefined || webStok.eldeki_miktar === null) {
+        return;
+      }
+
+      // SQLite service'i import et
+      const sqliteService = require('../services/sqlite.service');
+
+      // SQLite bağlantısını aç (yazma modu)
+      sqliteService.connect(false);
+
+      // Önce product tablosundan productCode ile product id bul
+      const product = sqliteService.queryOne(
+        `SELECT id FROM product WHERE productCode = ?`,
+        [webStok.stok_kodu]
+      );
+
+      if (!product) {
+        logger.debug(`Entegra product bulunamadı: ${webStok.stok_kodu}`);
+        sqliteService.disconnect();
+        return;
+      }
+
+      const productId = product.id;
+
+      // product_quantity tablosunu güncelle
+      const result = sqliteService.run(
+        `UPDATE product_quantity SET quantity = ? WHERE product_id = ?`,
+        [webStok.eldeki_miktar, productId]
+      );
+
+      sqliteService.disconnect();
+
+      if (result.changes > 0) {
+        logger.info(`✓ Entegra SQLite stok miktarı güncellendi: ${webStok.stok_kodu} -> ${webStok.eldeki_miktar}`);
+      }
+    } catch (error) {
+      // Entegra güncellemesi ana işlemi durdurmasın
+      logger.debug(`Entegra SQLite miktar güncelleme hatası (${webStok.stok_kodu}):`, error.message);
+    }
   }
 }
 
