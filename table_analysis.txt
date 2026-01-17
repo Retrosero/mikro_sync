@@ -1,0 +1,52 @@
+=== SQLite product_quantity TABLO YAPISI ===
+  id: INTEGER (PK)
+  product_id: INTEGER 
+  product_option_value_id: INTEGER 
+  store_id: INTEGER 
+  supplier: VARCHAR(255) 
+  quantity: FLOAT 
+  quantity2: FLOAT 
+  sync_ai: INTEGER 
+
+=== PostgreSQL entegra_product* TABLOLARI ===
+  entegra_product
+  entegra_product_prices
+  entegra_product_info
+  entegra_product_description
+  entegra_product_quantity
+
+entegra_product_manual tablosu bulunamadi!
+
+=== SQLite product_quantity ORNEK VERI (ilk 3) ===
+[
+  {
+    "id": 4,
+    "product_id": 697,
+    "product_option_value_id": 0,
+    "store_id": 0,
+    "supplier": "Mikro Stok XML",
+    "quantity": 29,
+    "quantity2": 0,
+    "sync_ai": 0
+  },
+  {
+    "id": 9,
+    "product_id": 702,
+    "product_option_value_id": 0,
+    "store_id": 0,
+    "supplier": "Mikro Stok XML",
+    "quantity": 269,
+    "quantity2": 0,
+    "sync_ai": 0
+  },
+  {
+    "id": 10,
+    "product_id": 703,
+    "product_option_value_id": 0,
+    "store_id": 0,
+    "supplier": "Mikro Stok XML",
+    "quantity": 96,
+    "quantity2": 0,
+    "sync_ai": 0
+  }
+]

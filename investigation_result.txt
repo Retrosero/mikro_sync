@@ -1,0 +1,13 @@
+=== SYNC QUEUE ENTITY TYPE DAGILIMI ===
+cari_hesap_hareketleri | completed | 24 kayit
+satis | completed | 8 kayit
+satislar | completed | 8 kayit
+stok | completed | 7 kayit
+stok_hareketleri | completed | 150 kayit
+stoklar | completed | 1 kayit
+
+=== entegra_product_manual TRIGGERLARI ===
+Trigger sayisi: 0
+
+=== DESTEKLENMEYEN ENTITY TYPE KAYITLARI ===
+Kayit sayisi: 0

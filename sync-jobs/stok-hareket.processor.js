@@ -245,6 +245,13 @@ class StokHareketProcessor {
                 return;
             }
 
+            // Satış, fatura ve manuel tipi stok hareketleri ERP'ye fatura olarak yazıldığında
+            // otomatik oluşuyor veya manuel düzenleme olduğundan, bunları atlıyoruz
+            if (webStokHareket.belge_tipi === 'satis' || webStokHareket.belge_tipi === 'fatura' || webStokHareket.belge_tipi === 'manuel') {
+                logger.info(`Stok hareketi atlandı (belge_tipi=${webStokHareket.belge_tipi}): ${webStokHareket.id}`);
+                return;
+            }
+
             // Get Stok Kodu
             const stokRes = await pgService.query('SELECT stok_kodu FROM stoklar WHERE id = $1', [webStokHareket.stok_id]);
             if (stokRes.length === 0) {

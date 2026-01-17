@@ -1,0 +1,6 @@
+ID: 19792 kontrol ediliyor...
+Product: Bulundu
+  Name: undefined, Code: 711-54-EXCAVATOR
+Product Quantity (by id): Yok
+Product Quantity (by product_id): 1 adet bulundu
+  ID: 19133, Qty: 8

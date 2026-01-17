@@ -1,0 +1,66 @@
+SQLite product tablo yapisi (ilk 15 kolon):
+  id: INTEGER
+  productName: VARCHAR(255)
+  productCode: VARCHAR(100)
+  group: INTEGER
+  date_start: DATE
+  date_end: DATE
+  status: INTEGER
+  sort_order: INTEGER
+  supplier: VARCHAR(255)
+  currencyType: VARCHAR(5)
+  description: TEXT
+  send_eticaret: INTEGER
+  send_n11: INTEGER
+  send_gg: INTEGER
+  main_product: INTEGER
+
+SQLite KS-758 product bilgisi:
+  id: 3500
+  productCode: KS-758
+[
+  "id",
+  "productName",
+  "productCode",
+  "group",
+  "date_start",
+  "date_end",
+  "status",
+  "sort_order",
+  "supplier",
+  "currencyType",
+  "description",
+  "send_eticaret",
+  "send_n11",
+  "send_gg",
+  "main_product",
+  "main_productCode",
+  "option",
+  "spec_color",
+  "spec_body",
+  "n11_shipmenttemplate"
+]
+
+SQLite KS-758 stok kaydi (product_quantity):
+[]
+
+PostgreSQL entegra_product kolonlari (ilk 10):
+[
+  "id",
+  "productName",
+  "productCode",
+  "group",
+  "date_start",
+  "date_end",
+  "status",
+  "sort_order",
+  "supplier",
+  "currencyType"
+]
+
+PostgreSQL entegra_product KS-758:
+  id: 3500
+  productCode: KS-758
+
+PostgreSQL entegra_product_quantity KS-758:
+[]

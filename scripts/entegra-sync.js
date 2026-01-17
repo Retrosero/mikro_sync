@@ -21,25 +21,22 @@ const pgService = require('../services/postgresql.service');
 const logger = require('../utils/logger');
 
 // Senkronize edilecek tablo listesi
-// NOT: Sadece kullanılan tablolar aktif, diğerleri yorum satırında
 const TABLE_MAPPING = {
+    'order': 'entegra_order',
+    'order_status': 'entegra_order_status',
+    'order_product': 'entegra_order_product',
+    'pictures': 'entegra_pictures',
+    'product_quantity': 'entegra_product_quantity',
+    'product_prices': 'entegra_product_prices',
     'product': 'entegra_product',
     'product_info': 'entegra_product_info',
+    'messages': 'entegra_messages',
+    'message_template': 'entegra_message_template',
+    'customer': 'entegra_customer',
+    'brand': 'entegra_brand',
     'category': 'entegra_category',
-    // Sipariş tabloları (gerekirse aktif et)
-    // 'order': 'entegra_order',
-    // 'order_status': 'entegra_order_status',
-    // 'order_product': 'entegra_order_product',
-    // Diğer tablolar (gerekirse aktif et)
-    // 'pictures': 'entegra_pictures',
-    // 'product_quantity': 'entegra_product_quantity',
-    // 'product_prices': 'entegra_product_prices',
-    // 'messages': 'entegra_messages',
-    // 'message_template': 'entegra_message_template',
-    // 'customer': 'entegra_customer',
-    // 'brand': 'entegra_brand',
-    // 'category2': 'entegra_category2',
-    // 'product_description': 'entegra_product_description'
+    'category2': 'entegra_category2',
+    'product_description': 'entegra_product_description'
 };
 
 // Senkronizasyon durumu dosyası
@@ -47,37 +44,21 @@ const SYNC_STATE_FILE = path.join(__dirname, '../sync-state-entegra.json');
 
 // Tarih alanı eşlemeleri (hangi tabloda hangi tarih alanı kullanılacak)
 const DATE_FIELD_MAPPING = {
+    'order': 'id',
+    'order_product': 'order_id',
+    'messages': 'id',
     'product': 'date_change',
     'product_info': 'id',
-    'category': null, // Tüm veri her zaman senkronize edilir (az kayıt)
-    // Devre dışı tablolar için referans:
-    // 'order': 'id',
-    // 'order_product': 'order_id',
-    // 'messages': 'id',
-    // 'product_quantity': 'id',
-    // 'product_prices': 'id',
-    // 'pictures': 'id',
-    // 'order_status': null,
-    // 'message_template': null,
-    // 'customer': 'id',
-    // 'brand': null,
-    // 'category2': null,
-    // 'product_description': 'id'
-};
-
-// PERFORMANS: Sadece kullanılan kolonları senkronize et
-const COLUMN_FILTER = {
-    'product': [
-        'id', 'productName', 'productCode', 'status', 'supplier', 'brand_id',
-        'group', 'category2', 'date_change', 'warehouse_rack_number',
-        'country_of_origin', 'gtin', 'sub_name', 'sub_name2', 'description'
-    ],
-    'category': [
-        'id', 'name', 'name_tree'
-    ],
-    'product_info': [
-        'product_id', 'salePrice'
-    ]
+    'product_quantity': 'id',
+    'product_prices': 'id',
+    'pictures': 'id',
+    'order_status': null, // Tüm veri her zaman senkronize edilir (az kayıt)
+    'message_template': null,
+    'customer': 'id',
+    'brand': null,
+    'category': null,
+    'category2': null,
+    'product_description': 'id'
 };
 
 /**
@@ -127,7 +108,7 @@ function isFirstSyncOfDay(state) {
 function sqliteTypeToPgType(sqliteType) {
     const type = (sqliteType || 'TEXT').toUpperCase();
 
-    if (type.includes('INT')) return 'BIGINT';
+    if (type.includes('INT')) return 'INTEGER';
     if (type.includes('REAL') || type.includes('FLOAT') || type.includes('DOUBLE')) return 'DOUBLE PRECISION';
     if (type.includes('BLOB')) return 'BYTEA';
     if (type.includes('BOOL')) return 'BOOLEAN';
@@ -310,18 +291,10 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
 
     try {
         // SQLite tablo şemasını al
-        let columns = sqliteService.getTableSchema(sourceTable);
+        const columns = sqliteService.getTableSchema(sourceTable);
         if (columns.length === 0) {
             logger.warn(`Tablo bulunamadı veya boş: ${sourceTable}`);
             return { success: false, reason: 'table_not_found' };
-        }
-
-        // PERFORMANS: Kolon filtresi uygula (çok kolonlu tablolar için)
-        const columnFilter = COLUMN_FILTER[sourceTable];
-        if (columnFilter) {
-            const originalCount = columns.length;
-            columns = columns.filter(c => columnFilter.includes(c.name));
-            logger.info(`Kolon filtresi uygulandı: ${originalCount} -> ${columns.length} kolon`);
         }
 
         // PostgreSQL'de tablo var mı kontrol et
@@ -329,26 +302,6 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
         if (!tableExists) {
             logger.info(`PostgreSQL'de tablo oluşturuluyor: ${targetTable}`);
             await createPgTable(targetTable, columns);
-        } else {
-            // Tablo varsa, eksik kolonları TOPLU OLARAK kontrol et (PERFORMANS İYİLEŞTİRMESİ)
-            const existingCols = await pgService.query(`
-                SELECT column_name FROM information_schema.columns 
-                WHERE table_name = $1 AND table_schema = 'public'
-            `, [targetTable]);
-            const existingColSet = new Set(existingCols.map(c => c.column_name));
-
-            const missingCols = columns.filter(c => !existingColSet.has(c.name));
-            if (missingCols.length > 0) {
-                logger.info(`${targetTable}: ${missingCols.length} eksik kolon ekleniyor...`);
-                for (const col of missingCols) {
-                    try {
-                        const pgType = sqliteTypeToPgType(col.type);
-                        await pgService.query(`ALTER TABLE "${targetTable}" ADD COLUMN IF NOT EXISTS "${col.name}" ${pgType}`);
-                    } catch (colError) {
-                        logger.error(`Kolon ekleme hatası (${targetTable}.${col.name}):`, colError.message);
-                    }
-                }
-            }
         }
 
         // Hedef tablodaki kayıt sayısını al
@@ -439,8 +392,7 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
         const hasPrimaryKey = !!pkColumn;
 
         // PK yoksa ve güncelleme yapılacaksa önce tabloyu temizle
-        // PERFORMANS: Sadece günün ilk senkronizasyonunda veya kayıt varsa temizle
-        if (!hasPrimaryKey && targetCount > 0 && (isFirstSync || rows.length > 0)) {
+        if (!hasPrimaryKey && targetCount > 0) {
             logger.info(`PK yok, tablo temizleniyor: ${targetTable}`);
             await pgService.query(`TRUNCATE TABLE "${targetTable}"`);
         }
@@ -499,21 +451,28 @@ async function syncInvoicePrintToSQLite() {
 
         logger.info(`Web'de invoice_print=1 olan ${webOrders.length} kayıt bulundu`);
 
-        // Tek bir transaction içinde toplu güncelleme
+        // SQLite'da bu kayıtların hangilerinin henüz güncellenmediğini bul
         let updatedCount = 0;
-        const db = sqliteService.connect(false);
-        const updateStmt = db.prepare(`UPDATE 'order' SET invoice_print = 1 WHERE id = ? AND (invoice_print IS NULL OR invoice_print != 1)`);
 
-        const updateTransaction = db.transaction((orders) => {
-            for (const order of orders) {
-                const info = updateStmt.run(order.id);
-                if (info.changes > 0) updatedCount++;
+        for (const webOrder of webOrders) {
+            // SQLite'daki mevcut değeri kontrol et
+            const sqliteOrder = sqliteService.queryOne(
+                `SELECT id, invoice_print FROM 'order' WHERE id = ?`,
+                [webOrder.id]
+            );
+
+            if (sqliteOrder && sqliteOrder.invoice_print !== 1) {
+                // SQLite'da güncelle
+                sqliteService.run(
+                    `UPDATE 'order' SET invoice_print = 1 WHERE id = ?`,
+                    [webOrder.id]
+                );
+                updatedCount++;
+                logger.info(`Order #${webOrder.id} invoice_print güncellendi: 0 -> 1`);
             }
-        });
+        }
 
-        updateTransaction(webOrders);
-
-        logger.info(`Toplam ${updatedCount} kayıt SQLite'da güncellendi (Transaction ile)`);
+        logger.info(`Toplam ${updatedCount} kayıt SQLite'da güncellendi`);
         return { updated: updatedCount };
 
     } catch (error) {
@@ -543,16 +502,10 @@ async function runSync(options = { disconnect: true }) {
 
         logger.info(`Günün ilk senkronizasyonu: ${isFirstSync ? 'EVET (son 1 ay)' : 'HAYIR (son 3 gün)'}`);
 
-        // Her tabloyu senkronize et (Paralel Çalıştırma - 3'erli gruplar halinde)
-        const entries = Object.entries(TABLE_MAPPING);
+        // Her tabloyu senkronize et
         const results = {};
-        const CONCURRENCY = 3;
-
-        for (let i = 0; i < entries.length; i += CONCURRENCY) {
-            const chunk = entries.slice(i, i + CONCURRENCY);
-            await Promise.all(chunk.map(async ([sourceTable, targetTable]) => {
-                results[sourceTable] = await syncTable(sourceTable, targetTable, state, isFirstSync);
-            }));
+        for (const [sourceTable, targetTable] of Object.entries(TABLE_MAPPING)) {
+            results[sourceTable] = await syncTable(sourceTable, targetTable, state, isFirstSync);
         }
 
         // invoice_print güncellemelerini yaz

@@ -1,0 +1,36 @@
+Bekleyen kayitlar:
+[]
+
+Entity tipleri ve durumları:
+[
+  {
+    "entity_type": "cari_hesap_hareketleri",
+    "cnt": "24",
+    "status": "completed"
+  },
+  {
+    "entity_type": "satis",
+    "cnt": "8",
+    "status": "completed"
+  },
+  {
+    "entity_type": "satislar",
+    "cnt": "8",
+    "status": "completed"
+  },
+  {
+    "entity_type": "stok",
+    "cnt": "7",
+    "status": "completed"
+  },
+  {
+    "entity_type": "stok_hareketleri",
+    "cnt": "150",
+    "status": "completed"
+  },
+  {
+    "entity_type": "stoklar",
+    "cnt": "1",
+    "status": "completed"
+  }
+]

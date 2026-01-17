@@ -1,0 +1,105 @@
+entegra_product_quantity toplam kayit: 5953
+
+entegra_product_quantity ornek kayitlar:
+[
+  {
+    "id": "4",
+    "product_id": "697",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 29,
+    "quantity2": 0,
+    "sync_ai": "0"
+  },
+  {
+    "id": "9",
+    "product_id": "702",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 269,
+    "quantity2": 0,
+    "sync_ai": "0"
+  },
+  {
+    "id": "10",
+    "product_id": "703",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 96,
+    "quantity2": 0,
+    "sync_ai": "0"
+  },
+  {
+    "id": "11",
+    "product_id": "704",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 33,
+    "quantity2": 0,
+    "sync_ai": "0"
+  },
+  {
+    "id": "12",
+    "product_id": "705",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 112,
+    "quantity2": 0,
+    "sync_ai": "0"
+  }
+]
+
+KS-758 (product_id=3500) stok kaydi:
+[
+  {
+    "id": "2702",
+    "product_id": "3500",
+    "product_option_value_id": "0",
+    "store_id": "0",
+    "supplier": "Mikro Stok XML",
+    "quantity": 178,
+    "quantity2": 0,
+    "sync_ai": "0"
+  }
+]
+
+entegra_product_quantity kolon yapisi:
+[
+  {
+    "column_name": "id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "product_id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "product_option_value_id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "store_id",
+    "data_type": "bigint"
+  },
+  {
+    "column_name": "supplier",
+    "data_type": "text"
+  },
+  {
+    "column_name": "quantity",
+    "data_type": "double precision"
+  },
+  {
+    "column_name": "quantity2",
+    "data_type": "double precision"
+  },
+  {
+    "column_name": "sync_ai",
+    "data_type": "bigint"
+  }
+]

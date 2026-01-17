@@ -1,0 +1,259 @@
+=== SYNC_QUEUE TRIGGER FONKSIYONLARI ===
+
+--- FONKSIYON 1: notify_alis_sync ---
+
+BEGIN
+    -- Sadece Web'den oluşturulan alışlar için sync yap
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('alislar', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 2: trigger_alislar_sync ---
+
+BEGIN
+  BEGIN
+    INSERT INTO sync_queue (entity_type, entity_id, operation, status, created_at)
+    VALUES ('alislar', NEW.id, TG_OP, 'pending', NOW());
+  EXCEPTION WHEN OTHERS THEN
+    -- Hata olsa bile ana işlemi (onayı) durdurma, sadece uyar
+    RAISE WARNING 'Sync hatası (alislar): %', SQLERRM;
+  END;
+  RETURN NEW;
+END;
+
+
+--- FONKSIYON 3: trigger_alis_kalemleri_sync ---
+
+BEGIN
+  BEGIN
+    INSERT INTO sync_queue (entity_type, entity_id, operation, status, created_at)
+    VALUES ('alis_kalemleri', NEW.id, TG_OP, 'pending', NOW());
+  EXCEPTION WHEN OTHERS THEN
+    RAISE WARNING 'Sync hatası (alis_kalemleri): %', SQLERRM;
+  END;
+  RETURN NEW;
+END;
+
+
+--- FONKSIYON 4: notify_iade_sync ---
+
+BEGIN
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('iade', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 5: trigger_cari_hesap_hareketleri_sync ---
+
+BEGIN
+    BEGIN
+        INSERT INTO sync_queue (table_name, operation, record_id, data_snapshot, priority, status, created_at)
+        VALUES ('cari_hesap_hareketleri', TG_OP, NEW.id::TEXT, row_to_json(NEW)::JSONB, 1, 'pending', NOW());
+        
+        RETURN NEW;
+    EXCEPTION WHEN OTHERS THEN
+        RAISE WARNING 'Sync queue error for cari_hesap_hareketleri: % (SQLSTATE: %)', SQLERRM, SQLSTATE;
+        RETURN NEW;
+    END;
+END;
+
+
+--- FONKSIYON 6: notify_satis_sync ---
+
+BEGIN
+    -- Sadece Web'den oluşturulan satışlar için sync yap
+    -- (ERP'den gelen kayıtları tekrar ERP'ye gönderme)
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('satis', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 7: notify_tahsilat_sync ---
+
+BEGIN
+    -- Sadece Web'den oluşturulan tahsilatlar için sync yap
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('tahsilat', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 8: trigger_stok_hareketleri_sync ---
+
+BEGIN
+    BEGIN
+        INSERT INTO sync_queue (table_name, operation, record_id, data_snapshot, priority, status, created_at)
+        VALUES ('stok_hareketleri', TG_OP, NEW.id::TEXT, row_to_json(NEW)::JSONB, 1, 'pending', NOW());
+        
+        RETURN NEW;
+    EXCEPTION WHEN OTHERS THEN
+        RAISE WARNING 'Sync queue error for stok_hareketleri: % (SQLSTATE: %)', SQLERRM, SQLSTATE;
+        RETURN NEW;
+    END;
+END;
+
+
+--- FONKSIYON 9: notify_stok_hareket_sync ---
+
+BEGIN
+    -- Sadece Web'den oluşturulan (erp_recno IS NULL) ve belge_tipi = 'sayim' olanlar için sync yap
+    IF (NEW.erp_recno IS NULL OR NEW.erp_recno = 0) AND NEW.belge_tipi = 'sayim' THEN
+        -- Kuyrukta zaten beklemede olan aynı ID'li kayıt varsa tekrar ekleme
+        IF NOT EXISTS (SELECT 1 FROM sync_queue WHERE entity_type = 'stok_hareket' AND entity_id = NEW.id AND status = 'pending') THEN
+            INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+            VALUES ('stok_hareket', NEW.id, TG_OP, 'pending');
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 10: trigger_sync_queue_insert ---
+
+DECLARE
+    v_entity_type TEXT;
+    v_record_id UUID; -- ID'lerin UUID olduğunu varsayıyoruz
+BEGIN
+    v_entity_type := TG_TABLE_NAME;
+    v_record_id := NEW.id;
+
+    -- Eğer kuyrukta zaten BEKLEYEN (PENDING) bir kayıt varsa tekrar ekleme
+    IF NOT EXISTS (
+        SELECT 1 FROM sync_queue 
+        WHERE entity_type = v_entity_type 
+        AND entity_id = v_record_id 
+        AND status = 'PENDING'
+    ) THEN
+        INSERT INTO sync_queue (
+            id, 
+            entity_type, 
+            entity_id, 
+            operation, 
+            status, 
+            created_at
+        ) VALUES (
+            gen_random_uuid(), 
+            v_entity_type, 
+            v_record_id, 
+            TG_OP, 
+            'PENDING', 
+            NOW()
+        );
+    END IF;
+
+    RETURN NEW;
+EXCEPTION WHEN OTHERS THEN
+    -- Trigger hatası ana işlemi durdurmamalı, loga basıp devam et
+    RAISE WARNING 'Sync Queue Trigger Hatasi: %', SQLERRM;
+    RETURN NEW;
+END;
+
+
+--- FONKSIYON 11: trigger_satislar_sync ---
+
+BEGIN
+    BEGIN
+        -- Sync queue'ya ekle
+        INSERT INTO sync_queue (table_name, operation, record_id, data_snapshot, priority, status, created_at)
+        VALUES ('satislar', TG_OP, NEW.id::TEXT, row_to_json(NEW)::JSONB, 1, 'pending', NOW());
+        
+        RETURN NEW;
+    EXCEPTION WHEN OTHERS THEN
+        -- Hata olursa logla ama işlemi durdurma
+        RAISE WARNING 'Sync queue error for satislar: % (SQLSTATE: %)', SQLERRM, SQLSTATE;
+        RETURN NEW;
+    END;
+END;
+
+
+--- FONKSIYON 12: trigger_satis_kalemleri_sync ---
+
+BEGIN
+    BEGIN
+        INSERT INTO sync_queue (table_name, operation, record_id, data_snapshot, priority, status, created_at)
+        VALUES ('satis_kalemleri', TG_OP, NEW.id::TEXT, row_to_json(NEW)::JSONB, 1, 'pending', NOW());
+        
+        RETURN NEW;
+    EXCEPTION WHEN OTHERS THEN
+        RAISE WARNING 'Sync queue error for satis_kalemleri: % (SQLSTATE: %)', SQLERRM, SQLSTATE;
+        RETURN NEW;
+    END;
+END;
+
+
+--- FONKSIYON 13: notify_barkod_sync ---
+
+BEGIN
+    -- Yeni kayıt veya güncelleme durumunda
+    IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN
+        -- Aynı entity için bekleyen kayıt var mı kontrol et (duplicate önleme)
+        IF NOT EXISTS (
+            SELECT 1 FROM sync_queue 
+            WHERE entity_type = 'urun_barkodlari' 
+            AND entity_id = NEW.id 
+            AND status = 'pending'
+        ) THEN
+            INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+            VALUES ('urun_barkodlari', NEW.id, TG_OP, 'pending');
+        END IF;
+        RETURN NEW;
+    END IF;
+
+    -- Silme durumunda
+    IF TG_OP = 'DELETE' THEN
+        -- Silinen barkod için sync_queue'ya kayıt ekle
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('urun_barkodlari', OLD.id, 'DELETE', 'pending');
+        RETURN OLD;
+    END IF;
+
+    RETURN NULL;
+END;
+
+
+--- FONKSIYON 14: notify_cari_sync ---
+
+BEGIN
+    -- Sadece Web'den oluşturulan/güncellenen cariler için sync yap
+    -- (ERP'den gelen kayıtları tekrar ERP'ye gönderme)
+    IF NEW.kaynak IS NULL OR NEW.kaynak = 'web' THEN
+        INSERT INTO sync_queue (entity_type, entity_id, operation, status)
+        VALUES ('cari', NEW.id, TG_OP, 'pending');
+    END IF;
+    RETURN NEW;
+END;
+
+
+
+=== SYNC_QUEUE TRIGGER KULLANAN TABLOLAR ===
+
+Tablo: alislar | Trigger: trg_sync_alislar | Fonksiyon: trigger_sync_queue_insert
+Tablo: alislar | Trigger: trigger_alislar_sync | Fonksiyon: trigger_alislar_sync
+Tablo: alislar | Trigger: alis_sync_trigger | Fonksiyon: notify_alis_sync
+Tablo: cari_hesap_hareketleri | Trigger: trigger_cari_hesap_hareketleri_sync | Fonksiyon: trigger_cari_hesap_hareketleri_sync
+Tablo: cari_hesap_hareketleri | Trigger: trg_sync_cari_hesap_hareketleri | Fonksiyon: trigger_sync_queue_insert
+Tablo: cari_hesaplar | Trigger: cari_sync_trigger | Fonksiyon: notify_cari_sync
+Tablo: iadeler | Trigger: iade_sync_trigger | Fonksiyon: notify_iade_sync
+Tablo: iadeler | Trigger: trg_sync_iadeler | Fonksiyon: trigger_sync_queue_insert
+Tablo: satis_kalemleri | Trigger: trigger_satis_kalemleri_sync | Fonksiyon: trigger_satis_kalemleri_sync
+Tablo: satislar | Trigger: trigger_satislar_sync | Fonksiyon: trigger_satislar_sync
+Tablo: satislar | Trigger: satis_sync_trigger | Fonksiyon: notify_satis_sync
+Tablo: satislar | Trigger: trg_sync_satislar | Fonksiyon: trigger_sync_queue_insert
+Tablo: stok_hareketleri | Trigger: trg_sync_stok_hareketleri | Fonksiyon: trigger_sync_queue_insert
+Tablo: stok_hareketleri | Trigger: trigger_stok_hareketleri_sync | Fonksiyon: trigger_stok_hareketleri_sync
+Tablo: stok_hareketleri | Trigger: stok_hareket_sync_trigger | Fonksiyon: notify_stok_hareket_sync
+Tablo: tahsilatlar | Trigger: trg_sync_tahsilatlar | Fonksiyon: trigger_sync_queue_insert
+Tablo: tahsilatlar | Trigger: tahsilat_sync_trigger | Fonksiyon: notify_tahsilat_sync
+Tablo: urun_barkodlari | Trigger: urun_barkodlari_sync_trigger | Fonksiyon: notify_barkod_sync

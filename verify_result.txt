@@ -1,0 +1,15 @@
+=== SQLite DOGRULAMA ===
+product_quantity ID=4:
+{
+  "id": 4,
+  "product_id": 697,
+  "product_option_value_id": 0,
+  "store_id": 0,
+  "supplier": "Mikro Stok XML",
+  "quantity": 30,
+  "quantity2": 0,
+  "sync_ai": 0
+}
+
+Miktar: 30
+TEST BASARILI! Miktar 29'dan 30'a guncellendi.

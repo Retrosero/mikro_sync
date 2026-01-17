@@ -1,0 +1,28 @@
+=== entegra_product_manual SYNC TEST ===
+
+--- Ornek product_quantity kaydi ---
+{
+  "id": 4,
+  "product_id": 697,
+  "product_option_value_id": 0,
+  "store_id": 0,
+  "supplier": "Mikro Stok XML",
+  "quantity": 29,
+  "quantity2": 0,
+  "sync_ai": 0
+}
+
+Test edilecek urun ID: 4
+Mevcut Miktar: 29
+Yeni miktar: 30
+
+--- sync_queue'ya test kaydi ekleniyor ---
+Test kaydi eklendi:
+  ID: d8a8366d-ec5c-4767-98b8-69c215b8cce6
+  Entity ID: ac6ce750-d683-421e-bca5-35416f2e93bf
+
+--- Mevcut pending entegra_product_manual kayitlari ---
+  d8a8366d-ec5c-4767-98b8-69c215b8cce6: record_id=4
+
+=== TEST KAYDI EKLENDI ===
+Simdi sync queue worker calistiriliyor...
