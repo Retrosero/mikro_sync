@@ -1,0 +1,262 @@
+=== 3 ADET PENDING entegra_product KAYDI ===
+
+--- KAYIT 1 ---
+ID: 8ef2cdc7-4279-41af-854f-2e058b6708ca
+Değişen alanlar:
+  gtin: null -> ""
+  brand: "0" -> "258"
+  sub_name2: null -> ""
+  country_of_origin: null -> ""
+
+--- KAYIT 2 ---
+ID: ecc4748e-227b-4fd7-8457-2fb592e0697c
+Değişen alanlar:
+  gtin: null -> ""
+  brand: "0" -> "258"
+  sub_name2: null -> ""
+  country_of_origin: null -> ""
+
+--- KAYIT 3 ---
+ID: 727a9112-28b2-49c1-a835-6a74bf05e2ce
+Değişen alanlar:
+  gtin: null -> ""
+  brand: "0" -> "258"
+  sub_name2: null -> ""
+  country_of_origin: null -> ""
+
+
+=== SQLite brand TABLO YAPISI ===
+  id: INTEGER (PK)
+  name: VARCHAR(100) 
+  sync: INTEGER 
+  status: INTEGER 
+  supplier: VARCHAR(50) 
+  supplier_id: VARCHAR(50) 
+  flag: INTEGER 
+  delete: INTEGER 
+  image: VARCHAR(255) 
+  sort_order: INTEGER 
+  parent_id: INTEGER 
+  eticaret_id: VARCHAR(255) 
+  trendyol_id: VARCHAR(255) 
+  zebramo_id: VARCHAR(255) 
+  eanship_brand: VARCHAR(255) 
+  aliexpress_brand: VARCHAR(255) 
+  amazon_brand: VARCHAR(255) 
+  joom_brand: VARCHAR(255) 
+  flo_id: VARCHAR(255) 
+  aliniyor_id: INTEGER 
+  needion_id: INTEGER 
+  modanisa_id: VARCHAR(255) 
+  bisifirat_id: INTEGER 
+  pazarama_id: INTEGER 
+  pazarama_guid: VARCHAR(255) 
+  vfmall_id: VARCHAR(255) 
+  iyifiyat_id: INTEGER 
+  nevade_id: INTEGER 
+  morhipo_brand: VARCHAR(255) 
+  yapisepeti_id: VARCHAR(50) 
+  etolye_id: VARCHAR(50) 
+  kintshop_id: INTEGER 
+  trendyolgo_id: VARCHAR(255) 
+  wish_brand: VARCHAR(255) 
+  gedik_brand: VARCHAR(50) 
+  beymen_id: VARCHAR(50) 
+  sync_ai: INTEGER 
+  ozon_brand: VARCHAR(50) 
+  sumka_id: VARCHAR(50) 
+  idefix_id: VARCHAR(50) 
+  lcw_id: VARCHAR(50) 
+  boyner_id: VARCHAR(50) 
+  alisgidis_id: INTEGER 
+  trendyolGulf_sa_id: VARCHAR(50) 
+  trendyolGulf_ae_id: VARCHAR(50) 
+  toptantr_id: VARCHAR(255) 
+  a101_id: VARCHAR(50) 
+  goturc_id: VARCHAR(50) 
+  sync_eticaret1: INTEGER 
+  temu_id: VARCHAR(255) 
+  trendruum_id: VARCHAR(50) 
+
+=== SQLite product_prices TABLO YAPISI ===
+  id: INTEGER (PK)
+  product_id: INTEGER 
+  product_option_value_id: INTEGER 
+  store_id: INTEGER 
+  supplier: VARCHAR(255) 
+  price1: FLOAT 
+  price2: FLOAT 
+  price3: FLOAT 
+  price4: FLOAT 
+  price5: FLOAT 
+  price6: FLOAT 
+  price7: FLOAT 
+  price8: FLOAT 
+  n11_price: FLOAT 
+  n11_discountValue: FLOAT 
+  gg_marketPrice: FLOAT 
+  gg_buyNowPrice: FLOAT 
+  hb_price: FLOAT 
+  trendyol_listPrice: FLOAT 
+  trendyol_salePrice: FLOAT 
+  eptt_price: FLOAT 
+  eptt_iskonto: FLOAT 
+  n11pro_price: FLOAT 
+  n11pro_discountValue: FLOAT 
+  amazon_price: FLOAT 
+  amazon_salePrice: FLOAT 
+  mizu_price1: FLOAT 
+  mizu_price2: FLOAT 
+  zebramo_listPrice: FLOAT 
+  zebramo_salePrice: FLOAT 
+  farmazon_price: FLOAT 
+  farmazon_market_price: FLOAT 
+  farmaBorsaPrice: FLOAT 
+  farmaborsa_psPrice: FLOAT 
+  morhipo_listPrice: FLOAT 
+  morhipo_salePrice: FLOAT 
+  lidyana_listPrice: FLOAT 
+  lidyana_salePrice: FLOAT 
+  pazarama_listPrice: FLOAT 
+  pazarama_salePrice: FLOAT 
+  vfmall_listPrice: FLOAT 
+  vfmall_salePrice: FLOAT 
+  aliniyor_listPrice: FLOAT 
+  aliniyor_salePrice: FLOAT 
+  aliexpress_price: FLOAT 
+  aliexpress_salePrice: FLOAT 
+  modanisa_listPrice: FLOAT 
+  modanisa_salePrice: FLOAT 
+  bpazar_price1: FLOAT 
+  bpazar_price2: FLOAT 
+  flo_listPrice: FLOAT 
+  flo_salePrice: FLOAT 
+  novadan_price: FLOAT 
+  needion_listPrice: FLOAT 
+  needion_salePrice: FLOAT 
+  bisifirat_listPrice: FLOAT 
+  bisifirat_salePrice: FLOAT 
+  iyifiyat_listPrice: FLOAT 
+  iyifiyat_salePrice: FLOAT 
+  turkcellpasaj_listPrice: FLOAT 
+  turkcellpasaj_salePrice: FLOAT 
+  narwoo_price: FLOAT 
+  narwoo_salePrice: FLOAT 
+  joom_price: FLOAT 
+  joom_msrPrice: FLOAT 
+  nevade_listPrice: FLOAT 
+  nevade_salePrice: FLOAT 
+  yapisepeti_listPrice: FLOAT 
+  yapisepeti_salePrice: FLOAT 
+  op1001_listPrice: FLOAT 
+  op1001_salePrice: FLOAT 
+  etsy_price: FLOAT 
+  wish_price: FLOAT 
+  omnitron_price1: FLOAT 
+  omnitron_price2: FLOAT 
+  zoodmall_price: FLOAT 
+  buying_price: FLOAT 
+  sync_ai: INTEGER 
+  old_kdv: INTEGER 
+  new_kdv: INTEGER 
+  auto_change_enable: INTERGER 
+  auto_change: INTERGER 
+  idefix_liste_fiyati: FLOAT 
+  idefix_satis_fiyati: FLOAT 
+  goturc_sale_price: FLOAT 
+  goturc_list_price: FLOAT 
+
+=== brand ORNEK VERI (ilk 3) ===
+  ID: 103, Name: LC 
+  ID: 104, Name: MATTEL
+  ID: 115, Name: CAN OYUNCAK
+
+=== product_prices ORNEK VERI (product_id=19822) ===
+{
+  "id": 19163,
+  "product_id": 19822,
+  "product_option_value_id": 0,
+  "store_id": 0,
+  "supplier": "Mikro Stok XML",
+  "price1": 125,
+  "price2": 125,
+  "price3": 0,
+  "price4": 0,
+  "price5": 0,
+  "price6": 0,
+  "price7": 0,
+  "price8": 0,
+  "n11_price": 239.5833,
+  "n11_discountValue": 0,
+  "gg_marketPrice": 0,
+  "gg_buyNowPrice": 0,
+  "hb_price": 239.5833,
+  "trendyol_listPrice": 125,
+  "trendyol_salePrice": 0,
+  "eptt_price": 125,
+  "eptt_iskonto": 0,
+  "n11pro_price": 0,
+  "n11pro_discountValue": 0,
+  "amazon_price": 0,
+  "amazon_salePrice": 0,
+  "mizu_price1": 0,
+  "mizu_price2": 239.5833,
+  "zebramo_listPrice": 0,
+  "zebramo_salePrice": 0,
+  "farmazon_price": 0,
+  "farmazon_market_price": 0,
+  "farmaBorsaPrice": 0,
+  "farmaborsa_psPrice": 0,
+  "morhipo_listPrice": 0,
+  "morhipo_salePrice": 0,
+  "lidyana_listPrice": 0,
+  "lidyana_salePrice": 0,
+  "pazarama_listPrice": 125,
+  "pazarama_salePrice": 125,
+  "vfmall_listPrice": 0,
+  "vfmall_salePrice": 0,
+  "aliniyor_listPrice": 0,
+  "aliniyor_salePrice": 0,
+  "aliexpress_price": 0,
+  "aliexpress_salePrice": 0,
+  "modanisa_listPrice": 0,
+  "modanisa_salePrice": 0,
+  "bpazar_price1": 0,
+  "bpazar_price2": 0,
+  "flo_listPrice": 0,
+  "flo_salePrice": 0,
+  "novadan_price": 0,
+  "needion_listPrice": 0,
+  "needion_salePrice": 0,
+  "bisifirat_listPrice": 0,
+  "bisifirat_salePrice": 0,
+  "iyifiyat_listPrice": 0,
+  "iyifiyat_salePrice": 0,
+  "turkcellpasaj_listPrice": 0,
+  "turkcellpasaj_salePrice": 0,
+  "narwoo_price": 0,
+  "narwoo_salePrice": 0,
+  "joom_price": 0,
+  "joom_msrPrice": 0,
+  "nevade_listPrice": 0,
+  "nevade_salePrice": 0,
+  "yapisepeti_listPrice": 0,
+  "yapisepeti_salePrice": 0,
+  "op1001_listPrice": 0,
+  "op1001_salePrice": 0,
+  "etsy_price": 0,
+  "wish_price": 0,
+  "omnitron_price1": 0,
+  "omnitron_price2": 0,
+  "zoodmall_price": 0,
+  "buying_price": 187.5,
+  "sync_ai": 1,
+  "old_kdv": 0,
+  "new_kdv": 0,
+  "auto_change_enable": 0,
+  "auto_change": 0,
+  "idefix_liste_fiyati": 239.5833,
+  "idefix_satis_fiyati": 0,
+  "goturc_sale_price": 0,
+  "goturc_list_price": 0
+}

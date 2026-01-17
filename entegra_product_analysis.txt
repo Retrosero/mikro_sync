@@ -1,0 +1,1003 @@
+=== PostgreSQL entegra_product TABLO YAPISI ===
+  id: bigint
+  productName: text
+  productCode: text
+  group: bigint
+  date_start: date
+  date_end: date
+  status: bigint
+  sort_order: bigint
+  supplier: text
+  currencyType: text
+  description: text
+  send_eticaret: bigint
+  send_n11: bigint
+  send_gg: bigint
+  main_product: bigint
+  main_productCode: text
+  option: text
+  spec_color: text
+  spec_body: text
+  n11_shipmenttemplate: text
+  n11_preparingday: text
+  n11_productcondition: text
+  wolvox_id: bigint
+  wolvox_picture_sync: bigint
+  flag: bigint
+  n11_discountType: bigint
+  n11_discountStart: timestamp without time zone
+  n11_discountEnd: timestamp without time zone
+  gg_startPrice: double precision
+  gg_pageTemplate: text
+  gg_format: text
+  gg_listingDays: bigint
+  gg_affiliateOption: bigint
+  gg_boldOption: bigint
+  gg_catalogOption: bigint
+  gg_vitrinOption: bigint
+  xml_price: double precision
+  fark: bigint
+  gg_cargo_city: text
+  gg_cargo_shippingPayment: text
+  gg_cargo_shippingWhere: text
+  gg_cargo_cargoDescription: text
+  gg_cargo_cargoCompanies: text
+  quantity_max: bigint
+  quantity_min: bigint
+  group_name: text
+  category2: bigint
+  kdv_id: bigint
+  fixprice: double precision
+  supplier_id: text
+  birimi: text
+  brand_id: bigint
+  send_xml: bigint
+  gg_category: text
+  gg_store_category: text
+  n11_category: text
+  date_add: timestamp without time zone
+  date_change: timestamp without time zone
+  productSubName: text
+  gg_cargo_shippingPayment2: text
+  n11_shipmenttemplate2: text
+  shipment_cost: double precision
+  sub_name: text
+  sub_name2: text
+  gg_subtitle_enable: bigint
+  gg_cargo_shippingTime_days: text
+  gg_cargo_shippingTime_beforeTime: text
+  n11_discountDateEnable: bigint
+  no_update_category: bigint
+  no_update_name: bigint
+  no_update_description: bigint
+  no_update_price: bigint
+  no_update_picture: bigint
+  no_update_quantity: bigint
+  sp_sanalpazar_category_code: text
+  sp_sanalpazar_store_category_code: text
+  sp_cargo_firm_code: text
+  sp_cargo_shipping_day: text
+  sp_cargo_shipping_pay_type: text
+  sp_min_sale_quantity: text
+  sp_max_sale_quantity: text
+  sp_use_bold_name: text
+  sp_duration: text
+  sp_city: text
+  send_sp: bigint
+  invoice_name: text
+  sp_cargo_shipping_pay_type2: text
+  barcode: text
+  hb_sku: text
+  send_hb: bigint
+  hb_dispatch_time: bigint
+  hb_sync: bigint
+  hb_error: bigint
+  hb_error_message: text
+  hb_st_sku: text
+  sync: bigint
+  syncOrder: bigint
+  hb_syncOrder: bigint
+  gg_optionToProduct: bigint
+  send_lamoda: bigint
+  lamoda_sync: bigint
+  lamoda_error: bigint
+  lamoda_error_message: text
+  lamoda_category: text
+  gtip: text
+  desi: double precision
+  agirlik: text
+  hb_autoprice_enable: bigint
+  hb_autoprice_sync: bigint
+  hb_product_url: text
+  hb_price_max: double precision
+  hb_price_min: double precision
+  hb_price_barem: double precision
+  send_bamilo: bigint
+  bamilo_price: double precision
+  bamilo_price2: double precision
+  bamilo_sync: bigint
+  bamilo_error: bigint
+  bamilo_error_message: text
+  bamilo_category: text
+  send_cdiscount: bigint
+  cdiscount_sync: bigint
+  cdiscount_price: double precision
+  cdiscount_price2: double precision
+  cdiscount_category: text
+  no_update_status: bigint
+  gg_newCatalogId: bigint
+  send_eptt: bigint
+  eptt_category: text
+  ozon_category: text
+  send_ozon: bigint
+  ozon_sync: bigint
+  hb_cargo_company: text
+  send_rozetka: bigint
+  rozetka_category: text
+  rozetka_sync: bigint
+  n11_autoprice_enable: bigint
+  n11_autoprice_sync: bigint
+  n11_product_url: text
+  n11_price_max: double precision
+  n11_price_min: double precision
+  n11_price_barem: double precision
+  n11_sync: bigint
+  gg_autoprice_enable: bigint
+  gg_autoprice_sync: bigint
+  gg_product_url: text
+  gg_price_max: double precision
+  gg_price_min: double precision
+  gg_price_barem: double precision
+  gg_sync: bigint
+  gtin: text
+  mpn: text
+  send_mizu: bigint
+  mizu_sync: bigint
+  erp_code: text
+  eticaret_id: text
+  xml_price2: double precision
+  xml_price3: double precision
+  xml_price4: double precision
+  xml_price5: double precision
+  mizu_category: text
+  product_type: bigint
+  send_trendyol: bigint
+  n11_commission: double precision
+  gg_commission: double precision
+  hb_commission: double precision
+  send_n11pro: bigint
+  send_birvbiry: bigint
+  n11pro_discountType: text
+  send_zebramo: bigint
+  zebramo_cargo_shippingPayment: text
+  send_amazon: bigint
+  amazon_gtin: text
+  amazon_gtin_type: text
+  amazon_product_type: text
+  birvbiry_error: bigint
+  birvbiry_error_message: text
+  sync_date: timestamp without time zone
+  amazon_node_id: text
+  send_zoodmall: bigint
+  zoodmall_category: bigint
+  width: double precision
+  height: double precision
+  depth: double precision
+  send_evideapazaryeri: bigint
+  evideapazaryeri_error: bigint
+  evideapazaryeri_error_message: text
+  evideapazaryeri_discountStart: timestamp without time zone
+  evideapazaryeri_discountEnd: timestamp without time zone
+  evideapazaryeri_discountDateEnable: bigint
+  evideapazaryeri_preparingday: text
+  sync_evideapazaryeri: bigint
+  sync_birvbiry: bigint
+   birvbiry_sync_date: timestamp without time zone
+  eptt_commission: double precision
+  birvbiry_sync_date2: timestamp without time zone
+  gg_shipping_cost_try: double precision
+  gg_shipping_cost_cf: text
+  eticaret_category: text
+  syncOrderDate: timestamp without time zone
+  n11pro_barcode_disable: bigint
+  xml_currencyType: text
+  amazon_optionToProduct: bigint
+  evideapazaryeri_shipment_type_id: bigint
+  no_update_barcode: bigint
+  amazon_discountDateEnable: text
+  amazon_discountStart: text
+  amazon_discountEnd: text
+  quantity2_enable: bigint
+  country_of_origin: text
+  trd_optionToProduct: bigint
+  amazon_fulfillment_latency: bigint
+  eanship_price: double precision
+  eanship_discountPrice: double precision
+  send_eanship: bigint
+  send_farmazon: bigint
+  trendyol_category: text
+  trendyol_cargo_firm_id: text
+  gg_update_price_quantity: bigint
+  n11_oem_mode: bigint
+  send_morhipo: bigint
+  send_aliexpress: bigint
+  aliexpress_category: text
+  akakce_shipPrice: double precision
+  akakce_dayOfDelivery: bigint
+  akakce_expressDeliveryTime: bigint
+  send_amazonEu: bigint
+  amazonEu_gtin: text
+  amazonEu_gtin_type: text
+  amazonEu_product_type: text
+  amazonEu_node_id: text
+  amazonEu_optionToProduct: bigint
+  amazonEu_fulfillment_latency: bigint
+  amazonEu_discountStart: text
+  amazonEu_discountEnd: text
+  amazonEu_discountDateEnable: text
+  domestic_production_enable: bigint
+  send_amazonfr: bigint
+  hb_category: text
+  sync_eanship: bigint
+  eanship_category: text
+  trendyol_product_url: text
+  trendyol_price_max: double precision
+  trendyol_price_min: double precision
+  trendyol_price_barem: double precision
+  trendyol_autoprice_enable: bigint
+  send_novadan: bigint
+  novadan_sync: bigint
+  novadan_syncOrder: bigint
+  miad: timestamp without time zone
+  novadan_error: bigint
+  novadan_error_message: text
+  novadan_ilan_id: bigint
+  eanship_error: bigint
+  eanship_error_message: text
+  hb_tracking_id: text
+  hb_max_count: bigint
+  send_lidyana: bigint
+  lidyana_listPrice: double precision
+  lidyana_salePrice: double precision
+  critical_price: double precision
+  xml_price6: double precision
+  xml_price7: double precision
+  xml_price8: double precision
+  xml_price9: double precision
+  xml_price10: double precision
+  eptt_optionToProduct: bigint
+  send_modanisa: bigint
+  amazon_no_barcode: bigint
+  hb_optionToProduct: bigint
+  no_update_brand: bigint
+  send_joom: bigint
+  trendyol_commission: double precision
+  send_omnitron: bigint
+  omnitron_sync: bigint
+  omnitron_syncOrder: bigint
+  omnitron_error: bigint
+  omnitron_error_message: text
+  amazon_price_max: double precision
+  amazon_price_min: double precision
+  amazon_price_barem: double precision
+  amazon_autoprice_enable: bigint
+  amazon_product_url: text
+  n11_catalog_id: bigint
+  send_bpazar: bigint
+  bpazar_sync: bigint
+  bpazar_syncOrder: bigint
+  bpazar_error: bigint
+  bpazar_error_message: text
+  bpazar_category: text
+  hb_cargo_company2: text
+  send_flo: bigint
+  flo_category: text
+  flo_cargo_firm_id: text
+  flo_commission: double precision
+  flo_optionToProduct: bigint
+  isFulfillment: bigint
+  bpazar_shipping_company_id: bigint
+  bpazar_shipping_method: text
+  send_narwoo: bigint
+  narwoo_category: text
+  send_aliniyor: bigint
+  aliniyor_category: text
+  gg_shippingFeePaymentType: bigint
+  send_farmaborsa: bigint
+  novadan_front: bigint
+  novadan_maxsale: bigint
+  bpazar_shipping_days: bigint
+  send_gordumaldim: bigint
+  gordumaldim_category_code: text
+  fulfillment_id: text
+  is_amazon_fulfillment: bigint
+  send_api_old: bigint
+  hb_cargo_company3: text
+  send_needion: bigint
+  needion_category: text
+  modanisa_category: text
+  trendyol_update_price_quantity: bigint
+  no_update_gtin: bigint
+  gordumaldim_optionToProduct: bigint
+  fulfillment_order_status: bigint
+  farmazon_optionToProduct: bigint
+  fulfillment_error: bigint
+  fulfillment_error_message: text
+  n11_bundle_enable: bigint
+  novadan_integration_code: text
+  cargo_packet_amount: bigint
+  cargo_packet_type: bigint
+  send_bisifirat: bigint
+  bisifirat_category: text
+  eticaret_integration_code: text
+  send_pazarama: bigint
+  pazarama_category: text
+  trendyol_update_quantity: bigint
+  warehouse_rack_number: text
+  no_update_desi: bigint
+  hb_speed_autoprice_enable: bigint
+  trendyol_speed_autoprice_enable: bigint
+  hb_update_tracking_status: text
+  hb_update_tracking_id: text
+  hb_autoprice_offset: bigint
+  send_vfmall: bigint
+  vfmall_category: text
+  send_etsy: bigint
+  etsy_category: text
+  xml_price11: double precision
+  xml_price12: double precision
+  xml_price13: double precision
+  xml_price14: double precision
+  xml_price15: double precision
+  send_wish: bigint
+  no_update_mpn: bigint
+  hb_sale_status: bigint
+  farmaborsa_optionToProduct: bigint
+  send_iyifiyat: bigint
+  iyifiyat_category: text
+  send_nevade: bigint
+  nevade_category: text
+  n11_max_purchase_quantity: bigint
+  novadan_optionToProduct: bigint
+  send_turkcellpasaj: bigint
+  send_getir: bigint
+  op1001_category: text
+  send_op1001: bigint
+  yapisepeti_category: text
+  send_yapisepeti: bigint
+  min_purchase_quantity: bigint
+  max_purchase_quantity: bigint
+  hb_update_price_tracking_status: text
+  hb_update_price_tracking_id: text
+  hb_update_quantity_tracking_status: text
+  hb_update_quantity_tracking_id: text
+  hepsiburada_update_quantity: bigint
+  hepsiburada_update_price: bigint
+  getir_integration_code: text
+  hb_shipping_profile_name: text
+  etolye_category: text
+  send_etolye: bigint
+  critical_stock: bigint
+  critical_stock_enable: bigint
+  send_kintshop: bigint
+  kintshop_category: bigint
+  send_gedik: bigint
+  n11_product_seller_code: text
+  omnitron_update_quantity: bigint
+  omnitron_update_price: bigint
+  trendyolgo_category: text
+  send_trendyolgo: bigint
+  gedik_category: text
+  api_sync: bigint
+  trendyol_update_price: bigint
+  omnitron_attribute_set: text
+  smart_price_enable: bigint
+  send_api: bigint
+  wish_category: text
+  hb_barcode: text
+  mirakl_teknosa_category: text
+  send_mirakl_teknosa: bigint
+  beymen_category: text
+  send_beymen: bigint
+  trendyolgo_update_quantity: bigint
+  trendyolgo_update_price: bigint
+  sync_ai: bigint
+  hb_claimAddressLabel: text
+  hb_shippingAddressLabel: text
+  mirakl_decoverse_category: text
+  send_mirakl_decoverse: bigint
+  omnitron_category: text
+  mirakl_koctas_category: text
+  send_mirakl_koctas: bigint
+  sumka_category: text
+  send_sumka: bigint
+  sumka_listPrice: double precision
+  sumka_salePrice: double precision
+  omnitron_integration_code: text
+  idefix_category: text
+  send_idefix: bigint
+  aliexpressRu_category: text
+  send_aliexpressRu: bigint
+  lcw_category: text
+  send_lcw: bigint
+  boyner_category: text
+  send_boyner: bigint
+  ozon_option_to_product: bigint
+  ozon_type_id: bigint
+  send_trendyolEu: bigint
+  send_toptantr: bigint
+  send_alisgidis: bigint
+  alisgidis_category: bigint
+  eticaret_cargo_day: bigint
+  eticaret_discount_type: bigint
+  trendyolGulf_sa_category: text
+  send_trendyolGulf_sa: bigint
+  trendyolGulf_ae_category: text
+  send_trendyolGulf_ae: bigint
+  eticaret_condition_type: bigint
+  toptantr_category: text
+  user_aded: text
+  user_updated: text
+  a101_category: text
+  send_a101: bigint
+  goturc_category: text
+  send_goturc: bigint
+  smart_critical_price: double precision
+  smart_critical_price_sync: bigint
+  smart_critical_price_date: timestamp without time zone
+  no_update_attribute: bigint
+  send_amazonVendor: bigint
+  novadan_integration_id: bigint
+  mirakl_karaca_category: text
+  send_mirakl_karaca: bigint
+  no_calculate_packet_quantity: bigint
+  zergo_category: text
+  send_zergo: bigint
+  eticaret_update_quantity_price_status: bigint
+  send_amazon_sf: bigint
+  jewel_type: bigint
+  jewel_milyem: double precision
+  jewel_weight: double precision
+  jewel_labor_cost_type: bigint
+  jewel_labor_cost_value: double precision
+  jewel_buying_price_calculation: bigint
+  jewel_buying_price_calculation_sync: bigint
+  jewel_buying_price_calculation_date: timestamp without time zone
+  amazon_use_expected_price: bigint
+  novadan_update_quantity: bigint
+  ai_update_date: timestamp without time zone
+  eticaret_category_name: text
+  trendyolEu_category: text
+  ai_missing_complate_sync: bigint
+  temu_category: text
+  send_temu: bigint
+  ai_control: bigint
+  trendruum_category: text
+  send_trendruum: bigint
+
+=== PostgreSQL entegra_product ORNEK VERI (ilk 2) ===
+
+ID: 16570
+  productCode: 0121-SİYAH
+  name: undefined
+  barcode: 61275201210095
+  modelNo: undefined
+
+ID: 18635
+  productCode: POL-76045
+  name: undefined
+  barcode: 4810344076045
+  modelNo: undefined
+
+=== sync_queue'daki entegra_product kaydi ===
+Queue ID: fc35b03a-348a-4f19-b207-7c41000d7340
+Entity ID: 168a2805-94bb-4117-b5cf-d56fc1c37375
+Record Data:
+{
+  "changes": {
+    "gtin": {
+      "new": "",
+      "old": null
+    },
+    "sub_name2": {
+      "new": " 20 CM",
+      "old": null
+    },
+    "country_of_origin": {
+      "new": "POŞETLİ",
+      "old": null
+    }
+  },
+  "sync_type": "entegra_product_update",
+  "product_id": 19822,
+  "updated_at": "2026-01-17T07:41:09.357Z",
+  "productCode": "LMN205",
+  "productName": "LMN205 - ET BEBEK 20 CM POŞETLİ"
+}
+
+=== SQLite product TABLO YAPISI ===
+  id: INTEGER (PK)
+  productName: VARCHAR(255) 
+  productCode: VARCHAR(100) 
+  group: INTEGER 
+  date_start: DATE 
+  date_end: DATE 
+  status: INTEGER 
+  sort_order: INTEGER 
+  supplier: VARCHAR(255) 
+  currencyType: VARCHAR(5) 
+  description: TEXT 
+  send_eticaret: INTEGER 
+  send_n11: INTEGER 
+  send_gg: INTEGER 
+  main_product: INTEGER 
+  main_productCode: VARCHAR(255) 
+  option: VARCHAR(255) 
+  spec_color: VARCHAR(255) 
+  spec_body: VARCHAR(255) 
+  n11_shipmenttemplate: VARCHAR(255) 
+  n11_preparingday: VARCHAR(255) 
+  n11_productcondition: VARCHAR(255) 
+  wolvox_id: INTEGER 
+  wolvox_picture_sync: INTEGER 
+  flag: INTEGER 
+  n11_discountType: INTEGER 
+  n11_discountStart: DATETIME 
+  n11_discountEnd: DATETIME 
+  gg_startPrice: FLOAT 
+  gg_pageTemplate: VARCHAR(5) 
+  gg_format: VARCHAR(5) 
+  gg_listingDays: INTEGER 
+  gg_affiliateOption: INTEGER 
+  gg_boldOption: INTEGER 
+  gg_catalogOption: INTEGER 
+  gg_vitrinOption: INTEGER 
+  xml_price: FLOAT 
+  fark: INTEGER 
+  gg_cargo_city: VARCHAR(5) 
+  gg_cargo_shippingPayment: VARCHAR(5) 
+  gg_cargo_shippingWhere: VARCHAR(50) 
+  gg_cargo_cargoDescription: VARCHAR(255) 
+  gg_cargo_cargoCompanies: VARCHAR(255) 
+  quantity_max: INTEGER 
+  quantity_min: INTEGER 
+  group_name: VARCHAR(255) 
+  category2: INTEGER 
+  kdv_id: INTEGER 
+  fixprice: FLOAT 
+  supplier_id: VARCHAR(255) 
+  birimi: VARCHAR(50) 
+  brand_id: INTEGER 
+  send_xml: INTEGER 
+  gg_category: VARCHAR(50) 
+  gg_store_category: VARCHAR(50) 
+  n11_category: VARCHAR(50) 
+  date_add: DATETIME 
+  date_change: DATETIME 
+  productSubName: VARCHAR(255) 
+  gg_cargo_shippingPayment2: VARCHAR(5) 
+  n11_shipmenttemplate2: VARCHAR(255) 
+  shipment_cost: FLOAT 
+  sub_name: VARCHAR(255) 
+  sub_name2: VARCHAR(255) 
+  gg_subtitle_enable: INTEGER 
+  gg_cargo_shippingTime_days: VARCHAR(20) 
+  gg_cargo_shippingTime_beforeTime: VARCHAR(20) 
+  n11_discountDateEnable: INTEGER 
+  no_update_category: INTEGER 
+  no_update_name: INTEGER 
+  no_update_description: INTEGER 
+  no_update_price: INTEGER 
+  no_update_picture: INTEGER 
+  no_update_quantity: INTEGER 
+  sp_sanalpazar_category_code: VARCHAR(255) 
+  sp_sanalpazar_store_category_code: VARCHAR(255) 
+  sp_cargo_firm_code: VARCHAR(255) 
+  sp_cargo_shipping_day: VARCHAR(255) 
+  sp_cargo_shipping_pay_type: VARCHAR(255) 
+  sp_min_sale_quantity: VARCHAR(255) 
+  sp_max_sale_quantity: VARCHAR(255) 
+  sp_use_bold_name: VARCHAR(255) 
+  sp_duration: VARCHAR(255) 
+  sp_city: VARCHAR(255) 
+  send_sp: INTEGER 
+  invoice_name: VARCHAR(255) 
+  sp_cargo_shipping_pay_type2: VARCHAR(255) 
+  barcode: VARCHAR(255) 
+  hb_sku: VARCHAR(255) 
+  send_hb: INTEGER 
+  hb_dispatch_time: INTEGER 
+  hb_sync: INTEGER 
+  hb_error: INTEGER 
+  hb_error_message: TEXT 
+  hb_st_sku: VARCHAR(255) 
+  sync: INTEGER 
+  syncOrder: INTEGER 
+  hb_syncOrder: INTEGER 
+  gg_optionToProduct: INTEGER 
+  send_lamoda: INTEGER 
+  lamoda_sync: INTEGER 
+  lamoda_error: INTEGER 
+  lamoda_error_message: TEXT 
+  lamoda_category: VARCHAR(255) 
+  gtip: VARCHAR(255) 
+  desi: FLOAT 
+  agirlik: VARCHAR(255) 
+  hb_autoprice_enable: INTEGER 
+  hb_autoprice_sync: INTEGER 
+  hb_product_url: TEXT 
+  hb_price_max: FLOAT 
+  hb_price_min: FLOAT 
+  hb_price_barem: FLOAT 
+  send_bamilo: INTEGER 
+  bamilo_price: FLOAT 
+  bamilo_price2: FLOAT 
+  bamilo_sync: INTEGER 
+  bamilo_error: INTEGER 
+  bamilo_error_message: TEXT 
+  bamilo_category: VARCHAR(255) 
+  send_cdiscount: INTEGER 
+  cdiscount_sync: INTEGER 
+  cdiscount_price: FLOAT 
+  cdiscount_price2: FLOAT 
+  cdiscount_category: VARCHAR(255) 
+  no_update_status: INTEGER 
+  gg_newCatalogId: INTEGER 
+  send_eptt: INTEGER 
+  eptt_category: VARCHAR(50) 
+  ozon_category: VARCHAR(255) 
+  send_ozon: INTEGER 
+  ozon_sync: INTEGER 
+  hb_cargo_company: VARCHAR(100) 
+  send_rozetka: INTEGER 
+  rozetka_category: VARCHAR(255) 
+  rozetka_sync: INTEGER 
+  n11_autoprice_enable: INTEGER 
+  n11_autoprice_sync: INTEGER 
+  n11_product_url: TEXT 
+  n11_price_max: FLOAT 
+  n11_price_min: FLOAT 
+  n11_price_barem: FLOAT 
+  n11_sync: INTEGER 
+  gg_autoprice_enable: INTEGER 
+  gg_autoprice_sync: INTEGER 
+  gg_product_url: TEXT 
+  gg_price_max: FLOAT 
+  gg_price_min: FLOAT 
+  gg_price_barem: FLOAT 
+  gg_sync: INTEGER 
+  gtin: VARCHAR(255) 
+  mpn: VARCHAR(255) 
+  send_mizu: INTEGER 
+  mizu_sync: INTEGER 
+  erp_code: VARCHAR(255) 
+  eticaret_id: VARCHAR(255) 
+  xml_price2: FLOAT 
+  xml_price3: FLOAT 
+  xml_price4: FLOAT 
+  xml_price5: FLOAT 
+  mizu_category: VARCHAR(255) 
+  product_type: INTEGER 
+  send_trendyol: INTEGER 
+  n11_commission: FLOAT 
+  gg_commission: FLOAT 
+  hb_commission: FLOAT 
+  send_n11pro: INTEGER 
+  send_birvbiry: INTEGER 
+  n11pro_discountType: VARCHAR(255) 
+  send_zebramo: INTEGER 
+  zebramo_cargo_shippingPayment: VARCHAR(5) 
+  send_amazon: INTEGER 
+  amazon_gtin: VARCHAR(255) 
+  amazon_gtin_type: VARCHAR(10) 
+  amazon_product_type: VARCHAR(255) 
+  birvbiry_error: INTEGER 
+  birvbiry_error_message: TEXT 
+  sync_date: DATETIME 
+  amazon_node_id: VARCHAR(255) 
+  send_zoodmall: INTEGER 
+  zoodmall_category: INTEGER 
+  width: FLOAT 
+  height: FLOAT 
+  depth: FLOAT 
+  send_evideapazaryeri: INTEGER 
+  evideapazaryeri_error: INTEGER 
+  evideapazaryeri_error_message: TEXT 
+  evideapazaryeri_discountStart: DATETIME 
+  evideapazaryeri_discountEnd: DATETIME 
+  evideapazaryeri_discountDateEnable: INTEGER 
+  evideapazaryeri_preparingday: VARCHAR(255) 
+  sync_evideapazaryeri: INTEGER 
+  sync_birvbiry: INTEGER 
+   birvbiry_sync_date: DATETIME 
+  eptt_commission: FLOAT 
+  birvbiry_sync_date2: DATETIME 
+  gg_shipping_cost_try: FLOAT 
+  gg_shipping_cost_cf: VARCHAR(5) 
+  eticaret_category: VARCHAR(255) 
+  syncOrderDate: DATETIME 
+  n11pro_barcode_disable: INTEGER 
+  xml_currencyType: VARCHAR(5) 
+  amazon_optionToProduct: INTEGER 
+  evideapazaryeri_shipment_type_id: INTEGER 
+  no_update_barcode: INTEGER 
+  amazon_discountDateEnable: VARCHAR(255) 
+  amazon_discountStart: VARCHAR(255) 
+  amazon_discountEnd: VARCHAR(255) 
+  quantity2_enable: INTEGER 
+  country_of_origin: VARCHAR(255) 
+  trd_optionToProduct: INTEGER 
+  amazon_fulfillment_latency: INTEGER 
+  eanship_price: FLOAT 
+  eanship_discountPrice: FLOAT 
+  send_eanship: INTEGER 
+  send_farmazon: INTEGER 
+  trendyol_category: VARCHAR(50) 
+  trendyol_cargo_firm_id: VARCHAR(50) 
+  gg_update_price_quantity: INTEGER 
+  n11_oem_mode: INTEGER 
+  send_morhipo: INTEGER 
+  send_aliexpress: INTEGER 
+  aliexpress_category: VARCHAR(50) 
+  akakce_shipPrice: FLOAT 
+  akakce_dayOfDelivery: INTEGER 
+  akakce_expressDeliveryTime: INTEGER 
+  send_amazonEu: INTEGER 
+  amazonEu_gtin: VARCHAR(255) 
+  amazonEu_gtin_type: VARCHAR(10) 
+  amazonEu_product_type: VARCHAR(255) 
+  amazonEu_node_id: VARCHAR(255) 
+  amazonEu_optionToProduct: INTEGER 
+  amazonEu_fulfillment_latency: INTEGER 
+  amazonEu_discountStart: VARCHAR(255) 
+  amazonEu_discountEnd: VARCHAR(255) 
+  amazonEu_discountDateEnable: VARCHAR(255) 
+  domestic_production_enable: INTEGER 
+  send_amazonfr: INTEGER 
+  hb_category: VARCHAR(50) 
+  sync_eanship: INTEGER 
+  eanship_category: VARCHAR(255) 
+  trendyol_product_url: TEXT 
+  trendyol_price_max: FLOAT 
+  trendyol_price_min: FLOAT 
+  trendyol_price_barem: FLOAT 
+  trendyol_autoprice_enable: INTEGER 
+  send_novadan: INTEGER 
+  novadan_sync: INTEGER 
+  novadan_syncOrder: INTEGER 
+  miad: DATETIME 
+  novadan_error: INTEGER 
+  novadan_error_message: TEXT 
+  novadan_ilan_id: INTEGER 
+  eanship_error: INTEGER 
+  eanship_error_message: TEXT 
+  hb_tracking_id: VARCHAR(255) 
+  hb_max_count: INTEGER 
+  send_lidyana: INTEGER 
+  lidyana_listPrice: FLOAT 
+  lidyana_salePrice: FLOAT 
+  critical_price: FLOAT 
+  xml_price6: FLOAT 
+  xml_price7: FLOAT 
+  xml_price8: FLOAT 
+  xml_price9: FLOAT 
+  xml_price10: FLOAT 
+  eptt_optionToProduct: INTEGER 
+  send_modanisa: INTEGER 
+  amazon_no_barcode: INTEGER 
+  hb_optionToProduct: INTEGER 
+  no_update_brand: INTEGER 
+  send_joom: INTEGER 
+  trendyol_commission: FLOAT 
+  send_omnitron: INTEGER 
+  omnitron_sync: INTEGER 
+  omnitron_syncOrder: INTEGER 
+  omnitron_error: INTEGER 
+  omnitron_error_message: TEXT 
+  amazon_price_max: FLOAT 
+  amazon_price_min: FLOAT 
+  amazon_price_barem: FLOAT 
+  amazon_autoprice_enable: INTEGER 
+  amazon_product_url: TEXT 
+  n11_catalog_id: INTEGER 
+  send_bpazar: INTEGER 
+  bpazar_sync: INTEGER 
+  bpazar_syncOrder: INTEGER 
+  bpazar_error: INTEGER 
+  bpazar_error_message: TEXT 
+  bpazar_category: VARCHAR(255) 
+  hb_cargo_company2: VARCHAR(100) 
+  send_flo: INTEGER 
+  flo_category: VARCHAR(50) 
+  flo_cargo_firm_id: VARCHAR(50) 
+  flo_commission: FLOAT 
+  flo_optionToProduct: INTEGER 
+  isFulfillment: INTEGER 
+  bpazar_shipping_company_id: INTEGER 
+  bpazar_shipping_method: VARCHAR(50) 
+  send_narwoo: INTEGER 
+  narwoo_category: VARCHAR(50) 
+  send_aliniyor: INTEGER 
+  aliniyor_category: VARCHAR(50) 
+  gg_shippingFeePaymentType: INTEGER 
+  send_farmaborsa: INTEGER 
+  novadan_front: INTEGER 
+  novadan_maxsale: INTEGER 
+  bpazar_shipping_days: INTEGER 
+  send_gordumaldim: INTEGER 
+  gordumaldim_category_code: VARCHAR(50) 
+  fulfillment_id: VARCHAR(255) 
+  is_amazon_fulfillment: INTEGER 
+  send_api_old: INTEGER 
+  hb_cargo_company3: VARCHAR(100) 
+  send_needion: INTEGER 
+  needion_category: VARCHAR(255) 
+  modanisa_category: VARCHAR(50) 
+  trendyol_update_price_quantity: INTEGER 
+  no_update_gtin: INTEGER 
+  gordumaldim_optionToProduct: INTEGER 
+  fulfillment_order_status: INTEGER 
+  farmazon_optionToProduct: INTEGER 
+  fulfillment_error: INTEGER 
+  fulfillment_error_message: TEXT 
+  n11_bundle_enable: INTEGER 
+  novadan_integration_code: VARCHAR(255) 
+  cargo_packet_amount: INTEGER 
+  cargo_packet_type: INTEGER 
+  send_bisifirat: INTEGER 
+  bisifirat_category: VARCHAR(255) 
+  eticaret_integration_code: VARCHAR(255) 
+  send_pazarama: INTEGER 
+  pazarama_category: VARCHAR(255) 
+  trendyol_update_quantity: INTEGER 
+  warehouse_rack_number: VARCHAR(255) 
+  no_update_desi: INTEGER 
+  hb_speed_autoprice_enable: INTEGER 
+  trendyol_speed_autoprice_enable: INTEGER 
+  hb_update_tracking_status: VARCHAR(255) 
+  hb_update_tracking_id: VARCHAR(255) 
+  hb_autoprice_offset: INTEGER 
+  send_vfmall: INTEGER 
+  vfmall_category: VARCHAR(255) 
+  send_etsy: INTEGER 
+  etsy_category: VARCHAR(50) 
+  xml_price11: FLOAT 
+  xml_price12: FLOAT 
+  xml_price13: FLOAT 
+  xml_price14: FLOAT 
+  xml_price15: FLOAT 
+  send_wish: INTEGER 
+  no_update_mpn: INTEGER 
+  hb_sale_status: INTEGER 
+  farmaborsa_optionToProduct: INTEGER 
+  send_iyifiyat: INTEGER 
+  iyifiyat_category: VARCHAR(255) 
+  send_nevade: INTEGER 
+  nevade_category: VARCHAR(50) 
+  n11_max_purchase_quantity: INTEGER 
+  novadan_optionToProduct: INTEGER 
+  send_turkcellpasaj: INTEGER 
+  send_getir: INTEGER 
+  op1001_category: VARCHAR(50) 
+  send_op1001: INTEGER 
+  yapisepeti_category: VARCHAR(50) 
+  send_yapisepeti: INTEGER 
+  min_purchase_quantity: INTEGER 
+  max_purchase_quantity: INTEGER 
+  hb_update_price_tracking_status: VARCHAR(255) 
+  hb_update_price_tracking_id: VARCHAR(255) 
+  hb_update_quantity_tracking_status: VARCHAR(255) 
+  hb_update_quantity_tracking_id: VARCHAR(255) 
+  hepsiburada_update_quantity: INTEGER 
+  hepsiburada_update_price: INTEGER 
+  getir_integration_code: VARCHAR(255) 
+  hb_shipping_profile_name: VARCHAR(255) 
+  etolye_category: VARCHAR(50) 
+  send_etolye: INTEGER 
+  critical_stock: INTEGER 
+  critical_stock_enable: INTEGER 
+  send_kintshop: INTEGER 
+  kintshop_category: INTEGER 
+  send_gedik: INTEGER 
+  n11_product_seller_code: VARCHAR(255) 
+  omnitron_update_quantity: INTEGER 
+  omnitron_update_price: INTEGER 
+  trendyolgo_category: VARCHAR(50) 
+  send_trendyolgo: INTEGER 
+  gedik_category: VARCHAR(255) 
+  api_sync: INTEGER 
+  trendyol_update_price: INTEGER 
+  omnitron_attribute_set: VARCHAR(255) 
+  smart_price_enable: INTEGER 
+  send_api: INTEGER 
+  wish_category: VARCHAR(255) 
+  hb_barcode: VARCHAR(255) 
+  mirakl_teknosa_category: VARCHAR(50) 
+  send_mirakl_teknosa: INTEGER 
+  beymen_category: VARCHAR(50) 
+  send_beymen: INTEGER 
+  trendyolgo_update_quantity: INTEGER 
+  trendyolgo_update_price: INTEGER 
+  sync_ai: INTEGER 
+  hb_claimAddressLabel: VARCHAR(255) 
+  hb_shippingAddressLabel: VARCHAR(255) 
+  mirakl_decoverse_category: VARCHAR(50) 
+  send_mirakl_decoverse: INTEGER 
+  omnitron_category: VARCHAR(50) 
+  mirakl_koctas_category: VARCHAR(50) 
+  send_mirakl_koctas: INTEGER 
+  sumka_category: VARCHAR(50) 
+  send_sumka: INTEGER 
+  sumka_listPrice: FLOAT 
+  sumka_salePrice: FLOAT 
+  omnitron_integration_code: VARCHAR(255) 
+  idefix_category: VARCHAR(50) 
+  send_idefix: INTEGER 
+  aliexpressRu_category: VARCHAR(50) 
+  send_aliexpressRu: INTEGER 
+  lcw_category: VARCHAR(50) 
+  send_lcw: INTEGER 
+  boyner_category: VARCHAR(50) 
+  send_boyner: INTEGER 
+  ozon_option_to_product: INTEGER 
+  ozon_type_id: INTEGER 
+  send_trendyolEu: INTEGER 
+  send_toptantr: INTEGER 
+  send_alisgidis: INTEGER 
+  alisgidis_category: INTEGER 
+  eticaret_cargo_day: INTEGER 
+  eticaret_discount_type: INTEGER 
+  trendyolGulf_sa_category: VARCHAR(50) 
+  send_trendyolGulf_sa: INTEGER 
+  trendyolGulf_ae_category: VARCHAR(50) 
+  send_trendyolGulf_ae: INTEGER 
+  eticaret_condition_type: INTEGER 
+  toptantr_category: VARCHAR(255) 
+  user_aded: VARCHAR(15) 
+  user_updated: VARCHAR(15) 
+  a101_category: VARCHAR(50) 
+  send_a101: INTEGER 
+  goturc_category: VARCHAR(50) 
+  send_goturc: INTEGER 
+  smart_critical_price: FLOAT 
+  smart_critical_price_sync: INTEGER 
+  smart_critical_price_date: DATETIME 
+  no_update_attribute: INTEGER 
+  send_amazonVendor: INTEGER 
+  novadan_integration_id: INTEGER 
+  mirakl_karaca_category: VARCHAR(50) 
+  send_mirakl_karaca: INTEGER 
+  no_calculate_packet_quantity: INTEGER 
+  zergo_category: VARCHAR(50) 
+  send_zergo: INTEGER 
+  eticaret_update_quantity_price_status: INTEGER 
+  send_amazon_sf: INTEGER 
+  jewel_type: INTEGER 
+  jewel_milyem: FLOAT 
+  jewel_weight: FLOAT 
+  jewel_labor_cost_type: INTEGER 
+  jewel_labor_cost_value: FLOAT 
+  jewel_buying_price_calculation: INTEGER 
+  jewel_buying_price_calculation_sync: INTEGER 
+  jewel_buying_price_calculation_date: DATETIME 
+  amazon_use_expected_price: INTEGER 
+  novadan_update_quantity: INTEGER 
+  ai_update_date: DATETIME 
+  eticaret_category_name: VARCHAR(1000) 
+  trendyolEu_category: VARCHAR(255) 
+  ai_missing_complate_sync: INTEGER 
+  temu_category: VARCHAR(50) 
+  send_temu: INTEGER 
+  ai_control: INTEGER 
+  trendruum_category: VARCHAR(50) 
+  send_trendruum: INTEGER 
+
+=== SQLite product ORNEK VERI (ilk 2) ===
+
+ID: 697
+  productCode: K0682
+  productName: Meyve Taşıyan Römorklu Traktör - K0682
+
+ID: 702
+  productCode: KS-750
+  productName: Ketsan Sağlam Plastik Damperli Kamyon Ve Kürek- Ks-750

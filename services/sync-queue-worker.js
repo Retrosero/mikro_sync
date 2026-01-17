@@ -69,14 +69,13 @@ class SyncQueueWorker {
         // ERP senkronizasyonu gerekmeyen entity tipleri
         // Bu tablolar sadece web tarafında kullanılır, ERP'ye yazılmaz
         const IGNORED_ENTITY_TYPES = [
-            // 'entegra_product_manual' kaldırıldı - artık SQLite'a yazılıyor
+            // 'entegra_product_manual' ve 'entegra_product' kaldırıldı - SQLite'a yazılıyor
             'entegra_order',
             'entegra_order_status',
             'entegra_order_product',
             'entegra_pictures',
             'entegra_product_quantity',
             'entegra_product_prices',
-            'entegra_product',
             'entegra_product_info',
             'entegra_messages',
             'entegra_message_template',
@@ -267,6 +266,234 @@ class SyncQueueWorker {
                 // Processor'a gönder - tahsilat processor'ı kullanabiliriz veya yeni processor
                 // Şimdilik skip ediyoruz - sadece completed olarak işaretliyoruz
                 logger.info(`cari_hesap_hareketleri senkronizasyonu atlandı (ERP'ye yazma henüz uygulanmadı): ${item.entity_id}`);
+
+            } else if (item.entity_type === 'entegra_product') {
+                // Web'den ürün güncelleme - SQLite'daki product tablosuna yaz
+                const queueRecord = await pgService.query(
+                    `SELECT record_data FROM sync_queue WHERE id = $1`,
+                    [item.id]
+                );
+
+                if (queueRecord.length === 0 || !queueRecord[0].record_data) {
+                    throw new Error(`entegra_product için record_data bulunamadı: ${item.id}`);
+                }
+
+                const recordData = queueRecord[0].record_data;
+                const productId = parseInt(recordData.product_id);
+                const changes = recordData.changes || {};
+
+                if (!productId) {
+                    throw new Error(`entegra_product için geçersiz product_id: ${recordData.product_id}`);
+                }
+
+                if (Object.keys(changes).length === 0) {
+                    logger.info(`⏭ entegra_product değişiklik yok, atlanıyor: ProductID=${productId}`);
+                    entityData = recordData;
+                } else {
+                    // SQLite bağlantısını aç (yazma modu) - retry mekanizması ile
+                    let retryCount = 0;
+                    const maxRetries = 5;
+                    let success = false;
+
+                    while (!success && retryCount < maxRetries) {
+                        try {
+                            sqliteService.connect(false);
+
+                            try {
+                                // Product kaydını kontrol et
+                                const existingProduct = sqliteService.queryOne(
+                                    `SELECT id FROM product WHERE id = ?`,
+                                    [productId]
+                                );
+
+                                if (existingProduct) {
+                                    // Alanları ayır: quantity -> product_quantity, description -> product_description, 
+                                    // fiyat alanları -> product_prices, brand -> atla (SQLite'da brand_id var), diğerleri -> product
+                                    const productFields = [];
+                                    const productValues = [];
+                                    const priceFields = [];
+                                    const priceValues = [];
+                                    let quantityValue = null;
+                                    let descriptionValue = null;
+                                    let brandName = null; // Marka adı (brand tablosunda aranacak)
+
+                                    // Fiyat alanlarını tanımla (product_prices tablosundaki kolonlar)
+                                    const priceFieldNames = [
+                                        'price1', 'price2', 'price3', 'price4', 'price5', 'price6', 'price7', 'price8',
+                                        'n11_price', 'n11_discountValue', 'gg_marketPrice', 'gg_buyNowPrice', 'hb_price',
+                                        'trendyol_listPrice', 'trendyol_salePrice', 'eptt_price', 'eptt_iskonto',
+                                        'n11pro_price', 'n11pro_discountValue', 'amazon_price', 'amazon_salePrice',
+                                        'mizu_price1', 'mizu_price2', 'zebramo_listPrice', 'zebramo_salePrice',
+                                        'farmazon_price', 'farmazon_market_price', 'farmaBorsaPrice', 'farmaborsa_psPrice',
+                                        'morhipo_listPrice', 'morhipo_salePrice', 'lidyana_listPrice', 'lidyana_salePrice',
+                                        'pazarama_listPrice', 'pazarama_salePrice', 'vfmall_listPrice', 'vfmall_salePrice',
+                                        'aliniyor_listPrice', 'aliniyor_salePrice', 'aliexpress_price', 'aliexpress_salePrice',
+                                        'modanisa_listPrice', 'modanisa_salePrice', 'bpazar_price1', 'bpazar_price2',
+                                        'flo_listPrice', 'flo_salePrice', 'novadan_price', 'needion_listPrice', 'needion_salePrice',
+                                        'bisifirat_listPrice', 'bisifirat_salePrice', 'iyifiyat_listPrice', 'iyifiyat_salePrice',
+                                        'buying_price'
+                                    ];
+
+                                    Object.keys(changes).forEach(fieldName => {
+                                        const newValue = changes[fieldName].new;
+
+                                        if (fieldName === 'quantity') {
+                                            // quantity alanı product_quantity tablosuna yazılacak
+                                            quantityValue = parseFloat(newValue) || 0;
+                                        } else if (fieldName === 'description') {
+                                            // description alanı product_description tablosuna yazılacak
+                                            descriptionValue = newValue;
+                                        } else if (priceFieldNames.includes(fieldName)) {
+                                            // Fiyat alanları product_prices tablosuna yazılacak
+                                            priceFields.push(`${fieldName} = ?`);
+                                            priceValues.push(parseFloat(newValue) || 0);
+                                        } else if (fieldName === 'brand') {
+                                            // brand alanı (marka adı) - brand tablosunda aranacak
+                                            brandName = newValue;
+                                        } else {
+                                            // Diğer alanlar product tablosuna
+                                            productFields.push(`${fieldName} = ?`);
+                                            productValues.push(newValue);
+                                        }
+                                    });
+
+                                    // Marka değeri varsa işle (ID veya isim olabilir)
+                                    if (brandName !== null && brandName !== '') {
+                                        const brandValue = String(brandName).trim();
+
+                                        // Sayı mı kontrol et (marka ID'si)
+                                        const isNumeric = /^\d+$/.test(brandValue);
+
+                                        if (isNumeric) {
+                                            // Sayı ise doğrudan brand_id olarak kullan
+                                            const brandId = parseInt(brandValue);
+                                            productFields.push(`brand_id = ?`);
+                                            productValues.push(brandId);
+                                            logger.info(`✓ Marka ID kullanıldı: ${brandId}`);
+                                        } else {
+                                            // Metin ise brand tablosunda ara
+                                            const brandRecord = sqliteService.queryOne(
+                                                `SELECT id FROM brand WHERE name = ? COLLATE NOCASE`,
+                                                [brandValue]
+                                            );
+
+                                            if (brandRecord) {
+                                                productFields.push(`brand_id = ?`);
+                                                productValues.push(brandRecord.id);
+                                                logger.info(`✓ Marka bulundu: "${brandValue}" (ID: ${brandRecord.id})`);
+                                            } else {
+                                                logger.warn(`⚠ Marka bulunamadı: "${brandValue}" - brand_id güncellenemedi`);
+                                            }
+                                        }
+                                    }
+
+                                    // 1. product tablosunu güncelle (quantity hariç)
+                                    if (productFields.length > 0) {
+                                        productValues.push(productId);
+                                        const productQuery = `UPDATE product SET ${productFields.join(', ')} WHERE id = ?`;
+                                        sqliteService.run(productQuery, productValues);
+                                        logger.info(`✓ SQLite product güncellendi: ProductID=${productId}, Alanlar: ${productFields.map(f => f.split(' = ')[0]).join(', ')}`);
+                                    }
+
+                                    // 2. quantity varsa product_quantity tablosunu güncelle
+                                    if (quantityValue !== null) {
+                                        const quantityRecord = sqliteService.queryOne(
+                                            `SELECT id FROM product_quantity WHERE product_id = ?`,
+                                            [productId]
+                                        );
+
+                                        if (quantityRecord) {
+                                            sqliteService.run(
+                                                `UPDATE product_quantity SET quantity = ? WHERE product_id = ?`,
+                                                [quantityValue, productId]
+                                            );
+                                            logger.info(`✓ SQLite product_quantity güncellendi: ProductID=${productId}, quantity=${quantityValue}`);
+                                        } else {
+                                            // Kayıt yoksa ekle
+                                            sqliteService.run(
+                                                `INSERT INTO product_quantity (product_id, product_option_value_id, store_id, supplier, quantity, quantity2, sync_ai) 
+                                                 VALUES (?, 0, 0, 'Web Sync', ?, 0, 0)`,
+                                                [productId, quantityValue]
+                                            );
+                                            logger.info(`✓ SQLite product_quantity eklendi: ProductID=${productId}, quantity=${quantityValue}`);
+                                        }
+                                    }
+
+                                    // 3. description varsa product_description tablosunu güncelle
+                                    if (descriptionValue !== null) {
+                                        const descRecord = sqliteService.queryOne(
+                                            `SELECT id FROM product_description WHERE product_id = ?`,
+                                            [productId]
+                                        );
+
+                                        if (descRecord) {
+                                            sqliteService.run(
+                                                `UPDATE product_description SET description = ? WHERE product_id = ?`,
+                                                [descriptionValue, productId]
+                                            );
+                                            logger.info(`✓ SQLite product_description güncellendi: ProductID=${productId}`);
+                                        } else {
+                                            // Kayıt yoksa ekle
+                                            sqliteService.run(
+                                                `INSERT INTO product_description (product_id, description, eanshare_description, sync_ai) 
+                                                 VALUES (?, ?, '', 0)`,
+                                                [productId, descriptionValue]
+                                            );
+                                            logger.info(`✓ SQLite product_description eklendi: ProductID=${productId}`);
+                                        }
+                                    }
+
+                                    // 4. Fiyat alanları varsa product_prices tablosunu güncelle
+                                    if (priceFields.length > 0) {
+                                        const priceRecord = sqliteService.queryOne(
+                                            `SELECT id FROM product_prices WHERE product_id = ?`,
+                                            [productId]
+                                        );
+
+                                        if (priceRecord) {
+                                            priceValues.push(productId);
+                                            const priceQuery = `UPDATE product_prices SET ${priceFields.join(', ')} WHERE product_id = ?`;
+                                            sqliteService.run(priceQuery, priceValues);
+                                            logger.info(`✓ SQLite product_prices güncellendi: ProductID=${productId}, Alanlar: ${priceFields.map(f => f.split(' = ')[0]).join(', ')}`);
+                                        } else {
+                                            // Kayıt yoksa ekle (temel alanlarla)
+                                            const insertFields = ['product_id', 'product_option_value_id', 'store_id', 'supplier', ...priceFields.map(f => f.split(' = ')[0])];
+                                            const insertValues = [productId, 0, 0, 'Web Sync', ...priceValues];
+                                            const placeholders = insertFields.map(() => '?').join(', ');
+
+                                            sqliteService.run(
+                                                `INSERT INTO product_prices (${insertFields.join(', ')}) VALUES (${placeholders})`,
+                                                insertValues
+                                            );
+                                            logger.info(`✓ SQLite product_prices eklendi: ProductID=${productId}`);
+                                        }
+                                    }
+                                } else {
+                                    logger.warn(`⚠ SQLite product tablosunda ürün bulunamadı: ProductID=${productId}`);
+                                }
+                            } finally {
+                                sqliteService.disconnect();
+                            }
+
+                            success = true;
+                        } catch (error) {
+                            if (error.message && error.message.includes('database is locked')) {
+                                retryCount++;
+                                if (retryCount < maxRetries) {
+                                    const waitTime = retryCount * 500; // 500ms, 1000ms, 1500ms...
+                                    logger.warn(`⚠ SQLite kilitli, ${waitTime}ms sonra tekrar denenecek (${retryCount}/${maxRetries})`);
+                                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                                } else {
+                                    throw new Error(`SQLite veritabanı ${maxRetries} denemeden sonra hala kilitli: ${error.message}`);
+                                }
+                            } else {
+                                throw error;
+                            }
+                        }
+                    }
+
+                    entityData = recordData;
+                }
 
             } else if (item.entity_type === 'entegra_product_manual') {
                 // Web'den manuel stok güncelleme - SQLite'daki product_quantity tablosuna yaz

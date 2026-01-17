@@ -20,6 +20,18 @@ manual kelimesini iceren tablolar:
   test_table_manual
 
 === sync_queue daki entegra_product_manual kayitlari ===
+  ID: 8396ad5e-b67f-435a-8e37-b8673381a9d7
+  Entity ID: 8ce8ef5e-0304-43ee-a61d-850ad22cb992
+  Operation: UPDATE
+  Status: completed
+  Created: Sat Jan 17 2026 06:08:19 GMT+0300 (GMT+03:00)
+
+  ID: d8a8366d-ec5c-4767-98b8-69c215b8cce6
+  Entity ID: ac6ce750-d683-421e-bca5-35416f2e93bf
+  Operation: UPDATE
+  Status: completed
+  Created: Sat Jan 17 2026 06:00:54 GMT+0300 (GMT+03:00)
+
   ID: 6e9a06a5-2a47-43e1-bf46-c041e5656a93
   Entity ID: 731fca60-4541-42b7-867c-619e5bf7dad1
   Operation: UPDATE
