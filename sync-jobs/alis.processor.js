@@ -24,15 +24,18 @@ class AlisProcessor {
             }
 
             // Alış kalemlerini çek (alis_kalemleri tablosundan)
-            const kalemler = await pgService.query(
+            const rawKalemler = await pgService.query(
                 'SELECT * FROM alis_kalemleri WHERE alis_id = $1 ORDER BY sira_no',
                 [webAlis.id]
             );
 
-            if (kalemler.length === 0) {
+            if (rawKalemler.length === 0) {
                 logger.warn(`Alış kalemleri bulunamadı: ${webAlis.id}`);
                 return;
             }
+
+            // Asorti ürünleri grupla
+            const kalemler = await this.groupAsortiKalemler(rawKalemler);
 
             // Transaction başlat
             let evrakSeri, evrakNo, chaRecno;
@@ -397,6 +400,48 @@ class AlisProcessor {
     `);
 
         return result.recordset[0].sth_RECno;
+    }
+
+    async groupAsortiKalemler(kalemler) {
+        const groupedItems = {}; // effective_stok_id -> combined_kalem
+
+        for (const kalem of kalemler) {
+            const stokInfo = await pgService.queryOne(
+                'SELECT id, is_asorti, ana_stok_id FROM stoklar WHERE id = $1',
+                [kalem.stok_id]
+            );
+
+            let effectiveStokId = kalem.stok_id;
+            if (stokInfo && stokInfo.is_asorti && stokInfo.ana_stok_id) {
+                effectiveStokId = stokInfo.ana_stok_id;
+            }
+
+            if (!groupedItems[effectiveStokId]) {
+                groupedItems[effectiveStokId] = {
+                    ...kalem,
+                    stok_id: effectiveStokId,
+                    miktar: 0,
+                    toplam_tutar: 0,
+                    kdv_tutari: 0,
+                    indirim_tutari: 0,
+                    iskonto1: 0, iskonto2: 0, iskonto3: 0, iskonto4: 0, iskonto5: 0, iskonto6: 0
+                };
+            }
+
+            const group = groupedItems[effectiveStokId];
+            group.miktar = parseFloat(group.miktar) + parseFloat(kalem.miktar);
+            group.toplam_tutar = parseFloat(group.toplam_tutar) + parseFloat(kalem.toplam_tutar || 0);
+            group.kdv_tutari = parseFloat(group.kdv_tutari) + parseFloat(kalem.kdv_tutari || 0);
+            group.indirim_tutari = parseFloat(group.indirim_tutari) + parseFloat(kalem.indirim_tutari || 0);
+        }
+
+        return Object.values(groupedItems).map(item => ({
+            ...item,
+            miktar: parseFloat(item.miktar.toFixed(4)),
+            toplam_tutar: parseFloat(item.toplam_tutar.toFixed(2)),
+            kdv_tutari: parseFloat(item.kdv_tutari.toFixed(2)),
+            indirim_tutari: parseFloat(item.indirim_tutari.toFixed(2))
+        }));
     }
 }
 

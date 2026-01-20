@@ -27,15 +27,18 @@ class SatisProcessor {
       }
 
       // Satış kalemlerini çek
-      const kalemler = await pgService.query(
+      const rawKalemler = await pgService.query(
         'SELECT * FROM satis_kalemleri WHERE satis_id = $1 ORDER BY sira_no',
         [webSatis.id]
       );
 
-      if (kalemler.length === 0) {
+      if (rawKalemler.length === 0) {
         logger.warn(`Satış kalemleri bulunamadı: ${webSatis.id}`);
         return;
       }
+
+      // Asorti ürünleri grupla
+      const kalemler = await this.groupAsortiKalemler(rawKalemler);
 
       // cari_hesap_hareketleri tablosundan hareket_turu, banka_kodu, kasa_kodu ve ERP alanlarını al
       // 1. Önce kesin eşleşme (belge_no = satis_id) ile ara
@@ -483,6 +486,77 @@ class SatisProcessor {
     `);
 
     return result.recordset[0].sth_RECno;
+  }
+
+  async groupAsortiKalemler(kalemler) {
+    const finalKalemler = [];
+    const groupedItems = {}; // effective_stok_id -> combined_kalem
+
+    for (const kalem of kalemler) {
+      // Stok bilgilerini al (is_asorti ve ana_stok_id)
+      const stokInfo = await pgService.queryOne(
+        'SELECT id, is_asorti, ana_stok_id FROM stoklar WHERE id = $1',
+        [kalem.stok_id]
+      );
+
+      let effectiveStokId = kalem.stok_id;
+      let usedAsorti = false;
+
+      if (stokInfo && stokInfo.is_asorti && stokInfo.ana_stok_id) {
+        effectiveStokId = stokInfo.ana_stok_id;
+        usedAsorti = true;
+      }
+
+      if (!groupedItems[effectiveStokId]) {
+        groupedItems[effectiveStokId] = {
+          ...kalem,
+          stok_id: effectiveStokId, // Hedef stok ID'si
+          miktar: 0,
+          toplam_tutar: 0,
+          kdv_tutari: 0,
+          indirim_tutari: 0,
+          iskonto1: 0,
+          iskonto2: 0,
+          iskonto3: 0,
+          iskonto4: 0,
+          iskonto5: 0,
+          iskonto6: 0,
+          _is_grouped: false // Birden fazla kalemin birleştiğini takip etmek için
+        };
+      } else {
+        groupedItems[effectiveStokId]._is_grouped = true;
+      }
+
+      const group = groupedItems[effectiveStokId];
+      group.miktar = parseFloat(group.miktar) + parseFloat(kalem.miktar);
+      group.toplam_tutar = parseFloat(group.toplam_tutar) + parseFloat(kalem.toplam_tutar || 0);
+      group.kdv_tutari = parseFloat(group.kdv_tutari) + parseFloat(kalem.kdv_tutari || 0);
+      group.indirim_tutari = parseFloat(group.indirim_tutari) + parseFloat(kalem.indirim_tutari || 0);
+
+      // Notları birleştirebiliriz
+      if (kalem.notlar && kalem.notlar !== group.notlar) {
+        group.notlar = (group.notlar ? group.notlar + ', ' : '') + kalem.notlar;
+      }
+
+      if (usedAsorti) {
+        logger.info(`Asorti ürünü gruplandı: ${kalem.stok_id} -> ${effectiveStokId} (Miktar: ${kalem.miktar})`);
+      }
+    }
+
+    // Geriye dizi olarak döndür ve sayısal değerleri fix et
+    const results = Object.values(groupedItems).map(item => ({
+      ...item,
+      miktar: parseFloat(item.miktar.toFixed(4)),
+      toplam_tutar: parseFloat(item.toplam_tutar.toFixed(2)),
+      kdv_tutari: parseFloat(item.kdv_tutari.toFixed(2)),
+      indirim_tutari: parseFloat(item.indirim_tutari.toFixed(2))
+    }));
+
+    if (results.length < kalemler.length) {
+      logger.info(`Kalemler gruplandı: ${kalemler.length} satır -> ${results.length} satır`);
+    }
+
+    return results;
   }
 }
 
