@@ -227,6 +227,7 @@ class CariHareketProcessor {
         cha_kasa_hizkod, cha_tpoz, cha_cari_cins, cha_grupno,
         cha_ft_iskonto1, cha_ft_iskonto2, cha_ft_iskonto3,
         cha_ft_iskonto4, cha_ft_iskonto5, cha_ft_iskonto6,
+        cha_vade,
         cha_lastup_date
       FROM CARI_HESAP_HAREKETLERI
       ${whereClause}
@@ -318,6 +319,9 @@ class CariHareketProcessor {
                 cha_tpoz: erpHareket.cha_tpoz,
                 cha_cari_cins: erpHareket.cha_cari_cins,
                 cha_grupno: erpHareket.cha_grupno,
+                vade_tarihi: (erpHareket.cha_vade && erpHareket.cha_vade !== 0) ? erpHareket.cha_vade : null,
+                cek: (erpHareket.cha_cinsi === 1 || erpHareket.cha_cinsi === 3),
+                senet: (erpHareket.cha_cinsi === 2 || erpHareket.cha_cinsi === 4),
                 // İskonto Alanları Mapping
                 iskonto1: erpHareket.cha_ft_iskonto1 || 0,
                 iskonto2: erpHareket.cha_ft_iskonto2 || 0,
@@ -335,7 +339,8 @@ class CariHareketProcessor {
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
             'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
             'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno',
-            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6', 'vade_tarihi',
+            'cek', 'senet'
         ];
 
         const updateColumns = [
@@ -343,7 +348,8 @@ class CariHareketProcessor {
             'aciklama', 'guncelleme_tarihi', 'fatura_seri_no', 'fatura_sira_no',
             'hareket_tipi', 'hareket_turu', 'belge_tipi', 'onceki_bakiye', 'sonraki_bakiye',
             'cha_recno', 'cha_kasa_hizkod', 'banka_kodu', 'kasa_kodu', 'cha_tpoz', 'cha_cari_cins', 'cha_grupno',
-            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6'
+            'iskonto1', 'iskonto2', 'iskonto3', 'iskonto4', 'iskonto5', 'iskonto6', 'vade_tarihi',
+            'cek', 'senet'
         ];
 
         const { query, values } = this.buildBulkUpsertQuery(

@@ -1,0 +1,957 @@
+================================================================================
+🔍 SETTINGS TABLOSUNDA KISAYOL ARAMA
+================================================================================
+Toplam 105 eşleşme bulundu.
+[mikro_cari_alt_grubu]: 
+[faprika_no_update_shortDescription]: 0
+[hb_analiz_cookie]: _ga:GA1.3.2021137703.1562670835; _ga:GA1.2.1751323458.1562670843; TeaserPopupForOrdersPage:; SFSESSIONID:c4f6d162-1ff0-4eca-867d-6389495e88d6; hbus_anonymousId:; _fbp:fb.1.1562671960237.1593702844; __gads:; cookieconsentanon:; sellingPriceStockIntro:; noResultPageIntro:; _hjid:; actionBarIntro:; visid_incap_2112677:; _hjMinimizedPolls:; _hjMinimizedPolls:; hb_privacy:; __zlcmid:uiibSOW5TIFR7a; hblg:; hideAddToMyListTooltip:; cookieconsentauth:true; _gaexp:GAX1.2.ttje09rPSLilzBCW35tpcA.18416.0; _gcl_aw:GCL.1584370123.Cj0KCQjwx7zzBRCcARIsABPRscNAwnxtjeETJPXP-j4DV9S3TjXwnk2YH1fhk59q0N0HIU-zOqwJ9wsaAtexEALw_wcB; jwt:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBLZXkiOiJBRjdGMkEzNy1DQzRCLTRGMUMtODdGRC1GRjM2NDJGNjdFQ0IiLCJFbWFpbCI6InNlcmhhbi5rYWxheUB3aW5kb3dzbGl2ZS5jb20iLCJGaXJzdE5hbWUiOiJTZXJoYW4iLCJHZW5kZXIiOiIxIiwiSXNBdXRoZW50aWNhdGVkIjoiVHJ1ZSIsIklzTGF6eVJlZ2lzdHJhdGlvbiI6IjAiLCJMYXN0TmFtZSI6IkthbGF5IiwiTWlncmF0aW9uRmxhZyI6IjAiLCJQYXJ0bmVyVHlwZUNvZGUiOiIwIiwiU2hhcmVEYXRhUGVybWlzc2lvbiI6IlRydWUiLCJUaXRsZSI6IlNlcmhhbiBLYWxheSIsIlRva2VuSWQiOiJDN0U0RjEyQS1BQkNELTQ5QUMtODVFNC1CQzczNkFGMzJBMzYiLCJUeXBlQ29kZSI6IjEiLCJVc2VySWQiOiI1NDU4MzI5YS1lZTkyLTQwMDctYjFmOC1mZjY1YThlZGFjODYiLCJTZXNzaW9uSWQiOiJjNGY2ZDE2Mi0xZmYwLTRlY2EtODY3ZC02Mzg5NDk1ZTg4ZDYiLCJuYmYiOjE1ODQ5NjUzMzUsImV4cCI6MTU4NDk3MjUzNSwiaWF0IjoxNTg0OTY1MzM1fQ.kRh8S7bfDYl1IZ-P-QhCtTBEUYYmnvNBGN8PxKjiPQE; anon:19D823D2CBBD07006A91E1EDEA812CA34D46E84200267EDA83705BE9C43DB1D5630E628FABAD58DDC0D0826A38B0FB65CA94D22F6867E81AA469DF31C32A9ABE2CDFEEEE9007920BFCEBE738803175AAA7CE40A36A38BBEB9333A258D9E6DB4873459B71FC3453733CD6E8793E3F102CF2DF824873AC83B50DC96B97D2F651D28AD2D501E4FB89BB2196AA258B1544ACA6E15EE302285ED78A242160A3BA3CB952C4D35F7E241CE261ADF0CE45A32F3BF5126849EEEDE558CBF8E6E00944F5A0ABE4AD3D84E555B84BA1776855A1B0E0B6CE3126C8F7C1B434845C5425D4E7E7218E38BDC6ABBDA32055842A7304D1BE3695748A304A0F663B772134528A32D6DE200D884355B9F5EE216B5469BC5E2A4C41CC697ED2A133012C98D529B5933F542C7E47BA28FC08BB88AE97A810EC0DD1F7E1610A0BD6B43EDB409C799DBC37A74927D6483638A83C83CBFAF6FC1306A0C8E35329D2C4D9626EB4706A714B183FE856F90D7C3D09277B4F638BCC63DEAAD1C9E251E5A2F1290E758F; newhbv1:19D823D2CBBD07006A91E1EDEA812CA34D46E84200267EDA83705BE9C43DB1D5630E628FABAD58DDC0D0826A38B0FB65CA94D22F6867E81AA469DF31C32A9ABE2CDFEEEE9007920BFCEBE738803175AAA7CE40A36A38BBEB9333A258D9E6DB4873459B71FC3453733CD6E8793E3F102CF2DF824873AC83B50DC96B97D2F651D28AD2D501E4FB89BB2196AA258B1544ACA6E15EE302285ED78A242160A3BA3CB952C4D35F7E241CE261ADF0CE45A32F3BF5126849EEEDE558CBF8E6E00944F5A0ABE4AD3D84E555B84BA1776855A1B0E0B6CE3126C8F7C1B434845C5425D4E7E7218E38BDC6ABBDA32055842A7304D1BE3695748A304A0F663B772134528A32D6DE200D884355B9F5EE216B5469BC5E2A4C41CC697ED2A133012C98D529B5933F542C7E47BA28FC08BB88AE97A810EC0DD1F7E1610A0BD6B43EDB409C799DBC37A74927D6483638A83C83CBFAF6FC1306A0C8E35329D2C4D9626EB4706A714B183FE856F90D7C3D09277B4F638BCC63DEAAD1C9E251E5A2F1290E758F; useinternal:true; wt_fa:lv~1585744292378|1616848292378#cv~4|1616848292379#fv~2019-12|1606648568470#vf~9|1616848292378#; _gac_UA-834379-1:1.1586349076.CjwKCAjw7LX0BRBiEiwA__gNw0FecGrz2ro2WR_8Lz-wI5PtrFnpF7XhlOyB2XULx4sg47OoCHLGBxoC_N0QAvD_BwE; _gid:GA1.2.770530004.1586770081; :; isGlobalIp:0; HB_S_MR:1; :; isGlobalIp:0; inptime0_2694_tr:0; wt3_sid:%3B289941511384204; wt_nbg_Q3:!lekE/sHM+vUUss1OtrjtNSZHMhcJJHb6k+IUybDAR2BG7hfgywrOcWwsm0mL4mUy0c7wLNXNn4w8; :; isGlobalIp:0; :; dgr_searchresults:4865726f50726f64756374734f6e53656172636856327c4f6c645363726970747c4e6f6e65; :; isGlobalIp:0; wt3_eid:%3B289941511384204%7C2156267195800163628%232158686520600673524%3B692379182816325%7C2157129476100140778%232157172918200583557; hbus_sessionId:dd189237-7a71-48e5-b908-75fb8cc53ab3%7C1586867012340; datadome:KpBkMRoKlaOah5lYN~7C7zpW~-rw6VuM05kFT3FN1xemt7kXpJWArARfh6SvnzLdBK2cBJPgNPB7kVtHb._uaZFZTxnIK~7M5Yy1cYBa~z; 
+[wolvox_cari_alt_grubu_zebramo]: 
+[wolvox_cari_alt_grubu_needion]: 
+[trendyolGulf_settings]: [
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "seller_id": "",
+    "api_key": "",
+    "secret_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "use_customer_code_counter": false,
+    "add_varyant_image": false,
+    "use_store_currency": false,
+    "customer_prefix": "SA",
+    "store_front_code": "sa",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "order_currencyType_tl": false,
+    "order_status": ""
+  },
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "seller_id": "",
+    "api_key": "",
+    "secret_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "use_customer_code_counter": false,
+    "add_varyant_image": false,
+    "use_store_currency": false,
+    "customer_prefix": "AE",
+    "store_front_code": "ae",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "order_currencyType_tl": false,
+    "order_status": ""
+  }
+]
+[wolvox_cari_alt_grubu_yapisepeti]: 
+[amazon_key_id]: 
+[wolvox_cari_alt_grubu_joom]: 
+[wolvox_cari_alt_grubu_eptt]: 
+[wolvox_cari_alt_grubu_flo]: 
+[wolvox_password]: masterkey
+[wolvox_cari_alt_grubu_vfmall]: 
+[wolvox_cari_alt_grubu_trendyol]: 
+[nesbilgi_UBLTR_ApiKey]: 
+[elogo_apikey]: 
+[op1001_api_secret_key]: 
+[wolvox_cari_alt_grubu_ciceksepeti]: 
+[bamilo_apikey]: 
+[yapisepeti_apikey]: 
+[farmaborsa_apiKey]: 
+[beymen_api_key]: 
+[wolvox_cari_alt_grubu_aliexpress]: 
+[magento_api_key]: 
+[wolvox_cari_alt_grubu_bpazar]: 
+[wolvox_cari_alt_grubu_gordumaldim]: 
+[gedik_api_secret_key]: 
+[zirve_cari_alt_grubu]: 
+[aliexpress_secret]: 3066ee09abbea0f7fa5b11285fe3f469
+[aliexpress_app_key]: 26054450
+[faprika_apikey]: 
+[etsy_keystring]: 
+[boyner_api_key]: 
+[aliniyor_apikey]: 
+[fastfatura_UBLTR_ApiKey]: D2FB5435A5ACB63E85D4843B083817E7042F7035CA96B2D2533A5EC3202C35A3
+[wolvox_cari_alt_grubu_sp]: 
+[mikrov14_cari_alt_grubu]: 
+[uyumsoft_uyumSecretKey]: 
+[wolvox_cari_alt_grubu_gg]: 
+[wolvox_cari_alt_grubu_turkcellpasaj]: 
+[goturc_token]: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4YThmZjlhNS1jNGM0LTQ4OWItODU1My1kYTlkN2Q0Y2JkYmQiLCJ1bmlxdWVfbmFtZSI6ImluZm9AZ3VyYnV6b3l1bmNhay5jb20iLCJleHAiOjE3MzIwOTkxNDYsImlzcyI6ImlvdGFncmFmLmNvbSIsImF1ZCI6ImlvdGFncmFmLmNvbSJ9.uZDbT2nt0sT7IbQjkKBp4bp2QNY5Yccfg3nkuzES-io
+[nevade_PartnerKey]: 
+[amazonEu_secret_key]: 
+[wolvox_cari_alt_grubu_novadan]: 
+[wolvox_cari_alt_grubu_n11]: 
+[gg_rolepass]: V7TefjtK8Qkf6cM7Fg7FFnbJFEtSWb9s
+[genel_get_exchange_rates_from_altinkaynak]: 0
+[nevade_AppKey]: 
+[goturc_api_secret_key]: sdvoprsmbn
+[hepsijet_apikey]: 
+[wolvox_cari_alt_grubu_pazarama]: 
+[woocommerce_no_update_short_description]: 0
+[entegraservice_apikey]: 
+[wolvox_cari_alt_grubu_teknosa]: 
+[faprika_shortDescription_option]: 
+[alisgidis_partner_key]: 
+[wolvox_cari_alt_grubu]: 
+[wecart_apikey]: 
+[wolvox_cari_alt_grubu_modanisa]: 
+[amazon_secret_key]: 
+[hepsiburada_merchantid]: 211c0e74-9331-46db-a0ea-816e6f3692d8
+[hepsiburada_service_key]: wK2sRkQ8b8dS
+[gg_apikey]: bZhQRXaNU9vBRYewM4GDC5bDcg2ueuBP
+[wolvox_cari_alt_grubu_farmazon]: 
+[goturc_api_id]: 8a8ff9a5-c4c4-489b-8553-da9d7d4cbdbd
+[sumka_apikey]: 
+[korgun_product_mevcutrezervi]: 
+[boltkargo_api_key]: 
+[wolvox_cari_alt_grubu_amazon]: 
+[cicek_sepeti_api_key]: UamezlOH2hPGDENzgkGiEH37SD205xJaEevnWsCH
+[kintshop_apikey]: 
+[pazarama_client_id]: 8d1dd7445d5f4bd6bd21943bc49584f8
+[n11_apikey]: 9cabb0c5-82bd-4ae2-8a23-a2b2a1431109
+[horoz_process_key]: 
+[woocommerce_short_description_option]: description1
+[a101_api_key]: 
+[wolvox_cari_alt_grubu_birvbiry]: 
+[ticimax_modul_settings]: [{"storeId":0,"enable":true,"sync_order":true,"name":"","domain":"gurbuzoyuncak.com","UcretsizKargo":"","UyeKodu":"8XN5SJPDDLCW2BWMU1NMSFS98C64YS","kargo_odeme_siniri":"","cari_on_ek":"TCMX","tedarikci_id":1,"siparis_onEk":"","onYazi":"description1","satisBirimi":"","kdv_dahil":true,"update_only_stock":false,"update_only_price":false,"use_product_comptibles":false,"varyant_resmi_kullanilsin":true,"resim_ekleme":false,"musteri_kodu":false,"use_sip_no_campanya_cod":false,"use_campanya_cod_onek":false,"alisFiyati":"","taksitSayisi":"alan1","satisFiyati":"price1","satisFiyati1":"","indirimliFiyati":"price1","KargoUcreti":"","uyeTipiFiyatBir":"price1","uyeTipiFiyatIki":"price2","uyeTipiFiyatUc":"price3","uyeTipiFiyatDort":"price4","uyeTipiFiyatBes":"price5","uyeTipiFiyatAlti":"","uyeTipiFiyatYedi":"","uyeTipiFiyatSekiz":"","uyeTipiFiyatDokuz":"","uyeTipiFiyatOn":"","varsayilanDesi":"","sync_product":true,"sync_productV2":false,"no_updateDesi":false,"updateAgirlik":false,"yeni_mod":true,"insert_sync_product":true,"update_category":true,"update_picture":true,"update_name":true,"update_brand":true,"send_teknik_detay":false,"brand_is_use_eticaret_id":false,"update_description":true,"sync_product_findbarcode":false,"sync_product_findid":false,"sync_order_findbarcode":false,"sync_pre_order_paymentinfo_enable":false,"use_TRY":false,"order_status":"1","send_otomatic_cargo_code_time":"0","order_day_range":"10","update_barcode":true,"payment_status":"","delete_old_category":false,"order_number_get_siparis_no":false,"tedarikci_gonderme":false,"sabit_tedarikci_id":"","cari_sayac_kullan":false,"ssl_enable":true,"ana_urune_resim_gitmesin":false,"yeni_urun":"","siparis_kaynagi_islensin":false,"barcode_type":"barcode","pictures2_enable":false,"quantity2_enable":false,"picture_group_code_enable":false,"ozelAlan5":"","ozelAlan4":"","ozelAlan3":"","ozelAlan2":"","ozelAlan1":"","adwordsAciklama":"","send_otomatic_cargo_info":false,"product_relation_use":true,"update_statu":true,"vitrin_update":false,"send_cargo_packet":false,"update_price":true,"ResimOlmayanlaraResimEkle":false,"UyeAlimMax":"","UyeAlimMin":"","urun_adet_min_deger":"","urun_adet_varsayilan_deger":"","urun_adet_kademe_deger":"","noUpdateQuantity":false,"order_currencyType_tl":true,"gift_price":"0"}]
+[turkcellpasaj_apikey]: 
+[gg_send_short_message]: 0
+[lamoda_apikey]: 
+[n11pro_apikey]: KkZpMVsj4DaIzH4V-BM2A2uJuhEbnF2aa
+[wolvox_cari_alt_grubu_hb]: 
+[wolvox_cari_alt_grubu_farmaborsa]: 
+[trendyol_cookie]: _ga:GA1.3.2021137703.1562670835; _ga:GA1.2.1751323458.1562670843; TeaserPopupForOrdersPage:; SFSESSIONID:c4f6d162-1ff0-4eca-867d-6389495e88d6; hbus_anonymousId:; _fbp:fb.1.1562671960237.1593702844; __gads:; cookieconsentanon:; sellingPriceStockIntro:; noResultPageIntro:; _hjid:; actionBarIntro:; visid_incap_2112677:; _hjMinimizedPolls:; _hjMinimizedPolls:; hb_privacy:; __zlcmid:uiibSOW5TIFR7a; hblg:; hideAddToMyListTooltip:; cookieconsentauth:true; _gaexp:GAX1.2.ttje09rPSLilzBCW35tpcA.18416.0; _gcl_aw:GCL.1584370123.Cj0KCQjwx7zzBRCcARIsABPRscNAwnxtjeETJPXP-j4DV9S3TjXwnk2YH1fhk59q0N0HIU-zOqwJ9wsaAtexEALw_wcB; jwt:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBLZXkiOiJBRjdGMkEzNy1DQzRCLTRGMUMtODdGRC1GRjM2NDJGNjdFQ0IiLCJFbWFpbCI6InNlcmhhbi5rYWxheUB3aW5kb3dzbGl2ZS5jb20iLCJGaXJzdE5hbWUiOiJTZXJoYW4iLCJHZW5kZXIiOiIxIiwiSXNBdXRoZW50aWNhdGVkIjoiVHJ1ZSIsIklzTGF6eVJlZ2lzdHJhdGlvbiI6IjAiLCJMYXN0TmFtZSI6IkthbGF5IiwiTWlncmF0aW9uRmxhZyI6IjAiLCJQYXJ0bmVyVHlwZUNvZGUiOiIwIiwiU2hhcmVEYXRhUGVybWlzc2lvbiI6IlRydWUiLCJUaXRsZSI6IlNlcmhhbiBLYWxheSIsIlRva2VuSWQiOiJDN0U0RjEyQS1BQkNELTQ5QUMtODVFNC1CQzczNkFGMzJBMzYiLCJUeXBlQ29kZSI6IjEiLCJVc2VySWQiOiI1NDU4MzI5YS1lZTkyLTQwMDctYjFmOC1mZjY1YThlZGFjODYiLCJTZXNzaW9uSWQiOiJjNGY2ZDE2Mi0xZmYwLTRlY2EtODY3ZC02Mzg5NDk1ZTg4ZDYiLCJuYmYiOjE1ODQ5NjUzMzUsImV4cCI6MTU4NDk3MjUzNSwiaWF0IjoxNTg0OTY1MzM1fQ.kRh8S7bfDYl1IZ-P-QhCtTBEUYYmnvNBGN8PxKjiPQE; anon:19D823D2CBBD07006A91E1EDEA812CA34D46E84200267EDA83705BE9C43DB1D5630E628FABAD58DDC0D0826A38B0FB65CA94D22F6867E81AA469DF31C32A9ABE2CDFEEEE9007920BFCEBE738803175AAA7CE40A36A38BBEB9333A258D9E6DB4873459B71FC3453733CD6E8793E3F102CF2DF824873AC83B50DC96B97D2F651D28AD2D501E4FB89BB2196AA258B1544ACA6E15EE302285ED78A242160A3BA3CB952C4D35F7E241CE261ADF0CE45A32F3BF5126849EEEDE558CBF8E6E00944F5A0ABE4AD3D84E555B84BA1776855A1B0E0B6CE3126C8F7C1B434845C5425D4E7E7218E38BDC6ABBDA32055842A7304D1BE3695748A304A0F663B772134528A32D6DE200D884355B9F5EE216B5469BC5E2A4C41CC697ED2A133012C98D529B5933F542C7E47BA28FC08BB88AE97A810EC0DD1F7E1610A0BD6B43EDB409C799DBC37A74927D6483638A83C83CBFAF6FC1306A0C8E35329D2C4D9626EB4706A714B183FE856F90D7C3D09277B4F638BCC63DEAAD1C9E251E5A2F1290E758F; newhbv1:19D823D2CBBD07006A91E1EDEA812CA34D46E84200267EDA83705BE9C43DB1D5630E628FABAD58DDC0D0826A38B0FB65CA94D22F6867E81AA469DF31C32A9ABE2CDFEEEE9007920BFCEBE738803175AAA7CE40A36A38BBEB9333A258D9E6DB4873459B71FC3453733CD6E8793E3F102CF2DF824873AC83B50DC96B97D2F651D28AD2D501E4FB89BB2196AA258B1544ACA6E15EE302285ED78A242160A3BA3CB952C4D35F7E241CE261ADF0CE45A32F3BF5126849EEEDE558CBF8E6E00944F5A0ABE4AD3D84E555B84BA1776855A1B0E0B6CE3126C8F7C1B434845C5425D4E7E7218E38BDC6ABBDA32055842A7304D1BE3695748A304A0F663B772134528A32D6DE200D884355B9F5EE216B5469BC5E2A4C41CC697ED2A133012C98D529B5933F542C7E47BA28FC08BB88AE97A810EC0DD1F7E1610A0BD6B43EDB409C799DBC37A74927D6483638A83C83CBFAF6FC1306A0C8E35329D2C4D9626EB4706A714B183FE856F90D7C3D09277B4F638BCC63DEAAD1C9E251E5A2F1290E758F; useinternal:true; wt_fa:lv~1585744292378|1616848292378#cv~4|1616848292379#fv~2019-12|1606648568470#vf~9|1616848292378#; _gac_UA-834379-1:1.1586349076.CjwKCAjw7LX0BRBiEiwA__gNw0FecGrz2ro2WR_8Lz-wI5PtrFnpF7XhlOyB2XULx4sg47OoCHLGBxoC_N0QAvD_BwE; _gid:GA1.2.770530004.1586770081; :; isGlobalIp:0; HB_S_MR:1; :; isGlobalIp:0; inptime0_2694_tr:0; wt3_sid:%3B289941511384204; wt_nbg_Q3:!lekE/sHM+vUUss1OtrjtNSZHMhcJJHb6k+IUybDAR2BG7hfgywrOcWwsm0mL4mUy0c7wLNXNn4w8; :; isGlobalIp:0; :; dgr_searchresults:4865726f50726f64756374734f6e53656172636856327c4f6c645363726970747c4e6f6e65; :; isGlobalIp:0; wt3_eid:%3B289941511384204%7C2156267195800163628%232158686520600673524%3B692379182816325%7C2157129476100140778%232157172918200583557; hbus_sessionId:dd189237-7a71-48e5-b908-75fb8cc53ab3%7C1586867012340; datadome:KpBkMRoKlaOah5lYN~7C7zpW~-rw6VuM05kFT3FN1xemt7kXpJWArARfh6SvnzLdBK2cBJPgNPB7kVtHb._uaZFZTxnIK~7M5Yy1cYBa~z; 
+[mikrov17_api_key]: 
+[idefix_api_key]: 0bb1f2e4-a086-4cbd-a6de-77a78a1d0140
+[amazonEu_key_id]: 
+[wolvox_cari_alt_grubu_akakce]: 
+[productOptionValueListGrid]: {
+  "UrunID": {
+    "DisplayIndex": 0,
+    "Visibility": "Visible"
+  },
+  "VaryantID": {
+    "DisplayIndex": 1,
+    "Visibility": "Visible"
+  },
+  "Urun-Kodu": {
+    "DisplayIndex": 2,
+    "Visibility": "Visible"
+  },
+  "Ürün Durumu": {
+    "DisplayIndex": 3,
+    "Visibility": "Visible"
+  },
+  "UrunAdi": {
+    "DisplayIndex": 4,
+    "Visibility": "Visible"
+  },
+  "Barcode": {
+    "DisplayIndex": 5,
+    "Visibility": "Visible"
+  },
+  "Ürün Adeti": {
+    "DisplayIndex": 6,
+    "Visibility": "Visible"
+  },
+  "Ürün Adeti2": {
+    "DisplayIndex": 7,
+    "Visibility": "Visible"
+  },
+  "Alt Başlık": {
+    "DisplayIndex": 8,
+    "Visibility": "Visible"
+  },
+  "Alt Başlık2": {
+    "DisplayIndex": 9,
+    "Visibility": "Visible"
+  },
+  "Marka": {
+    "DisplayIndex": 10,
+    "Visibility": "Visible"
+  },
+  "Ürün Kategori Adı": {
+    "DisplayIndex": 11,
+    "Visibility": "Visible"
+  },
+  "Ürün Gtin": {
+    "DisplayIndex": 12,
+    "Visibility": "Visible"
+  },
+  "Ürün Gtip": {
+    "DisplayIndex": 13,
+    "Visibility": "Visible"
+  },
+  "Ürün Mpn": {
+    "DisplayIndex": 14,
+    "Visibility": "Visible"
+  },
+  "EticaretKategori": {
+    "DisplayIndex": 15,
+    "Visibility": "Visible"
+  },
+  "EticaretEntegrasyonKodu": {
+    "DisplayIndex": 16,
+    "Visibility": "Visible"
+  },
+  "Fatura Adı": {
+    "DisplayIndex": 17,
+    "Visibility": "Visible"
+  },
+  "2-Ürün Kargo Fiyatı": {
+    "DisplayIndex": 18,
+    "Visibility": "Visible"
+  },
+  "Ürün Miad": {
+    "DisplayIndex": 19,
+    "Visibility": "Visible"
+  },
+  "Menşe-i": {
+    "DisplayIndex": 20,
+    "Visibility": "Visible"
+  },
+  "fulfillmentId": {
+    "DisplayIndex": 21,
+    "Visibility": "Visible"
+  },
+  "Ürün Kaynagi": {
+    "DisplayIndex": 22,
+    "Visibility": "Visible"
+  },
+  "Ürün Tipi": {
+    "DisplayIndex": 23,
+    "Visibility": "Visible"
+  },
+  "Ürün Desi": {
+    "DisplayIndex": 24,
+    "Visibility": "Visible"
+  },
+  "Ürün Agırlık": {
+    "DisplayIndex": 25,
+    "Visibility": "Visible"
+  },
+  "Ürün En": {
+    "DisplayIndex": 26,
+    "Visibility": "Visible"
+  },
+  "Ürün Boy": {
+    "DisplayIndex": 27,
+    "Visibility": "Visible"
+  },
+  "Ürün Derinlik": {
+    "DisplayIndex": 28,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Model": {
+    "DisplayIndex": 29,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Seri": {
+    "DisplayIndex": 30,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Hacim": {
+    "DisplayIndex": 31,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Yıl": {
+    "DisplayIndex": 32,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Numara": {
+    "DisplayIndex": 33,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Beden": {
+    "DisplayIndex": 34,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Renk": {
+    "DisplayIndex": 35,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Desen": {
+    "DisplayIndex": 36,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Cinsiyet": {
+    "DisplayIndex": 37,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan1": {
+    "DisplayIndex": 38,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan2": {
+    "DisplayIndex": 39,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan3": {
+    "DisplayIndex": 40,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan4": {
+    "DisplayIndex": 41,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan5": {
+    "DisplayIndex": 42,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan6": {
+    "DisplayIndex": 43,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan7": {
+    "DisplayIndex": 44,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan8": {
+    "DisplayIndex": 45,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan9": {
+    "DisplayIndex": 46,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Alan10": {
+    "DisplayIndex": 47,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk KaydakID": {
+    "DisplayIndex": 48,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Kaynak": {
+    "DisplayIndex": 49,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk Adı": {
+    "DisplayIndex": 50,
+    "Visibility": "Visible"
+  },
+  "Uyumluluk ID": {
+    "DisplayIndex": 51,
+    "Visibility": "Visible"
+  },
+  "XML Baglı Durumu": {
+    "DisplayIndex": 52,
+    "Visibility": "Visible"
+  },
+  "XML Fiyatı": {
+    "DisplayIndex": 53,
+    "Visibility": "Visible"
+  },
+  "ParaBirimi": {
+    "DisplayIndex": 54,
+    "Visibility": "Visible"
+  },
+  "Kdv": {
+    "DisplayIndex": 55,
+    "Visibility": "Visible"
+  },
+  "Entegra-Kritik-Fiyat": {
+    "DisplayIndex": 56,
+    "Visibility": "Visible"
+  },
+  "KDV Dahil Fiyatlar": {
+    "DisplayIndex": 57,
+    "Visibility": "Visible"
+  },
+  "Kritik Stok": {
+    "DisplayIndex": 58,
+    "Visibility": "Visible"
+  },
+  "price1": {
+    "DisplayIndex": 59,
+    "Visibility": "Visible"
+  },
+  "price2": {
+    "DisplayIndex": 60,
+    "Visibility": "Visible"
+  },
+  "n11_price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "hb_price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "trendyol_listPrice": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "eptt_price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "amazon_price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "mizu_price2": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "pazarama_listPrice": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "pazarama_salePrice": {
+    "DisplayIndex": 68,
+    "Visibility": "Visible"
+  },
+  "buying_price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "idefix_liste_fiyati": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "Özellik Adı1": {
+    "DisplayIndex": 71,
+    "Visibility": "Visible"
+  },
+  "Özellik Değeri1": {
+    "DisplayIndex": 72,
+    "Visibility": "Visible"
+  },
+  "Özellik Adı2": {
+    "DisplayIndex": 73,
+    "Visibility": "Visible"
+  },
+  "Özellik Değeri2": {
+    "DisplayIndex": 74,
+    "Visibility": "Visible"
+  },
+  "HB Sku": {
+    "DisplayIndex": 75,
+    "Visibility": "Visible"
+  },
+  "HB-ST-SKU": {
+    "DisplayIndex": 76,
+    "Visibility": "Visible"
+  },
+  "HB-Barkod": {
+    "DisplayIndex": 77,
+    "Visibility": "Visible"
+  },
+  "HB-Hazırlama-Süresi": {
+    "DisplayIndex": 78,
+    "Visibility": "Visible"
+  },
+  "HB-Kargo-Adi": {
+    "DisplayIndex": 79,
+    "Visibility": "Visible"
+  },
+  "HB-Kategori-Kodu": {
+    "DisplayIndex": 80,
+    "Visibility": "Visible"
+  },
+  "HB-Max-Adet": {
+    "DisplayIndex": 81,
+    "Visibility": "Visible"
+  },
+  "HB Komisyonu": {
+    "DisplayIndex": 82,
+    "Visibility": "Visible"
+  },
+  "HB Hata Mesajı": {
+    "DisplayIndex": 83,
+    "Visibility": "Visible"
+  },
+  "HB Ürün Link": {
+    "DisplayIndex": 84,
+    "Visibility": "Visible"
+  },
+  "HB Baglı Durumu": {
+    "DisplayIndex": 85,
+    "Visibility": "Visible"
+  },
+  "HB Rekabet Durumu": {
+    "DisplayIndex": 86,
+    "Visibility": "Visible"
+  },
+  "HB Rekabet URL": {
+    "DisplayIndex": 87,
+    "Visibility": "Visible"
+  },
+  "HB Rekabet Max Fiyat": {
+    "DisplayIndex": 88,
+    "Visibility": "Visible"
+  },
+  "HB Rekabet Min Fiyat": {
+    "DisplayIndex": 89,
+    "Visibility": "Visible"
+  },
+  "HB Rekabet Kademe Fiyat": {
+    "DisplayIndex": 90,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi": {
+    "DisplayIndex": 91,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi1": {
+    "DisplayIndex": 92,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi2": {
+    "DisplayIndex": 93,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi3": {
+    "DisplayIndex": 94,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi4": {
+    "DisplayIndex": 95,
+    "Visibility": "Visible"
+  },
+  "UrunAciklamasi5": {
+    "DisplayIndex": 96,
+    "Visibility": "Visible"
+  },
+  "ImageName1": {
+    "DisplayIndex": 97,
+    "Visibility": "Visible"
+  },
+  "ImageName2": {
+    "DisplayIndex": 98,
+    "Visibility": "Visible"
+  },
+  "ImageName3": {
+    "DisplayIndex": 99,
+    "Visibility": "Visible"
+  },
+  "ImageName4": {
+    "DisplayIndex": 100,
+    "Visibility": "Visible"
+  },
+  "ImageName5": {
+    "DisplayIndex": 101,
+    "Visibility": "Visible"
+  },
+  "ImageName6": {
+    "DisplayIndex": 102,
+    "Visibility": "Visible"
+  },
+  "ImageName7": {
+    "DisplayIndex": 103,
+    "Visibility": "Visible"
+  },
+  "ImageName8": {
+    "DisplayIndex": 104,
+    "Visibility": "Visible"
+  },
+  "ImageName9": {
+    "DisplayIndex": 105,
+    "Visibility": "Visible"
+  },
+  "ImageName10": {
+    "DisplayIndex": 106,
+    "Visibility": "Visible"
+  },
+  "ImageURL1": {
+    "DisplayIndex": 107,
+    "Visibility": "Visible"
+  },
+  "ImageURL2": {
+    "DisplayIndex": 108,
+    "Visibility": "Visible"
+  },
+  "ImageURL3": {
+    "DisplayIndex": 109,
+    "Visibility": "Visible"
+  },
+  "ImageURL4": {
+    "DisplayIndex": 110,
+    "Visibility": "Visible"
+  },
+  "ImageURL5": {
+    "DisplayIndex": 111,
+    "Visibility": "Visible"
+  },
+  "ImageURL6": {
+    "DisplayIndex": 112,
+    "Visibility": "Visible"
+  },
+  "ImageURL7": {
+    "DisplayIndex": 113,
+    "Visibility": "Visible"
+  },
+  "ImageURL8": {
+    "DisplayIndex": 114,
+    "Visibility": "Visible"
+  },
+  "ImageURL9": {
+    "DisplayIndex": 115,
+    "Visibility": "Visible"
+  },
+  "ImageURL10": {
+    "DisplayIndex": 116,
+    "Visibility": "Visible"
+  },
+  "Raf Numarası": {
+    "DisplayIndex": 117,
+    "Visibility": "Visible"
+  },
+  "Varyant Raf No": {
+    "DisplayIndex": 118,
+    "Visibility": "Visible"
+  },
+  "Ürün Eklenme Tarihi": {
+    "DisplayIndex": 119,
+    "Visibility": "Visible"
+  },
+  "specValue": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "specName": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "id": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "quantity": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "quantity2": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "price": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "price_prefix": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "productCode": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "barcode": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "date_add": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "date_change": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "hb_sku": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "hb_st_sku": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "hb_barcode": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "hb_max_count": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "gtin": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "mpn": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "desi": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "warehouse_rack_number": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "n11_catalog_id": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "n11_integration_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "ciceksepeti_integration_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "ciceksepeti_kodu": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "trendyol_integration_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "pazarama_integration_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "subtract": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "idefix_integration_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "status": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "supplier": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "supplier_id": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "erp_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "weight": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "width": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "height": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "depth": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "eticaret_code": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  },
+  "sort_order": {
+    "DisplayIndex": -1,
+    "Visibility": "Visible"
+  }
+}
+[byte_cari_alt_grubu]: 
+[wolvox_cari_alt_grubu_aliniyor]: 
+[wolvox_cari_alt_grubu_n11pro]: 
+[kargoturk_apikey]: 
+[farmazon_clientSecretKey]: 
+[amazon_auth_token]: amzn.mws.eab8b92d-5f56-55d7-daee-24e6b58a5257
+[mizu_short_productName]: 0
+[wolvox_cari_alt_grubu_morhipo]: 
+[idefix_api_password]: 51eeb1b1-7b17-47f2-ad7f-1bd548f6926d
+[novadan_api_key]: 
+[woocommerce_apikey]: 
+[toptantr_short_desc_combo]: alan1
+[mirakl_settings]: [
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "shop_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "cari_sayac_kullan": false,
+    "add_varyant_image": false,
+    "send_mpn_to_groupCode": false,
+    "cari_onek": "T",
+    "integration_name": "teknosa",
+    "url": "https://teknosatr-prod.mirakl.net",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "own_shipping_agreement": "0",
+    "own_cargo_company": "",
+    "order_status": "SHIPPING"
+  },
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "shop_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "cari_sayac_kullan": false,
+    "add_varyant_image": false,
+    "send_mpn_to_groupCode": false,
+    "cari_onek": "D",
+    "integration_name": "decoverse",
+    "url": "https://decoverse.mirakl.net",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "own_shipping_agreement": "0",
+    "own_cargo_company": "",
+    "order_status": "SHIPPING"
+  },
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "shop_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "cari_sayac_kullan": false,
+    "add_varyant_image": false,
+    "send_mpn_to_groupCode": false,
+    "cari_onek": "K",
+    "integration_name": "koctas",
+    "url": "https://koctas.mirakl.net",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "own_shipping_agreement": "0",
+    "own_cargo_company": "",
+    "order_status": "SHIPPING"
+  },
+  {
+    "enable": false,
+    "sync_order": false,
+    "sync_product": false,
+    "shop_key": "",
+    "order_day": "3",
+    "send_picture_group_code": false,
+    "send_picture_resimler2": false,
+    "option_sale_price_enable": false,
+    "cari_sayac_kullan": false,
+    "add_varyant_image": false,
+    "send_mpn_to_groupCode": false,
+    "cari_onek": "K",
+    "integration_name": "karaca",
+    "url": "https://karacatr-prod.mirakl.net",
+    "ean_type": "barcode",
+    "order_auto_accept": false,
+    "own_shipping_agreement": "0",
+    "own_cargo_company": "",
+    "order_status": "SHIPPING"
+  }
+]
+[wolvox_cari_alt_grubu_lidyana]: 
+[pazarama_token]: eyJhbGciOiJSUzUxMiIsInR5cCI6ImF0K2p3dCJ9.eyJuYmYiOjE3Njc2MDA0OTIsImV4cCI6MTc2NzYwNDA5MiwiaXNzIjoiaHR0cHM6Ly9pc29ydGFnaW1naXJpcy5wYXphcmFtYS5jb20iLCJhdWQiOiJtZXJjaGFudGdhdGV3YXlhcGkiLCJjbGllbnRfaWQiOiI4ZDFkZDc0NDVkNWY0YmQ2YmQyMTk0M2JjNDk1ODRmOCIsImNsaWVudF9zdWIiOiI0NjQ2ZjNhNC1hMWI5LTRhYmMtNGU0OC0wOGRiYTNhNzQxOGEiLCJjbGllbnRfc2VsbGVyX2lkIjoiNDI0OWZhYWQtYzA5MC00MWZlLTY3ODktMDhkYmEzMWI1ZmMxIiwiY2xpZW50X3N0YXRlIjoiMjAiLCJjbGllbnRfZ3JhbnRfdHlwZSI6ImNsaWVudF9jcmVkZW50aWFscyIsImNsaWVudF9pc19zdWJfdXNlciI6IkZhbHNlIiwianRpIjoiRDk3NTcxMTczMDcyNDMwNUY0RDc0MkFFRDI4RDZBRjkiLCJpYXQiOjE3Njc2MDA0OTIsInNjb3BlIjpbIm1lcmNoYW50Z2F0ZXdheWFwaS5mdWxsYWNjZXNzIl19.pnQbObji8TPiNCcoqrWqY7p7jzP49P7COYrkiOzCwxACpU5Hhd4-BVwfISAbB9o_KhFeuBhzRm5cTRSK8lEBQIqwemeABmjvEctfrkZ7zftSDHpRcVT3eMq-FIdUcwSbNOZG7zTexGhGNsmEzJKvadvNDFTP9bk09ac0V8yAAUhHrN1hqozfL7_TaV2-_ZRUuln4iMgxkRu9QAch6K0bYihdireQm6M6Uzmf8HLQhoBrAYHnZxuY5q3HflOH6uVZiup9jGJG3H5zY1hdF8NFagADEyqX6HNC-FgaL1Qq1bKc5LzB6NSu9g8oKrPHcQgmyLCAlvbxNuPQm3xAq9Xt9g
+
+
+🔍 REPORT_DESIGN DETAYLARI:
+================================================================================
+
+📌 RAPOR: Gürbüz (ID: 2)
+   Boyut: 150x160 P
+   Eleman Sayısı: 64
+   - [Line] : Text (Pos: 5,5)
+   - [Line] : Text (Pos: 45,5)
+   - [Line] : Text (Pos: 5,5)
+   - [Line] : Text (Pos: 5,10)
+   - [Line] : Text (Pos: 5,20)
+   - [Line] : Text (Pos: 5,25)
+   - [Line] : Text (Pos: 5,35)
+   - [Line] : Text (Pos: 5,55)
+   - [Line] : Text (Pos: 5,65)
+   - [Line] : Text (Pos: 40,5)
+   - [Line] : Text (Pos: 45,5)
+   - [Line] : Text (Pos: 145,5)
+   - [Line] : Text (Pos: 45,10)
+   - [Line] : Text (Pos: 40,5)
+   - [Line] : Text (Pos: 5,70)
+   - [Line] : Text (Pos: 5,95)
+   - [Line] : Text (Pos: 45,46)
+   - [Line] : Text (Pos: 25,65)
+   - [Line] : Text (Pos: 130,65)
+   - [Line] : Text (Pos: 125,5)
+   - [Line] : Text (Pos: 95,46)
+   - [TextBlock] : Ad-Soyad (Pos: 46,11)
+   - [TextBlock] : Adres (Pos: 46,16)
+   - [TextBlock] : Semt (Pos: 46,25)
+   - [TextBlock] : Şehir (Pos: 46,29)
+   - [TextBlock] : Posta Kodu (Pos: 46,33)
+   - [TextBlock] : Ev/Cep Tel (Pos: 46,37)
+   - [TextBlock] : Ödeme Tipi (Pos: 46,41)
+   - [TextBlock] : : (Pos: 65,11)
+   - [TextBlock] : : (Pos: 65,15)
+   - [TextBlock] : : (Pos: 65,25)
+   - [TextBlock] : : (Pos: 65,29)
+   - [TextBlock] : : (Pos: 65,33)
+   - [TextBlock] : : (Pos: 65,37)
+   - [TextBlock] : : (Pos: 65,41)
+   - [TextBlock] : [sevk_firma] (Pos: 70,11)
+   - [TextBlock] : [sevk_adres] (Pos: 70,15)
+   - [TextBlock] : [sevk_ilce] (Pos: 70,25)
+   - [TextBlock] : [sevk_il] (Pos: 70,29)
+   - [TextBlock] : [sevk_postakodu] (Pos: 70,33)
+   - [TextBlock] : [sevk_gsm] / [sevk_tel] (Pos: 70,37)
+   - [TextBlock] : [odeme_tipi] (Pos: 70,41)
+   - [TextBlock] : Gönderici Bilgileri (Pos: 9,5.5)
+   - [TextBlock] : Alıcı Bilgileri (Pos: 75,5.5)
+   - [TextBlock] : [siparis_tarih] (Pos: 126,5.5)
+   - [TextBlock] : Gürbüz Oyuncak (Pos: 6,12.5)
+   - [TextBlock] : 0242 247 73 73 (Pos: 10,20.5)
+   - [TextBlock] : [kaynak_ismi] (Pos: 8,27.5)
+   - [TextBlock] : [kargo_firmasi] (Pos: 7,57.5)
+   - [TextBlock] : [kargo_kodu] (Pos: 102.5,60)
+   - [Barcode128] : [kargo_kodu] (Pos: 102.5,48)
+   - [TextBlock] : [siparis_no] (Pos: 50,57)
+   - [TextBlock] : Sipariş Numarası (Pos: 50,50)
+   - [TextBlock] : Ürün Kodu (Pos: 6,65.5)
+   - [TextBlock] : Ürün Adı (Pos: 60,65.5)
+   - [TextBlock] : Adeti (Pos: 133,65.5)
+   - [StackPanel] : Text (Pos: 6,71)
+   - [TextBlock] : [urun_kodu] (Pos: 0,0)
+   - [TextBlock] : [urun_ismi] [varyant_degeri] (Pos: 2,0)
+   - [TextBlock] : [urun_adeti] (Pos: 2,0)
+   - [Image] : Text (Pos: 10,35)
+   - [TextBlock] : [kargo_firmasi] (Pos: 125,17)
+   - [TextBlock] : Gürbüz Oyuncak (Pos: 6,12.5)
+   - [Image] : [urun_resmi] (Pos: 0,40)
+
+📌 RAPOR: Yeni Şablon (ID: 15)
+   Boyut: 210x297 P
+   Eleman Sayısı: 15
+   - [StackPanel] : fatura satırları (Pos: 2,5)
+   - [TextBlock] : Alıcı Adı Soyadı : [adi] [soyadi] (Pos: 100,51)
+   - [TextBlock] : Alıcı Adres        : [sevk_adres] [sevk_ilce]/[sevk_il] (Pos: 100,54)
+   - [Barcode128] : [kargo_kodu] (Pos: 100,70)
+   - [TextBlock] : Kargo Kodu  : [kargo_kodu] (Pos: 100,65)
+   - [TextBlock] : Sipariş Tarihi : [siparis_tarih] (Pos: 100,30)
+   - [TextBlock] : Sipariş No : [siparis_no] (Pos: 150,5)
+   - [Barcode128] : Sipariş No : [siparis_no] (Pos: 165,35)
+   - [TextBlock] : Gönderen: Gürbüz Oyuncak 0242 247 73 73 (Pos: 100,46)
+   - [TextBlock] : [kargo_firmasi] (Pos: 100,10)
+   - [Image] : [urun_resmi] (Pos: 1,0)
+   - [TextBlock] : [urun_kodu] - [urun_ismi] - ([urun_name]) (Pos: 2,0)
+   - [TextBlock] : [urun_adeti] Adet (Pos: 1,0)
+   - [TextBlock] : [odeme_tipi] (Pos: 100,36)
+   - [TextBlock] : Telefon : [sevk_gsm] / [sevk_tel] (Pos: 100,61)

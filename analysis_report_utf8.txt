@@ -1,0 +1,1123 @@
+================================================================================
+📁 KISAYOL ve RAPOR ANALİZİ: C:\Users\Gürbüz Oyuncak\Desktop\db.s3db
+================================================================================
+
+📋 TOPLAM TABLO SAYISI: 550
+
+
+🔥 KISAYOL İLİŞKİLİ TABLOLAR:
+============================================================
+
+
+📊 RAPOR İLİŞKİLİ TABLOLAR:
+============================================================
+
+📌 aliexpressRu_freighttemplate
+   Kolonlar: id, name
+   Kayıt: 0
+
+📌 aliniyor_shipmenttemplate
+   Kolonlar: id, name
+   Kayıt: 0
+
+📌 bisifirat_shipmenttemplate
+   Kolonlar: id, address_id, name, addressType
+   Kayıt: 0
+
+📌 boyner_shipmenttemplate
+   Kolonlar: id, name, addressType, isDefault
+   Kayıt: 0
+
+📌 competition_analysis_report
+   Kolonlar: id, product_id, productName, marketPlace, image, productLink, supplier, marketPrice, lastAnalysisDate
+   Kayıt: 0
+
+📌 excel_template
+   Kolonlar: id, name, supplier, data
+   Kayıt: 6
+   {"id":1,"name":"Katalog Hazırlama","supplier":"product","data":"{\r\n  \"Hepsi\": true,\r\n  \"UrunID\": false,\r\n  \"Urun-Kodu\": true,\r\n  \"Ürün Durumu\": false,\r\n  \"UrunAdi\": true,\r\n  \"Barcode\": true,\r\n  \"Ürün Adeti\": false,\r\n  \"Ürün Adeti2\": false,\r\n  \"Alt Başlık\": true,\r\n  \"Alt Başlık2\": true,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": false,\r\n  \"Ürün Gtip\": false,\r\n  \"Ürün Mpn\": true,\r\n  \"EticaretKategori\": false,\r\n  \"EticaretEntegrasyonKodu\": false,\r\n  \"Fatura Adı\": false,\r\n  \"2-Ürün Kargo Fiyatı\": false,\r\n  \"Ürün Miad\": false,\r\n  \"Menşe-i\": true,\r\n  \"fulfillmentId\": false,\r\n  \"Ürün Kaynagi\": false,\r\n  \"Ürün Tipi\": false,\r\n  \"Ürün Desi\": false,\r\n  \"Ürün Agırlık\": false,\r\n  \"Ürün En\": true,\r\n  \"Ürün Boy\": false,\r\n  \"Ürün Derinlik\": false,\r\n  \"Uyumluluk Model\": false,\r\n  \"Uyumluluk Seri\": false,\r\n  \"Uyumluluk Hacim\": false,\r\n  \"Uyumluluk Yıl\": false,\r\n  \"Uyumluluk Numara\": false,\r\n  \"Uyumluluk Beden\": false,\r\n  \"Uyumluluk Renk\": false,\r\n  \"Uyumluluk Desen\": false,\r\n  \"Uyumluluk Cinsiyet\": false,\r\n  \"Uyumluluk Alan1\": false,\r\n  \"Uyumluluk Alan2\": false,\r\n  \"Uyumluluk Alan3\": false,\r\n  \"Uyumluluk Alan4\": false,\r\n  \"Uyumluluk Alan5\": false,\r\n  \"Uyumluluk Alan6\": false,\r\n  \"Uyumluluk Alan7\": false,\r\n  \"Uyumluluk Alan8\": false,\r\n  \"Uyumluluk Alan9\": false,\r\n  \"Uyumluluk Alan10\": false,\r\n  \"Uyumluluk KaydakID\": false,\r\n  \"Uyumluluk Kaynak\": false,\r\n  \"Uyumluluk Adı\": false,\r\n  \"Uyumluluk ID\": false,\r\n  \"XML Baglı Durumu\": false,\r\n  \"XML Fiyatı\": false,\r\n  \"ParaBirimi\": false,\r\n  \"Kdv\": false,\r\n  \"Entegra-Kritik-Fiyat\": false,\r\n  \"Kritik Stok\": false,\r\n  \"price1\": true,\r\n  \"price2\": false,\r\n  \"price4\": false,\r\n  \"n11_price\": false,\r\n  \"hb_price\": false,\r\n  \"trendyol_listPrice\": false,\r\n  \"eptt_price\": false,\r\n  \"amazon_price\": false,\r\n  \"mizu_price2\": false,\r\n  \"pazarama_listPrice\": false,\r\n  \"pazarama_salePrice\": false,\r\n  \"buying_price\": false,\r\n  \"idefix_liste_fiyati\": false,\r\n  \"Ek_Kategori1\": false,\r\n  \"Ek_Kategori2\": false,\r\n  \"Ek_Kategori3\": false,\r\n  \"Ek_Kategori4\": false,\r\n  \"Ek_Kategori5\": false,\r\n  \"Ek_Kategori6\": false,\r\n  \"Ek_Kategori7\": false,\r\n  \"Ek_Kategori8\": false,\r\n  \"Ek_Kategori9\": false,\r\n  \"Ek_Kategori10\": false,\r\n  \"Ek_Kategori11\": false,\r\n  \"N11-Kategori-Kodu\": false,\r\n  \"N11-Katalog-ID\": false,\r\n  \"N11-Kargo-Sablonu\": false,\r\n  \"N11-Kargo-Sablonu2\": false,\r\n  \"N11-Hazırlama-Süresi\": false,\r\n  \"N11-ilan-id\": false,\r\n  \"Magaza Ürün Kodu\": false,\r\n  \"N11-Entegrasyon-Kodu\": false,\r\n  \"N11-Hata Mesajı\": false,\r\n  \"N11 Komisyonu\": false,\r\n  \"N11 Ürün Linki\": false,\r\n  \"N11-indirim-Tipi\": false,\r\n  \"N11 Baglı Durumu\": false,\r\n  \"N11 Rekabet Durumu\": false,\r\n  \"N11 Rekabet URL\": false,\r\n  \"N11 Rekabet Max Fiyat\": false,\r\n  \"N11 Rekabet Min Fiyat\": false,\r\n  \"N11 Rekabet Kademe Fiyat\": false,\r\n  \"Pazarama Ekleme Hata Mesajı\": false,\r\n  \"Pazarama Bağlılık Durumu\": false,\r\n  \"Pazarama Kategori Id\": false,\r\n  \"HB Sku\": false,\r\n  \"HB-ST-SKU\": false,\r\n  \"HB-Barkod\": false,\r\n  \"HB-Hazırlama-Süresi\": false,\r\n  \"HB-Kargo-Adi\": false,\r\n  \"HB-Kategori-Kodu\": false,\r\n  \"HB-Max-Adet\": false,\r\n  \"HB Komisyonu\": false,\r\n  \"HB Hata Mesajı\": false,\r\n  \"HB Ürün Link\": false,\r\n  \"HB Baglı Durumu\": false,\r\n  \"HB Rekabet Durumu\": false,\r\n  \"HB Rekabet URL\": false,\r\n  \"HB Rekabet Max Fiyat\": false,\r\n  \"HB Rekabet Min Fiyat\": false,\r\n  \"HB Rekabet Kademe Fiyat\": false,\r\n  \"Trendyol Rekabet Durumu\": false,\r\n  \"trendyol Rekabet Url\": false,\r\n  \"trendyol Rekabet Max Fiyati\": false,\r\n  \"trendyolRekabet Min Fiyati\": false,\r\n  \"trendyol Rekabet Kademe Fiyati\": false,\r\n  \"Trendyol Kategori Kodu\": false,\r\n  \"Trendyol Komisyonu\": false,\r\n  \"Trendyol Baglı Durumu\": false,\r\n  \"Trendyol Entegrasyon Kodu\": false,\r\n  \"Trendyol Hata Mesajı\": false,\r\n  \"EPTT Kategori Kodu\": false,\r\n  \"EPTT İlan ID\": false,\r\n  \"EPTT Hata Mesajı\": false,\r\n  \"Eptt Komisyonu\": false,\r\n  \"EPTT Baglı Durumu\": false,\r\n  \"EPTT Ürün Linki\": false,\r\n  \"Teknosa Ean Kodu\": false,\r\n  \"Decoverse Ean Kodu\": false,\r\n  \"Koçtaş Ean Kodu\": false,\r\n  \"Amazon Barkod\": false,\r\n  \"Amazon Barkod Tipi\": false,\r\n  \"Amazon Ürün Hazırlama\": false,\r\n  \"amazon Rekabet Durumu\": false,\r\n  \"amazon Rekabet Url\": false,\r\n  \"amazon Rekabet Max Fiyati\": false,\r\n  \"amazonRekabet Min Fiyati\": false,\r\n  \"amazon Rekabet Kademe Fiyati\": false,\r\n  \"Amazon Baglı Durumu\": false,\r\n  \"Amazon Hata Mesajı\": false,\r\n  \"Amazon Asin\": false,\r\n  \"Amazon Entegrasyon Kodu\": false,\r\n  \"Ciceksepeti Kategori Kodu\": false,\r\n  \"ÇS Hata Mesajı\": false,\r\n  \"Ciceksepeti Kodu\": false,\r\n  \"Ciceksepeti Baglı Durumu\": false,\r\n  \"UrunAciklamasi\": false,\r\n  \"UrunAciklamasi1\": false,\r\n  \"UrunAciklamasi2\": false,\r\n  \"UrunAciklamasi3\": false,\r\n  \"UrunAciklamasi4\": false,\r\n  \"UrunAciklamasi5\": false,\r\n  \"ImageName1\": false,\r\n  \"ImageName2\": false,\r\n  \"ImageName3\": false,\r\n  \"ImageName4\": false,\r\n  \"ImageName5\": false,\r\n  \"ImageName6\": false,\r\n  \"ImageName7\": false,\r\n  \"ImageName8\": false,\r\n  \"ImageName9\": false,\r\n  \"ImageName10\": false,\r\n  \"ImageURL1\": true,\r\n  \"ImageURL2\": true,\r\n  \"ImageURL3\": true,\r\n  \"ImageURL4\": true,\r\n  \"ImageURL5\": true,\r\n  \"ImageURL6\": true,\r\n  \"ImageURL7\": true,\r\n  \"ImageURL8\": true,\r\n  \"ImageURL9\": true,\r\n  \"ImageURL10\": true,\r\n  \"Raf Numarası\": false,\r\n  \"Ürün Eklenme Tarihi\": false\r\n}"}
+   {"id":2,"name":"Katalog Liste","supplier":"product","data":"{\r\n  \"Hepsi\": true,\r\n  \"UrunID\": false,\r\n  \"VaryantID\": true,\r\n  \"Urun-Kodu\": true,\r\n  \"Ürün Durumu\": false,\r\n  \"UrunAdi\": false,\r\n  \"Barcode\": false,\r\n  \"Ürün Adeti\": false,\r\n  \"Ürün Adeti2\": false,\r\n  \"Alt Başlık\": true,\r\n  \"Alt Başlık2\": true,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": false,\r\n  \"Ürün Gtip\": true,\r\n  \"Ürün Mpn\": true,\r\n  \"EticaretKategori\": false,\r\n  \"EticaretEntegrasyonKodu\": false,\r\n  \"Fatura Adı\": false,\r\n  \"2-Ürün Kargo Fiyatı\": false,\r\n  \"Ürün Miad\": false,\r\n  \"Menşe-i\": true,\r\n  \"fulfillmentId\": false,\r\n  \"Ürün Kaynagi\": false,\r\n  \"Ürün Tipi\": false,\r\n  \"Ürün Desi\": false,\r\n  \"Ürün Agırlık\": false,\r\n  \"Ürün En\": true,\r\n  \"Ürün Boy\": false,\r\n  \"Ürün Derinlik\": false,\r\n  \"Uyumluluk Model\": false,\r\n  \"Uyumluluk Seri\": false,\r\n  \"Uyumluluk Hacim\": false,\r\n  \"Uyumluluk Yıl\": false,\r\n  \"Uyumluluk Numara\": false,\r\n  \"Uyumluluk Beden\": false,\r\n  \"Uyumluluk Renk\": false,\r\n  \"Uyumluluk Desen\": false,\r\n  \"Uyumluluk Cinsiyet\": false,\r\n  \"Uyumluluk Alan1\": false,\r\n  \"Uyumluluk Alan2\": false,\r\n  \"Uyumluluk Alan3\": false,\r\n  \"Uyumluluk Alan4\": false,\r\n  \"Uyumluluk Alan5\": false,\r\n  \"Uyumluluk Alan6\": true,\r\n  \"Uyumluluk Alan7\": true,\r\n  \"Uyumluluk Alan8\": true,\r\n  \"Uyumluluk Alan9\": true,\r\n  \"Uyumluluk Alan10\": true,\r\n  \"Uyumluluk KaydakID\": false,\r\n  \"Uyumluluk Kaynak\": false,\r\n  \"Uyumluluk Adı\": false,\r\n  \"Uyumluluk ID\": false,\r\n  \"XML Baglı Durumu\": false,\r\n  \"XML Fiyatı\": false,\r\n  \"ParaBirimi\": false,\r\n  \"Kdv\": false,\r\n  \"Entegra-Kritik-Fiyat\": false,\r\n  \"KDV Dahil Fiyatlar\": true,\r\n  \"Kritik Stok\": false,\r\n  \"price1\": true,\r\n  \"price2\": false,\r\n  \"n11_price\": false,\r\n  \"hb_price\": false,\r\n  \"trendyol_listPrice\": false,\r\n  \"eptt_price\": false,\r\n  \"amazon_price\": false,\r\n  \"mizu_price2\": false,\r\n  \"pazarama_listPrice\": false,\r\n  \"pazarama_salePrice\": false,\r\n  \"buying_price\": false,\r\n  \"idefix_liste_fiyati\": false,\r\n  \"HB Sku\": false,\r\n  \"HB-ST-SKU\": false,\r\n  \"HB-Barkod\": false,\r\n  \"HB-Hazırlama-Süresi\": false,\r\n  \"HB-Kargo-Adi\": false,\r\n  \"HB-Kategori-Kodu\": false,\r\n  \"HB-Max-Adet\": false,\r\n  \"HB Komisyonu\": false,\r\n  \"HB Hata Mesajı\": false,\r\n  \"HB Ürün Link\": false,\r\n  \"HB Baglı Durumu\": false,\r\n  \"HB Rekabet Durumu\": false,\r\n  \"HB Rekabet URL\": false,\r\n  \"HB Rekabet Max Fiyat\": false,\r\n  \"HB Rekabet Min Fiyat\": false,\r\n  \"HB Rekabet Kademe Fiyat\": false,\r\n  \"UrunAciklamasi\": false,\r\n  \"UrunAciklamasi1\": false,\r\n  \"UrunAciklamasi2\": false,\r\n  \"UrunAciklamasi3\": false,\r\n  \"UrunAciklamasi4\": false,\r\n  \"UrunAciklamasi5\": false,\r\n  \"ImageName1\": true,\r\n  \"ImageName2\": false,\r\n  \"ImageName3\": false,\r\n  \"ImageName4\": false,\r\n  \"ImageName5\": false,\r\n  \"ImageName6\": false,\r\n  \"ImageName7\": false,\r\n  \"ImageName8\": false,\r\n  \"ImageName9\": false,\r\n  \"ImageName10\": false,\r\n  \"ImageURL1\": true,\r\n  \"ImageURL2\": true,\r\n  \"ImageURL3\": true,\r\n  \"ImageURL4\": true,\r\n  \"ImageURL5\": true,\r\n  \"ImageURL6\": true,\r\n  \"ImageURL7\": true,\r\n  \"ImageURL8\": true,\r\n  \"ImageURL9\": true,\r\n  \"ImageURL10\": true,\r\n  \"Raf Numarası\": false,\r\n  \"Varyant Raf No\": true,\r\n  \"Ürün Eklenme Tarihi\": false\r\n}"}
+   {"id":3,"name":"Katalog Tablet","supplier":"product","data":"{\r\n  \"Hepsi\": false,\r\n  \"UrunID\": false,\r\n  \"Urun-Kodu\": true,\r\n  \"Ürün Durumu\": false,\r\n  \"UrunAdi\": true,\r\n  \"Barcode\": true,\r\n  \"Ürün Adeti\": false,\r\n  \"Ürün Adeti2\": false,\r\n  \"Alt Başlık\": false,\r\n  \"Alt Başlık2\": false,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": false,\r\n  \"Ürün Mpn\": false,\r\n  \"EticaretKategori\": false,\r\n  \"EticaretEntegrasyonKodu\": false,\r\n  \"Fatura Adı\": false,\r\n  \"2-Ürün Kargo Fiyatı\": false,\r\n  \"Ürün Miad\": false,\r\n  \"Menşe-i\": false,\r\n  \"fulfillmentId\": false,\r\n  \"Ürün Kaynagi\": false,\r\n  \"Ürün Tipi\": false,\r\n  \"Ürün Desi\": false,\r\n  \"Ürün Agırlık\": false,\r\n  \"Ürün En\": false,\r\n  \"Ürün Boy\": false,\r\n  \"Ürün Derinlik\": false,\r\n  \"Uyumluluk Model\": false,\r\n  \"Uyumluluk Seri\": false,\r\n  \"Uyumluluk Hacim\": false,\r\n  \"Uyumluluk Yıl\": false,\r\n  \"Uyumluluk Numara\": false,\r\n  \"Uyumluluk Beden\": false,\r\n  \"Uyumluluk Renk\": false,\r\n  \"Uyumluluk Desen\": false,\r\n  \"Uyumluluk Cinsiyet\": false,\r\n  \"Uyumluluk Alan1\": false,\r\n  \"Uyumluluk Alan2\": false,\r\n  \"Uyumluluk Alan3\": false,\r\n  \"Uyumluluk Alan4\": false,\r\n  \"Uyumluluk Alan5\": false,\r\n  \"Uyumluluk KaydakID\": false,\r\n  \"Uyumluluk Kaynak\": false,\r\n  \"Uyumluluk Adı\": false,\r\n  \"Uyumluluk ID\": false,\r\n  \"XML Baglı Durumu\": false,\r\n  \"XML Fiyatı\": false,\r\n  \"ParaBirimi\": false,\r\n  \"Kdv\": false,\r\n  \"Entegra-Kritik-Fiyat\": false,\r\n  \"Kritik Stok\": false,\r\n  \"price1\": true,\r\n  \"price2\": false,\r\n  \"price4\": false,\r\n  \"n11_price\": false,\r\n  \"hb_price\": false,\r\n  \"trendyol_listPrice\": false,\r\n  \"eptt_price\": false,\r\n  \"amazon_price\": false,\r\n  \"mizu_price2\": false,\r\n  \"pazarama_listPrice\": false,\r\n  \"pazarama_salePrice\": false,\r\n  \"buying_price\": false,\r\n  \"idefix_liste_fiyati\": false,\r\n  \"N11-Kategori-Kodu\": false,\r\n  \"N11-Katalog-ID\": false,\r\n  \"N11-Kargo-Sablonu\": false,\r\n  \"N11-Kargo-Sablonu2\": false,\r\n  \"N11-Hazırlama-Süresi\": false,\r\n  \"N11-ilan-id\": false,\r\n  \"Magaza Ürün Kodu\": false,\r\n  \"N11-Entegrasyon-Kodu\": false,\r\n  \"N11-Hata Mesajı\": false,\r\n  \"N11 Komisyonu\": false,\r\n  \"N11 Ürün Linki\": false,\r\n  \"N11-indirim-Tipi\": false,\r\n  \"N11 Baglı Durumu\": false,\r\n  \"N11 Rekabet Durumu\": false,\r\n  \"N11 Rekabet URL\": false,\r\n  \"N11 Rekabet Max Fiyat\": false,\r\n  \"N11 Rekabet Min Fiyat\": false,\r\n  \"N11 Rekabet Kademe Fiyat\": false,\r\n  \"Pazarama Bağlılık Durumu\": false,\r\n  \"Pazarama Kategori Id\": false,\r\n  \"HB Sku\": false,\r\n  \"HB-ST-SKU\": false,\r\n  \"HB-Barkod\": false,\r\n  \"HB-Hazırlama-Süresi\": false,\r\n  \"HB-Kargo-Adi\": false,\r\n  \"HB-Kategori-Kodu\": false,\r\n  \"HB-Max-Adet\": false,\r\n  \"HB Komisyonu\": false,\r\n  \"HB Hata Mesajı\": false,\r\n  \"HB Ürün Link\": false,\r\n  \"HB Baglı Durumu\": false,\r\n  \"HB Rekabet Durumu\": false,\r\n  \"HB Rekabet URL\": false,\r\n  \"HB Rekabet Max Fiyat\": false,\r\n  \"HB Rekabet Min Fiyat\": false,\r\n  \"HB Rekabet Kademe Fiyat\": false,\r\n  \"Trendyol Rekabet Durumu\": false,\r\n  \"trendyol Rekabet Url\": false,\r\n  \"trendyol Rekabet Max Fiyati\": false,\r\n  \"trendyolRekabet Min Fiyati\": false,\r\n  \"trendyol Rekabet Kademe Fiyati\": false,\r\n  \"Trendyol Kategori Kodu\": false,\r\n  \"Trendyol Komisyonu\": false,\r\n  \"Trendyol Baglı Durumu\": false,\r\n  \"Trendyol Entegrasyon Kodu\": false,\r\n  \"Trendyol Hata Mesajı\": false,\r\n  \"EPTT Kategori Kodu\": false,\r\n  \"EPTT İlan ID\": false,\r\n  \"EPTT Hata Mesajı\": false,\r\n  \"Eptt Komisyonu\": false,\r\n  \"EPTT Baglı Durumu\": false,\r\n  \"EPTT Ürün Linki\": false,\r\n  \"Teknosa Ean Kodu\": false,\r\n  \"Decoverse Ean Kodu\": false,\r\n  \"Koçtaş Ean Kodu\": false,\r\n  \"Amazon Barkod\": false,\r\n  \"Amazon Barkod Tipi\": false,\r\n  \"Amazon Ürün Hazırlama\": false,\r\n  \"amazon Rekabet Durumu\": false,\r\n  \"amazon Rekabet Url\": false,\r\n  \"amazon Rekabet Max Fiyati\": false,\r\n  \"amazonRekabet Min Fiyati\": false,\r\n  \"amazon Rekabet Kademe Fiyati\": false,\r\n  \"Amazon Baglı Durumu\": false,\r\n  \"Amazon Entegrasyon Kodu\": false,\r\n  \"Amazon Hata Mesajı\": false,\r\n  \"Amazon Asin\": false,\r\n  \"Ciceksepeti Kategori Kodu\": false,\r\n  \"ÇS Hata Mesajı\": false,\r\n  \"Ciceksepeti Kodu\": false,\r\n  \"Ciceksepeti Baglı Durumu\": false,\r\n  \"UrunAciklamasi\": false,\r\n  \"UrunAciklamasi1\": false,\r\n  \"UrunAciklamasi2\": false,\r\n  \"UrunAciklamasi3\": false,\r\n  \"UrunAciklamasi4\": false,\r\n  \"UrunAciklamasi5\": false,\r\n  \"ImageName1\": true,\r\n  \"ImageName2\": true,\r\n  \"ImageName3\": true,\r\n  \"ImageName4\": true,\r\n  \"ImageName5\": true,\r\n  \"ImageName6\": true,\r\n  \"ImageName7\": true,\r\n  \"ImageName8\": true,\r\n  \"ImageName9\": true,\r\n  \"ImageName10\": true,\r\n  \"Raf Numarası\": true,\r\n  \"Ürün Eklenme Tarihi\": false\r\n}"}
+   {"id":4,"name":"","supplier":"product","data":"{\r\n  \"Hepsi\": true,\r\n  \"UrunID\": true,\r\n  \"VaryantID\": true,\r\n  \"Urun-Kodu\": true,\r\n  \"Ürün Durumu\": true,\r\n  \"UrunAdi\": true,\r\n  \"Barcode\": true,\r\n  \"Ürün Adeti\": true,\r\n  \"Ürün Adeti2\": true,\r\n  \"Alt Başlık\": true,\r\n  \"Alt Başlık2\": true,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": true,\r\n  \"Ürün Gtip\": true,\r\n  \"Ürün Mpn\": true,\r\n  \"EticaretKategori\": true,\r\n  \"EticaretEntegrasyonKodu\": true,\r\n  \"Fatura Adı\": true,\r\n  \"2-Ürün Kargo Fiyatı\": true,\r\n  \"Ürün Miad\": true,\r\n  \"Menşe-i\": true,\r\n  \"fulfillmentId\": true,\r\n  \"Ürün Kaynagi\": true,\r\n  \"Ürün Tipi\": true,\r\n  \"Ürün Desi\": true,\r\n  \"Ürün Agırlık\": true,\r\n  \"Ürün En\": true,\r\n  \"Ürün Boy\": true,\r\n  \"Ürün Derinlik\": true,\r\n  \"Uyumluluk Model\": true,\r\n  \"Uyumluluk Seri\": true,\r\n  \"Uyumluluk Hacim\": true,\r\n  \"Uyumluluk Yıl\": true,\r\n  \"Uyumluluk Numara\": true,\r\n  \"Uyumluluk Beden\": true,\r\n  \"Uyumluluk Renk\": true,\r\n  \"Uyumluluk Desen\": true,\r\n  \"Uyumluluk Cinsiyet\": true,\r\n  \"Uyumluluk Alan1\": true,\r\n  \"Uyumluluk Alan2\": true,\r\n  \"Uyumluluk Alan3\": true,\r\n  \"Uyumluluk Alan4\": true,\r\n  \"Uyumluluk Alan5\": true,\r\n  \"Uyumluluk Alan6\": true,\r\n  \"Uyumluluk Alan7\": true,\r\n  \"Uyumluluk Alan8\": true,\r\n  \"Uyumluluk Alan9\": true,\r\n  \"Uyumluluk Alan10\": true,\r\n  \"Uyumluluk KaydakID\": true,\r\n  \"Uyumluluk Kaynak\": true,\r\n  \"Uyumluluk Adı\": true,\r\n  \"Uyumluluk ID\": true,\r\n  \"XML Baglı Durumu\": true,\r\n  \"XML Fiyatı\": true,\r\n  \"ParaBirimi\": true,\r\n  \"Kdv\": true,\r\n  \"Entegra-Kritik-Fiyat\": true,\r\n  \"KDV Dahil Fiyatlar\": true,\r\n  \"Kritik Stok\": true,\r\n  \"price1\": true,\r\n  \"price2\": true,\r\n  \"n11_price\": true,\r\n  \"hb_price\": true,\r\n  \"trendyol_listPrice\": true,\r\n  \"eptt_price\": true,\r\n  \"amazon_price\": true,\r\n  \"mizu_price2\": true,\r\n  \"pazarama_listPrice\": true,\r\n  \"pazarama_salePrice\": true,\r\n  \"buying_price\": true,\r\n  \"idefix_liste_fiyati\": true,\r\n  \"HB Sku\": true,\r\n  \"HB-ST-SKU\": true,\r\n  \"HB-Barkod\": true,\r\n  \"HB-Hazırlama-Süresi\": true,\r\n  \"HB-Kargo-Adi\": true,\r\n  \"HB-Kategori-Kodu\": true,\r\n  \"HB-Max-Adet\": true,\r\n  \"HB Komisyonu\": true,\r\n  \"HB Hata Mesajı\": true,\r\n  \"HB Ürün Link\": true,\r\n  \"HB Baglı Durumu\": true,\r\n  \"HB Rekabet Durumu\": true,\r\n  \"HB Rekabet URL\": true,\r\n  \"HB Rekabet Max Fiyat\": true,\r\n  \"HB Rekabet Min Fiyat\": true,\r\n  \"HB Rekabet Kademe Fiyat\": true,\r\n  \"UrunAciklamasi\": true,\r\n  \"UrunAciklamasi1\": true,\r\n  \"UrunAciklamasi2\": true,\r\n  \"UrunAciklamasi3\": true,\r\n  \"UrunAciklamasi4\": true,\r\n  \"UrunAciklamasi5\": true,\r\n  \"ImageName1\": true,\r\n  \"ImageName2\": true,\r\n  \"ImageName3\": true,\r\n  \"ImageName4\": true,\r\n  \"ImageName5\": true,\r\n  \"ImageName6\": true,\r\n  \"ImageName7\": true,\r\n  \"ImageName8\": true,\r\n  \"ImageName9\": true,\r\n  \"ImageName10\": true,\r\n  \"ImageURL1\": true,\r\n  \"ImageURL2\": true,\r\n  \"ImageURL3\": true,\r\n  \"ImageURL4\": true,\r\n  \"ImageURL5\": true,\r\n  \"ImageURL6\": true,\r\n  \"ImageURL7\": true,\r\n  \"ImageURL8\": true,\r\n  \"ImageURL9\": true,\r\n  \"ImageURL10\": true,\r\n  \"Raf Numarası\": true,\r\n  \"Varyant Raf No\": true,\r\n  \"Ürün Eklenme Tarihi\": true\r\n}"}
+   {"id":5,"name":"aaa","supplier":"product","data":"{\r\n  \"Hepsi\": true,\r\n  \"UrunID\": true,\r\n  \"VaryantID\": true,\r\n  \"Urun-Kodu\": true,\r\n  \"Ürün Durumu\": true,\r\n  \"UrunAdi\": true,\r\n  \"Barcode\": true,\r\n  \"Ürün Adeti\": true,\r\n  \"Ürün Adeti2\": true,\r\n  \"Alt Başlık\": true,\r\n  \"Alt Başlık2\": true,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": true,\r\n  \"Ürün Gtip\": true,\r\n  \"Ürün Mpn\": true,\r\n  \"EticaretKategori\": true,\r\n  \"EticaretEntegrasyonKodu\": true,\r\n  \"Fatura Adı\": true,\r\n  \"2-Ürün Kargo Fiyatı\": true,\r\n  \"Ürün Miad\": true,\r\n  \"Menşe-i\": true,\r\n  \"fulfillmentId\": true,\r\n  \"Ürün Kaynagi\": true,\r\n  \"Ürün Tipi\": true,\r\n  \"Ürün Desi\": true,\r\n  \"Ürün Agırlık\": true,\r\n  \"Ürün En\": true,\r\n  \"Ürün Boy\": true,\r\n  \"Ürün Derinlik\": true,\r\n  \"Uyumluluk Model\": true,\r\n  \"Uyumluluk Seri\": true,\r\n  \"Uyumluluk Hacim\": true,\r\n  \"Uyumluluk Yıl\": true,\r\n  \"Uyumluluk Numara\": true,\r\n  \"Uyumluluk Beden\": true,\r\n  \"Uyumluluk Renk\": true,\r\n  \"Uyumluluk Desen\": true,\r\n  \"Uyumluluk Cinsiyet\": true,\r\n  \"Uyumluluk Alan1\": true,\r\n  \"Uyumluluk Alan2\": true,\r\n  \"Uyumluluk Alan3\": true,\r\n  \"Uyumluluk Alan4\": true,\r\n  \"Uyumluluk Alan5\": true,\r\n  \"Uyumluluk Alan6\": true,\r\n  \"Uyumluluk Alan7\": true,\r\n  \"Uyumluluk Alan8\": true,\r\n  \"Uyumluluk Alan9\": true,\r\n  \"Uyumluluk Alan10\": true,\r\n  \"Uyumluluk KaydakID\": true,\r\n  \"Uyumluluk Kaynak\": true,\r\n  \"Uyumluluk Adı\": true,\r\n  \"Uyumluluk ID\": true,\r\n  \"XML Baglı Durumu\": true,\r\n  \"XML Fiyatı\": true,\r\n  \"ParaBirimi\": true,\r\n  \"Kdv\": true,\r\n  \"Entegra-Kritik-Fiyat\": true,\r\n  \"KDV Dahil Fiyatlar\": true,\r\n  \"Kritik Stok\": true,\r\n  \"price1\": true,\r\n  \"price2\": true,\r\n  \"n11_price\": true,\r\n  \"hb_price\": true,\r\n  \"trendyol_listPrice\": true,\r\n  \"eptt_price\": true,\r\n  \"amazon_price\": true,\r\n  \"mizu_price2\": true,\r\n  \"pazarama_listPrice\": true,\r\n  \"pazarama_salePrice\": true,\r\n  \"buying_price\": true,\r\n  \"idefix_liste_fiyati\": true,\r\n  \"HB Sku\": true,\r\n  \"HB-ST-SKU\": true,\r\n  \"HB-Barkod\": true,\r\n  \"HB-Hazırlama-Süresi\": true,\r\n  \"HB-Kargo-Adi\": true,\r\n  \"HB-Kategori-Kodu\": true,\r\n  \"HB-Max-Adet\": true,\r\n  \"HB Komisyonu\": true,\r\n  \"HB Hata Mesajı\": true,\r\n  \"HB Ürün Link\": true,\r\n  \"HB Baglı Durumu\": true,\r\n  \"HB Rekabet Durumu\": true,\r\n  \"HB Rekabet URL\": true,\r\n  \"HB Rekabet Max Fiyat\": true,\r\n  \"HB Rekabet Min Fiyat\": true,\r\n  \"HB Rekabet Kademe Fiyat\": true,\r\n  \"UrunAciklamasi\": true,\r\n  \"UrunAciklamasi1\": true,\r\n  \"UrunAciklamasi2\": true,\r\n  \"UrunAciklamasi3\": true,\r\n  \"UrunAciklamasi4\": true,\r\n  \"UrunAciklamasi5\": true,\r\n  \"ImageName1\": true,\r\n  \"ImageName2\": true,\r\n  \"ImageName3\": true,\r\n  \"ImageName4\": true,\r\n  \"ImageName5\": true,\r\n  \"ImageName6\": true,\r\n  \"ImageName7\": true,\r\n  \"ImageName8\": true,\r\n  \"ImageName9\": true,\r\n  \"ImageName10\": true,\r\n  \"ImageURL1\": true,\r\n  \"ImageURL2\": true,\r\n  \"ImageURL3\": true,\r\n  \"ImageURL4\": true,\r\n  \"ImageURL5\": true,\r\n  \"ImageURL6\": true,\r\n  \"ImageURL7\": true,\r\n  \"ImageURL8\": true,\r\n  \"ImageURL9\": true,\r\n  \"ImageURL10\": true,\r\n  \"Raf Numarası\": true,\r\n  \"Varyant Raf No\": true,\r\n  \"Ürün Eklenme Tarihi\": true\r\n}"}
+   {"id":6,"name":"","supplier":"product","data":"{\r\n  \"Hepsi\": true,\r\n  \"UrunID\": true,\r\n  \"VaryantID\": true,\r\n  \"Urun-Kodu\": true,\r\n  \"Ana Ürün Kodu\": true,\r\n  \"Ürün Durumu\": true,\r\n  \"UrunAdi\": true,\r\n  \"Barcode\": true,\r\n  \"Ürün Adeti\": true,\r\n  \"Ürün Adeti2\": true,\r\n  \"Alt Başlık\": true,\r\n  \"Alt Başlık2\": true,\r\n  \"Marka\": true,\r\n  \"Ürün Kategori Adı\": true,\r\n  \"Ürün Gtin\": true,\r\n  \"Ürün Gtip\": true,\r\n  \"Ürün Mpn\": true,\r\n  \"EticaretKategori\": true,\r\n  \"EticaretEntegrasyonKodu\": true,\r\n  \"Fatura Adı\": true,\r\n  \"2-Ürün Kargo Fiyatı\": true,\r\n  \"Ürün Güncellenme Tarihi\": true,\r\n  \"Ürün Miad\": true,\r\n  \"Menşe-i\": true,\r\n  \"fulfillmentId\": true,\r\n  \"Ürün Kaynagi\": true,\r\n  \"Ürün Tipi\": true,\r\n  \"Ürün Desi\": true,\r\n  \"Ürün Agırlık\": true,\r\n  \"Ürün En\": true,\r\n  \"Ürün Boy\": true,\r\n  \"Ürün Derinlik\": true,\r\n  \"Uyumluluk Model\": true,\r\n  \"Uyumluluk Seri\": true,\r\n  \"Uyumluluk Hacim\": true,\r\n  \"Uyumluluk Yıl\": true,\r\n  \"Uyumluluk Numara\": true,\r\n  \"Uyumluluk Beden\": true,\r\n  \"Uyumluluk Renk\": true,\r\n  \"Uyumluluk Desen\": true,\r\n  \"Uyumluluk Cinsiyet\": true,\r\n  \"Uyumluluk Alan1\": true,\r\n  \"Uyumluluk Alan2\": true,\r\n  \"Uyumluluk Alan3\": true,\r\n  \"Uyumluluk Alan4\": true,\r\n  \"Uyumluluk Alan5\": true,\r\n  \"Uyumluluk Alan6\": true,\r\n  \"Uyumluluk Alan7\": true,\r\n  \"Uyumluluk Alan8\": true,\r\n  \"Uyumluluk Alan9\": true,\r\n  \"Uyumluluk Alan10\": true,\r\n  \"Uyumluluk KaydakID\": true,\r\n  \"Uyumluluk Kaynak\": true,\r\n  \"Uyumluluk Adı\": true,\r\n  \"Uyumluluk ID\": true,\r\n  \"XML Baglı Durumu\": true,\r\n  \"XML Fiyatı\": true,\r\n  \"ParaBirimi\": true,\r\n  \"Kdv\": true,\r\n  \"Entegra-Kritik-Fiyat\": true,\r\n  \"KDV Dahil Fiyatlar\": true,\r\n  \"Kritik Stok\": true,\r\n  \"price1\": true,\r\n  \"price2\": true,\r\n  \"n11_price\": true,\r\n  \"hb_price\": true,\r\n  \"trendyol_listPrice\": true,\r\n  \"eptt_price\": true,\r\n  \"mizu_price2\": true,\r\n  \"pazarama_listPrice\": true,\r\n  \"pazarama_salePrice\": true,\r\n  \"buying_price\": true,\r\n  \"idefix_liste_fiyati\": true,\r\n  \"N11-Kategori-Kodu\": true,\r\n  \"N11-Katalog-ID\": true,\r\n  \"N11-Kargo-Sablonu\": true,\r\n  \"N11-Kargo-Sablonu2\": true,\r\n  \"N11-Hazırlama-Süresi\": true,\r\n  \"N11-ilan-id\": true,\r\n  \"Magaza Ürün Kodu\": true,\r\n  \"N11-Entegrasyon-Kodu\": true,\r\n  \"N11-Hata Mesajı\": true,\r\n  \"N11 Komisyonu\": true,\r\n  \"N11 Ürün Linki\": true,\r\n  \"N11-indirim-Tipi\": true,\r\n  \"N11 Baglı Durumu\": true,\r\n  \"N11 Rekabet Durumu\": true,\r\n  \"N11 Rekabet URL\": true,\r\n  \"N11 Rekabet Max Fiyat\": true,\r\n  \"N11 Rekabet Min Fiyat\": true,\r\n  \"N11 Rekabet Kademe Fiyat\": true,\r\n  \"Pazarama Ekleme Hata Mesajı\": true,\r\n  \"Pazarama Entegrasyon Kodu\": true,\r\n  \"Pazarama Bağlılık Durumu\": true,\r\n  \"Pazarama Kategori Id\": true,\r\n  \"HB Sku\": true,\r\n  \"HB-ST-SKU\": true,\r\n  \"HB-Barkod\": true,\r\n  \"HB-Hazırlama-Süresi\": true,\r\n  \"HB-Kargo-Adi\": true,\r\n  \"HB-Kategori-Kodu\": true,\r\n  \"HB-Max-Adet\": true,\r\n  \"HB Komisyonu\": true,\r\n  \"HB Hata Mesajı\": true,\r\n  \"HB Ürün Link\": true,\r\n  \"HB Baglı Durumu\": true,\r\n  \"HB Rekabet Durumu\": true,\r\n  \"HB Rekabet URL\": true,\r\n  \"HB Rekabet Max Fiyat\": true,\r\n  \"HB Rekabet Min Fiyat\": true,\r\n  \"HB Rekabet Kademe Fiyat\": true,\r\n  \"Trendyol Rekabet Durumu\": true,\r\n  \"trendyol Rekabet Url\": true,\r\n  \"trendyol Rekabet Max Fiyati\": true,\r\n  \"trendyolRekabet Min Fiyati\": true,\r\n  \"trendyol Rekabet Kademe Fiyati\": true,\r\n  \"Trendyol Kategori Kodu\": true,\r\n  \"Trendyol Komisyonu\": true,\r\n  \"Trendyol Baglı Durumu\": true,\r\n  \"Trendyol Entegrasyon Kodu\": true,\r\n  \"Trendyol Hata Mesajı\": true,\r\n  \"EPTT Kategori Kodu\": true,\r\n  \"EPTT İlan ID\": true,\r\n  \"EPTT Hata Mesajı\": true,\r\n  \"Eptt Komisyonu\": true,\r\n  \"EPTT Baglı Durumu\": true,\r\n  \"EPTT Ürün Linki\": true,\r\n  \"Ciceksepeti Kategori Kodu\": true,\r\n  \"ÇS Hata Mesajı\": true,\r\n  \"Ciceksepeti Kodu\": true,\r\n  \"Ciceksepeti Baglı Durumu\": true,\r\n  \"İdefix Kategori Id\": true,\r\n  \"İdefix Barkod\": true,\r\n  \"UrunAciklamasi\": true,\r\n  \"UrunAciklamasi1\": true,\r\n  \"UrunAciklamasi2\": true,\r\n  \"UrunAciklamasi3\": true,\r\n  \"UrunAciklamasi4\": true,\r\n  \"UrunAciklamasi5\": true,\r\n  \"ImageName1\": true,\r\n  \"ImageGrup1\": true,\r\n  \"ImageName2\": true,\r\n  \"ImageGrup2\": true,\r\n  \"ImageName3\": true,\r\n  \"ImageGrup3\": true,\r\n  \"ImageName4\": true,\r\n  \"ImageGrup4\": true,\r\n  \"ImageName5\": true,\r\n  \"ImageGrup5\": true,\r\n  \"ImageName6\": true,\r\n  \"ImageGrup6\": true,\r\n  \"ImageName7\": true,\r\n  \"ImageGrup7\": true,\r\n  \"ImageName8\": true,\r\n  \"ImageGrup8\": true,\r\n  \"ImageName9\": true,\r\n  \"ImageGrup9\": true,\r\n  \"ImageName10\": true,\r\n  \"ImageGrup10\": true,\r\n  \"ImageURL1\": true,\r\n  \"ImageURL2\": true,\r\n  \"ImageURL3\": true,\r\n  \"ImageURL4\": true,\r\n  \"ImageURL5\": true,\r\n  \"ImageURL6\": true,\r\n  \"ImageURL7\": true,\r\n  \"ImageURL8\": true,\r\n  \"ImageURL9\": true,\r\n  \"ImageURL10\": true,\r\n  \"Raf Numarası\": true,\r\n  \"Varyant Raf No\": true,\r\n  \"Ürün Eklenme Tarihi\": true\r\n}"}
+
+📌 filter_templates
+   Kolonlar: id, customer_id, default, supplier, name, data
+   Kayıt: 0
+
+📌 idefix_shipmenttemplate
+   Kolonlar: id, name, addressType, isDefault
+   Kayıt: 10
+   {"id":79,"name":"Aras Kargo","addressType":"cargocompany","isDefault":0}
+   {"id":82,"name":"Ceva","addressType":"cargocompany","isDefault":0}
+   {"id":75,"name":"Sürat Kargo","addressType":"cargocompany","isDefault":0}
+   {"id":77,"name":"Horoz Lojistik","addressType":"cargocompany","isDefault":0}
+   {"id":76,"name":"MNG Kargo","addressType":"cargocompany","isDefault":0}
+   {"id":74,"name":"Yurtiçi Kargo","addressType":"cargocompany","isDefault":0}
+   {"id":80,"name":"Ptt","addressType":"cargocompany","isDefault":0}
+   {"id":78,"name":"KargomSende","addressType":"cargocompany","isDefault":0}
+   {"id":1727,"name":"Yenigöl Mh. Lavanta SK . No 187/2 Muratpaşa / Antalya","addressType":"return","isDefault":1}
+   {"id":1725,"name":"Yenigöl Mh. Lavanta SK . No 187/2 Muratpaşa / Antalya","addressType":"shipping","isDefault":1}
+
+📌 magaza_template
+   Kolonlar: id, name, gg_pageTemplate, gg_format, gg_listingDays, gg_affiliateOption, gg_boldOption, gg_catalogOption, gg_vitrinOption, gg_cargo_city, gg_cargo_shippingPayment, gg_cargo_shippingPayment2, gg_cargo_shippingWhere, gg_cargo_cargoDescription, gg_cargo_cargoCompanies, gg_subtitle_enable, gg_cargo_shippingTime_days, gg_cargo_shippingTime_beforeTime, n11_shipmenttemplate, n11_shipmenttemplate2, n11_preparingday, n11_productcondition, sp_cargo_firm_code, sp_cargo_shipping_day, sp_cargo_shipping_pay_type, sp_min_sale_quantity, sp_max_sale_quantity, sp_use_bold_name, sp_duration, sp_city, sp_cargo_shipping_pay_type2, hb_dispatch_time, hb_cargo_company, n11pro_preparingday, n11pro_shipmenttemplate, zebramo_cargo_shippingPayment, gg_shipping_cost_try, gg_shipping_cost_cf, aliexpress_freight, aliexpress_service_policy, ciceksepeti_deliveryMessageType, ciceksepeti_deliveryType, aliexpress_shipping_lead_time, hb_cargo_company2, bpazar_shipping_company_id, bpazar_shipping_method, narwoo_cargoOption, narwoo_minSaleQuantity, narwoo_maxCargoTime, narwoo_cargoCompanyName, narwoo_cargoPrice, narwoo_maxProductQuantityForCargoPrice, aliniyor_preparingday, aliniyor_shipmenttemplate, aliniyor_SomeDayShipping, aliniyor_EstimatedShippingCharge, gg_shippingFeePaymentType, bpazar_shipping_days, hb_cargo_company3, needion_MaxDeliveryDay, trendyol_deliveryDuration, trendyol_cargo_firm_id, trendyol_shipmentAddressId, trendyol_returningAddressId, etsy_freight, vfmall_cargoCompanyId, vfmall_deliveryDuration, vfmall_maxSaleCount, pazarama_delivery, pazarama_installmentCount, etsy_when_made, etsy_who_made, etsy_is_supply, iyifiyat_deliveryDay, iyifiyat_discountEnable, iyifiyat_discountStart, iyifiyat_discountEnd, turkcellpasaj_shipmentDay, vfmall_alternativeCargoCompanyId, op1001_deliveryNo, op1001_preparationDay, wish_freight, wish_shipment_price, hb_shipping_profile_name, yapisepeti_shipmentDay, etolye_deliveryTime, kintshop_preparationDay, gedik_maxSaleQuantity, gedik_minSaleQuantity, gedik_preparationDay, needion_MaxSaleQuantity, mirakl_teknosa_max_order_quantity, mirakl_teknosa_min_order_quantity, mirakl_teknosa_package_quantity, mirakl_teknosa_logistic_class, hb_claimAddressLabel, hb_shippingAddressLabel, mirakl_decoverse_max_order_quantity, mirakl_decoverse_min_order_quantity, mirakl_decoverse_package_quantity, mirakl_decoverse_logistic_class, mirakl_koctas_max_order_quantity, mirakl_koctas_min_order_quantity, mirakl_koctas_package_quantity, mirakl_koctas_logistic_class, sumka_shipmentDay, idefix_cargoCompanyId, idefix_shipmentAddressId, idefix_returnAddressId, idefix_deliveryType, idefix_deliveryDuration, amazon_fulfillment_latency, aliexpressRu_freight_template_id, aliexpressRu_shipping_lead_time, boyner_cargoCompanyId, boyner_shipmentAddressId, boyner_returnAddressId, boyner_deliveryType, boyner_deliveryDuration, eticaret_cargo_day, n11pro_minimumSaleQuantity, pazarama_city, goturc_deliveryNo, goturc_preparationDay, pazarama_productSaleLimitQuantity, sort_order, mirakl_karaca_max_order_quantity, mirakl_karaca_min_order_quantity, mirakl_karaca_package_quantity, mirakl_karaca_logistic_class, zergo_leadtime_to_ship, zergo_max_order_quantity, zergo_min_order_quantity, zergo_warranty_period, mirakl_karaca_leadtime_to_ship, mirakl_koctas_leadtime_to_ship, mirakl_teknosa_leadtime_to_ship, mirakl_decoverse_leadtime_to_ship, etsy_min_processing_time, etsy_max_processing_time, etsy_processing_time_unit, eptt_warranty_period, eptt_estimated_delivery, pazarama_commercial_id, temu_freight_template_id, flo_cargo_firm_id
+   Kayıt: 1
+   {"id":1,"name":"Default","gg_pageTemplate":"6","gg_format":"S","gg_listingDays":60,"gg_affiliateOption":0,"gg_boldOption":0,"gg_catalogOption":1,"gg_vitrinOption":0,"gg_cargo_city":"7","gg_cargo_shippingPayment":"S","gg_cargo_shippingPayment2":null,"gg_cargo_shippingWhere":"country","gg_cargo_cargoDescription":null,"gg_cargo_cargoCompanies":"surat","gg_subtitle_enable":0,"gg_cargo_shippingTime_days":"today","gg_cargo_shippingTime_beforeTime":"14:00","n11_shipmenttemplate":"Mağaza Öder","n11_shipmenttemplate2":null,"n11_preparingday":"2","n11_productcondition":"1","sp_cargo_firm_code":null,"sp_cargo_shipping_day":"","sp_cargo_shipping_pay_type":null,"sp_min_sale_quantity":"","sp_max_sale_quantity":"","sp_use_bold_name":"0","sp_duration":null,"sp_city":"","sp_cargo_shipping_pay_type2":null,"hb_dispatch_time":1,"hb_cargo_company":"Sürat Kargo","n11pro_preparingday":"1","n11pro_shipmenttemplate":"5ba9ebeced451c0001f43925","zebramo_cargo_shippingPayment":null,"gg_shipping_cost_try":0,"gg_shipping_cost_cf":null,"aliexpress_freight":0,"aliexpress_service_policy":0,"ciceksepeti_deliveryMessageType":18,"ciceksepeti_deliveryType":2,"aliexpress_shipping_lead_time":3,"hb_cargo_company2":"HepsiJet","bpazar_shipping_company_id":1,"bpazar_shipping_method":"in_cart","narwoo_cargoOption":null,"narwoo_minSaleQuantity":null,"narwoo_maxCargoTime":null,"narwoo_cargoCompanyName":null,"narwoo_cargoPrice":0,"narwoo_maxProductQuantityForCargoPrice":null,"aliniyor_preparingday":null,"aliniyor_shipmenttemplate":null,"aliniyor_SomeDayShipping":null,"aliniyor_EstimatedShippingCharge":null,"gg_shippingFeePaymentType":0,"bpazar_shipping_days":0,"hb_cargo_company3":null,"needion_MaxDeliveryDay":0,"trendyol_deliveryDuration":2,"trendyol_cargo_firm_id":17,"trendyol_shipmentAddressId":174453,"trendyol_returningAddressId":174454,"etsy_freight":null,"vfmall_cargoCompanyId":null,"vfmall_deliveryDuration":0,"vfmall_maxSaleCount":0,"pazarama_delivery":"2a843230-8892-495f-500d-08dba31b5fc4","pazarama_installmentCount":"","etsy_when_made":null,"etsy_who_made":null,"etsy_is_supply":null,"iyifiyat_deliveryDay":0,"iyifiyat_discountEnable":0,"iyifiyat_discountStart":null,"iyifiyat_discountEnd":null,"turkcellpasaj_shipmentDay":0,"vfmall_alternativeCargoCompanyId":null,"op1001_deliveryNo":0,"op1001_preparationDay":0,"wish_freight":null,"wish_shipment_price":0,"hb_shipping_profile_name":"","yapisepeti_shipmentDay":0,"etolye_deliveryTime":1,"kintshop_preparationDay":0,"gedik_maxSaleQuantity":0,"gedik_minSaleQuantity":0,"gedik_preparationDay":0,"needion_MaxSaleQuantity":0,"mirakl_teknosa_max_order_quantity":0,"mirakl_teknosa_min_order_quantity":0,"mirakl_teknosa_package_quantity":0,"mirakl_teknosa_logistic_class":null,"hb_claimAddressLabel":"","hb_shippingAddressLabel":"","mirakl_decoverse_max_order_quantity":0,"mirakl_decoverse_min_order_quantity":0,"mirakl_decoverse_package_quantity":0,"mirakl_decoverse_logistic_class":null,"mirakl_koctas_max_order_quantity":0,"mirakl_koctas_min_order_quantity":0,"mirakl_koctas_package_quantity":0,"mirakl_koctas_logistic_class":null,"sumka_shipmentDay":0,"idefix_cargoCompanyId":79,"idefix_shipmentAddressId":"1725","idefix_returnAddressId":"1727","idefix_deliveryType":"regular","idefix_deliveryDuration":2,"amazon_fulfillment_latency":2,"aliexpressRu_freight_template_id":null,"aliexpressRu_shipping_lead_time":0,"boyner_cargoCompanyId":0,"boyner_shipmentAddressId":null,"boyner_returnAddressId":null,"boyner_deliveryType":null,"boyner_deliveryDuration":0,"eticaret_cargo_day":0,"n11pro_minimumSaleQuantity":15,"pazarama_city":"","goturc_deliveryNo":0,"goturc_preparationDay":0,"pazarama_productSaleLimitQuantity":0,"sort_order":1,"mirakl_karaca_max_order_quantity":0,"mirakl_karaca_min_order_quantity":0,"mirakl_karaca_package_quantity":0,"mirakl_karaca_logistic_class":null,"zergo_leadtime_to_ship":0,"zergo_max_order_quantity":0,"zergo_min_order_quantity":0,"zergo_warranty_period":0,"mirakl_karaca_leadtime_to_ship":-1,"mirakl_koctas_leadtime_to_ship":-1,"mirakl_teknosa_leadtime_to_ship":-1,"mirakl_decoverse_leadtime_to_ship":-1,"etsy_min_processing_time":null,"etsy_max_processing_time":null,"etsy_processing_time_unit":"business_days","eptt_warranty_period":null,"eptt_estimated_delivery":0,"pazarama_commercial_id":null,"temu_freight_template_id":null,"flo_cargo_firm_id":null}
+
+📌 message_template
+   Kolonlar: id, name, detail, suppplier
+   Kayıt: 0
+
+📌 n11_shipmenttemplate
+   Kolonlar: id, name
+   Kayıt: 1
+   {"id":9535,"name":"Mağaza Öder"}
+
+📌 n11pro_shipmenttemplate
+   Kolonlar: id, templateName, templateId
+   Kayıt: 1
+   {"id":5,"templateName":"TESLİMAT ŞABLONU","templateId":"5ba9ebeced451c0001f43925"}
+
+📌 report_design
+   Kolonlar: id, name, width, height, orientation, sablon_tipi, page_item_count, sort_order, dont_show_servise_carts, sort_field, sort_method, print_by_product_count, print_by_product_packet_count
+   Kayıt: 2
+   {"id":2,"name":"Gürbüz","width":"150","height":"160","orientation":"P","sablon_tipi":0,"page_item_count":"1","sort_order":2,"dont_show_servise_carts":0,"sort_field":null,"sort_method":null,"print_by_product_count":0,"print_by_product_packet_count":0}
+   {"id":15,"name":"Yeni Şablon","width":"210","height":"297","orientation":"P","sablon_tipi":0,"page_item_count":"10","sort_order":15,"dont_show_servise_carts":0,"sort_field":null,"sort_method":null,"print_by_product_count":0,"print_by_product_packet_count":0}
+
+📌 report_design_elements
+   Kolonlar: id, report_design_id, e_type, name, parent_name, value, e_height, e_width, e_margin_bottom, e_margin_left, e_margin_right, e_margin_top, e_font_family, e_font_size, e_font_weight, e_text_alignment, e_text_wrapping, e_background, e_foreground, e_horizontalAlignment, e_verticalAlignment, sira, file_path, e_thickness, e_rotate
+   Kayıt: 80
+
+📌 temu_freighttemplate
+   Kolonlar: id, name
+   Kayıt: 0
+
+📌 trendyol_shipmenttemplate
+   Kolonlar: id, name, addressType
+   Kayıt: 2
+   {"id":174453,"name":"Yenigöl Mh. Lavanta Sok. 187/2 Muratpaşa/Antalya","addressType":"Shipment"}
+   {"id":174454,"name":"Yenigöl Mh. Lavanta Sok. 187/2 Muratpaşa/Antalya","addressType":"Returning"}
+
+
+🎯 MENÜ / KOMUT / AKSİYON TABLOLARI:
+============================================================
+
+📌 fulfillment_transaction
+   Kolonlar: id, product_id, product_option_value_id, updateDate, quantity, statsus
+   Kayıt: 0
+
+📌 order_transaction
+   Kolonlar: id, order_id, order_number, packageNumber, sku, quantity, totalAmount, taxAmount, netAmount, dueDate, paymentDate, invoiceDate, invoiceNumber, invoiceExplanation, transactionType, debt, credit, commissionRate, paymentPeriod, supplier, paymentOrderId, status, transaction, detail, desi, approve, order_product_id
+   Kayıt: 237985
+
+📌 order_transaction_excel
+   Kolonlar: id, order_ids, ticket_number, type, status, price, dt, detail
+   Kayıt: 0
+
+📌 order_trendyol_transaction
+   Kolonlar: id, order_id, order_number, trd_id, transactionDate, barcode, transactionType, receiptId, description, debt, credit, paymentPeriod, commissionRate, paymentOrderId, paymentDate
+   Kayıt: 0
+
+
+⚙️ AYAR / KONFİGÜRASYON TABLOLARI:
+============================================================
+
+📌 getir_shop_settings
+   Kolonlar: id, shop_id, price_store_id, status, shop_name, listPrice_name, salePrice_name, quantity_store_id
+   Kayıt: 0
+
+📌 hepsijet_sender_settings
+   Kolonlar: id, sender_addressId, sender_name, sender_abbreviationCode, sender_country, sender_city, sender_town, sender_address, sender_current_abbreviationCode, barcode_onek
+   Kayıt: 0
+
+📌 marketplace_autonomous_settings
+   Kolonlar: id, supplier, willBeListedProduct, defaultApproval, product_name_match_accuracy_rate, product_price_match_accuracy_rate
+   Kayıt: 0
+
+📌 marketplace_price_settings
+   Kolonlar: id, supplier, listPrice_name, salePrice_name, store_id, povSalePrice_name
+   Kayıt: 37
+
+📌 marketplace_quantity_settings
+   Kolonlar: id, supplier, product_store_id, order_store_id, critical_stock_enable, critical_stock, quantity2_enable
+   Kayıt: 36
+
+📌 option
+   Kolonlar: id, name, type, sort_order, sync, supplier, supplier_id, gg_category, gg_option_name, gg_option_id, eticaret_id, name2, amazon_option_name, option_multiplier_value_enable, aliexpress_option_name, akakce_option_name, eticaret_option_name, joom_option_name, etsy_option_name, wish_option_name, morhipo_option_name, iyifiyat_option_id, yapisepeti_option_id, yapisepeti_option_name, modanisa_option_name, option_number, beymen_option_name, sync_ai, ozon_option_name, sumka_option_id, sumka_option_name, lcw_option_name, api_option_name, sync_eticaret1, zergo_option_name, optionSync
+   Kayıt: 3
+   [1] {"id":11,"name":"Renk","type":"select","sort_order":0,"sync":1,"supplier":"n11","supplier_id":null,"gg_category":null,"gg_option_name":null,"gg_option_id":null,"eticaret_id":null,"name2":"","amazon_option_name":"","option_multiplier_value_enable":0,"aliexpress_option_name":"","akakce_option_name":"","eticaret_option_name":"","joom_option_name":"","etsy_option_name":null,"wish_option_name":null,"morhipo_option_name":null,"iyifiyat_option_id":null,"yapisepeti_option_id":null,"yapisepeti_option_name":null,"modanisa_option_name":null,"option_number":null,"beymen_option_name":null,"sync_ai":0,"ozon_option_name":null,"sumka_option_id":null,"sumka_option_name":null,"lcw_option_name":null,"api_option_name":null,"sync_eticaret1":1,"zergo_option_name":null,"optionSync":1}
+   [2] {"id":16,"name":"Model","type":"select","sort_order":2,"sync":1,"supplier":"n11","supplier_id":null,"gg_category":null,"gg_option_name":null,"gg_option_id":null,"eticaret_id":null,"name2":"","amazon_option_name":"","option_multiplier_value_enable":0,"aliexpress_option_name":"","akakce_option_name":"","eticaret_option_name":"","joom_option_name":"","etsy_option_name":null,"wish_option_name":null,"morhipo_option_name":null,"iyifiyat_option_id":null,"yapisepeti_option_id":null,"yapisepeti_option_name":null,"modanisa_option_name":null,"option_number":null,"beymen_option_name":null,"sync_ai":0,"ozon_option_name":null,"sumka_option_id":null,"sumka_option_name":null,"lcw_option_name":null,"api_option_name":null,"sync_eticaret1":1,"zergo_option_name":null,"optionSync":1}
+   [3] {"id":65,"name":"FH-056","type":null,"sort_order":null,"sync":1,"supplier":"Mikro Stok XML","supplier_id":null,"gg_category":null,"gg_option_name":null,"gg_option_id":null,"eticaret_id":null,"name2":null,"amazon_option_name":null,"option_multiplier_value_enable":0,"aliexpress_option_name":null,"akakce_option_name":null,"eticaret_option_name":null,"joom_option_name":null,"etsy_option_name":null,"wish_option_name":null,"morhipo_option_name":null,"iyifiyat_option_id":null,"yapisepeti_option_id":null,"yapisepeti_option_name":null,"modanisa_option_name":null,"option_number":null,"beymen_option_name":null,"sync_ai":0,"ozon_option_name":null,"sumka_option_id":null,"sumka_option_name":null,"lcw_option_name":null,"api_option_name":null,"sync_eticaret1":1,"zergo_option_name":null,"optionSync":1}
+
+📌 option_a101
+   Kolonlar: id, option_id, a101_category, a101_option_name, a101_option_id, option_type
+   Kayıt: 0
+
+📌 option_aliexpress
+   Kolonlar: id, option_id, aliexpress_category, aliexpress_option_name, aliexpress_customized_name
+   Kayıt: 0
+
+📌 option_aliexpressRu
+   Kolonlar: id, option_id, aliexpressRu_category, aliexpressRu_option_name, aliexpressRu_option_id, option_type, has_customized_pic
+   Kayıt: 0
+
+📌 option_alisgidis
+   Kolonlar: id, option_id, alisgidis_category, alisgidis_option_name, alisgidis_option_id
+   Kayıt: 0
+
+📌 option_amazon
+   Kolonlar: id, option_id, product_type, amazon_option_name, amazon_option_id, option_type, browseNodeId
+   Kayıt: 0
+
+📌 option_beymen
+   Kolonlar: id, option_id, beymen_category, beymen_option_name, beymen_option_id
+   Kayıt: 0
+
+📌 option_bisifirat
+   Kolonlar: id, option_id, bisifirat_category, bisifirat_option_name, bisifirat_option_id, allowCustom
+   Kayıt: 0
+
+📌 option_boyner
+   Kolonlar: id, option_id, boyner_category, boyner_option_name, boyner_option_id, option_type
+   Kayıt: 0
+
+📌 option_ciceksepeti
+   Kolonlar: id, option_id, ciceksepeti_category, ciceksepeti_option_name, ciceksepeti_option_id
+   Kayıt: 3
+   [1] {"id":1,"option_id":49,"ciceksepeti_category":12869,"ciceksepeti_option_name":"","ciceksepeti_option_id":null}
+   [2] {"id":2,"option_id":37,"ciceksepeti_category":12857,"ciceksepeti_option_name":"","ciceksepeti_option_id":null}
+   [3] {"id":3,"option_id":56,"ciceksepeti_category":12857,"ciceksepeti_option_name":"Renk","ciceksepeti_option_id":"2000533"}
+
+📌 option_eanship
+   Kolonlar: id, option_id, eanship_category, eanship_option
+   Kayıt: 0
+
+📌 option_etsy
+   Kolonlar: id, option_id, etsy_category, etsy_option_name, etsy_option_id
+   Kayıt: 0
+
+📌 option_flo
+   Kolonlar: id, option_id, flo_category, flo_option_name, flo_option_id, flo_category_name
+   Kayıt: 0
+
+📌 option_gg
+   Kolonlar: id, option_id, gg_category, gg_option_name, gg_option_id
+   Kayıt: 17
+   [1] {"id":1,"option_id":11,"gg_category":"jol","gg_option_name":"","gg_option_id":null}
+   [2] {"id":2,"option_id":11,"gg_category":"jrbe","gg_option_name":"","gg_option_id":null}
+   [3] {"id":3,"option_id":11,"gg_category":"jyd2b","gg_option_name":"Renk","gg_option_id":4168}
+   [4] {"id":4,"option_id":11,"gg_category":"ioe","gg_option_name":"Renk","gg_option_id":4772}
+   [5] {"id":5,"option_id":11,"gg_category":"cuuf","gg_option_name":"","gg_option_id":null}
+   [6] {"id":6,"option_id":11,"gg_category":"jyd3f","gg_option_name":"Renk","gg_option_id":19522}
+   [7] {"id":7,"option_id":11,"gg_category":"ioh","gg_option_name":"Renk","gg_option_id":4772}
+   [8] {"id":8,"option_id":11,"gg_category":"jyd3c","gg_option_name":"Renk","gg_option_id":19469}
+   [9] {"id":9,"option_id":11,"gg_category":"jyd3d","gg_option_name":"","gg_option_id":null}
+   [10] {"id":10,"option_id":11,"gg_category":"ilz","gg_option_name":"Renk","gg_option_id":4031}
+   [11] {"id":11,"option_id":16,"gg_category":"jyd3c","gg_option_name":"","gg_option_id":null}
+   [12] {"id":12,"option_id":19,"gg_category":"jyd3c","gg_option_name":"","gg_option_id":null}
+   [13] {"id":13,"option_id":11,"gg_category":"jyd1e","gg_option_name":"Renk","gg_option_id":5371}
+   [14] {"id":14,"option_id":11,"gg_category":"jyd3a","gg_option_name":"Renk","gg_option_id":5390}
+   [15] {"id":15,"option_id":11,"gg_category":"jyd3e","gg_option_name":"","gg_option_id":""}
+   [16] {"id":16,"option_id":11,"gg_category":"aub","gg_option_name":"","gg_option_id":null}
+   [17] {"id":17,"option_id":11,"gg_category":"ia","gg_option_name":"","gg_option_id":0}
+
+📌 option_hb
+   Kolonlar: id, option_id, hb_category, hb_option_name, hb_option_id, option_type
+   Kayıt: 3
+   [1] {"id":1,"option_id":23,"hb_category":1300147,"hb_option_name":"Renk","hb_option_id":"renk_variant_property","option_type":""}
+   [2] {"id":2,"option_id":49,"hb_category":23022180,"hb_option_name":"","hb_option_id":null,"option_type":"0"}
+   [3] {"id":3,"option_id":56,"hb_category":60006678,"hb_option_name":"Renk","hb_option_id":"renk_variant_property","option_type":""}
+
+📌 option_idefix
+   Kolonlar: id, option_id, idefix_category, idefix_option_name, idefix_option_id, option_type
+   Kayıt: 0
+
+📌 option_kintshop
+   Kolonlar: id, option_id, kintshop_category, kintshop_option_name, kintshop_option_id
+   Kayıt: 0
+
+📌 option_mirakl_decoverse
+   Kolonlar: id, option_id, mirakl_decoverse_category, mirakl_decoverse_option_name, mirakl_decoverse_option_id, mirakl_decoverse_category_name
+   Kayıt: 0
+
+📌 option_mirakl_karaca
+   Kolonlar: id, option_id, mirakl_karaca_category, mirakl_karaca_option_name, mirakl_karaca_option_id, mirakl_karaca_category_name
+   Kayıt: 0
+
+📌 option_mirakl_koctas
+   Kolonlar: id, option_id, mirakl_koctas_category, mirakl_koctas_option_name, mirakl_koctas_option_id, mirakl_koctas_category_name
+   Kayıt: 0
+
+📌 option_mirakl_teknosa
+   Kolonlar: id, option_id, mirakl_teknosa_category, mirakl_teknosa_option_name, mirakl_teknosa_option_id, mirakl_teknosa_category_name
+   Kayıt: 0
+
+📌 option_modanisa
+   Kolonlar: id, option_id, modanisa_category, modanisa_option_name, modanisa_option_id, option_type
+   Kayıt: 0
+
+📌 option_n11
+   Kolonlar: id, option_id, n11_category, n11_option_name, n11_option_id, customValue
+   Kayıt: 2
+   [1] {"id":1,"option_id":17,"n11_category":1018124,"n11_option_name":"Marka","n11_option_id":null,"customValue":1}
+   [2] {"id":2,"option_id":56,"n11_category":1002414,"n11_option_name":"","n11_option_id":null,"customValue":1}
+
+📌 option_n11pro
+   Kolonlar: id, option_id, n11pro_category, n11pro_option_name, n11pro_option_id
+   Kayıt: 0
+
+📌 option_needion
+   Kolonlar: id, option_id, needion_category, needion_option_name, needion_option_id
+   Kayıt: 0
+
+📌 option_nevade
+   Kolonlar: id, option_id, nevade_category, nevade_option_name, nevade_option_id
+   Kayıt: 0
+
+📌 option_ozon
+   Kolonlar: id, option_id, ozon_category, ozon_option_name, ozon_option_id, type_id
+   Kayıt: 0
+
+📌 option_pazarama
+   Kolonlar: id, option_id, pazarama_category, pazarama_option_name, pazarama_option_id
+   Kayıt: 0
+
+📌 option_temu
+   Kolonlar: id, option_id, temu_category, temu_option_name, temu_option_id, option_type
+   Kayıt: 0
+
+📌 option_toptantr
+   Kolonlar: id, option_id, toptantr_category, toptantr_option_name, toptantr_option_id, sync_ai
+   Kayıt: 0
+
+📌 option_trendyol
+   Kolonlar: id, option_id, trendyol_category, trendyol_option_name, trendyol_option_id, option_type
+   Kayıt: 2
+   [1] {"id":1,"option_id":40,"trendyol_category":"2255","trendyol_option_name":"Renk","trendyol_option_id":47,"option_type":""}
+   [2] {"id":2,"option_id":56,"trendyol_category":"2255","trendyol_option_name":"Renk","trendyol_option_id":47,"option_type":""}
+
+📌 option_trendyolGulf_ae
+   Kolonlar: id, option_id, trendyolGulf_ae_category, trendyolGulf_ae_option_name, trendyolGulf_ae_option_id, option_type
+   Kayıt: 0
+
+📌 option_trendyolGulf_sa
+   Kolonlar: id, option_id, trendyolGulf_sa_category, trendyolGulf_sa_option_name, trendyolGulf_sa_option_id, option_type
+   Kayıt: 0
+
+📌 option_value
+   Kolonlar: option_value_id, option_id, option_value_name, sync, image, supplier, supplier_id, gg_option_value_name, gg_option_value_id, sort_order, eticaret_id, option_value_name2, amazon_option_value_name, option_multiplier_value, aliexpress_option_value_name, amazonEu_option_value_name, joom_option_value_name, etsy_option_name, etsy_option_value_name, wish_option_value_name, iyifiyat_option_value_id, yapisepeti_option_value_id, yapisepeti_option_value_name, beymen_option_value_name, sync_ai, ozon_option_value_name, omnitron_option_value_name, sumka_option_value_id, sumka_option_value_name, lcw_option_value_name, aliexpressRu_option_value_name, eticaret_option_value_name, optionValueSync, temu_option_value_name
+   Kayıt: 69
+
+📌 option_value_a101
+   Kolonlar: id, option_value_id, option_id, a101_category, a101_option_value_name, a101_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_aliexpress
+   Kolonlar: id, option_value_id, option_id, aliexpress_category, aliexpress_option_value_name, sync_ai
+   Kayıt: 0
+
+📌 option_value_aliexpressRu
+   Kolonlar: id, option_value_id, option_id, aliexpressRu_category, aliexpressRu_option_value_name, aliexpressRu_option_value_id, aliexpressRu_option_value_name_text, sync_ai
+   Kayıt: 0
+
+📌 option_value_alisgidis
+   Kolonlar: id, option_value_id, option_id, alisgidis_category, alisgidis_option_value_name, alisgidis_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_amazon
+   Kolonlar: id, option_value_id, option_id, product_type, amazon_option_value_name, amazon_option_value_id, amazon_option_value_name_text
+   Kayıt: 0
+
+📌 option_value_beymen
+   Kolonlar: id, option_value_id, option_id, beymen_category, beymen_option_value_name, beymen_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_bisifirat
+   Kolonlar: id, option_value_id, option_id, bisifirat_category, bisifirat_option_value_name, bisifirat_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_boyner
+   Kolonlar: id, option_value_id, option_id, boyner_category, boyner_option_value_name, boyner_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_ciceksepeti
+   Kolonlar: id, option_value_id, option_id, ciceksepeti_category, ciceksepeti_option_value_name, ciceksepeti_option_value_id, sync_ai
+   Kayıt: 5
+   [1] {"id":6,"option_value_id":374,"option_id":56,"ciceksepeti_category":"12857","ciceksepeti_option_value_name":"Beyaz","ciceksepeti_option_value_id":2120632,"sync_ai":0}
+   [2] {"id":7,"option_value_id":375,"option_id":56,"ciceksepeti_category":"12857","ciceksepeti_option_value_name":"Siyah","ciceksepeti_option_value_id":2120676,"sync_ai":0}
+   [3] {"id":8,"option_value_id":376,"option_id":56,"ciceksepeti_category":"12857","ciceksepeti_option_value_name":"Turuncu","ciceksepeti_option_value_id":2040223,"sync_ai":0}
+   [4] {"id":9,"option_value_id":377,"option_id":56,"ciceksepeti_category":"12857","ciceksepeti_option_value_name":"Yeşil","ciceksepeti_option_value_id":2040227,"sync_ai":0}
+   [5] {"id":10,"option_value_id":378,"option_id":56,"ciceksepeti_category":"12857","ciceksepeti_option_value_name":"Sarı","ciceksepeti_option_value_id":2040210,"sync_ai":0}
+
+📌 option_value_eanship
+   Kolonlar: id, option_id, option_value_id, eanship_category, eanship_option_value
+   Kayıt: 0
+
+📌 option_value_etsy
+   Kolonlar: id, option_value_id, option_id, etsy_category, etsy_option_value_name, etsy_option_value_id, etsy_scale_id, etsy_attribute_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_flo
+   Kolonlar: id, option_value_id, option_id, flo_category, flo_option_value_name, flo_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_gg
+   Kolonlar: id, option_value_id, option_id, gg_category, gg_option_value_name, gg_option_value_id
+   Kayıt: 264
+
+📌 option_value_hb
+   Kolonlar: id, option_value_id, option_id, hb_category, hb_option_value_name, hb_option_value_id, sync_ai
+   Kayıt: 7
+   [1] {"id":1,"option_value_id":274,"option_id":23,"hb_category":"1300147","hb_option_value_name":"Mavi","hb_option_value_id":null,"sync_ai":0}
+   [2] {"id":2,"option_value_id":275,"option_id":23,"hb_category":"1300147","hb_option_value_name":"Siyah","hb_option_value_id":null,"sync_ai":0}
+   [3] {"id":3,"option_value_id":374,"option_id":56,"hb_category":"60006678","hb_option_value_name":"Beyaz","hb_option_value_id":null,"sync_ai":0}
+   [4] {"id":4,"option_value_id":375,"option_id":56,"hb_category":"60006678","hb_option_value_name":"Siyah","hb_option_value_id":null,"sync_ai":0}
+   [5] {"id":5,"option_value_id":376,"option_id":56,"hb_category":"60006678","hb_option_value_name":"Turuncu","hb_option_value_id":null,"sync_ai":0}
+   [6] {"id":6,"option_value_id":377,"option_id":56,"hb_category":"60006678","hb_option_value_name":"Yeşil","hb_option_value_id":null,"sync_ai":0}
+   [7] {"id":7,"option_value_id":378,"option_id":56,"hb_category":"60006678","hb_option_value_name":"Sarı","hb_option_value_id":null,"sync_ai":0}
+
+📌 option_value_idefix
+   Kolonlar: id, option_value_id, option_id, idefix_category, idefix_option_value_name, idefix_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_kintshop
+   Kolonlar: id, option_value_id, option_id, kintshop_category, kintshop_option_value_name, kintshop_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_mirakl_decoverse
+   Kolonlar: id, option_value_id, option_id, mirakl_decoverse_category, mirakl_decoverse_option_value_name, mirakl_decoverse_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_mirakl_karaca
+   Kolonlar: id, option_value_id, option_id, mirakl_karaca_category, mirakl_karaca_option_value_name, mirakl_karaca_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_mirakl_koctas
+   Kolonlar: id, option_value_id, option_id, mirakl_koctas_category, mirakl_koctas_option_value_name, mirakl_koctas_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_mirakl_teknosa
+   Kolonlar: id, option_value_id, option_id, mirakl_teknosa_category, mirakl_teknosa_option_value_name, mirakl_teknosa_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_modanisa
+   Kolonlar: id, option_value_id, option_id, modanisa_category, modanisa_option_value_name, modanisa_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_n11
+   Kolonlar: id, option_value_id, option_id, n11_category, n11_option_value_name, n11_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_n11pro
+   Kolonlar: id, option_value_id, option_id, n11pro_category, n11pro_option_value_name, n11pro_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_needion
+   Kolonlar: id, option_value_id, option_id, needion_category, needion_option_value_name, needion_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_nevade
+   Kolonlar: id, option_value_id, option_id, nevade_category, nevade_option_value_name, nevade_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_ozon
+   Kolonlar: id, option_value_id, option_id, ozon_category, ozon_option_value_name, ozon_option_value_id, ozon_attribute_id, sync_ai, type_id
+   Kayıt: 0
+
+📌 option_value_pazarama
+   Kolonlar: id, option_value_id, option_id, pazarama_category, pazarama_option_value_name, pazarama_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_temu
+   Kolonlar: id, option_value_id, option_id, temu_category, temu_option_value_name, temu_option_value_id, temu_option_value_name_text, sync_ai
+   Kayıt: 0
+
+📌 option_value_toptantr
+   Kolonlar: id, option_value_id, option_id, toptantr_category, toptantr_option_value_name, toptantr_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_trendyol
+   Kolonlar: id, option_value_id, option_id, trendyol_category, trendyol_option_value_name, trendyol_option_value_id, sync_ai
+   Kayıt: 9
+   [1] {"id":1,"option_value_id":324,"option_id":40,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [2] {"id":2,"option_value_id":325,"option_id":40,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [3] {"id":3,"option_value_id":326,"option_id":40,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [4] {"id":4,"option_value_id":327,"option_id":40,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [5] {"id":10,"option_value_id":374,"option_id":56,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [6] {"id":11,"option_value_id":375,"option_id":56,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [7] {"id":12,"option_value_id":376,"option_id":56,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [8] {"id":13,"option_value_id":377,"option_id":56,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+   [9] {"id":14,"option_value_id":378,"option_id":56,"trendyol_category":"2255","trendyol_option_value_name":"","trendyol_option_value_id":"","sync_ai":0}
+
+📌 option_value_trendyolGulf_ae
+   Kolonlar: id, option_value_id, option_id, trendyolGulf_ae_category, trendyolGulf_ae_option_value_name, trendyolGulf_ae_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_trendyolGulf_sa
+   Kolonlar: id, option_value_id, option_id, trendyolGulf_sa_category, trendyolGulf_sa_option_value_name, trendyolGulf_sa_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_value_vfmall
+   Kolonlar: id, option_value_id, option_id, vfmall_category, vfmall_option_value_name, sync_ai
+   Kayıt: 0
+
+📌 option_value_zergo
+   Kolonlar: id, option_value_id, option_id, zergo_category, zergo_option_value_name, zergo_option_value_id, sync_ai
+   Kayıt: 0
+
+📌 option_vfmall
+   Kolonlar: id, option_id, vfmall_category, vfmall_option_name, vfmall_option_id
+   Kayıt: 0
+
+📌 option_zergo
+   Kolonlar: id, option_id, zergo_category, zergo_option_name, zergo_option_id, input_type
+   Kayıt: 0
+
+📌 product_option
+   Kolonlar: id, product_id, option_id, option_value, required, supplier, supplier_id, gg_category, gg_option_name, gg_option_id, flag, gg_option, sync_ai
+   Kayıt: 3
+   [1] {"id":158,"product_id":3708,"option_id":16,"option_value":"","required":0,"supplier":null,"supplier_id":null,"gg_category":"","gg_option_name":"","gg_option_id":"","flag":0,"gg_option":"","sync_ai":1}
+   [2] {"id":251,"product_id":1836,"option_id":11,"option_value":"","required":0,"supplier":null,"supplier_id":null,"gg_category":null,"gg_option_name":null,"gg_option_id":null,"flag":0,"gg_option":null,"sync_ai":1}
+   [3] {"id":401,"product_id":9760,"option_id":65,"option_value":null,"required":null,"supplier":"Mikro Stok XML","supplier_id":null,"gg_category":null,"gg_option_name":null,"gg_option_id":null,"flag":0,"gg_option":null,"sync_ai":1}
+
+📌 product_option_group
+   Kolonlar: id, product_id, option_id, option_value_id, picture, picture_url, picture_downloaded, picture_sync, flag, eticaret_picture_sync, eticaret_code, eticaret_picture_code
+   Kayıt: 67
+
+📌 product_option_value
+   Kolonlar: id, product_id, subtract, price, price_prefix, points, points_prefix, weight, weight_prefix, supplier, supplier_id, picture, picture_url, picture_downloaded, gg_option_value_name, gg_option_value_id, picture_sync, productCode, variant_id, hb_sku, hb_st_sku, barcode, xml_price, flag, gg_newCatalogId, gtin, mpn, erp_code, eticaret_code, ColorCode, ItemDim1Code, ItemDim2Code, ItemDim3Code, status, amazon_gtin, sp_price, amazonEu_gtin, amazonEu_price, amazonfr_price, eanship_price, width, height, depth, desi, gg_option_value, ciceksepeti_integration_code, ciceksepeti_kodu, n11_catalog_id, trendyol_integration_code, zebramo_id, isFulfillment, fulfillment_id, gordumaldim_price, needion_id, fulfillment_order_status, modanisa_barcode, farmazon_ilan_id, fulfillment_error, fulfillment_error_message, hb_max_count, pazarama_id, bisifirat_barcode, bisifirat_code, hb_autoprice_offset, vfmall_id, bisifirat_id, farmaborsa_ilanID, farmaborsa_urunTalepId, farmaborsa_barcode, iyifiyat_id, nevade_id, pazarama_integration_code, sort_order, novadan_ilan_id, morhipo_integration_code, turkcellpasaj_integration_code, iyifiyat_integration_code, getir_integration_code, flo_integration_code, wish_id, trendyolgo_store_id, n11_integration_code, etolye_id, warehouse_rack_number, hb_barcode, mirakl_teknosa_ean_code, beymen_id, sync_ai, date_add, ozon_id, trendyol_id, joom_integration_code, mirakl_decoverse_ean_code, mirakl_koctas_ean_code, sumka_price, mirakl_teknosa_is_catalog, mirakl_decoverse_is_catalog, mirakl_koctas_is_catalog, etsy_value_ids, etsy_values, omnitron_integration_code, kintshop_id, ozon_integration_code, kintshop_integration_code, aliexpressRu_integration_code, sumka_integration_code, lcw_id, sumka_id, trendyolgo_integration_code, lcw_barcode, idefix_integration_code, date_change, idefix_catalogControl, alisgidis_id, etsy_id, trendyolGulf_sa_integration_code, trendyolGulf_ae_integration_code, alisgidis_integration_code, toptantr_id, toptantr_integration_code, vfmall_barcode, trendyolEu_integration_code, mirakl_koctas_sku, mirakl_teknosa_sku, mirakl_decoverse_sku, goturc_integration_code, novadan_integration_code, a101_integration_code, mirakl_karaca_ean_code, mirakl_karaca_sku, mirakl_karaca_is_catalog, novadan_integration_id, critical_stock, boyner_integration_code, zergo_integration_code, zergo_concrete_sku, jewel_weight, temu_integration_code, temu_id, boyner_is_listed, ai_control
+   Kayıt: 8
+   [1] {"id":459,"product_id":1836,"subtract":0,"price":0,"price_prefix":"+","points":0,"points_prefix":"+","weight":0,"weight_prefix":"+","supplier":null,"supplier_id":null,"picture":null,"picture_url":null,"picture_downloaded":null,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"9210-459","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":null,"xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":"","sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":0,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"459-1836","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":null,"ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":null,"idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [2] {"id":460,"product_id":1836,"subtract":0,"price":0,"price_prefix":"+","points":0,"points_prefix":"+","weight":0,"weight_prefix":"+","supplier":null,"supplier_id":null,"picture":null,"picture_url":null,"picture_downloaded":null,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"9210-460","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":null,"xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":"","sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":0,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"460-1836","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":null,"ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":null,"idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [3] {"id":461,"product_id":1836,"subtract":0,"price":0,"price_prefix":"+","points":0,"points_prefix":"+","weight":0,"weight_prefix":"+","supplier":null,"supplier_id":null,"picture":null,"picture_url":null,"picture_downloaded":null,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"9210-461","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":null,"xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":"","sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":0,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"461-1836","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":null,"ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":null,"idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [4] {"id":462,"product_id":1836,"subtract":0,"price":0,"price_prefix":"+","points":0,"points_prefix":"+","weight":0,"weight_prefix":"+","supplier":null,"supplier_id":null,"picture":null,"picture_url":null,"picture_downloaded":null,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"9210-462","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":null,"xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":"","sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":0,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"462-1836","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":null,"ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":null,"idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [5] {"id":463,"product_id":1836,"subtract":0,"price":0,"price_prefix":"+","points":0,"points_prefix":"+","weight":0,"weight_prefix":"+","supplier":null,"supplier_id":null,"picture":null,"picture_url":null,"picture_downloaded":null,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"9210-463","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":null,"xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":"","sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":0,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"463-1836","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":null,"ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":null,"idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [6] {"id":820,"product_id":9760,"subtract":null,"price":0,"price_prefix":"+","points":null,"points_prefix":null,"weight":null,"weight_prefix":null,"supplier":"Mikro Stok XML","supplier_id":"430","picture":null,"picture_url":"","picture_downloaded":1,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":"","xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":null,"sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":1,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"820-9800","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":"2023-08-08 10:58:45","ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":"2024-04-01 09:24:22","idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [7] {"id":821,"product_id":9760,"subtract":null,"price":0,"price_prefix":"+","points":null,"points_prefix":null,"weight":null,"weight_prefix":null,"supplier":"Mikro Stok XML","supplier_id":"431","picture":null,"picture_url":"","picture_downloaded":1,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":"","xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":null,"sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":2,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"821-9800","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":"2023-08-08 10:58:45","ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":"2024-04-01 09:24:22","idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+   [8] {"id":822,"product_id":9760,"subtract":null,"price":0,"price_prefix":"+","points":null,"points_prefix":null,"weight":null,"weight_prefix":null,"supplier":"Mikro Stok XML","supplier_id":"432","picture":null,"picture_url":"","picture_downloaded":1,"gg_option_value_name":null,"gg_option_value_id":null,"picture_sync":1,"productCode":"","variant_id":0,"hb_sku":null,"hb_st_sku":null,"barcode":"","xml_price":0,"flag":0,"gg_newCatalogId":0,"gtin":null,"mpn":null,"erp_code":null,"eticaret_code":null,"ColorCode":null,"ItemDim1Code":null,"ItemDim2Code":null,"ItemDim3Code":null,"status":0,"amazon_gtin":null,"sp_price":0,"amazonEu_gtin":null,"amazonEu_price":0,"amazonfr_price":0,"eanship_price":0,"width":0,"height":0,"depth":0,"desi":0,"gg_option_value":null,"ciceksepeti_integration_code":null,"ciceksepeti_kodu":null,"n11_catalog_id":0,"trendyol_integration_code":null,"zebramo_id":0,"isFulfillment":0,"fulfillment_id":null,"gordumaldim_price":0,"needion_id":null,"fulfillment_order_status":0,"modanisa_barcode":null,"farmazon_ilan_id":0,"fulfillment_error":0,"fulfillment_error_message":null,"hb_max_count":0,"pazarama_id":0,"bisifirat_barcode":0,"bisifirat_code":null,"hb_autoprice_offset":0,"vfmall_id":null,"bisifirat_id":null,"farmaborsa_ilanID":0,"farmaborsa_urunTalepId":0,"farmaborsa_barcode":null,"iyifiyat_id":0,"nevade_id":0,"pazarama_integration_code":null,"sort_order":3,"novadan_ilan_id":0,"morhipo_integration_code":null,"turkcellpasaj_integration_code":null,"iyifiyat_integration_code":null,"getir_integration_code":null,"flo_integration_code":null,"wish_id":null,"trendyolgo_store_id":null,"n11_integration_code":"822-9800","etolye_id":0,"warehouse_rack_number":null,"hb_barcode":null,"mirakl_teknosa_ean_code":null,"beymen_id":null,"sync_ai":2,"date_add":"2023-08-08 10:58:45","ozon_id":null,"trendyol_id":null,"joom_integration_code":null,"mirakl_decoverse_ean_code":null,"mirakl_koctas_ean_code":null,"sumka_price":0,"mirakl_teknosa_is_catalog":0,"mirakl_decoverse_is_catalog":0,"mirakl_koctas_is_catalog":0,"etsy_value_ids":0,"etsy_values":null,"omnitron_integration_code":null,"kintshop_id":0,"ozon_integration_code":null,"kintshop_integration_code":null,"aliexpressRu_integration_code":null,"sumka_integration_code":null,"lcw_id":0,"sumka_id":null,"trendyolgo_integration_code":null,"lcw_barcode":null,"idefix_integration_code":null,"date_change":"2024-04-01 09:24:22","idefix_catalogControl":1,"alisgidis_id":0,"etsy_id":0,"trendyolGulf_sa_integration_code":null,"trendyolGulf_ae_integration_code":null,"alisgidis_integration_code":null,"toptantr_id":0,"toptantr_integration_code":null,"vfmall_barcode":null,"trendyolEu_integration_code":null,"mirakl_koctas_sku":null,"mirakl_teknosa_sku":null,"mirakl_decoverse_sku":null,"goturc_integration_code":null,"novadan_integration_code":null,"a101_integration_code":null,"mirakl_karaca_ean_code":null,"mirakl_karaca_sku":null,"mirakl_karaca_is_catalog":0,"novadan_integration_id":0,"critical_stock":0,"boyner_integration_code":null,"zergo_integration_code":null,"zergo_concrete_sku":null,"jewel_weight":0,"temu_integration_code":null,"temu_id":0,"boyner_is_listed":0,"ai_control":0}
+
+📌 product_option_value2
+   Kolonlar: id, product_option_id, product_id, option_id, option_value_id, quantity, subtract, price, price_prefix, points, points_prefix, weight, weight_prefix, supplier, supplier_id, picture, picture_url, picture_downloaded, gg_option_value_name, gg_option_value_id
+   Kayıt: 61
+
+📌 product_option_value_eski
+   Kolonlar: id, product_id, quantity, subtract, price, price_prefix, points, points_prefix, weight, weight_prefix, supplier, supplier_id, picture, picture_url, picture_downloaded, gg_option_value_name, gg_option_value_id, picture_sync, productCode, variant_id, hb_sku, hb_st_sku, quantity2, barcode, xml_price, flag, gg_newCatalogId, gtin, mpn, erp_code, eticaret_code, ColorCode, ItemDim1Code, ItemDim2Code, ItemDim3Code, status, amazon_gtin, n11_price, gg_price, hb_price, trendy_price, eticaret_price, n11pro_price, sp_price, eptt_price, amazon_price, amazonEu_gtin, amazonEu_price, amazonfr_price, lidyana_price, modanisa_price, eanship_price, width, height, depth, desi, gg_option_value, aliexpress_price, ciceksepeti_integration_code, ciceksepeti_price, ciceksepeti_kodu, omnitron_price1, omnitron_price2, n11_catalog_id, bpazar_price1, bpazar_price2, morhipo_price, joom_price, trendyol_integration_code, aliniyor_price, flo_price, zebramo_id, isFulfillment, fulfillment_id, narwoo_price, gordumaldim_price, needion_price, needion_id, fulfillment_order_status, modanisa_barcode, zebramo_price, farmazon_ilan_id, farmazon_price, fulfillment_error, fulfillment_error_message, hb_max_count, pazarama_id, bisifirat_barcode, bisifirat_code, buying_price, hb_autoprice_offset, vfmall_id, vfmall_price, bisifirat_id, farmaborsa_ilanID, farmaborsa_urunTalepId, farmaborsa_price, farmaborsa_barcode, iyifiyat_id, iyifiyat_price, nevade_id, nevade_price, pazarama_integration_code, sort_order, novadan_price, novadan_ilan_id, pazarama_price, bisifirat_price, turkcellpasaj_price, morhipo_integration_code, turkcellpasaj_integration_code, nevade_poolId, etsy_price, op1001_price, yapisepeti_price, iyifiyat_integration_code, getir_integration_code, flo_integration_code, wish_id, wish_price
+   Kayıt: 155
+
+📌 product_option_value_spec
+   Kolonlar: id, product_id, product_option_value_id, option_id, option_value_id, supplier, supplier_id, eticaret_code, flag, sync_ai
+   Kayıt: 8
+   [1] {"id":1135,"product_id":1836,"product_option_value_id":459,"option_id":11,"option_value_id":128,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [2] {"id":1136,"product_id":1836,"product_option_value_id":460,"option_id":11,"option_value_id":138,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [3] {"id":1137,"product_id":1836,"product_option_value_id":461,"option_id":11,"option_value_id":129,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [4] {"id":1138,"product_id":1836,"product_option_value_id":462,"option_id":11,"option_value_id":143,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [5] {"id":1139,"product_id":1836,"product_option_value_id":463,"option_id":11,"option_value_id":144,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [6] {"id":1577,"product_id":9760,"product_option_value_id":820,"option_id":65,"option_value_id":430,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [7] {"id":1578,"product_id":9760,"product_option_value_id":821,"option_id":65,"option_value_id":431,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+   [8] {"id":1579,"product_id":9760,"product_option_value_id":822,"option_id":65,"option_value_id":432,"supplier":null,"supplier_id":null,"eticaret_code":null,"flag":0,"sync_ai":0}
+
+📌 product_smart_price_settings
+   Kolonlar: id, product_id, product_option_value_id, store_id, price_code, additional_cost, profit_type, profit_value, cargo_price, cargo_name, sync, update_date, error, error_message, old_buying_price, old_desi, old_kdv_id, old_currency_type, calculated_price, commission
+   Kayıt: 0
+
+📌 settings
+   Kolonlar: name, value
+   Kayıt: 7644
+
+📌 settings_hatali
+   Kolonlar: name, value
+   Kayıt: 0
+
+📌 settings_info
+   Kolonlar: settings_name, main_supplier, supplier, type, status
+   Kayıt: 6003
+
+📌 trendyolYemek_store_settings
+   Kolonlar: id, store_id, status, store_name
+   Kayıt: 0
+
+📌 trendyolgo_store_settings
+   Kolonlar: id, store_id, price_store_id, status, store_name, listPrice_name, salePrice_name, quantity_store_id, povSalePrice_name
+   Kayıt: 0
+
+
+📋 TÜM TABLOLAR (Özet):
+============================================================
+a101_attribute                                → 0 kayıt
+a101_attribute_value                          → 0 kayıt
+a101_category                                 → 0 kayıt
+a101_category_cache                           → 0 kayıt
+aliexpressRu_freighttemplate                  → 0 kayıt
+aliexpress_attribute                          → 0 kayıt
+aliexpress_attribute_category                 → 0 kayıt
+aliexpress_attribute_value                    → 0 kayıt
+aliexpress_category                           → 0 kayıt
+aliexpress_category_cache                     → 0 kayıt
+aliexpress_freight                            → 0 kayıt
+aliexpress_service_policy                     → 0 kayıt
+aliniyor_attribute                            → 0 kayıt
+aliniyor_attribute_value                      → 0 kayıt
+aliniyor_category                             → 0 kayıt
+aliniyor_category_cache                       → 0 kayıt
+aliniyor_shipmenttemplate                     → 0 kayıt
+alisgidis_attribute                           → 0 kayıt
+alisgidis_attribute_value                     → 0 kayıt
+alisgidis_category                            → 0 kayıt
+alisgidis_category_cache                      → 0 kayıt
+amazonEu_attribute                            → 0 kayıt
+amazonEu_attribute_value                      → 0 kayıt
+amazonEu_category                             → 0 kayıt
+amazonEu_productType                          → 0 kayıt
+amazon_attribute                              → 54 kayıt
+amazon_attributeV2                            → 0 kayıt
+amazon_attribute_value                        → 1539 kayıt
+amazon_attribute_valueV2                      → 0 kayıt
+amazon_category                               → 28063 kayıt
+amazon_error_list                             → 10 kayıt
+amazon_productType                            → 252 kayıt
+archive_list                                  → 0 kayıt
+attribute                                     → 3 kayıt
+attribute_bamilo                              → 0 kayıt
+attribute_group                               → 1 kayıt
+attribute_lamoda                              → 0 kayıt
+attribute_value                               → 4 kayıt
+attribute_value_bamilo                        → 0 kayıt
+attribute_value_lamoda                        → 0 kayıt
+autonomous_product_preview                    → 0 kayıt
+bamilo_category                               → 0 kayıt
+bamilo_category_cache                         → 0 kayıt
+bamilo_spec                                   → 0 kayıt
+bamilo_spec_value                             → 0 kayıt
+banks                                         → 15 kayıt
+beymen_attribute                              → 0 kayıt
+beymen_attribute_value                        → 0 kayıt
+beymen_category                               → 0 kayıt
+beymen_category_cache                         → 0 kayıt
+beymen_color                                  → 0 kayıt
+beymen_size                                   → 0 kayıt
+bisifirat_attribute                           → 0 kayıt
+bisifirat_attribute_value                     → 0 kayıt
+bisifirat_category                            → 0 kayıt
+bisifirat_category_cache                      → 0 kayıt
+bisifirat_shipmenttemplate                    → 0 kayıt
+boyner_attribute                              → 0 kayıt
+boyner_attribute_value                        → 0 kayıt
+boyner_brand                                  → 0 kayıt
+boyner_category                               → 0 kayıt
+boyner_category_cache                         → 0 kayıt
+boyner_shipmenttemplate                       → 0 kayıt
+brand                                         → 144 kayıt
+cargo_companies                               → 52 kayıt
+cargo_fee_type                                → 11 kayıt
+cargo_price                                   → 0 kayıt
+cargo_terms                                   → 0 kayıt
+category                                      → 104 kayıt
+category2                                     → 77 kayıt
+category2_gg_spec                             → 0 kayıt
+category2_rate                                → 1 kayıt
+category2_rate_eski                           → 1 kayıt
+category_a101_spec                            → 0 kayıt
+category_aliexpressRu_spec                    → 0 kayıt
+category_aliexpress_spec                      → 0 kayıt
+category_aliniyor_spec                        → 0 kayıt
+category_alisgidis_spec                       → 0 kayıt
+category_amazonEu_spec                        → 0 kayıt
+category_amazonV2_spec                        → 0 kayıt
+category_amazon_spec                          → 76 kayıt
+category_bamilo_spec                          → 0 kayıt
+category_beymen_spec                          → 0 kayıt
+category_bisifirat_spec                       → 0 kayıt
+category_boyner_spec                          → 0 kayıt
+category_cdiscount_spec                       → 0 kayıt
+category_ciceksepeti_spec                     → 24 kayıt
+category_eanship_spec                         → 0 kayıt
+category_etsy_spec                            → 0 kayıt
+category_flo_spec                             → 0 kayıt
+category_gg_spec                              → 451 kayıt
+category_goturc_spec                          → 0 kayıt
+category_hb_spec                              → 639 kayıt
+category_idefix_spec                          → 0 kayıt
+category_kintshop_spec                        → 0 kayıt
+category_lamoda_spec                          → 0 kayıt
+category_lcw_spec                             → 0 kayıt
+category_mirakl_decoverse_spec                → 0 kayıt
+category_mirakl_karaca_spec                   → 0 kayıt
+category_mirakl_koctas_spec                   → 0 kayıt
+category_mirakl_teknosa_spec                  → 0 kayıt
+category_mizu_spec                            → 0 kayıt
+category_modanisa_spec                        → 0 kayıt
+category_n11_spec                             → 202 kayıt
+category_n11pro_spec                          → 434 kayıt
+category_narwoo_spec                          → 0 kayıt
+category_needion_spec                         → 0 kayıt
+category_nevade_spec                          → 0 kayıt
+category_omnitron_spec                        → 0 kayıt
+category_op1001_spec                          → 0 kayıt
+category_ozon_spec                            → 0 kayıt
+category_pazarama_spec                        → 0 kayıt
+category_rozetka_spec                         → 0 kayıt
+category_sumka_spec                           → 0 kayıt
+category_temu_spec                            → 0 kayıt
+category_toptantr_spec                        → 0 kayıt
+category_trendyolEu_spec                      → 0 kayıt
+category_trendyolGulf_ae_spec                 → 0 kayıt
+category_trendyolGulf_sa_spec                 → 0 kayıt
+category_trendyol_spec                        → 78 kayıt
+category_vfmall_spec                          → 0 kayıt
+category_wish_spec                            → 0 kayıt
+category_yapisepeti_spec                      → 0 kayıt
+category_zergo_spec                           → 0 kayıt
+cdiscount_category                            → 0 kayıt
+cdiscount_spec                                → 0 kayıt
+cdiscount_spec_value                          → 0 kayıt
+ciceksepeti_attribute                         → 962 kayıt
+ciceksepeti_attribute_value                   → 924430 kayıt
+ciceksepeti_category                          → 3545 kayıt
+ciceksepeti_category_cache                    → 3545 kayıt
+city                                          → 81 kayıt
+claim                                         → 0 kayıt
+claim_product                                 → 0 kayıt
+competition_analysis_report                   → 0 kayıt
+counters                                      → 20 kayıt
+countrys                                      → 227 kayıt
+currencies                                    → 0 kayıt
+customer                                      → 54458 kayıt
+dbversion                                     → 1 kayıt
+delete_product                                → 58731 kayıt
+eanshare_post                                 → 0 kayıt
+eptt_category                                 → 3124 kayıt
+eptt_category_cache                           → 3124 kayıt
+etolye_category                               → 0 kayıt
+etolye_category_cache                         → 0 kayıt
+etsy_attribute                                → 0 kayıt
+etsy_attribute_category                       → 0 kayıt
+etsy_attribute_value                          → 0 kayıt
+etsy_category                                 → 0 kayıt
+etsy_category_cache                           → 0 kayıt
+etsy_freight                                  → 0 kayıt
+excel_template                                → 6 kayıt
+filter_templates                              → 0 kayıt
+flo_attribute                                 → 0 kayıt
+flo_attribute_value                           → 0 kayıt
+flo_category                                  → 0 kayıt
+flo_category_cache                            → 0 kayıt
+fulfillment_transaction                       → 0 kayıt
+gedik_category                                → 0 kayıt
+gedik_category_cache                          → 0 kayıt
+getir_shop_settings                           → 0 kayıt
+gg_city                                       → 82 kayıt
+gordumaldim_category                          → 0 kayıt
+goturc_attribute                              → 5 kayıt
+goturc_attribute_value                        → 69 kayıt
+goturc_category                               → 3875 kayıt
+goturc_category_cache                         → 3875 kayıt
+goturc_delivery                               → 1 kayıt
+hepsijet_sender_settings                      → 0 kayıt
+idefix_attribute                              → 226 kayıt
+idefix_attribute_value                        → 12734 kayıt
+idefix_category                               → 7166 kayıt
+idefix_category_cache                         → 7166 kayıt
+idefix_shipmenttemplate                       → 10 kayıt
+import_excel                                  → 4 kayıt
+import_xml                                    → 1 kayıt
+iyifiyat_attribute                            → 0 kayıt
+iyifiyat_attribute_value                      → 0 kayıt
+iyifiyat_category                             → 0 kayıt
+kintshop_attribute                            → 0 kayıt
+kintshop_attribute_value                      → 0 kayıt
+kintshop_category                             → 0 kayıt
+kintshop_category_cache                       → 0 kayıt
+lamoda_category                               → 0 kayıt
+lamoda_category_cache                         → 0 kayıt
+lamoda_spec                                   → 0 kayıt
+lamoda_spec_value                             → 0 kayıt
+lcw_attribute                                 → 0 kayıt
+lcw_attribute_value                           → 0 kayıt
+lcw_brand                                     → 0 kayıt
+lcw_category                                  → 0 kayıt
+lcw_category_cache                            → 0 kayıt
+lcw_color                                     → 0 kayıt
+lcw_size                                      → 0 kayıt
+magaza_template                               → 1 kayıt
+marketplace_autonomous_settings               → 0 kayıt
+marketplace_price_settings                    → 37 kayıt
+marketplace_quantity_settings                 → 36 kayıt
+message_template                              → 0 kayıt
+messages                                      → 9508 kayıt
+mirakl_decoverse_attribute                    → 0 kayıt
+mirakl_decoverse_attribute_value              → 0 kayıt
+mirakl_decoverse_category                     → 0 kayıt
+mirakl_decoverse_category_cache               → 0 kayıt
+mirakl_karaca_attribute                       → 0 kayıt
+mirakl_karaca_attribute_value                 → 0 kayıt
+mirakl_karaca_category                        → 0 kayıt
+mirakl_karaca_category_cache                  → 0 kayıt
+mirakl_koctas_attribute                       → 0 kayıt
+mirakl_koctas_attribute_value                 → 0 kayıt
+mirakl_koctas_category                        → 0 kayıt
+mirakl_koctas_category_cache                  → 0 kayıt
+mirakl_logistic_classes                       → 0 kayıt
+mirakl_teknosa_attribute                      → 0 kayıt
+mirakl_teknosa_attribute_value                → 0 kayıt
+mirakl_teknosa_category                       → 0 kayıt
+mirakl_teknosa_category_cache                 → 0 kayıt
+mizu_category                                 → 0 kayıt
+mizu_spec                                     → 0 kayıt
+modanisa_attribute                            → 0 kayıt
+modanisa_attribute_value                      → 0 kayıt
+modanisa_category                             → 0 kayıt
+modanisa_category_cache                       → 0 kayıt
+modanisa_origin                               → 0 kayıt
+modanisa_seasons                              → 0 kayıt
+n11_shipmenttemplate                          → 1 kayıt
+n11pro_attribute                              → 125 kayıt
+n11pro_category                               → 3768 kayıt
+n11pro_category_cache                         → 3768 kayıt
+n11pro_shipmenttemplate                       → 1 kayıt
+narwoo_attribute                              → 0 kayıt
+narwoo_attribute_value                        → 0 kayıt
+narwoo_category                               → 0 kayıt
+narwoo_category_cache                         → 0 kayıt
+needion_attribute                             → 0 kayıt
+needion_attribute_value                       → 0 kayıt
+needion_category                              → 0 kayıt
+needion_category_cache                        → 0 kayıt
+nevade_attribute                              → 0 kayıt
+nevade_attribute_value                        → 0 kayıt
+nevade_category                               → 0 kayıt
+nevade_category_cache                         → 0 kayıt
+notify                                        → 32022 kayıt
+old_pictures                                  → 23718 kayıt
+omnitron_attribute                            → 0 kayıt
+omnitron_attribute_set                        → 0 kayıt
+omnitron_attribute_value                      → 0 kayıt
+op1001_attribute                              → 0 kayıt
+op1001_attribute_value                        → 0 kayıt
+op1001_category                               → 0 kayıt
+op1001_category_cache                         → 0 kayıt
+op1001_delivery                               → 0 kayıt
+option                                        → 3 kayıt
+option_a101                                   → 0 kayıt
+option_aliexpress                             → 0 kayıt
+option_aliexpressRu                           → 0 kayıt
+option_alisgidis                              → 0 kayıt
+option_amazon                                 → 0 kayıt
+option_beymen                                 → 0 kayıt
+option_bisifirat                              → 0 kayıt
+option_boyner                                 → 0 kayıt
+option_ciceksepeti                            → 3 kayıt
+option_eanship                                → 0 kayıt
+option_etsy                                   → 0 kayıt
+option_flo                                    → 0 kayıt
+option_gg                                     → 17 kayıt
+option_hb                                     → 3 kayıt
+option_idefix                                 → 0 kayıt
+option_kintshop                               → 0 kayıt
+option_mirakl_decoverse                       → 0 kayıt
+option_mirakl_karaca                          → 0 kayıt
+option_mirakl_koctas                          → 0 kayıt
+option_mirakl_teknosa                         → 0 kayıt
+option_modanisa                               → 0 kayıt
+option_n11                                    → 2 kayıt
+option_n11pro                                 → 0 kayıt
+option_needion                                → 0 kayıt
+option_nevade                                 → 0 kayıt
+option_ozon                                   → 0 kayıt
+option_pazarama                               → 0 kayıt
+option_temu                                   → 0 kayıt
+option_toptantr                               → 0 kayıt
+option_trendyol                               → 2 kayıt
+option_trendyolGulf_ae                        → 0 kayıt
+option_trendyolGulf_sa                        → 0 kayıt
+option_value                                  → 69 kayıt
+option_value_a101                             → 0 kayıt
+option_value_aliexpress                       → 0 kayıt
+option_value_aliexpressRu                     → 0 kayıt
+option_value_alisgidis                        → 0 kayıt
+option_value_amazon                           → 0 kayıt
+option_value_beymen                           → 0 kayıt
+option_value_bisifirat                        → 0 kayıt
+option_value_boyner                           → 0 kayıt
+option_value_ciceksepeti                      → 5 kayıt
+option_value_eanship                          → 0 kayıt
+option_value_etsy                             → 0 kayıt
+option_value_flo                              → 0 kayıt
+option_value_gg                               → 264 kayıt
+option_value_hb                               → 7 kayıt
+option_value_idefix                           → 0 kayıt
+option_value_kintshop                         → 0 kayıt
+option_value_mirakl_decoverse                 → 0 kayıt
+option_value_mirakl_karaca                    → 0 kayıt
+option_value_mirakl_koctas                    → 0 kayıt
+option_value_mirakl_teknosa                   → 0 kayıt
+option_value_modanisa                         → 0 kayıt
+option_value_n11                              → 0 kayıt
+option_value_n11pro                           → 0 kayıt
+option_value_needion                          → 0 kayıt
+option_value_nevade                           → 0 kayıt
+option_value_ozon                             → 0 kayıt
+option_value_pazarama                         → 0 kayıt
+option_value_temu                             → 0 kayıt
+option_value_toptantr                         → 0 kayıt
+option_value_trendyol                         → 9 kayıt
+option_value_trendyolGulf_ae                  → 0 kayıt
+option_value_trendyolGulf_sa                  → 0 kayıt
+option_value_vfmall                           → 0 kayıt
+option_value_zergo                            → 0 kayıt
+option_vfmall                                 → 0 kayıt
+option_zergo                                  → 0 kayıt
+order                                         → 65679 kayıt
+order_payment_type                            → 61 kayıt
+order_product                                 → 77816 kayıt
+order_references                              → 65679 kayıt
+order_status                                  → 18 kayıt
+order_transaction                             → 237985 kayıt
+order_transaction_excel                       → 0 kayıt
+order_trendyol_transaction                    → 0 kayıt
+ozon_attribute                                → 0 kayıt
+ozon_attribute_value                          → 0 kayıt
+ozon_category                                 → 0 kayıt
+ozon_category_cache                           → 0 kayıt
+ozon_warehouses                               → 0 kayıt
+pazarama_attribute                            → 203 kayıt
+pazarama_attribute_value                      → 7917 kayıt
+pazarama_category                             → 4172 kayıt
+pazarama_category_cache                       → 4172 kayıt
+pazarama_delivery                             → 1 kayıt
+pictures                                      → 14853 kayıt
+pictures_compatibles                          → 0 kayıt
+pictures_download                             → 0 kayıt
+prices                                        → 74 kayıt
+product                                       → 5761 kayıt
+product_a101                                  → 0 kayıt
+product_a101_spec                             → 0 kayıt
+product_aliexpress                            → 441 kayıt
+product_aliexpressRu                          → 0 kayıt
+product_aliexpressRu_spec                     → 0 kayıt
+product_aliexpress_spec                       → 0 kayıt
+product_aliniyor                              → 502 kayıt
+product_aliniyor_spec                         → 0 kayıt
+product_alisgidis                             → 0 kayıt
+product_alisgidis_spec                        → 0 kayıt
+product_amazon                                → 3002 kayıt
+product_amazonEu                              → 315 kayıt
+product_amazonEu_spec                         → 0 kayıt
+product_amazonV2_spec                         → 0 kayıt
+product_amazonVendor                          → 0 kayıt
+product_amazon_sf                             → 0 kayıt
+product_amazon_spec                           → 0 kayıt
+product_amazonfr                              → 0 kayıt
+product_amazonfr_spec                         → 0 kayıt
+product_bamilo_spec                           → 0 kayıt
+product_beymen                                → 0 kayıt
+product_beymen_spec                           → 0 kayıt
+product_bisifirat                             → 0 kayıt
+product_bisifirat_spec                        → 0 kayıt
+product_boyner                                → 0 kayıt
+product_boyner_spec                           → 0 kayıt
+product_brand                                 → 3 kayıt
+product_campaign                              → 0 kayıt
+product_category                              → 1288 kayıt
+product_cdiscount_spec                        → 0 kayıt
+product_ciceksepeti                           → 5763 kayıt
+product_ciceksepeti_spec                      → 27811 kayıt
+product_compatibles                           → 5762 kayıt
+product_compatibles_eski                      → 0 kayıt
+product_compatibles_gg_spec                   → 0 kayıt
+product_compatibles_n11_spec                  → 0 kayıt
+product_description                           → 5762 kayıt
+product_eanship_spec                          → 0 kayıt
+product_ek_competition_analysis               → 2 kayıt
+product_eptt                                  → 5762 kayıt
+product_eski                                  → 7506 kayıt
+product_eticaret1                             → 3655 kayıt
+product_etolye                                → 0 kayıt
+product_etsy                                  → 0 kayıt
+product_etsy_spec                             → 0 kayıt
+product_farmaborsa                            → 0 kayıt
+product_farmazon                              → 574 kayıt
+product_filter                                → 0 kayıt
+product_flo                                   → 514 kayıt
+product_flo_spec                              → 0 kayıt
+product_fulfillment                           → 0 kayıt
+product_gedik                                 → 0 kayıt
+product_getir                                 → 0 kayıt
+product_gg                                    → 570 kayıt
+product_gg_spec                               → 93 kayıt
+product_gordumaldim                           → 0 kayıt
+product_goturc                                → 3494 kayıt
+product_goturc_spec                           → 15 kayıt
+product_hb_spec                               → 53891 kayıt
+product_hepsiburada                           → 6170 kayıt
+product_idefix                                → 5761 kayıt
+product_idefix_spec                           → 9351 kayıt
+product_info                                  → 15284 kayıt
+product_iyifiyat                              → 0 kayıt
+product_joom                                  → 589 kayıt
+product_kintshop                              → 0 kayıt
+product_kintshop_spec                         → 0 kayıt
+product_lamoda_spec                           → 0 kayıt
+product_lcw                                   → 0 kayıt
+product_lcw_spec                              → 0 kayıt
+product_lidyana                               → 803 kayıt
+product_mirakl_decoverse                      → 0 kayıt
+product_mirakl_decoverse_spec                 → 0 kayıt
+product_mirakl_karaca                         → 0 kayıt
+product_mirakl_karaca_spec                    → 0 kayıt
+product_mirakl_koctas                         → 0 kayıt
+product_mirakl_koctas_spec                    → 0 kayıt
+product_mirakl_teknosa                        → 0 kayıt
+product_mirakl_teknosa_spec                   → 0 kayıt
+product_mizu_spec                             → 0 kayıt
+product_modanisa                              → 376 kayıt
+product_modanisa_spec                         → 0 kayıt
+product_morhipo                               → 416 kayıt
+product_n11                                   → 5762 kayıt
+product_n11_spec                              → 9707 kayıt
+product_n11pro                                → 737 kayıt
+product_n11pro_barem                          → 0 kayıt
+product_n11pro_spec                           → 0 kayıt
+product_narwoo                                → 416 kayıt
+product_narwoo_spec                           → 0 kayıt
+product_needion                               → 353 kayıt
+product_needion_spec                          → 0 kayıt
+product_nevade                                → 0 kayıt
+product_nevade_spec                           → 0 kayıt
+product_omnitron_spec                         → 0 kayıt
+product_op1001                                → 0 kayıt
+product_op1001_spec                           → 0 kayıt
+product_option                                → 3 kayıt
+product_option_group                          → 67 kayıt
+product_option_value                          → 8 kayıt
+product_option_value2                         → 61 kayıt
+product_option_value_eski                     → 155 kayıt
+product_option_value_spec                     → 8 kayıt
+product_ozon                                  → 0 kayıt
+product_ozon_spec                             → 0 kayıt
+product_packet                                → 148 kayıt
+product_packet_eski                           → 8 kayıt
+product_pazarama                              → 5761 kayıt
+product_pazarama_spec                         → 5966 kayıt
+product_price                                 → 0 kayıt
+product_prices                                → 5769 kayıt
+product_prices_yedek                          → 8174 kayıt
+product_quantity                              → 5769 kayıt
+product_related                               → 89 kayıt
+product_rozetka_spec                          → 0 kayıt
+product_serino                                → 0 kayıt
+product_smart_price_settings                  → 0 kayıt
+product_sp                                    → 416 kayıt
+product_spec                                  → 2 kayıt
+product_sumka                                 → 0 kayıt
+product_sumka_spec                            → 0 kayıt
+product_temp                                  → 2211 kayıt
+product_temu                                  → 0 kayıt
+product_temu_spec                             → 0 kayıt
+product_toptantr                              → 0 kayıt
+product_toptantr_spec                         → 0 kayıt
+product_trendyol                              → 5761 kayıt
+product_trendyolEu                            → 0 kayıt
+product_trendyolEu_spec                       → 0 kayıt
+product_trendyolGulf_ae                       → 0 kayıt
+product_trendyolGulf_ae_spec                  → 0 kayıt
+product_trendyolGulf_sa                       → 0 kayıt
+product_trendyolGulf_sa_spec                  → 0 kayıt
+product_trendyol_spec                         → 31188 kayıt
+product_trendyolgo                            → 0 kayıt
+product_turkcellpasaj                         → 0 kayıt
+product_vfmall                                → 0 kayıt
+product_vfmall_spec                           → 0 kayıt
+product_wish                                  → 0 kayıt
+product_wish_spec                             → 0 kayıt
+product_yapisepeti                            → 0 kayıt
+product_yapisepeti_spec                       → 0 kayıt
+product_zebramo                               → 484 kayıt
+product_zergo                                 → 0 kayıt
+product_zergo_barem                           → 0 kayıt
+product_zergo_spec                            → 0 kayıt
+product_zoodmall                              → 577 kayıt
+report_design                                 → 2 kayıt
+report_design_elements                        → 80 kayıt
+rozetka_category                              → 0 kayıt
+rozetka_spec                                  → 0 kayıt
+rozetka_spec_value                            → 0 kayıt
+service                                       → 0 kayıt
+settings                                      → 7644 kayıt
+settings_hatali                               → 0 kayıt
+settings_info                                 → 6003 kayıt
+sp_category                                   → 0 kayıt
+sp_category_cache                             → 0 kayıt
+sql_to_excel                                  → 0 kayıt
+sql_to_xml                                    → 0 kayıt
+sqlite_sequence                               → 109 kayıt
+sqlite_stat1                                  → 248 kayıt
+sqlite_stat4                                  → 2727 kayıt
+stores                                        → 1 kayıt
+sumka_attribute                               → 0 kayıt
+sumka_category                                → 0 kayıt
+temu_attribute                                → 0 kayıt
+temu_attribute_value                          → 0 kayıt
+temu_category                                 → 0 kayıt
+temu_category_cache                           → 0 kayıt
+temu_freighttemplate                          → 0 kayıt
+toptantr_attribute                            → 0 kayıt
+toptantr_attribute_value                      → 0 kayıt
+toptantr_category                             → 0 kayıt
+trendyolGulf_ae_attribute                     → 0 kayıt
+trendyolGulf_ae_attribute_value               → 0 kayıt
+trendyolGulf_ae_category                      → 0 kayıt
+trendyolGulf_ae_category_cache                → 0 kayıt
+trendyolGulf_sa_attribute                     → 0 kayıt
+trendyolGulf_sa_attribute_value               → 0 kayıt
+trendyolGulf_sa_category                      → 0 kayıt
+trendyolGulf_sa_category_cache                → 0 kayıt
+trendyolYemek_store_settings                  → 0 kayıt
+trendyol_shipmenttemplate                     → 2 kayıt
+trendyolgo_category                           → 0 kayıt
+trendyolgo_category_cache                     → 0 kayıt
+trendyolgo_store_settings                     → 0 kayıt
+user                                          → 0 kayıt
+vfmall_attribute                              → 0 kayıt
+vfmall_attribute_value                        → 0 kayıt
+vfmall_category                               → 0 kayıt
+vfmall_category_cache                         → 0 kayıt
+wish_attribute                                → 0 kayıt
+wish_attribute_value                          → 0 kayıt
+wish_category                                 → 0 kayıt
+wish_category_cache                           → 0 kayıt
+wish_freight                                  → 0 kayıt
+xml                                           → 3 kayıt
+yapisepeti_attribute                          → 0 kayıt
+yapisepeti_category                           → 0 kayıt
+zergo_attribute                               → 0 kayıt
+zergo_attribute_value                         → 0 kayıt
+zergo_category                                → 0 kayıt
+zergo_category_cache                          → 0 kayıt
+
+
+⚡ TRİGGER'LAR:
+============================================================
+
+📌 pov_sort_order → product_option_value
+CREATE TRIGGER "pov_sort_order" AFTER INSERT ON "product_option_value" BEGIN update product_option_value set sort_order=(select (ifnull(max(pov.sort_order),0) +1) as lastsort from product_option_value as pov where pov.product_id=new.product_id) where id=new.id; END
+
+📌 prices_sort_order → prices
+CREATE TRIGGER "prices_sort_order" AFTER INSERT ON "prices" BEGIN update prices set sort_order=(select (ifnull(max(pic.sort_order),0) +1) as lastsort from prices as pic) where id=new.id; END
+
+📌 pictures_sort_order → pictures
+CREATE TRIGGER "pictures_sort_order" AFTER INSERT ON "pictures" BEGIN update pictures set sort_order=(select (ifnull(max(pic.sort_order),0) +1) as lastsort from pictures as pic where pic.product_id=new.product_id) where id=new.id and (new.sort_order is null or new.sort_order=0); END
+
+📌 pictures_delete → pictures
+CREATE TRIGGER "pictures_delete" AFTER DELETE ON "pictures" BEGIN INSERT INTO delete_product (product_id,supplier,supplier_id,sync,deleted,date_add) SELECT old.product_id,'deleteCdnPicture',old.path,0,0,datetime() WHERE old.path is not null AND old.path!='' AND NOT EXISTS(SELECT id FROM delete_product WHERE supplier='deleteCdnPicture' AND supplier_id=old.path); END
+
+📌 order_references_add → order
+CREATE TRIGGER order_references_add after insert on "order" begin insert into order_references(id,order_number,no,platform_reference_no,supplier,supplier_id,datetime,cargo_code) values (new.id,new.order_number,new.no,new.platform_reference_no,new.supplier,new.supplier_id,new.datetime,new.cargo_code); end
+
+📌 trg_order_invoice_insert → order
+CREATE TRIGGER trg_order_invoice_insert AFTER INSERT ON "order" FOR EACH ROW WHEN NEW.invoice_url IS NOT NULL AND NEW.invoice_url <> '' BEGIN UPDATE "order" SET sync_invoice_view_center = 0 WHERE rowid = NEW.rowid; END
+
+📌 trg_order_invoice_update → order
+CREATE TRIGGER trg_order_invoice_update AFTER UPDATE OF invoice_url ON "order" FOR EACH ROW WHEN NEW.invoice_url IS NOT NULL AND NEW.invoice_url <> '' AND (OLD.invoice_url IS NULL OR OLD.invoice_url = '') BEGIN UPDATE "order" SET sync_invoice_view_center = 0 WHERE rowid = NEW.rowid; END
+
+✅ Analiz tamamlandı.
