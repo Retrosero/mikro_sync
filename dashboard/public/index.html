@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gürbüz Oyuncak Senkronizasyon Sistemi</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "border-light": "#f1f5f9",
+                        "status-success": "#10b981",
+                        "status-error": "#ef4444",
+                        "status-warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-slate-50 text-slate-800 antialiased;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .log-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .log-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .log-container::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        
+        /* Reference Style Card */
+        .cmd-card {
+            @apply bg-white border border-slate-100 p-8 rounded-[2.5rem] shadow-soft hover:shadow-hover transition-all duration-500 flex flex-col items-center text-center relative overflow-hidden;
+        }
+        
+        .icon-box {
+            @apply mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-all duration-300;
+        }
+
+        /* Running Animation */
+        .btn-running {
+            @apply bg-primary/10 text-primary border-primary/20 animate-pulse;
+        }
+    </style>
+</head>
+
+<div class="h-screen flex flex-col overflow-hidden">
+    <!-- Minimal Header -->
+    <header class="p-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-white shadow-sm z-10">
+        <div class="flex items-center gap-4">
+            <div class="p-2 bg-primary/10 rounded-xl">
+                <span class="material-symbols-outlined text-primary text-2xl">sync</span>
+            </div>
+            <div>
+                <h1 class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
+                    Gürbüz Oyuncak <span class="text-primary text-sm uppercase tracking-tighter ml-1">Sync</span>
+                </h1>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">Senkronizasyon Konsolu
+                </p>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <div id="status-text"
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-[9px] font-bold tracking-widest uppercase rounded-full">
+                Yükleniyor</div>
+            <div class="flex items-center gap-3 pr-2">
+                <span id="system-status-dot" class="size-2 bg-slate-300 rounded-full"></span>
+                <span id="system-status-text"
+                    class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Bağlanıyor</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        <!-- Left Side: Commands (45% Width) -->
+        <section class="w-[42%] border-r border-slate-100 overflow-y-auto p-8 bg-slate-50/30">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-1 h-6 bg-primary rounded-full"></div>
+                <h2 class="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em]">Hızlı İşlemler</h2>
+            </div>
+            <div id="commands-container" class="grid grid-cols-2 2xl:grid-cols-4 gap-4">
+                <!-- Cards will be injected here -->
+            </div>
+        </section>
+
+        <!-- Right Side: Full Logs (Remaining Width) -->
+        <section class="flex-1 flex flex-col bg-white overflow-hidden shadow-2xl relative">
+            <div class="flex items-center justify-between px-8 py-5 border-b border-slate-100 shrink-0 bg-slate-50/50">
+                <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-primary text-xl">article</span>
+                    <h2 class="text-[11px] font-black text-slate-500 uppercase tracking-[0.3em]">Canlı Sistem Günlüğü
+                    </h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="clear-logs"
+                        class="group p-2 hover:bg-red-50 text-slate-300 hover:text-red-500 rounded-lg transition-all"
+                        title="Günlükleri Temizle">
+                        <span
+                            class="material-symbols-outlined text-xl transition-transform group-hover:scale-110">delete</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Header -->
+            <div
+                class="grid grid-cols-[90px_110px_80px_1fr] px-8 py-3 bg-slate-100/30 text-[9px] font-black text-slate-400 tracking-widest uppercase shrink-0 border-b border-slate-50">
+                <div>Zaman</div>
+                <div>Servis</div>
+                <div>Statü</div>
+                <div>Mesaj Detayı</div>
+            </div>
+
+            <!-- Scrollable Logs Content -->
+            <div id="log-container" class="log-container flex-1 overflow-y-auto font-mono text-[12px] bg-slate-50/10">
+                <!-- Logs will be injected here -->
+            </div>
+
+            <footer class="px-8 py-4 border-t border-slate-50 text-right shrink-0 bg-white">
+                <p class="text-slate-300 text-[10px] font-bold tracking-widest uppercase italic">Gerçek Zamanlı Veri
+                    Akışı Aktif</p>
+            </footer>
+        </section>
+    </main>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="script.js"></script>
+</body>
+
+</html>

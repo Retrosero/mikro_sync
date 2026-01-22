@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "dashboard": "node dashboard/server.js",
     "setup-db": "node scripts/setup-database.js",
     "test-connection": "node scripts/test-connection.js",
     "analyze-logs": "node scripts/analyze-logs.js",
@@ -33,9 +34,12 @@
   "dependencies": {
     "better-sqlite3": "^12.5.0",
     "dotenv": "^16.3.1",
+    "express": "^5.2.1",
     "joi": "^17.11.0",
     "mssql": "^10.0.1",
+    "open": "^11.0.0",
     "pg": "^8.11.3",
+    "socket.io": "^4.8.3",
     "winston": "^3.11.0",
     "xlsx": "^0.18.5"
   },

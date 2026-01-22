@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated At: 20.01.2026 10:39:43 -->
+<!-- Generated At: 22.01.2026 14:35:40 -->
 <Products>
   <Metadata>
-    <GeneratedAt>20.01.2026 10:39:43</GeneratedAt>
-    <ProductCount>4087</ProductCount>
+    <GeneratedAt>22.01.2026 14:35:40</GeneratedAt>
+    <ProductCount>4128</ProductCount>
   </Metadata>
+  <Product>
+    <Product_code>0022</Product_code>
+    <Name>0022 - SPİDERMAN DART 38 CM </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>38 cm</alt_baslik2>
+    <mensei>Vakumlu</mensei>
+    <grup_kod>O-11</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698619120022</barcode>
+    <stock>40</stock>
+    <Price>350</Price>
+    <Price2>537.5</Price2>
+    <Pricebayi>315</Pricebayi>
+  </Product>
   <Product>
     <Product_code>00510</Product_code>
     <Name>001 - 00510 - LİTTLES PET SHOP ÇİFTLİK TEMALI SET</Name>
@@ -57,7 +73,7 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>885561005226</barcode>
-    <stock>50</stock>
+    <stock>49</stock>
     <Price>365</Price>
     <Price2>556.25</Price2>
     <Pricebayi>328.5</Pricebayi>
@@ -1721,7 +1737,7 @@
     <grup_kod>O-37</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672016214</barcode>
-    <stock>64</stock>
+    <stock>63</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -2352,19 +2368,19 @@
   </Product>
   <Product>
     <Product_code>039-3-4</Product_code>
-    <Name>039-3-4 - PAW PATROL ROBOT KÖPEK IŞIK/SES</Name>
-    <Brand>DİĞER</Brand>
+    <Name>039-3-4 - PAW PATROL ROBOT KÖPEK IŞIK/SES 4 AST</Name>
+    <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Poşetli</mensei>
-    <grup_kod>O-04</grup_kod>
+    <grup_kod>O-45</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>1168127000002</barcode>
-    <stock>0</stock>
-    <Price>144.3</Price>
-    <Price2>258.73</Price2>
-    <Pricebayi>129.87</Pricebayi>
+    <stock>216</stock>
+    <Price>260</Price>
+    <Price2>425</Price2>
+    <Pricebayi>234</Pricebayi>
   </Product>
   <Product>
     <Product_code>03936</Product_code>
@@ -2389,6 +2405,54 @@
       <Image5>resimler/03936-pelus-misfittens-w2-6li-stand-28561.jpg</Image5>
       <Image6>resimler/03936-pelus-misfittens-w2-6li-stand-28562.jpeg</Image6>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>0397</Product_code>
+    <Name>0397 - STRES YAYI 6 NUMARA 12</Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8680114630397</barcode>
+    <stock>432</stock>
+    <Price>35</Price>
+    <Price2>143.75</Price2>
+    <Pricebayi>31.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>0403</Product_code>
+    <Name>0403 - STRES YAYI 7 NUMARA 12</Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8680114630403</barcode>
+    <stock>432</stock>
+    <Price>45</Price>
+    <Price2>156.25</Price2>
+    <Pricebayi>40.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>0410</Product_code>
+    <Name>0410 - STRES YAYI 10 NUMARA 6 </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8680114630410</barcode>
+    <stock>144</stock>
+    <Price>160</Price>
+    <Price2>300</Price2>
+    <Pricebayi>144</Pricebayi>
   </Product>
   <Product>
     <Product_code>04199</Product_code>
@@ -2523,6 +2587,22 @@
       <Image2>resimler/071929-labubu-15-cm-pelus-37402.jpg</Image2>
       <Image3>resimler/071929-labubu-15-cm-pelus-37401.jpg</Image3>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>0724</Product_code>
+    <Name>0724 - KLASİK DART 38 CM </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>38 cm</alt_baslik2>
+    <mensei>Vakumlu</mensei>
+    <grup_kod>O-11</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8680114630724</barcode>
+    <stock>40</stock>
+    <Price>300</Price>
+    <Price2>475</Price2>
+    <Pricebayi>270</Pricebayi>
   </Product>
   <Product>
     <Product_code>073</Product_code>
@@ -2691,7 +2771,7 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197104172</barcode>
-    <stock>55</stock>
+    <stock>54</stock>
     <Price>350</Price>
     <Price2>537.5</Price2>
     <Pricebayi>315</Pricebayi>
@@ -5789,7 +5869,7 @@
   </Product>
   <Product>
     <Product_code>175B-2</Product_code>
-    <Name>175B- SSLİ IŞIKLI İTFAİYE ARABASI MERDİVENLİ ÇARP</Name>
+    <Name>175B- İTFAİYE ARABASI ÇARP DÖN SES/IŞIK </Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -5798,10 +5878,10 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680863034125</barcode>
-    <stock>0</stock>
-    <Price>400</Price>
-    <Price2>540</Price2>
-    <Pricebayi>360</Pricebayi>
+    <stock>48</stock>
+    <Price>420</Price>
+    <Price2>625</Price2>
+    <Pricebayi>378</Pricebayi>
     <Images>
       <Image1>resimler/itfaiye-araci-merdivenli-pilli-isikli-sesli-carp-don-175b-2-12427.jpg</Image1>
       <Image2>resimler/itfaiye-araci-merdivenli-pilli-isikli-sesli-carp-don-175b-2-12428.jpg</Image2>
@@ -9068,23 +9148,55 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>2156-16V</Product_code>
+    <Name>2156-16V - AVENGERS 6 LI FİGÜR SETİ </Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>9672276822542</barcode>
+    <stock>36</stock>
+    <Price>530</Price>
+    <Price2>762.5</Price2>
+    <Pricebayi>477</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>2156-3</Product_code>
     <Name>2156-3 - AVENGERS 3LÜ FİGÜR SET KUTULU</Name>
-    <Brand>AKS</Brand>
+    <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Kutulu</mensei>
-    <grup_kod>O-04</grup_kod>
+    <grup_kod>O-16</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>6902584523491</barcode>
-    <stock>0</stock>
-    <Price>280</Price>
-    <Price2>408</Price2>
-    <Pricebayi>252</Pricebayi>
+    <barcode>6902584523545</barcode>
+    <stock>60</stock>
+    <Price>290</Price>
+    <Price2>462.5</Price2>
+    <Pricebayi>261</Pricebayi>
     <Images>
       <Image1>resimler/avengers-end-game-3-lu-figur-set-2156-3-30437.png</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>2156-4</Product_code>
+    <Name>2156-4 - AVENGERS FİGÜR SET 4 LÜ</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>17 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6902584523538</barcode>
+    <stock>48</stock>
+    <Price>350</Price>
+    <Price2>537.5</Price2>
+    <Pricebayi>315</Pricebayi>
   </Product>
   <Product>
     <Product_code>2156-5</Product_code>
@@ -9104,6 +9216,38 @@
     <Images>
       <Image1>resimler/avengers-end-game-5-li-figur-set-2156-5-30438.png</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>2156-8</Product_code>
+    <Name>2156-8 - AVENGERS 8 Lİ FİGÜR SET </Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>17 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6902584533521</barcode>
+    <stock>24</stock>
+    <Price>490</Price>
+    <Price2>712.5</Price2>
+    <Pricebayi>441</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>2156-9</Product_code>
+    <Name>2156-9 - SPİDERMAN MASKE VE NERF SİLAH SETİ </Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-27</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6902584522005</barcode>
+    <stock>36</stock>
+    <Price>320</Price>
+    <Price2>500</Price2>
+    <Pricebayi>288</Pricebayi>
   </Product>
   <Product>
     <Product_code>2157</Product_code>
@@ -10144,7 +10288,7 @@
     <grup_kod>D-16</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8681469492302</barcode>
-    <stock>0</stock>
+    <stock>-1</stock>
     <Price>140</Price>
     <Price2>275</Price2>
     <Pricebayi>126</Pricebayi>
@@ -10454,7 +10598,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197099195</barcode>
-    <stock>70</stock>
+    <stock>69</stock>
     <Price>66</Price>
     <Price2>182.5</Price2>
     <Pricebayi>59.4</Pricebayi>
@@ -11627,7 +11771,7 @@
     <grup_kod>O-29</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197099881</barcode>
-    <stock>451</stock>
+    <stock>450</stock>
     <Price>40</Price>
     <Price2>150</Price2>
     <Pricebayi>36</Pricebayi>
@@ -12121,7 +12265,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197102871</barcode>
-    <stock>128</stock>
+    <stock>127</stock>
     <Price>375</Price>
     <Price2>568.75</Price2>
     <Pricebayi>337.5</Pricebayi>
@@ -12370,18 +12514,18 @@
   <Product>
     <Product_code>2586N-K12</Product_code>
     <Name>2586N-K12 - SU OYUNU BÜYÜK OKYANUS</Name>
-    <Brand>ASYA</Brand>
+    <Brand>BİRLİK</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Display</mensei>
     <grup_kod>O-02</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8684356002646</barcode>
-    <stock>0</stock>
-    <Price>130</Price>
-    <Price2>243</Price2>
-    <Pricebayi>117</Pricebayi>
+    <barcode>8698555796596</barcode>
+    <stock>96</stock>
+    <Price>165</Price>
+    <Price2>306.25</Price2>
+    <Pricebayi>148.5</Pricebayi>
     <Images>
       <Image1>resimler/2586n-k12-su-oyunu-buyuk-okyanus-35414.jpg</Image1>
       <Image2>resimler/2586n-k12-su-oyunu-buyuk-okyanus-35415.jpg</Image2>
@@ -12551,6 +12695,22 @@
       <Image1>resimler/bestway-cantali-yuzucu-paleti-38-39-sari-27022-38-39-36874.jpg</Image1>
       <Image2>resimler/bestway-cantali-yuzucu-paleti-38-39-sari-27022-38-39-36875.jpg</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>27115</Product_code>
+    <Name>27115 - U/K DİSK FIRLATAN ROBOT 2 AST</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>35 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-38</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555800842</barcode>
+    <stock>12</stock>
+    <Price>1300</Price>
+    <Price2>1725</Price2>
+    <Pricebayi>1170</Pricebayi>
   </Product>
   <Product>
     <Product_code>272-003ABC</Product_code>
@@ -12780,7 +12940,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>4892664297263</barcode>
-    <stock>1</stock>
+    <stock>0</stock>
     <Price>600</Price>
     <Price2>850</Price2>
     <Pricebayi>540</Pricebayi>
@@ -12868,7 +13028,7 @@
   </Product>
   <Product>
     <Product_code>3001</Product_code>
-    <Name>3001 - KUTULU MASHA VE KOCA AYI</Name>
+    <Name>3001 - KUTULU MASHA VE KOCA AYI 2 AST</Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -12876,11 +13036,11 @@
     <mensei></mensei>
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>801293001008</barcode>
-    <stock>0</stock>
-    <Price>270</Price>
-    <Price2>397</Price2>
-    <Pricebayi>243</Pricebayi>
+    <barcode>0801293001008</barcode>
+    <stock>144</stock>
+    <Price>400</Price>
+    <Price2>600</Price2>
+    <Pricebayi>360</Pricebayi>
     <Images>
       <Image1>resimler/masa-ve-koca-ayi-figur-9711.jpg</Image1>
       <Image2>resimler/masa-ve-koca-ayi-figur-9712.jpg</Image2>
@@ -13534,8 +13694,8 @@
     <Images>
       <Image1>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-28969.png</Image1>
       <Image2>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-28970.png</Image2>
-      <Image3>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27490.jpg</Image3>
-      <Image4>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27489.jpg</Image4>
+      <Image3>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27489.jpg</Image3>
+      <Image4>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27490.jpg</Image4>
       <Image5>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27491.jpg</Image5>
       <Image6>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-27492.jpg</Image6>
       <Image7>resimler/kolluk-meyve-desenli-23x15-cm-bestway-32042-29348.png</Image7>
@@ -15239,7 +15399,7 @@
     <grup_kod>D-18</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8697197063394</barcode>
-    <stock>30</stock>
+    <stock>29</stock>
     <Price>275</Price>
     <Price2>443.75</Price2>
     <Pricebayi>247.5</Pricebayi>
@@ -15671,6 +15831,22 @@
       <Image2>resimler/349094-stitch-15-cm-pelus-37895.jpg</Image2>
       <Image3>resimler/349094-stitch-15-cm-pelus-37896.jpg</Image3>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>34EMMA63</Product_code>
+    <Name>34EMMA63 - U/K PİLLİ BUGATTİ ARABA 1:14 4 AST</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>25 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-09</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8694359070306</barcode>
+    <stock>24</stock>
+    <Price>480</Price>
+    <Price2>700</Price2>
+    <Pricebayi>432</Pricebayi>
   </Product>
   <Product>
     <Product_code>3515</Product_code>
@@ -16509,7 +16685,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684356002073</barcode>
-    <stock>107</stock>
+    <stock>101</stock>
     <Price>188.5</Price>
     <Price2>335.625</Price2>
     <Pricebayi>169.65</Pricebayi>
@@ -17354,6 +17530,54 @@
       <Image3>resimler/388-123456b-c-b-spor-araba-1-36-kutulu-29664.jpg</Image3>
       <Image4>resimler/388-123456b-c-b-spor-araba-1-36-kutulu-29666.png</Image4>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>388351</Product_code>
+    <Name>388351 - FUTBOLCU KARTI GALATASARAY 24 </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-42</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>28684824388351</barcode>
+    <stock>288</stock>
+    <Price>32</Price>
+    <Price2>140</Price2>
+    <Pricebayi>28.8</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>388368</Product_code>
+    <Name>388368 - FUTBOLCU KARTI FENERBAHÇE 24 </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-42</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>28684824388368</barcode>
+    <stock>288</stock>
+    <Price>32</Price>
+    <Price2>140</Price2>
+    <Pricebayi>28.8</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>388375</Product_code>
+    <Name>388375 - FUTBOLCU KARTI BEŞİKTAŞ 24 </Name>
+    <Brand>KARTOY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-42</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>28684824388375</barcode>
+    <stock>288</stock>
+    <Price>32</Price>
+    <Price2>140</Price2>
+    <Pricebayi>28.8</Pricebayi>
   </Product>
   <Product>
     <Product_code>390049</Product_code>
@@ -20669,8 +20893,8 @@
     <Price2>292.5</Price2>
     <Pricebayi>157.5</Pricebayi>
     <Images>
-      <Image1>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__0142129718754515.jpg</Image1>
-      <Image2>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-29447.png</Image2>
+      <Image1>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-29447.png</Image1>
+      <Image2>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__0142129718754515.jpg</Image2>
       <Image3>https://n11scdn1.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__1228610396129616.jpg</Image3>
       <Image4>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__1513216870949520.jpg</Image4>
       <Image5>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-25568.png</Image5>
@@ -24436,7 +24660,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680084570501</barcode>
-    <stock>37</stock>
+    <stock>36</stock>
     <Price>208</Price>
     <Price2>360</Price2>
     <Pricebayi>187.2</Pricebayi>
@@ -26225,7 +26449,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680863027240</barcode>
-    <stock>59</stock>
+    <stock>57</stock>
     <Price>185</Price>
     <Price2>331.25</Price2>
     <Pricebayi>166.5</Pricebayi>
@@ -27926,7 +28150,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359084037</barcode>
-    <stock>201</stock>
+    <stock>196</stock>
     <Price>150</Price>
     <Price2>287.5</Price2>
     <Pricebayi>135</Pricebayi>
@@ -28288,7 +28512,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8682729623061</barcode>
-    <stock>9</stock>
+    <stock>8</stock>
     <Price>200</Price>
     <Price2>350</Price2>
     <Pricebayi>180</Pricebayi>
@@ -29677,6 +29901,22 @@
     <Pricebayi>252.81</Pricebayi>
   </Product>
   <Product>
+    <Product_code>69615</Product_code>
+    <Name>69615 - TRANSFORMERS KARTELA 4 AST 12</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-30</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>5636546961502</barcode>
+    <stock>192</stock>
+    <Price>195</Price>
+    <Price2>343.75</Price2>
+    <Pricebayi>175.5</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>698-05</Product_code>
     <Name>MAXX WHEELS 5LU ARAÇ SETİ</Name>
     <Brand>SUNMAN</Brand>
@@ -30027,7 +30267,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197100150</barcode>
-    <stock>64</stock>
+    <stock>63</stock>
     <Price>252</Price>
     <Price2>415</Price2>
     <Pricebayi>226.8</Pricebayi>
@@ -30563,7 +30803,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359102229</barcode>
-    <stock>46</stock>
+    <stock>44</stock>
     <Price>280</Price>
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
@@ -30584,13 +30824,13 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359102250</barcode>
-    <stock>15</stock>
+    <stock>14</stock>
     <Price>280</Price>
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
     <Images>
-      <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image1>
-      <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image2>
+      <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image1>
+      <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image2>
       <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image3>
       <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image4>
       <Image5>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41474.jpeg</Image5>
@@ -30812,7 +31052,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6900882025013</barcode>
-    <stock>35</stock>
+    <stock>32</stock>
     <Price>550</Price>
     <Price2>787.5</Price2>
     <Pricebayi>495</Pricebayi>
@@ -30964,14 +31204,30 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359102731</barcode>
-    <stock>432</stock>
-    <Price>312</Price>
-    <Price2>490</Price2>
-    <Pricebayi>280.8</Pricebayi>
+    <stock>2448</stock>
+    <Price>280</Price>
+    <Price2>450</Price2>
+    <Pricebayi>252</Pricebayi>
     <Images>
       <Image1>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-30220.png</Image1>
       <Image2>resimler/777-2-c-b-yolcu-ucagi-isik-ses-12li-24049.png</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>779-33A</Product_code>
+    <Name>779-33A - MİNİ SÜRTMELİ OFF-ROAD ARABALAR 12</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>8 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-06</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555799054</barcode>
+    <stock>216</stock>
+    <Price>90</Price>
+    <Price2>212.5</Price2>
+    <Pricebayi>81</Pricebayi>
   </Product>
   <Product>
     <Product_code>780-413</Product_code>
@@ -32086,6 +32342,38 @@
     <Images>
       <Image1>resimler/858-6-soktak-insaat-araclari-8-li-31539.jpg</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>8615</Product_code>
+    <Name>8615 - LEGO İŞ MAKİNALARI SERİSİ 4 AST</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-10</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555804482</barcode>
+    <stock>72</stock>
+    <Price>95</Price>
+    <Price2>218.75</Price2>
+    <Pricebayi>85.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>8616</Product_code>
+    <Name>8616 - LEGO İTFAİYE ARAÇLARI SERİSİ 4 AST</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-10</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555804567</barcode>
+    <stock>72</stock>
+    <Price>95</Price>
+    <Price2>218.75</Price2>
+    <Pricebayi>85.5</Pricebayi>
   </Product>
   <Product>
     <Product_code>8649</Product_code>
@@ -33947,6 +34235,22 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>8818</Product_code>
+    <Name>8818 - AVENGERS 30 CM FİGÜR SESLİ IŞIKLI 11 AST</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>30 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>1539878818008</barcode>
+    <stock>48</stock>
+    <Price>510</Price>
+    <Price2>737.5</Price2>
+    <Pricebayi>459</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>8818-1</Product_code>
     <Name>8818-1 - HULK FİGÜR IŞIK/SES KUTULU</Name>
     <Brand>AKS</Brand>
@@ -33965,6 +34269,22 @@
       <Image1>resimler/hulk-isikli-sesli-figur-2-asorti-8818-1-30828.png</Image1>
       <Image2>resimler/hulk-isikli-sesli-figur-2-asorti-8818-1-30124.png</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>8818-15-16-17</Product_code>
+    <Name>8818-15-16-17 - AVENGERS MASKELİ FİGÜR 3 AST</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>30 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8747515952876</barcode>
+    <stock>24</stock>
+    <Price>350</Price>
+    <Price2>537.5</Price2>
+    <Pricebayi>315</Pricebayi>
   </Product>
   <Product>
     <Product_code>8818-2</Product_code>
@@ -34044,6 +34364,22 @@
       <Image1>resimler/8818-8-super-kahraman-sessiz-figur-4-ast-29832.png</Image1>
       <Image2>resimler/8818-8-super-kahraman-sessiz-figur-4-ast-29833.png</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>8818-9</Product_code>
+    <Name>8818-9 - AVENGERS SİLAHLI FİGÜR BATMAN/SPİDERMAN 2</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>30 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-16</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>9741928872935</barcode>
+    <stock>48</stock>
+    <Price>350</Price>
+    <Price2>537.5</Price2>
+    <Pricebayi>315</Pricebayi>
   </Product>
   <Product>
     <Product_code>8824A</Product_code>
@@ -34308,10 +34644,10 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>86976719402032</barcode>
-    <stock>0</stock>
-    <Price>395</Price>
-    <Price2>593.75</Price2>
-    <Pricebayi>355.5</Pricebayi>
+    <stock>96</stock>
+    <Price>310</Price>
+    <Price2>487.5</Price2>
+    <Pricebayi>279</Pricebayi>
     <Images>
       <Image1>resimler/89-2689b-sesli-isikli-ambulans-carp-don-40286.jpeg</Image1>
       <Image2>resimler/89-2689b-sesli-isikli-ambulans-carp-don-40287.jpeg</Image2>
@@ -35067,7 +35403,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694452191939</barcode>
-    <stock>120</stock>
+    <stock>119</stock>
     <Price>430</Price>
     <Price2>637.5</Price2>
     <Pricebayi>387</Pricebayi>
@@ -35351,7 +35687,7 @@
     <grup_kod>O-02</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197095418</barcode>
-    <stock>127</stock>
+    <stock>125</stock>
     <Price>102</Price>
     <Price2>227.5</Price2>
     <Pricebayi>91.8</Pricebayi>
@@ -35848,6 +36184,22 @@
     <Price>195</Price>
     <Price2>343.75</Price2>
     <Pricebayi>175.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>989-7</Product_code>
+    <Name>989-7 - BOYU UZAYAN DİNAZOR ARABA 3 AST 9</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>18 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-06</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555801801</barcode>
+    <stock>180</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
   </Product>
   <Product>
     <Product_code>989F</Product_code>
@@ -36441,7 +36793,7 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359076179</barcode>
-    <stock>144</stock>
+    <stock>143</stock>
     <Price>545</Price>
     <Price2>781.25</Price2>
     <Pricebayi>490.5</Pricebayi>
@@ -37236,8 +37588,8 @@
     <Images>
       <Image1>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40248.jpg</Image1>
       <Image2>resimler/ak-839-robota-donusen-araba-pilli-35398.jpg</Image2>
-      <Image3>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40249.jpg</Image3>
-      <Image4>resimler/ak-839-robota-donusen-araba-pilli-35399.jpg</Image4>
+      <Image3>resimler/ak-839-robota-donusen-araba-pilli-35399.jpg</Image3>
+      <Image4>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40249.jpg</Image4>
       <Image5>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40250.jpg</Image5>
       <Image6>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40251.jpg</Image6>
       <Image7>resimler/surtmeli-is-makinalari-dinazor-vinc-bh002-siyah-40252.jpg</Image7>
@@ -38894,7 +39246,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197097719</barcode>
-    <stock>144</stock>
+    <stock>143</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
@@ -38943,19 +39295,19 @@
   </Product>
   <Product>
     <Product_code>BL022</Product_code>
-    <Name>BL022 - CRY BABİES  BEBEK 12 Lİ</Name>
-    <Brand>AKS</Brand>
+    <Name>BL022D - CRY BABİES BEBEK 6 AST 12 </Name>
+    <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
-    <mensei></mensei>
-    <grup_kod>O-04</grup_kod>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-48</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>6920230523022</barcode>
-    <stock>0</stock>
-    <Price>130</Price>
-    <Price2>243</Price2>
-    <Pricebayi>117</Pricebayi>
+    <barcode>2825610220000</barcode>
+    <stock>576</stock>
+    <Price>175</Price>
+    <Price2>318.75</Price2>
+    <Pricebayi>157.5</Pricebayi>
   </Product>
   <Product>
     <Product_code>BL8876</Product_code>
@@ -39340,7 +39692,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697463930603</barcode>
-    <stock>64</stock>
+    <stock>63</stock>
     <Price>90</Price>
     <Price2>212.5</Price2>
     <Pricebayi>81</Pricebayi>
@@ -39510,6 +39862,22 @@
       <Image1>resimler/bsf-100-moon-top-7-cm-24-36008.jpg</Image1>
       <Image2>resimler/bsf-100-moon-top-7-cm-24-36038.jpg</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>BW333-183</Product_code>
+    <Name>BW333-183 - U/K ŞARJLI KAPILARI AÇILAN FERRARİ 2 </Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>30 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-09</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6473943331830</barcode>
+    <stock>24</stock>
+    <Price>980</Price>
+    <Price2>1325</Price2>
+    <Pricebayi>882</Pricebayi>
   </Product>
   <Product>
     <Product_code>BXL582/36-37-GRI</Product_code>
@@ -41300,7 +41668,7 @@
     <grup_kod>D-12</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8681900554132</barcode>
-    <stock>4</stock>
+    <stock>3</stock>
     <Price>138</Price>
     <Price2>272.5</Price2>
     <Pricebayi>124.2</Pricebayi>
@@ -41691,8 +42059,8 @@
       <Image1>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37075.png</Image1>
       <Image2>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35531.jpg</Image2>
       <Image3>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35533.jpg</Image3>
-      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image4>
-      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image5>
+      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image4>
+      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image5>
     </Images>
   </Product>
   <Product>
@@ -42581,7 +42949,7 @@
   </Product>
   <Product>
     <Product_code>DOG-002</Product_code>
-    <Name>DOG-002 - PAW PATROL KUMANDALI SESLİ KÖPEK</Name>
+    <Name>DOG-002/ETM-106 - PAW PATROL KUMANDALI KÖPEK 6 AST</Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -42590,14 +42958,30 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8459635852973</barcode>
-    <stock>0</stock>
-    <Price>850</Price>
-    <Price2>1035</Price2>
-    <Pricebayi>765</Pricebayi>
+    <stock>24</stock>
+    <Price>1100</Price>
+    <Price2>1475</Price2>
+    <Pricebayi>990</Pricebayi>
     <Images>
       <Image1>resimler/dog-002-paw-patrol-kumandali-sesli-kopek-31113.png</Image1>
       <Image2>resimler/dog-002-paw-patrol-kumandali-sesli-kopek-31114.png</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>DOG-05</Product_code>
+    <Name>DOG-05 - SEVİMLİ KÖPEK ÇİKO U/K SESLİ 3 AST</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-03</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8674512987979</barcode>
+    <stock>36</stock>
+    <Price>600</Price>
+    <Price2>850</Price2>
+    <Pricebayi>540</Pricebayi>
   </Product>
   <Product>
     <Product_code>DRB11000</Product_code>
@@ -44347,7 +44731,7 @@
     <grup_kod>D-20</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8611020200190</barcode>
-    <stock>0</stock>
+    <stock>144</stock>
     <Price>330</Price>
     <Price2>512.5</Price2>
     <Pricebayi>297</Pricebayi>
@@ -44375,6 +44759,22 @@
     <Images>
       <Image1>resimler/etm-07-sarilan-maymun-sesli-70-cm-5-ast-35297.jpg</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>ETM-09</Product_code>
+    <Name>ETM-09 - SQUİSHİ PATİ 60 GR 8 AST</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8651489214550</barcode>
+    <stock>480</stock>
+    <Price>120</Price>
+    <Price2>250</Price2>
+    <Pricebayi>108</Pricebayi>
   </Product>
   <Product>
     <Product_code>ETM-18</Product_code>
@@ -44500,8 +44900,40 @@
     <Pricebayi>85.5</Pricebayi>
   </Product>
   <Product>
+    <Product_code>ETM-33</Product_code>
+    <Name>ETM-33 - SÖKTAK YUNUS BALIĞI 3 AST 12</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8611020200336</barcode>
+    <stock>288</stock>
+    <Price>80</Price>
+    <Price2>200</Price2>
+    <Pricebayi>72</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>ETM-40</Product_code>
+    <Name>ETM-40 - PELUŞ KUROMİ 20 CM</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei></mensei>
+    <grup_kod>O-03</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8611020250409</barcode>
+    <stock>240</stock>
+    <Price>230</Price>
+    <Price2>387.5</Price2>
+    <Pricebayi>207</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>ETM-48</Product_code>
-    <Name>ETM-48-KX-A3065 - GÖLGELİKLİ OYUNCAKLI FLOAT 2 AST</Name>
+    <Name>ETM-48 - GÖLGELİKLİ OYUNCAKLI FLOAT 2 AST</Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
@@ -44510,7 +44942,7 @@
     <grup_kod>D-20</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8611020240486</barcode>
-    <stock>32</stock>
+    <stock>272</stock>
     <Price>450</Price>
     <Price2>662.5</Price2>
     <Pricebayi>405</Pricebayi>
@@ -44522,7 +44954,7 @@
   </Product>
   <Product>
     <Product_code>ETM-49</Product_code>
-    <Name>ETM-49-KX-A3066 - GÖLGELİKLİ TUTUNMALI FLOAT 2 AST</Name>
+    <Name>ETM-49 - GÖLGELİKLİ TUTUNMALI FLOAT 2 AST</Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
@@ -44531,7 +44963,7 @@
     <grup_kod>D-20</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8611020240493</barcode>
-    <stock>-6</stock>
+    <stock>234</stock>
     <Price>450</Price>
     <Price2>662.5</Price2>
     <Pricebayi>405</Pricebayi>
@@ -44603,7 +45035,7 @@
   </Product>
   <Product>
     <Product_code>ETM-87</Product_code>
-    <Name>ETM-87- XL-01- ÖRDEK TUTUNMALI FLOAT </Name>
+    <Name>ETM-87 -XL-01 -  ÖRDEK TUTUNMALI FLOAT </Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
@@ -44612,7 +45044,7 @@
     <grup_kod>D-20</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8611020240875</barcode>
-    <stock>0</stock>
+    <stock>72</stock>
     <Price>330</Price>
     <Price2>512.5</Price2>
     <Pricebayi>297</Pricebayi>
@@ -44621,6 +45053,22 @@
       <Image2>resimler/etm-87-xl-01-ordek-tutunmali-float-36262.jpg</Image2>
       <Image3>resimler/etm-87-xl-01-ordek-tutunmali-float-36263.jpg</Image3>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>ETM-91</Product_code>
+    <Name>ETM-91 - PELUŞ KÜÇÜK HAYVANLAR 15 CM</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei></mensei>
+    <grup_kod>O-03</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8605336255913</barcode>
+    <stock>140</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
   </Product>
   <Product>
     <Product_code>F0264</Product_code>
@@ -49349,8 +49797,8 @@
   </Product>
   <Product>
     <Product_code>FY361A-12D</Product_code>
-    <Name>FY361A-12D - Ç/B VESPA MOTOR METAL</Name>
-    <Brand>ASYA</Brand>
+    <Name>FY361A-12D - Ç/B VESPA MOTOR METAL 12</Name>
+    <Brand>BİRLİK</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
@@ -49358,10 +49806,10 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698568927277</barcode>
-    <stock>0</stock>
-    <Price>130</Price>
-    <Price2>243</Price2>
-    <Pricebayi>117</Pricebayi>
+    <stock>128</stock>
+    <Price>165</Price>
+    <Price2>306.25</Price2>
+    <Pricebayi>148.5</Pricebayi>
     <Images>
       <Image1>resimler/cek-birak-metal-vespa-motor-12-cm-fy361a-12d-30161.png</Image1>
       <Image2>resimler/fy361a-12d-c-b-vespa-motor-metal-23693.jpg</Image2>
@@ -49595,8 +50043,8 @@
       <Image7>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22540.jpg</Image7>
       <Image8>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22541.jpg</Image8>
       <Image9>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22542.jpg</Image9>
-      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image10>
-      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image11>
+      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image10>
+      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image11>
       <Image12>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22544.jpg</Image12>
       <Image13>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22545.jpg</Image13>
     </Images>
@@ -49989,7 +50437,7 @@
   </Product>
   <Product>
     <Product_code>G03005R</Product_code>
-    <Name>G03005R - U/K 1:18 ŞARJLI FAMOUS ARABA4 RENK</Name>
+    <Name>G03005R - U/K 1:18 PİLLİ FAMOUS ARABA 4 RENK</Name>
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -49998,10 +50446,10 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359070283</barcode>
-    <stock>1</stock>
-    <Price>715</Price>
-    <Price2>993.75</Price2>
-    <Pricebayi>643.5</Pricebayi>
+    <stock>25</stock>
+    <Price>550</Price>
+    <Price2>787.5</Price2>
+    <Pricebayi>495</Pricebayi>
     <Images>
       <Image1>resimler/g03005r-uk-ff-1-18-sarjli-famous-araba4-renk-2743.jpg</Image1>
       <Image2>resimler/g03005r-uk-ff-1-18-sarjli-famous-araba4-renk-2741.jpg</Image2>
@@ -52505,7 +52953,7 @@
     <grup_kod></grup_kod>
     <ana_grup_kod></ana_grup_kod>
     <barcode></barcode>
-    <stock>36</stock>
+    <stock>30</stock>
     <Price>11.11</Price>
     <Price2>0</Price2>
     <Pricebayi>0</Pricebayi>
@@ -55325,6 +55773,22 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>HJ888-9</Product_code>
+    <Name>HJ888-9 - RENKLİ UNİCORN ATLAR STAND 12</Name>
+    <Brand>BİRLİK</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-35</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698555802655</barcode>
+    <stock>108</stock>
+    <Price>85</Price>
+    <Price2>206.25</Price2>
+    <Pricebayi>76.5</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>HJF39</Product_code>
     <Name>HJF39 - HOT WHEELS RENK DEGISTIREN ARACLAR 8</Name>
     <Brand>MATTEL</Brand>
@@ -57795,13 +58259,13 @@
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Display</mensei>
-    <grup_kod>O-06</grup_kod>
+    <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8694359076070</barcode>
-    <stock>4</stock>
-    <Price>470</Price>
-    <Price2>687.5</Price2>
-    <Pricebayi>423</Pricebayi>
+    <barcode>4080007771703</barcode>
+    <stock>76</stock>
+    <Price>440</Price>
+    <Price2>650</Price2>
+    <Pricebayi>396</Pricebayi>
     <Images>
       <Image1>resimler/hw777-17-c-b-metal-savas-ucak-6-30642.png</Image1>
       <Image2>resimler/hw777-17-c-b-metal-savas-ucagi-6-23887.png</Image2>
@@ -57818,11 +58282,11 @@
     <mensei>Display</mensei>
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8697197092059</barcode>
-    <stock>0</stock>
-    <Price>216</Price>
-    <Price2>337.6</Price2>
-    <Pricebayi>194.4</Pricebayi>
+    <barcode>4080017771809</barcode>
+    <stock>72</stock>
+    <Price>440</Price>
+    <Price2>650</Price2>
+    <Pricebayi>396</Pricebayi>
   </Product>
   <Product>
     <Product_code>HW777-20</Product_code>
@@ -59476,7 +59940,7 @@
   <Product>
     <Product_code>K157A2</Product_code>
     <Name>K157A2 - Ç/B METAL MİNİ SAVAŞ UÇAK 4 RENK 12</Name>
-    <Brand>KIZIL</Brand>
+    <Brand>BİRLİK</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
@@ -59484,10 +59948,10 @@
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197096132</barcode>
-    <stock>8</stock>
-    <Price>108</Price>
-    <Price2>235</Price2>
-    <Pricebayi>97.2</Pricebayi>
+    <stock>296</stock>
+    <Price>140</Price>
+    <Price2>275</Price2>
+    <Pricebayi>126</Pricebayi>
     <Images>
       <Image1>resimler/cek-birak-metal-mini-savas-ucak-9-cm-k157a2-30645.png</Image1>
     </Images>
@@ -59774,8 +60238,8 @@
     <Price2>431.5</Price2>
     <Pricebayi>238.68</Pricebayi>
     <Images>
-      <Image1>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30871.png</Image1>
-      <Image2>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30175.png</Image2>
+      <Image1>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30175.png</Image1>
+      <Image2>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30871.png</Image2>
       <Image3>resimler/kdl-42-kdl-32-kutulu-prenses-faytonlu-at-2-ast-30176.png</Image3>
     </Images>
   </Product>
@@ -60011,7 +60475,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>28</stock>
+    <stock>27</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
@@ -60785,7 +61249,7 @@
     <grup_kod>O-47</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697445827532</barcode>
-    <stock>68</stock>
+    <stock>67</stock>
     <Price>120</Price>
     <Price2>250</Price2>
     <Pricebayi>108</Pricebayi>
@@ -61920,36 +62384,68 @@
     </Images>
   </Product>
   <Product>
-    <Product_code>LC-30914-TURUNCU</Product_code>
-    <Name>LC-30914-TURUNCU - ÇEKÇEK VAGON TURUNCU</Name>
+    <Product_code>LC-30914-BEJ</Product_code>
+    <Name>LC-30914-BEJ - ÇEKÇEK VAGON BEJ 38 CM</Name>
     <Brand>ENFAL</Brand>
     <alt_baslik>Çek Çek Vagon</alt_baslik>
     <raf_numarasi>R</raf_numarasi>
-    <alt_baslik2>51 cm</alt_baslik2>
+    <alt_baslik2>38 cm</alt_baslik2>
     <mensei></mensei>
-    <grup_kod>O-47</grup_kod>
-    <ana_grup_kod>OYN</ana_grup_kod>
+    <grup_kod>D-12</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
+    <barcode>8698540309145</barcode>
+    <stock>2</stock>
+    <Price>950</Price>
+    <Price2>1287.5</Price2>
+    <Pricebayi>855</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>LC-30914-MAVİ</Product_code>
+    <Name>LC-30914-MAVİ - ÇEKÇEK VAGON MAVİ 38 CM</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik>Çek Çek Vagon</alt_baslik>
+    <raf_numarasi>R</raf_numarasi>
+    <alt_baslik2>38 cm</alt_baslik2>
+    <mensei></mensei>
+    <grup_kod>D-12</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
+    <barcode>8698540309144</barcode>
+    <stock>2</stock>
+    <Price>950</Price>
+    <Price2>1287.5</Price2>
+    <Pricebayi>855</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>LC-30914-TURUNCU</Product_code>
+    <Name>LC-30914-TURUNCU - ÇEKÇEK VAGON TURUNCU 38 CM</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik>Çek Çek Vagon</alt_baslik>
+    <raf_numarasi>R</raf_numarasi>
+    <alt_baslik2>38 cm</alt_baslik2>
+    <mensei></mensei>
+    <grup_kod>D-12</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698540309143</barcode>
-    <stock>0</stock>
-    <Price>295.5</Price>
-    <Price2>425.05</Price2>
-    <Pricebayi>265.95</Pricebayi>
+    <stock>2</stock>
+    <Price>950</Price>
+    <Price2>1287.5</Price2>
+    <Pricebayi>855</Pricebayi>
   </Product>
   <Product>
     <Product_code>LC-30914-YEŞİL</Product_code>
-    <Name>LC-30914-YEŞİL - ÇEKÇEK VAGON YEŞİL</Name>
+    <Name>LC-30914-YEŞİL - ÇEKÇEK VAGON YEŞİL 38 CM</Name>
     <Brand>ENFAL</Brand>
     <alt_baslik>Çek Çek Vagon</alt_baslik>
     <raf_numarasi>R</raf_numarasi>
-    <alt_baslik2>51 cm</alt_baslik2>
+    <alt_baslik2>38 cm</alt_baslik2>
     <mensei></mensei>
-    <grup_kod>O-47</grup_kod>
-    <ana_grup_kod>OYN</ana_grup_kod>
+    <grup_kod>D-12</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698540309142</barcode>
-    <stock>0</stock>
-    <Price>295.5</Price>
-    <Price2>425.05</Price2>
-    <Pricebayi>265.95</Pricebayi>
+    <stock>2</stock>
+    <Price>950</Price>
+    <Price2>1287.5</Price2>
+    <Pricebayi>855</Pricebayi>
   </Product>
   <Product>
     <Product_code>LC-30916</Product_code>
@@ -62105,6 +62601,22 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>LC-31058</Product_code>
+    <Name>LC-31058 - ÇANTALI TAMİR SETİ 25 PARÇA</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>25 cm</alt_baslik2>
+    <mensei>Çantalı</mensei>
+    <grup_kod>O-37</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698540310585</barcode>
+    <stock>24</stock>
+    <Price>460</Price>
+    <Price2>675</Price2>
+    <Pricebayi>414</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>LC-31062</Product_code>
     <Name>LC-31062 - LC EL KEPÇESİ</Name>
     <Brand>ENFAL</Brand>
@@ -62115,10 +62627,10 @@
     <grup_kod>D-12</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698540310622</barcode>
-    <stock>4</stock>
-    <Price>95</Price>
-    <Price2>218.75</Price2>
-    <Pricebayi>85.5</Pricebayi>
+    <stock>28</stock>
+    <Price>105</Price>
+    <Price2>231.25</Price2>
+    <Pricebayi>94.5</Pricebayi>
     <Images>
       <Image1>resimler/lc-31062-lc-el-kepcesi-36334.jpg</Image1>
       <Image2>resimler/lc-31062-lc-el-kepcesi-36335.jpg</Image2>
@@ -62126,6 +62638,70 @@
       <Image4>resimler/lc-31062-lc-el-kepcesi-36337.jpg</Image4>
       <Image5>resimler/lc-31062-lc-el-kepcesi-36338.jpg</Image5>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>LC-31076</Product_code>
+    <Name>LC-31076 - LC PRENSES BALONCUK KÖPÜK OYUNU 12</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>21 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-02</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698540311766</barcode>
+    <stock>144</stock>
+    <Price>185</Price>
+    <Price2>331.25</Price2>
+    <Pricebayi>166.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>LC-31400</Product_code>
+    <Name>LC-31400 - LC İLK KUMANDAM KIRMIZI</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-40</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698540314002</barcode>
+    <stock>24</stock>
+    <Price>640</Price>
+    <Price2>900</Price2>
+    <Pricebayi>576</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>LC-31402</Product_code>
+    <Name>LC-31402 - LC EĞİTİCİ TELEFON KIRMIZI</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>13 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-40</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698540314026</barcode>
+    <stock>24</stock>
+    <Price>735</Price>
+    <Price2>0</Price2>
+    <Pricebayi>0</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>LC-31404</Product_code>
+    <Name>LC-31404 - LC EĞİTİCİ TABLET 19 CM</Name>
+    <Brand>ENFAL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>19 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>O-40</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8698540314040</barcode>
+    <stock>24</stock>
+    <Price>950</Price>
+    <Price2>1287.5</Price2>
+    <Pricebayi>855</Pricebayi>
   </Product>
   <Product>
     <Product_code>LD6206B</Product_code>
@@ -62399,7 +62975,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684278470738</barcode>
-    <stock>5</stock>
+    <stock>4</stock>
     <Price>335</Price>
     <Price2>518.75</Price2>
     <Pricebayi>301.5</Pricebayi>
@@ -64630,7 +65206,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359088783</barcode>
-    <stock>75</stock>
+    <stock>74</stock>
     <Price>310</Price>
     <Price2>487.5</Price2>
     <Pricebayi>279</Pricebayi>
@@ -65195,7 +65771,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359094890</barcode>
-    <stock>47</stock>
+    <stock>46</stock>
     <Price>700</Price>
     <Price2>975</Price2>
     <Pricebayi>630</Pricebayi>
@@ -65558,7 +66134,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501117</barcode>
-    <stock>24</stock>
+    <stock>23</stock>
     <Price>460</Price>
     <Price2>675</Price2>
     <Pricebayi>414</Pricebayi>
@@ -65600,7 +66176,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501179</barcode>
-    <stock>39</stock>
+    <stock>38</stock>
     <Price>385</Price>
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
@@ -65622,7 +66198,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501209</barcode>
-    <stock>45</stock>
+    <stock>44</stock>
     <Price>330</Price>
     <Price2>512.5</Price2>
     <Pricebayi>297</Pricebayi>
@@ -65918,7 +66494,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581624838</barcode>
-    <stock>10</stock>
+    <stock>9</stock>
     <Price>575</Price>
     <Price2>818.75</Price2>
     <Pricebayi>517.5</Pricebayi>
@@ -66215,8 +66791,8 @@
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
     <Images>
-      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image1>
-      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image2>
+      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image1>
+      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image2>
       <Image3>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41080.jpeg</Image3>
       <Image4>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41081.jpeg</Image4>
     </Images>
@@ -70684,8 +71260,8 @@
       <Image1>resimler/polesie-kutulu-expert-yukleyici-pol-85405-30095.png</Image1>
       <Image2>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15902.jpg</Image2>
       <Image3>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15903.jpg</Image3>
-      <Image4>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15905.jpg</Image4>
-      <Image5>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15904.jpg</Image5>
+      <Image4>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15904.jpg</Image4>
+      <Image5>resimler/polesie-kutulu-expert-yukleyici-pol-85405-15905.jpg</Image5>
     </Images>
   </Product>
   <Product>
@@ -71587,8 +72163,8 @@
     <Images>
       <Image1>resimler/polesie-cross-yaris-motorsikleti-25-cm-sari-pol-92298-30098.png</Image1>
       <Image2>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25936.jpg</Image2>
-      <Image3>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25937.jpg</Image3>
-      <Image4>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25938.jpg</Image4>
+      <Image3>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25938.jpg</Image3>
+      <Image4>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25937.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -73661,8 +74237,8 @@
     <Price2>474</Price2>
     <Pricebayi>306</Pricebayi>
     <Images>
-      <Image1>resimler/s01002470-oyun-hamuru-cantali-winx-29746.jpg</Image1>
-      <Image2>resimler/s01002470-oyun-hamuru-cantali-winx-30703.png</Image2>
+      <Image1>resimler/s01002470-oyun-hamuru-cantali-winx-30703.png</Image1>
+      <Image2>resimler/s01002470-oyun-hamuru-cantali-winx-29746.jpg</Image2>
       <Image3>resimler/s01002470-oyun-hamuru-cantali-winx-29748.jpg</Image3>
       <Image4>resimler/s01002470-oyun-hamuru-cantali-winx-29749.jpeg</Image4>
     </Images>
@@ -73890,6 +74466,22 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>S-1</Product_code>
+    <Name>S-1  - STİTCH OYUN KARTLARI 10</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-42</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6946546541123</barcode>
+    <stock>200</stock>
+    <Price>300</Price>
+    <Price2>475</Price2>
+    <Pricebayi>270</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>S22804</Product_code>
     <Name>S22804 - STANGER THINGS 4 LÜ POP FİGÜR KUTULU</Name>
     <Brand>BVM</Brand>
@@ -74061,15 +74653,15 @@
     <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi></raf_numarasi>
-    <alt_baslik2></alt_baslik2>
+    <alt_baslik2>Küçük Boy</alt_baslik2>
     <mensei>Çantalı</mensei>
     <grup_kod>D-03</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>0000000377119</barcode>
-    <stock>0</stock>
-    <Price>760</Price>
-    <Price2>1050</Price2>
-    <Pricebayi>684</Pricebayi>
+    <stock>36</stock>
+    <Price>720</Price>
+    <Price2>1000</Price2>
+    <Pricebayi>648</Pricebayi>
     <Images>
       <Image1>resimler/sb603-13-yuvarlak-kolluk-baby-36302.jpg</Image1>
       <Image2>resimler/sb603-13-yuvarlak-kolluk-baby-36305.jpg</Image2>
@@ -74760,7 +75352,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>5</stock>
+    <stock>4</stock>
     <Price>1150</Price>
     <Price2>1537.5</Price2>
     <Pricebayi>1035</Pricebayi>
@@ -74987,12 +75579,12 @@
     <Pricebayi>193.5</Pricebayi>
     <Images>
       <Image1>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41038.jpeg</Image1>
-      <Image2>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41071.jpeg</Image2>
-      <Image3>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41039.jpeg</Image3>
-      <Image4>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image4>
-      <Image5>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image5>
-      <Image6>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image6>
-      <Image7>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image7>
+      <Image2>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41039.jpeg</Image2>
+      <Image3>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41071.jpeg</Image3>
+      <Image4>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image4>
+      <Image5>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image5>
+      <Image6>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image6>
+      <Image7>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image7>
       <Image8>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image8>
       <Image9>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image9>
       <Image10>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41075.jpeg</Image10>
@@ -76153,7 +76745,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684562630022</barcode>
-    <stock>60</stock>
+    <stock>58</stock>
     <Price>117</Price>
     <Price2>246.25</Price2>
     <Pricebayi>105.3</Pricebayi>
@@ -76571,6 +77163,22 @@
     <stock>0</stock>
     <Price>150</Price>
     <Price2>0</Price2>
+    <Pricebayi>0</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>T0309Y</Product_code>
+    <Name>T0309Y - KARTELA PİKACHU SET IŞIKLI</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei></mensei>
+    <grup_kod>O-39</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>4713770309001</barcode>
+    <stock>28</stock>
+    <Price>620</Price>
+    <Price2>875</Price2>
     <Pricebayi>0</Pricebayi>
   </Product>
   <Product>
@@ -77480,10 +78088,10 @@
     <grup_kod>D-14</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698555794608</barcode>
-    <stock>0</stock>
-    <Price>58</Price>
-    <Price2>163.8</Price2>
-    <Pricebayi>52.2</Pricebayi>
+    <stock>240</stock>
+    <Price>100</Price>
+    <Price2>225</Price2>
+    <Pricebayi>90</Pricebayi>
     <Images>
       <Image1>resimler/urt017-001-su-tabancasi-nemo-24-29460.png</Image1>
       <Image2>resimler/urt017-001-su-tabancasi-nemo-24-28591.jpg</Image2>
@@ -77504,10 +78112,10 @@
     <grup_kod>D-14</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698555794622</barcode>
-    <stock>0</stock>
-    <Price>165</Price>
-    <Price2>281.5</Price2>
-    <Pricebayi>148.5</Pricebayi>
+    <stock>48</stock>
+    <Price>190</Price>
+    <Price2>337.5</Price2>
+    <Pricebayi>171</Pricebayi>
     <Images>
       <Image1>resimler/urt019-001-shark-su-tabancasi-tekli-buyuk-29535.png</Image1>
       <Image2>resimler/urt019-001-shark-su-tabancasi-tekli-buyuk-28596.jpg</Image2>
@@ -77799,8 +78407,8 @@
     <Images>
       <Image1>resimler/pompali-su-tabancasi-60-cm-kutulu-vi-963-30398.png</Image1>
       <Image2>resimler/pompali-su-tabancasi-60-cm-kutulu-vi-963-28691.png</Image2>
-      <Image3>resimler/pompali-su-tabancasi-60-cm-kutulu-vi-963-29541.png</Image3>
-      <Image4>resimler/vi-963-vivi-su-tabancasi-pompali-60cm-kutulu-23472.jpg</Image4>
+      <Image3>resimler/vi-963-vivi-su-tabancasi-pompali-60cm-kutulu-23472.jpg</Image3>
+      <Image4>resimler/pompali-su-tabancasi-60-cm-kutulu-vi-963-29541.png</Image4>
     </Images>
   </Product>
   <Product>
@@ -79097,10 +79705,10 @@
     <grup_kod>O-42</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6920240115651</barcode>
-    <stock>20</stock>
-    <Price>390</Price>
-    <Price2>587.5</Price2>
-    <Pricebayi>351</Pricebayi>
+    <stock>220</stock>
+    <Price>400</Price>
+    <Price2>600</Price2>
+    <Pricebayi>360</Pricebayi>
     <Images>
       <Image1>resimler/yh55-pokemon-karti-premium-black-10-lu-34882.jpg</Image1>
       <Image2>resimler/yh55-pokemon-karti-premium-black-10-lu-34883.jpg</Image2>
@@ -79197,9 +79805,9 @@
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8182933677299</barcode>
     <stock>0</stock>
-    <Price>150</Price>
-    <Price2>265</Price2>
-    <Pricebayi>135</Pricebayi>
+    <Price>160</Price>
+    <Price2>300</Price2>
+    <Pricebayi>144</Pricebayi>
     <Images>
       <Image1>resimler/yk5991-10p-spiderman-eldiven-kartela-35063.jpg</Image1>
       <Image2>resimler/yk5991-10p-spiderman-eldiven-kartela-35064.jpg</Image2>
@@ -79208,7 +79816,7 @@
   <Product>
     <Product_code>YK5991-6P</Product_code>
     <Name>YK5991-6P - SPİDERMAN FİGÜRLÜ ELDİVEN</Name>
-    <Brand>AKS</Brand>
+    <Brand>ETHEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>U-D1</raf_numarasi>
     <alt_baslik2></alt_baslik2>
@@ -79216,10 +79824,10 @@
     <grup_kod>O-27</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>2303135991624</barcode>
-    <stock>0</stock>
-    <Price>200</Price>
-    <Price2>320</Price2>
-    <Pricebayi>180</Pricebayi>
+    <stock>160</stock>
+    <Price>160</Price>
+    <Price2>300</Price2>
+    <Pricebayi>144</Pricebayi>
     <Images>
       <Image1>resimler/yk5991-6p-spiderman-figurlu-eldiven-29936.png</Image1>
     </Images>
@@ -79235,10 +79843,10 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8223454675453</barcode>
-    <stock>24</stock>
-    <Price>195</Price>
-    <Price2>343.75</Price2>
-    <Pricebayi>175.5</Pricebayi>
+    <stock>184</stock>
+    <Price>160</Price>
+    <Price2>300</Price2>
+    <Pricebayi>144</Pricebayi>
     <Images>
       <Image1>resimler/yk5991-h8-hulk-ok-atan-eldiven-kartela-35293.jpg</Image1>
     </Images>
@@ -79578,6 +80186,22 @@
     <Pricebayi>4950</Pricebayi>
   </Product>
   <Product>
+    <Product_code>ZB-5</Product_code>
+    <Name>ZB-5 - BASKETBOLCU KARTLARI GOLD 10</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2></alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-42</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6946541484449</barcode>
+    <stock>200</stock>
+    <Price>300</Price>
+    <Price2>475</Price2>
+    <Pricebayi>270</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>ZC7086</Product_code>
     <Name>ZC7086 - BLAZESTORM AYNALI TÜFEK</Name>
     <Brand>VARDEM</Brand>
@@ -79596,6 +80220,22 @@
       <Image1>resimler/zc7086-blazestorm-aynali-tufek-16892.jpg</Image1>
       <Image2>resimler/zc7086-blazestorm-aynali-tufek-16893.jpg</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>ZF999-8AB</Product_code>
+    <Name>ZF999-8AB - Ç/B BATMAN METAL ARABA 8</Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>13 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>O-06</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>6900122799988</barcode>
+    <stock>192</stock>
+    <Price>195</Price>
+    <Price2>343.75</Price2>
+    <Pricebayi>175.5</Pricebayi>
   </Product>
   <Product>
     <Product_code>ZH78721</Product_code>
@@ -79630,9 +80270,9 @@
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6920240114975</barcode>
     <stock>73</stock>
-    <Price>370</Price>
-    <Price2>562.5</Price2>
-    <Pricebayi>333</Pricebayi>
+    <Price>300</Price>
+    <Price2>475</Price2>
+    <Pricebayi>270</Pricebayi>
     <Images>
       <Image1>resimler/futbolcu-kartlari-gold-10-lu-zqj55-39502.jpg</Image1>
       <Image2>resimler/futbolcu-kartlari-gold-10-lu-zqj55-39503.jpg</Image2>
@@ -79687,6 +80327,22 @@
       <Image5>resimler/zr143-1-sesli-isikli-nemo-balik-carpdon-40516.jpeg</Image5>
       <Image6>resimler/zr143-1-sesli-isikli-nemo-balik-carpdon-40517.jpeg</Image6>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>ZY144</Product_code>
+    <Name>ZY144  - SOFT ROKET TOP STAND 12 </Name>
+    <Brand>ETHEM</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>25 cm</alt_baslik2>
+    <mensei>Standlı</mensei>
+    <grup_kod>D-12</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
+    <barcode>8698555805595</barcode>
+    <stock>96</stock>
+    <Price>180</Price>
+    <Price2>325</Price2>
+    <Pricebayi>162</Pricebayi>
   </Product>
   <Product>
     <Product_code>ZYX-124</Product_code>
