@@ -7,7 +7,21 @@ const clearLogsBtn = document.getElementById('clear-logs');
 const statusText = document.getElementById('status-text');
 const systemStatusDot = document.getElementById('system-status-dot');
 const systemStatusText = document.getElementById('system-status-text');
-const commandsContainer = document.getElementById('commands-container');
+const quickCommandsContainer = document.getElementById('quick-commands-container');
+const otherCommandsContainer = document.getElementById('other-commands-container');
+
+// Error Log Modal Elements
+const viewErrorsBtn = document.getElementById('view-errors');
+const errorModal = document.getElementById('error-modal');
+const closeModalBtn = document.getElementById('close-modal');
+const errorLogContent = document.getElementById('error-log-content');
+const clearErrorFileBtn = document.getElementById('clear-error-file');
+
+// Failed Items Modal Elements
+const viewFailedBtn = document.getElementById('view-failed-items');
+const failedModal = document.getElementById('failed-items-modal');
+const closeFailedBtn = document.getElementById('close-failed-modal');
+const failedTbody = document.getElementById('failed-items-tbody');
 
 // Running commands tracker
 const runningCommands = new Set();
@@ -31,7 +45,11 @@ async function loadCommands() {
 
 // Render commands to UI
 function renderCommands(commands) {
-    commandsContainer.innerHTML = '';
+    quickCommandsContainer.innerHTML = '';
+    otherCommandsContainer.innerHTML = '';
+
+    // Define priority items for Hızlı İşlemler
+    const quickCommandIds = ['sync', 'sync-web-to-erp', 'entegra-sync', 'stock-xml'];
 
     commands.forEach(cmd => {
         const card = document.createElement('div');
@@ -41,24 +59,39 @@ function renderCommands(commands) {
         let workerDotHtml = '';
         if (cmd.id === 'sync-queue-worker') {
             workerDotHtml = `
-                <div class="absolute top-6 right-8">
-                    <span class="flex h-2 w-2">
+                <div class="absolute top-4 right-4">
+                    <span class="flex h-1.5 w-1.5">
                         <span id="worker-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75 hidden"></span>
-                        <span id="worker-dot" class="relative inline-flex rounded-full h-2 w-2 bg-slate-300"></span>
+                        <span id="worker-dot" class="relative inline-flex rounded-full h-1.5 w-1.5 bg-slate-300"></span>
                     </span>
                 </div>
             `;
         }
 
+        const lastRunTime = cmd.last_run ? new Date(cmd.last_run).toLocaleString('tr-TR', {
+            hour: '2-digit',
+            minute: '2-digit',
+            day: '2-digit',
+            month: '2-digit'
+        }) : 'Hiç çalışmadı';
+
+        const lastStatusColor = cmd.last_status === 'SUCCESS' ? 'text-status-success' : 'text-status-error';
+
         card.innerHTML = `
             ${workerDotHtml}
             <div class="icon-box">
-                <span class="material-symbols-outlined text-3xl font-light">${cmd.icon}</span>
+                <span class="material-symbols-outlined text-2xl font-light">${cmd.icon}</span>
             </div>
-            <h3 class="text-[12px] font-bold text-slate-800 mb-2 truncate w-full px-2">${cmd.name}</h3>
-            <p class="text-[10px] text-slate-400 mb-6 leading-[1.4] line-clamp-2 px-3 min-h-[2.5rem]">${cmd.description}</p>
-            <button id="btn-${cmd.id}" class="command-btn w-full py-3 px-4 bg-slate-900 text-white rounded-xl font-bold text-[10px] hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2 mt-auto">
-                <span class="material-symbols-outlined text-base">play_arrow</span>
+            <h3 class="text-[11px] font-bold text-slate-800 mb-1 truncate w-full px-1">${cmd.name}</h3>
+            <p class="text-[8px] text-slate-400 mb-3 leading-tight line-clamp-1 px-1">${cmd.description}</p>
+            
+            <div class="mb-3 flex flex-col items-center gap-0.5">
+                <span class="text-[7px] text-slate-400 font-bold uppercase tracking-tighter">SON SENKRONİZASYON</span>
+                <span class="text-[9px] font-mono font-bold ${lastStatusColor}">${lastRunTime}</span>
+            </div>
+
+            <button id="btn-${cmd.id}" class="command-btn w-full py-2 px-3 bg-slate-900 text-white rounded-lg font-bold text-[9px] hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2 mt-auto">
+                <span class="material-symbols-outlined text-sm">play_arrow</span>
                 BAŞLAT
             </button>
         `;
@@ -72,7 +105,11 @@ function renderCommands(commands) {
             executeCommand(cmd.id);
         });
 
-        commandsContainer.appendChild(card);
+        if (quickCommandIds.includes(cmd.id)) {
+            quickCommandsContainer.appendChild(card);
+        } else {
+            otherCommandsContainer.appendChild(card);
+        }
     });
 }
 
@@ -159,6 +196,9 @@ function setupSocketListeners() {
         const status = data.code === 0 ? 'BAŞARILI' : 'HATA';
         const cmdName = data.commandId; // Could map this to a friendly name if needed
         addLog('SİSTEM', status, `İşlem tamamlandı: ${cmdName}`);
+
+        // Refresh commands to show new last run time
+        loadCommands();
     });
 }
 
@@ -204,9 +244,162 @@ function setConnectionStatus(connected) {
     }
 }
 
-// Clear
+// --- Event Listeners ---
+
+// Clear logs
 clearLogsBtn.addEventListener('click', () => {
     logContainer.innerHTML = '';
+    addLog('SİSTEM', 'UYARI', 'Canlı günlük akışı temizlendi.');
 });
 
+// View Error Logs Modal
+viewErrorsBtn.addEventListener('click', async () => {
+    errorModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+    await fetchErrorLogs();
+});
+
+// Close Modal
+closeModalBtn.addEventListener('click', () => {
+    errorModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+});
+
+// Clear Error File
+clearErrorFileBtn.addEventListener('click', async () => {
+    if (confirm('Tüm hata kayıt geçmişini kalıcı olarak silmek istediğinize emin misiniz?')) {
+        await fetch('/api/errors/clear');
+        errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-slate-300"><span class="material-symbols-outlined text-4xl mb-2">check_circle</span><p class="text-[10px] font-bold uppercase tracking-widest">Hata kayıtları temizlendi.</p></div>';
+    }
+});
+
+// Close modal when clicking outside
+errorModal.addEventListener('click', (e) => {
+    if (e.target === errorModal) {
+        errorModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// --- Failed Items Functions ---
+
+viewFailedBtn.addEventListener('click', async () => {
+    failedModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    await fetchFailedItems();
+});
+
+closeFailedBtn.addEventListener('click', () => {
+    failedModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+});
+
+failedModal.addEventListener('click', (e) => {
+    if (e.target === failedModal) {
+        failedModal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    }
+});
+
+async function fetchFailedItems() {
+    try {
+        failedTbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400">Yükleniyor...</td></tr>';
+        const response = await fetch('/api/failed-items');
+        const items = await response.json();
+
+        if (items.length === 0) {
+            failedTbody.innerHTML = '<tr><td colspan="5" class="p-12 text-center text-slate-300 italic">Şu an için hatalı kayıt bulunmuyor.</td></tr>';
+            return;
+        }
+
+        failedTbody.innerHTML = items.map(item => `
+            <tr>
+                <td class="px-6 py-4">
+                    <div class="font-black text-slate-900">${item.entity_type}</div>
+                    <div class="text-[9px] text-slate-400">ID: ${item.entity_id}</div>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <span class="px-2 py-0.5 bg-slate-100 rounded-md text-[9px] font-black">${item.operation}</span>
+                </td>
+                <td class="px-6 py-4">
+                    <div class="max-w-md text-red-500 line-clamp-2" title="${item.error_message}">${item.error_message}</div>
+                    <div class="text-[9px] text-slate-400 mt-1">Deneme: ${item.retry_count}</div>
+                </td>
+                <td class="px-6 py-4 text-slate-400 font-mono text-[10px]">
+                    ${new Date(item.processed_at || item.created_at).toLocaleString('tr-TR')}
+                </td>
+                <td class="px-6 py-4 text-right">
+                    <div class="flex items-center justify-end gap-2 text-red-500 font-bold">
+                        <button onclick="retryItem('${item.id}')" class="p-2 hover:bg-orange-50 text-orange-500 rounded-lg transition-all" title="Tekrar Dene">
+                            <span class="material-symbols-outlined text-sm">replay</span>
+                        </button>
+                        <button onclick="deleteItem('${item.id}')" class="p-2 hover:bg-red-50 text-red-500 rounded-lg transition-all" title="Sil">
+                            <span class="material-symbols-outlined text-sm">delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        failedTbody.innerHTML = `<tr><td colspan="5" class="p-8 text-center text-red-500">Hata: ${error.message}</td></tr>`;
+    }
+}
+
+async function retryItem(id) {
+    if (!confirm('Bu kaydı tekrar senkronizasyon kuyruğuna almak istediğinize emin misiniz?')) return;
+    try {
+        const response = await fetch(`/api/retry-item/${id}`, { method: 'POST' });
+        if (response.ok) {
+            addLog('SİSTEM', 'BAŞARILI', `Kayıt (#${id}) tekrar kuyruğa alındı.`);
+            await fetchFailedItems();
+        }
+    } catch (error) {
+        alert('İşlem başarısız: ' + error.message);
+    }
+}
+
+async function deleteItem(id) {
+    if (!confirm('Bu kaydı kalıcı olarak silmek istediğinize emin misiniz?')) return;
+    try {
+        const response = await fetch(`/api/delete-item/${id}`, { method: 'POST' });
+        if (response.ok) {
+            addLog('SİSTEM', 'UYARI', `Kayıt (#${id}) kuyruktan silindi.`);
+            await fetchFailedItems();
+        }
+    } catch (error) {
+        alert('İşlem başarısız: ' + error.message);
+    }
+}
+
+// Make them available globally for the onclick handlers
+window.retryItem = retryItem;
+window.deleteItem = deleteItem;
+
+async function fetchErrorLogs() {
+    try {
+        errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-slate-300"><span class="material-symbols-outlined text-5xl mb-4 animate-spin">refresh</span><p class="font-bold tracking-widest uppercase text-xs">Veriler Yükleniyor...</p></div>';
+
+        const response = await fetch('/api/errors');
+        const text = await response.text();
+
+        if (text.trim() && text !== 'Henüz hata kaydı yok.') {
+            // Highlighting and formatting
+            const highlighted = text
+                .replace(/\[(.*?HATA.*?)\]/g, '<span class="text-red-600 font-bold">[$1]</span>')
+                .replace(/\[stderr\]/g, '<span class="text-orange-500 font-bold">[stderr]</span>')
+                .replace(/\[EXIT-ERROR\]/g, '<span class="bg-red-500 text-white px-1 rounded font-black">[KRİTİK HATA]</span>')
+                .replace(/\[(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.*?)\]/g, '<span class="text-slate-400">[$1]</span>');
+
+            errorLogContent.innerHTML = highlighted;
+            // Scroll to bottom
+            errorLogContent.scrollTop = errorLogContent.scrollHeight;
+        } else {
+            errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-slate-300"><span class="material-symbols-outlined text-6xl mb-4">task_alt</span><p class="font-bold tracking-widest uppercase text-xs">Her Şey Yolunda. Hiç Hata Kaydı Yok.</p></div>';
+        }
+    } catch (error) {
+        errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-red-400"><span class="material-symbols-outlined text-6xl mb-4">report_problem</span><p class="font-bold tracking-widest uppercase text-xs">Hata kayıtları yüklenemedi.</p></div>';
+    }
+}
+
+// Initialize
 init();

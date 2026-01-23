@@ -43,7 +43,7 @@ class SyncQueueWorker {
         try {
             // Bekleyen kayıtları al (en eski önce)
             const pendingItems = await pgService.query(`
-        SELECT id, entity_type, entity_id, operation, retry_count
+        SELECT id, entity_type, entity_id, operation, retry_count, record_data
         FROM sync_queue
         WHERE status = 'pending'
         ORDER BY created_at ASC
@@ -118,7 +118,8 @@ class SyncQueueWorker {
                 );
 
                 if (satis.length === 0) {
-                    throw new Error(`Satış bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.fatura_no || item.entity_id;
+                    throw new Error(`Satış bulunamadı: ${id}`);
                 }
 
                 entityData = satis[0];
@@ -134,7 +135,8 @@ class SyncQueueWorker {
                 );
 
                 if (tahsilat.length === 0) {
-                    throw new Error(`Tahsilat bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.tahsilat_no || item.entity_id;
+                    throw new Error(`Tahsilat bulunamadı: ${id}`);
                 }
 
                 entityData = tahsilat[0];
@@ -150,7 +152,8 @@ class SyncQueueWorker {
                 );
 
                 if (alis.length === 0) {
-                    throw new Error(`Alış bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.fatura_no || item.record_data?.belge_no || item.entity_id;
+                    throw new Error(`Alış bulunamadı: ${id}`);
                 }
 
                 entityData = alis[0];
@@ -167,7 +170,8 @@ class SyncQueueWorker {
                 );
 
                 if (iade.length === 0) {
-                    throw new Error(`İade bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.fatura_no || item.entity_id;
+                    throw new Error(`İade bulunamadı: ${id}`);
                 }
 
                 entityData = iade[0];
@@ -184,7 +188,8 @@ class SyncQueueWorker {
                 );
 
                 if (stokHareket.length === 0) {
-                    throw new Error(`Stok Hareketi bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.belge_no || item.entity_id;
+                    throw new Error(`Stok Hareketi bulunamadı: ${id}`);
                 }
 
                 entityData = stokHareket[0];
@@ -201,7 +206,8 @@ class SyncQueueWorker {
                 );
 
                 if (stok.length === 0) {
-                    throw new Error(`Stok bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.stok_kodu || item.entity_id;
+                    throw new Error(`Stok bulunamadı: ${id}`);
                 }
 
                 entityData = stok[0];
@@ -218,7 +224,8 @@ class SyncQueueWorker {
                 );
 
                 if (barkod.length === 0) {
-                    throw new Error(`Barkod bulunamadı: ${item.entity_id}`);
+                    const id = item.record_data?.barkod || item.entity_id;
+                    throw new Error(`Barkod bulunamadı: ${id}`);
                 }
 
                 entityData = barkod[0];
