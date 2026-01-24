@@ -7,151 +7,151 @@ const clearLogsBtn = document.getElementById('clear-logs');
 const statusText = document.getElementById('status-text');
 const systemStatusDot = document.getElementById('system-status-dot');
 const systemStatusText = document.getElementById('system-status-text');
-const quickCommandsContainer = document.getElementById('quick-commands-container');
-const otherCommandsContainer = document.getElementById('other-commands-container');
+const dashboardMenuContainer = document.getElementById('dashboard-menu-container');
+const cameraBtn = document.getElementById('camera-btn');
 
-// Error Log Modal Elements
-const viewErrorsBtn = document.getElementById('view-errors');
-const errorModal = document.getElementById('error-modal');
-const closeModalBtn = document.getElementById('close-modal');
-const errorLogContent = document.getElementById('error-log-content');
-const clearErrorFileBtn = document.getElementById('clear-error-file');
-
-// Failed Items Modal Elements
-const viewFailedBtn = document.getElementById('view-failed-items');
-const failedModal = document.getElementById('failed-items-modal');
-const closeFailedBtn = document.getElementById('close-failed-modal');
-const failedTbody = document.getElementById('failed-items-tbody');
-
-// Running commands tracker
-const runningCommands = new Set();
+// Defined Menu Structure
+const menuCategories = [
+    {
+        title: 'SATIŞ & İŞLEMLER',
+        color: 'bg-blue-500',
+        items: [
+            { name: 'Satış', icon: 'point_of_sale' },
+            { name: 'Hızlı Satış', icon: 'shopping_cart_checkout' },
+            { name: 'Alış', icon: 'input' },
+            { name: 'Faturalar', icon: 'receipt_long' },
+            { name: 'Katalog', icon: 'menu_book' },
+            { name: 'PDF Kataloglar', icon: 'picture_as_pdf' },
+            { name: 'Teklif', icon: 'request_quote' }
+        ]
+    },
+    {
+        title: 'E-TİCARET',
+        color: 'bg-purple-500',
+        items: [
+            { name: 'E-Ticaret', icon: 'shopping_bag' },
+            { name: 'Sipariş Toplama', icon: 'playlist_add_check', badge: '1' },
+            { name: 'Sipariş Onay', icon: 'thumb_up' },
+            { name: 'Toplama Listesi', icon: 'checklist', badge: '1' },
+            { name: 'Kargo Çıktısı', icon: 'local_shipping' },
+            { name: 'Ürünler', icon: 'inventory_2', badge: '24' },
+            { name: 'Müşteri Mesajları', icon: 'forum', badge: '1' },
+            { name: 'Depo Mesajları', icon: 'warehouse' }
+        ]
+    },
+    {
+        title: 'STOK & DEPO',
+        color: 'bg-orange-500',
+        items: [
+            { name: 'Stok', icon: 'inventory' },
+            { name: 'Stok Takip', icon: 'analytics' },
+            { name: 'Sayım', icon: '123' },
+            { name: 'İade', icon: 'assignment_return', badge: '99+' },
+            { name: 'Ürün Güncelle', icon: 'unarchive' },
+            { name: 'Barkod', icon: 'qr_code_scanner' },
+            { name: 'Renk Ayarları', icon: 'palette' },
+            { name: 'Siparişler', icon: 'list_alt' },
+            { name: 'Katalog Yönetimi', icon: 'library_books' }
+        ]
+    },
+    {
+        title: 'FİNANS',
+        color: 'bg-teal-500',
+        items: [
+            { name: 'Cari', icon: 'account_balance_wallet' },
+            { name: 'Tahsilat', icon: 'payments' },
+            { name: 'Gün Sonu', icon: 'summarize' },
+            { name: 'Kasa', icon: 'money' },
+            { name: 'Giderler', icon: 'trending_down' },
+            { name: 'Evrak Takip', icon: 'description' },
+            { name: 'Sipariş Analiz', icon: 'monitoring' }
+        ]
+    }
+];
 
 // Initialize
 async function init() {
     setupSocketListeners();
-    await loadCommands();
+    renderDashboard();
+    setupCamera();
+
+    // Load system commands silently (maybe for background or hidden usage)
+    // await loadCommands(); 
 }
 
-// Load commands from API
-async function loadCommands() {
-    try {
-        const response = await fetch('/api/commands');
-        const commands = await response.json();
-        renderCommands(commands);
-    } catch (error) {
-        addLog('SİSTEM', 'HATA', 'Komutlar yüklenemedi: ' + error.message);
-    }
-}
+function renderDashboard() {
+    dashboardMenuContainer.innerHTML = '';
 
-// Render commands to UI
-function renderCommands(commands) {
-    quickCommandsContainer.innerHTML = '';
-    otherCommandsContainer.innerHTML = '';
+    menuCategories.forEach(category => {
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'flex flex-col gap-4';
 
-    // Define priority items for Hızlı İşlemler
-    const quickCommandIds = ['sync', 'sync-web-to-erp', 'entegra-sync', 'stock-xml'];
-
-    commands.forEach(cmd => {
-        const card = document.createElement('div');
-        card.className = 'group cmd-card';
-        card.id = `card-${cmd.id}`;
-
-        let workerDotHtml = '';
-        if (cmd.id === 'sync-queue-worker') {
-            workerDotHtml = `
-                <div class="absolute top-4 right-4">
-                    <span class="flex h-1.5 w-1.5">
-                        <span id="worker-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75 hidden"></span>
-                        <span id="worker-dot" class="relative inline-flex rounded-full h-1.5 w-1.5 bg-slate-300"></span>
-                    </span>
-                </div>
-            `;
-        }
-
-        const lastRunTime = cmd.last_run ? new Date(cmd.last_run).toLocaleString('tr-TR', {
-            hour: '2-digit',
-            minute: '2-digit',
-            day: '2-digit',
-            month: '2-digit'
-        }) : 'Hiç çalışmadı';
-
-        const lastStatusColor = cmd.last_status === 'SUCCESS' ? 'text-status-success' : 'text-status-error';
-
-        card.innerHTML = `
-            ${workerDotHtml}
-            <div class="icon-box">
-                <span class="material-symbols-outlined text-2xl font-light">${cmd.icon}</span>
+        const headerHtml = `
+            <div class="flex items-center gap-3 border-b border-slate-200 pb-2">
+                <div class="w-1.5 h-6 ${category.color} rounded-r-full"></div>
+                <h2 class="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em]">${category.title}</h2>
             </div>
-            <h3 class="text-[11px] font-bold text-slate-800 mb-1 truncate w-full px-1">${cmd.name}</h3>
-            <p class="text-[8px] text-slate-400 mb-3 leading-tight line-clamp-1 px-1">${cmd.description}</p>
-            
-            <div class="mb-3 flex flex-col items-center gap-0.5">
-                <span class="text-[7px] text-slate-400 font-bold uppercase tracking-tighter">SON SENKRONİZASYON</span>
-                <span class="text-[9px] font-mono font-bold ${lastStatusColor}">${lastRunTime}</span>
-            </div>
-
-            <button id="btn-${cmd.id}" class="command-btn w-full py-2 px-3 bg-slate-900 text-white rounded-lg font-bold text-[9px] hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2 mt-auto">
-                <span class="material-symbols-outlined text-sm">play_arrow</span>
-                BAŞLAT
-            </button>
         `;
 
-        const btn = card.querySelector('button');
-        btn.addEventListener('click', () => {
-            if (runningCommands.has(cmd.id)) {
-                addLog('SİSTEM', 'UYARI', `${cmd.name} zaten çalışıyor!`);
-                return;
+        const gridHtml = document.createElement('div');
+        gridHtml.className = 'grid grid-cols-2 lg:grid-cols-3 gap-3';
+
+        category.items.forEach(item => {
+            const btn = document.createElement('button');
+            btn.className = 'group relative flex flex-col items-center justify-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 h-24';
+
+            // Badge
+            let badgeHtml = '';
+            if (item.badge) {
+                badgeHtml = `<span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm ring-2 ring-white z-10 animate-in zoom-in">${item.badge}</span>`;
             }
-            executeCommand(cmd.id);
+
+            btn.innerHTML = `
+                ${badgeHtml}
+                <div class="mb-2 p-2 bg-slate-50 text-slate-600 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-xl">${item.icon}</span>
+                </div>
+                <span class="text-[10px] font-bold text-slate-700 text-center leading-tight group-hover:text-primary transition-colors line-clamp-2">${item.name}</span>
+            `;
+
+            btn.addEventListener('click', () => {
+                handleMenuClick(item.name);
+            });
+
+            gridHtml.appendChild(btn);
         });
 
-        if (quickCommandIds.includes(cmd.id)) {
-            quickCommandsContainer.appendChild(card);
-        } else {
-            otherCommandsContainer.appendChild(card);
-        }
+        categoryDiv.innerHTML = headerHtml;
+        categoryDiv.appendChild(gridHtml);
+        dashboardMenuContainer.appendChild(categoryDiv);
     });
 }
 
-// Execute command
-function executeCommand(commandId) {
-    runningCommands.add(commandId);
-    updateButtonStates();
-    socket.emit('execute-command', commandId);
-
-    // special handling for worker dot
-    if (commandId === 'sync-queue-worker') {
-        const pulse = document.getElementById('worker-pulse');
-        const dot = document.getElementById('worker-dot');
-        if (pulse) pulse.classList.remove('hidden');
-        if (dot) {
-            dot.classList.remove('bg-slate-300');
-            dot.classList.add('bg-status-success');
-        }
+function handleMenuClick(name) {
+    if (name === 'Ürünler') {
+        // Example: link to products page if existed
+        // window.location.href = '/products';
+        addLog('SİSTEM', 'BİLGİ', 'Ürünler sayfasına yönlendiriliyor... (Demo)');
+    } else {
+        addLog('SİSTEM', 'UYARI', `${name} modülü henüz aktif değil.`);
     }
 }
 
-// Update UI states
-function updateButtonStates() {
-    runningCommands.forEach(id => {
-        const btn = document.getElementById(`btn-${id}`);
-        if (btn) {
-            btn.classList.add('btn-running');
-            btn.disabled = true;
-            btn.innerHTML = `<span class="material-symbols-outlined text-base animate-spin">sync</span> ÇALIŞIYOR...`;
-        }
-    });
+function setupCamera() {
+    if (cameraBtn) {
+        cameraBtn.addEventListener('click', () => {
+            addLog('SİSTEM', 'BİLGİ', 'Kamera uygulaması başlatılıyor...');
+            // Attempt to open a camera activity or URL
+            // Since we don't know the exact scheme, we'll try a generic approach or log it.
+            // If this is running in a specific WebView that intercepts links, this might work:
+            // window.location.href = 'camera://scan'; 
+        });
+    }
+}
 
-    // Reset buttons that are no longer running
-    const allButtons = document.querySelectorAll('.command-btn');
-    allButtons.forEach(btn => {
-        const id = btn.id.replace('btn-', '');
-        if (!runningCommands.has(id)) {
-            btn.classList.remove('btn-running');
-            btn.disabled = false;
-            btn.innerHTML = `<span class="material-symbols-outlined text-base">play_arrow</span> BAŞLAT`;
-        }
-    });
+// Keep updateButtonStates as no-op or modify if we re-introduce system commands
+function updateButtonStates() {
+    // No-op for now unless we add system command buttons back
 }
 
 // Setup socket listeners

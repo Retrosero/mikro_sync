@@ -87,11 +87,14 @@
                 <h1 class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">
                     Gürbüz Oyuncak <span class="text-primary text-sm uppercase tracking-tighter ml-1">Sync</span>
                 </h1>
-                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">Senkronizasyon Konsolu
-                </p>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mt-1">Şirket Bilgisi</p>
             </div>
         </div>
         <div class="flex items-center gap-6">
+            <button id="camera-btn"
+                class="p-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-primary hover:text-white transition-all shadow-sm group">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform">photo_camera</span>
+            </button>
             <div id="status-text"
                 class="px-3 py-1 bg-slate-100 text-slate-600 text-[9px] font-bold tracking-widest uppercase rounded-full">
                 Yükleniyor</div>
@@ -104,24 +107,10 @@
     </header>
 
     <main class="flex-1 flex overflow-hidden">
-        <!-- Left Side: Commands (45% Width) -->
-        <section class="w-[45%] border-r border-slate-100 overflow-y-auto p-6 bg-slate-50/30">
-            <!-- Hızlı İşlemler Section -->
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-1 h-5 bg-primary rounded-full"></div>
-                <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Hızlı İşlemler</h2>
-            </div>
-            <div id="quick-commands-container" class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-                <!-- Quick cards will be injected here -->
-            </div>
-
-            <!-- Diğer İşlemler Section -->
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-1 h-5 bg-slate-300 rounded-full"></div>
-                <h2 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Diğer İşlemler</h2>
-            </div>
-            <div id="other-commands-container" class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                <!-- Other cards will be injected here -->
+        <!-- Left Side: Custom Menu (50% Width) -->
+        <section class="w-[50%] border-r border-slate-100 overflow-y-auto p-6 bg-slate-50/30">
+            <div id="dashboard-menu-container" class="grid grid-cols-2 gap-6 pb-8">
+                <!-- Categories will be injected here -->
             </div>
         </section>
 

@@ -342,6 +342,19 @@ class SyncQueueWorker {
                                     ];
 
                                     Object.keys(changes).forEach(fieldName => {
+                                        // prices özel durumu (iç içe obje olabilir)
+                                        if (fieldName === 'prices' && typeof changes[fieldName] === 'object' && !changes[fieldName].hasOwnProperty('new')) {
+                                            const priceChanges = changes[fieldName];
+                                            Object.keys(priceChanges).forEach(pf => {
+                                                const val = priceChanges[pf].new;
+                                                if (priceFieldNames.includes(pf)) {
+                                                    priceFields.push(`${pf} = ?`);
+                                                    priceValues.push(parseFloat(val) || 0);
+                                                }
+                                            });
+                                            return;
+                                        }
+
                                         const newValue = changes[fieldName].new;
 
                                         if (fieldName === 'quantity') {
