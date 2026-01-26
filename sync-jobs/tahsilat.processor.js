@@ -42,6 +42,22 @@ class TahsilatProcessor {
         await mssqlService.updateRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', chaRecno, transaction);
 
         logger.info(`Tahsilat ERP'ye yazıldı: ${webTahsilat.id}, EvrakNo: ${tahsilatData.cha_evrakno_sira}, RecNo: ${chaRecno}`);
+
+        // Web Tahsilatlar tablosunu güncelle
+        try {
+          const updateSeri = tahsilatData.cha_evrakno_seri;
+          const updateSira = tahsilatData.cha_evrakno_sira;
+
+          if (webTahsilat.tahsilat_seri_no !== updateSeri || webTahsilat.tahsilat_sira_no !== updateSira) {
+            await pgService.query(
+              'UPDATE tahsilatlar SET tahsilat_seri_no = $1, tahsilat_sira_no = $2, belge_no = $3 WHERE id = $4',
+              [updateSeri, updateSira, updateSeri + updateSira, webTahsilat.id]
+            );
+            logger.info(`Web tahsilat kaydı güncellendi: ID=${webTahsilat.id}, Yeni BelgeNo=${updateSeri + updateSira}`);
+          }
+        } catch (updateErr) {
+          logger.error(`Web tahsilat güncelleme hatası: ${updateErr.message}`);
+        }
       });
 
       // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil

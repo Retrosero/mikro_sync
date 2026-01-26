@@ -268,6 +268,15 @@ class SatisProcessor {
         webSatis.kasa_id || null
       ]);
 
+      // Web Satışlar tablosunu güncelle (ERP'den alınan seri/sıra no ile)
+      if (webSatis.fatura_seri_no !== evrakSeri || webSatis.fatura_sira_no !== evrakNo) {
+        await pgService.query(
+          'UPDATE satislar SET fatura_seri_no = $1, fatura_sira_no = $2, belge_no = $3 WHERE id = $4',
+          [evrakSeri, evrakNo, evrakSeri + evrakNo, webSatis.id]
+        );
+        logger.info(`Web satış kaydı güncellendi: ID=${webSatis.id}, Yeni BelgeNo=${evrakSeri + evrakNo}`);
+      }
+
       // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
       // Böylece sadece ERP'den dönen (erp_recno değeri olan) kayıtlar kalır
       // Bu sayede ERP'de silme yapıldığında, Web'de de doğru kayıt silinir

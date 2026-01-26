@@ -313,9 +313,12 @@ class StokHareketProcessor {
                 const erpData = await transformer.transformToERP(webStokHareket, stokKod, satirNo);
                 const symRecNo = await this.insertToSayimSonuclari(erpData);
 
-                // Update Web with ERP RecNo
-                await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [-symRecNo, webStokHareket.id]);
-                logger.info(`Sayım fişi SAYIM_SONUCLARI'na gönderildi. ID: ${webStokHareket.id} -> RecNo: ${symRecNo} (Saved as -${symRecNo}) (Satır: ${satirNo})`);
+                // Update Web with ERP RecNo and Document Numbers
+                await pgService.query(
+                    'UPDATE stok_hareketleri SET erp_recno = $1, fatura_sira_no = $2 WHERE id = $3',
+                    [-symRecNo, erpData.sym_evrakno, webStokHareket.id]
+                );
+                logger.info(`Sayım fişi SAYIM_SONUCLARI'na gönderildi. ID: ${webStokHareket.id} -> RecNo: ${symRecNo} (Saved as -${symRecNo}) (Satır: ${satirNo}, Evrak: ${erpData.sym_evrakno})`);
 
             } else {
                 // STOK_HAREKETLERI tablosuna yaz (Eski logic)
@@ -336,9 +339,15 @@ class StokHareketProcessor {
                 // Insert to MSSQL
                 const sthRecNo = await this.insertToERP(erpData);
 
-                // Update Web with ERP RecNo
-                await pgService.query('UPDATE stok_hareketleri SET erp_recno = $1 WHERE id = $2', [sthRecNo, webStokHareket.id]);
-                logger.info(`Stok hareketi ERP'ye gönderildi. ID: ${webStokHareket.id} -> RecNo: ${sthRecNo}`);
+                // Update Web with ERP RecNo and Document Numbers
+                const updateSeri = erpData.sth_evrakno_seri;
+                const updateSira = erpData.sth_evrakno_sira;
+
+                await pgService.query(
+                    'UPDATE stok_hareketleri SET erp_recno = $1, fatura_seri_no = $2, fatura_sira_no = $3, belge_no = $4 WHERE id = $5',
+                    [sthRecNo, updateSeri, updateSira, updateSeri + updateSira, webStokHareket.id]
+                );
+                logger.info(`Stok hareketi ERP'ye gönderildi. ID: ${webStokHareket.id} -> RecNo: ${sthRecNo}, Belge: ${updateSeri}${updateSira}`);
             }
 
         } catch (error) {

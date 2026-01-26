@@ -126,6 +126,19 @@ class IadeProcessor {
           satirNo++;
         }
         logger.info(`İade ERP'ye yazıldı: ${webIade.id}, EvrakNo: ${evrakNo}`);
+
+        // Web İadeler tablosunu güncelle
+        try {
+          if (webIade.fatura_seri_no !== evrakSeri || webIade.fatura_sira_no !== evrakNo) {
+            await pgService.query(
+              'UPDATE iadeler SET fatura_seri_no = $1, fatura_sira_no = $2, belge_no = $3 WHERE id = $4',
+              [evrakSeri, evrakNo, evrakSeri + evrakNo, webIade.id]
+            );
+            logger.info(`Web iade kaydı güncellendi: ID=${webIade.id}, Yeni BelgeNo=${evrakSeri + evrakNo}`);
+          }
+        } catch (updateErr) {
+          logger.error(`Web iade güncelleme hatası: ${updateErr.message}`);
+        }
       });
 
       await pgService.query(

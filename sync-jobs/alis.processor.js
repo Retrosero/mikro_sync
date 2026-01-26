@@ -114,6 +114,22 @@ class AlisProcessor {
                 }
 
                 logger.info(`Alış ERP'ye yazıldı: ${webAlis.id}, EvrakNo: ${baslikData.cha_evrakno_sira}`);
+
+                // Web Alışlar tablosunu güncelle (ERP'den alınan seri/sıra no ile)
+                try {
+                    const updateSeri = baslikData.cha_evrakno_seri;
+                    const updateSira = baslikData.cha_evrakno_sira;
+
+                    if (webAlis.fatura_seri_no !== updateSeri || webAlis.fatura_sira_no !== updateSira) {
+                        await pgService.query(
+                            'UPDATE alislar SET fatura_seri_no = $1, fatura_sira_no = $2, belge_no = $3 WHERE id = $4',
+                            [updateSeri, updateSira, updateSeri + updateSira, webAlis.id]
+                        );
+                        logger.info(`Web alış kaydı güncellendi: ID=${webAlis.id}, Yeni BelgeNo=${updateSeri + updateSira}`);
+                    }
+                } catch (updateErr) {
+                    logger.error(`Web alış güncelleme hatası: ${updateErr.message}`);
+                }
             });
 
             // Mapping tablosuna kaydet
