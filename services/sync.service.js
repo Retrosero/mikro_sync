@@ -5,6 +5,7 @@ const { handleError, isRetryable } = require('../utils/error-handler');
 const config = require('../config/sync.config');
 const stockXmlService = require('./stock-xml.service');
 const invoiceSettingsService = require('./invoice-settings.service');
+const entegraSync = require('../scripts/entegra-sync');
 
 class SyncService {
   constructor() {
@@ -38,6 +39,9 @@ class SyncService {
 
         // Pazaryeri Fatura Sıra No Güncelle
         await invoiceSettingsService.syncInvoiceNumbers();
+
+        // Entegra Veri Senkronizasyonu
+        await entegraSync.runSync({ disconnect: false });
 
         // Stok XML Oluştur ve Yükle
         await stockXmlService.checkAndRun();
@@ -247,8 +251,26 @@ class SyncService {
     }
   }
 
+  triggerSync() {
+    if (this.sleepResolve) {
+      logger.info('Manuel senkronizasyon tetiklendi - bekleme iptal ediliyor...');
+      this.sleepResolve();
+      this.sleepResolve = null;
+      return true;
+    } else {
+      logger.info('Manuel senkronizasyon tetiklendi - servis zaten çalışıyor veya başlatılıyor');
+      return false;
+    }
+  }
+
   sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => {
+      this.sleepResolve = resolve;
+      this.sleepTimer = setTimeout(() => {
+        this.sleepResolve = null;
+        resolve();
+      }, ms);
+    });
   }
 }
 

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="tr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gürbüz Oyuncak Senkronizasyon Sistemi</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gürbüz Oyuncak Senkronizasyon Sistemi</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
             theme: {
                 extend: {
@@ -29,7 +33,7 @@
             },
         }
     </script>
-<style type="text/tailwindcss">
+    <style type="text/tailwindcss">
         @layer base {
             body {
                 @apply bg-white text-slate-800 antialiased;
@@ -50,163 +54,234 @@
         }
     </style>
 </head>
-<body class="min-h-screen">
-<div class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
-<header class="mb-16 text-center">
-<h1 class="text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
-            Gürbüz Oyuncak Senkronizasyon Sistemi
-        </h1>
-<p class="text-slate-500 text-xl max-w-3xl mx-auto leading-relaxed">
-            ERP ve Web platformları arasındaki veri akışını yönetin, senkronizasyon durumlarını takip edin ve sistem günlüklerini inceleyin.
-        </p>
-</header>
-<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">trending_flat</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">ERP to Web</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Ürünlerin, fiyatların ve stok seviyelerinin ERP'den web mağazasına tek yönlü senkronizasyonu.</p>
-<button class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">play_arrow</span>
-                Senkronizasyonu Başlat
-            </button>
-</div>
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">sync</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">Bidirectional Sync</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Tam senkronizasyon. Hem ERP hem de Web platformlarını en son değişikliklerle güncel tutar.</p>
-<button class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">settings</span>
-                Yapılandır
-            </button>
-</div>
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start relative overflow-hidden">
-<div class="absolute top-6 right-8">
-<span class="flex h-2 w-2">
-<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75"></span>
-<span class="relative inline-flex rounded-full h-2 w-2 bg-status-success"></span>
-</span>
-</div>
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">engineering</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">Web to ERP Worker</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Gelen siparişleri ve müşteri veri güncellemelerini izleyen arka plan işlemi.</p>
-<button class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">analytics</span>
-                Aktiviteyi Görüntüle
-            </button>
-</div>
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">bolt</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">System Triggers</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Olay tabanlı senkronizasyonu otomatikleştirmek için veritabanı tetikleyicilerini kurun.</p>
-<button class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">install_desktop</span>
-                Tetikleyicileri Güncelle
-            </button>
-</div>
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">code</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">Maintenance Script</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Veritabanı temizliği veya manuel veri düzeltme için bakım betiklerini çalıştırın.</p>
-<button class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">terminal</span>
-                Betiği Çalıştır
-            </button>
-</div>
-<div class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
-<div class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-<span class="material-symbols-outlined text-3xl">description</span>
-</div>
-<h3 class="text-xl font-semibold text-slate-900 mb-2">Generate Stock XML</h3>
-<p class="text-slate-500 text-sm mb-8 leading-relaxed">Harici pazaryeri beslemeleri için mevcut stok seviyelerinin statik bir anlık görüntüsünü dışa aktarın.</p>
-<button class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
-<span class="material-symbols-outlined text-lg">download</span>
-                XML Dışa Aktar
-            </button>
-</div>
-</section>
-<section class="max-w-5xl mx-auto">
-<div class="flex items-center justify-between mb-8">
-<div class="flex items-center gap-3">
-<h2 class="text-2xl font-bold text-slate-900">Canlı Günlükler</h2>
-<span class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold tracking-widest uppercase rounded-full">Gerçek Zamanlı</span>
-</div>
-<div class="flex gap-2">
-<button class="p-2 text-slate-400 hover:text-primary transition-colors">
-<span class="material-symbols-outlined">refresh</span>
-</button>
-<button class="p-2 text-slate-400 hover:text-status-error transition-colors">
-<span class="material-symbols-outlined">delete_sweep</span>
-</button>
-</div>
-</div>
-<div class="bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden shadow-sm">
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 bg-slate-100/50 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
-<div>Zaman</div>
-<div>Kaynak</div>
-<div>Durum</div>
-<div>Mesaj</div>
-</div>
-<div class="log-container h-[400px] overflow-y-auto font-mono text-sm">
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
-<div class="text-slate-400">14:52:01</div>
-<div class="text-primary font-semibold">ERP_SYNC</div>
-<div>
-<span class="text-[10px] font-bold text-status-success px-2 py-0.5 rounded bg-status-success/10">BAŞARILI</span>
-</div>
-<div class="text-slate-600">WooCommerce'e 24 yeni ürün güncellemesi başarıyla gönderildi.</div>
-</div>
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
-<div class="text-slate-400">14:51:45</div>
-<div class="text-primary font-semibold">WEB_WORKER</div>
-<div>
-<span class="text-[10px] font-bold text-status-warning px-2 py-0.5 rounded bg-status-warning/10">UYARI</span>
-</div>
-<div class="text-slate-600">Sipariş #8824 senkronizasyon gecikmesi: ERP yanıtı 500ms'yi aştı.</div>
-</div>
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
-<div class="text-slate-400">14:50:12</div>
-<div class="text-primary font-semibold">AUTH_SVC</div>
-<div>
-<span class="text-[10px] font-bold text-status-error px-2 py-0.5 rounded bg-status-error/10">HATA</span>
-</div>
-<div class="text-status-error">API Bağlantısı Başarısız: /api/v1/sync uç noktası için geçersiz belirteç.</div>
-</div>
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
-<div class="text-slate-400">14:48:30</div>
-<div class="text-primary font-semibold">XML_GEN</div>
-<div>
-<span class="text-[10px] font-bold text-status-success px-2 py-0.5 rounded bg-status-success/10">BAŞARILI</span>
-</div>
-<div class="text-slate-600">Stok anlık görüntüsü oluşturuldu: stock_20241024.xml (1.2MB).</div>
-</div>
-<div class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
-<div class="text-slate-400">14:45:00</div>
-<div class="text-primary font-semibold">SİSTEM</div>
-<div>
-<span class="text-[10px] font-bold text-slate-400 px-2 py-0.5 rounded bg-slate-200">BİLGİ</span>
-</div>
-<div class="text-slate-500 italic">Haftalık bakım işlemi sistem cronunda başlatıldı.</div>
-</div>
-</div>
-</div>
-</section>
-<footer class="mt-24 pt-12 border-t border-slate-100 flex flex-col items-center">
-<p class="text-slate-400 text-sm mb-2">© 2024 Gürbüz Oyuncak Senkronizasyon Konsolu</p>
-<div class="flex items-center gap-2">
-<span class="size-2 bg-status-success rounded-full"></span>
-<span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Tüm sistemler çalışıyor</span>
-</div>
-</footer>
-</div>
 
-</body></html>
+<body class="min-h-screen">
+    <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+        <header class="mb-16 text-center">
+            <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 mb-6">
+                Gürbüz Oyuncak Senkronizasyon Sistemi
+            </h1>
+            <p class="text-slate-500 text-xl max-w-3xl mx-auto leading-relaxed">
+                ERP ve Web platformları arasındaki veri akışını yönetin, senkronizasyon durumlarını takip edin ve sistem
+                günlüklerini inceleyin.
+            </p>
+        </header>
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">trending_flat</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">ERP to Web</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Ürünlerin, fiyatların ve stok seviyelerinin
+                    ERP'den web mağazasına tek yönlü senkronizasyonu.</p>
+                <button id="startSyncBtn"
+                    class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">play_arrow</span>
+                    Senkronizasyonu Başlat
+                </button>
+            </div>
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">sync</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">Bidirectional Sync</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Tam senkronizasyon. Hem ERP hem de Web
+                    platformlarını en son değişikliklerle güncel tutar.</p>
+                <button
+                    class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">settings</span>
+                    Yapılandır
+                </button>
+            </div>
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start relative overflow-hidden">
+                <div class="absolute top-6 right-8">
+                    <span class="flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-success opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-status-success"></span>
+                    </span>
+                </div>
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">engineering</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">Web to ERP Worker</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Gelen siparişleri ve müşteri veri
+                    güncellemelerini izleyen arka plan işlemi.</p>
+                <button
+                    class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">analytics</span>
+                    Aktiviteyi Görüntüle
+                </button>
+            </div>
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">bolt</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">System Triggers</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Olay tabanlı senkronizasyonu otomatikleştirmek
+                    için veritabanı tetikleyicilerini kurun.</p>
+                <button
+                    class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">install_desktop</span>
+                    Tetikleyicileri Güncelle
+                </button>
+            </div>
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">code</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">Maintenance Script</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Veritabanı temizliği veya manuel veri düzeltme
+                    için bakım betiklerini çalıştırın.</p>
+                <button
+                    class="w-full py-3 px-6 bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-medium text-sm hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">terminal</span>
+                    Betiği Çalıştır
+                </button>
+            </div>
+            <div
+                class="group bg-white border border-slate-100 p-8 rounded-[2rem] shadow-soft hover:shadow-hover transition-all duration-300 flex flex-col items-start">
+                <div
+                    class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-3xl">description</span>
+                </div>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">Generate Stock XML</h3>
+                <p class="text-slate-500 text-sm mb-8 leading-relaxed">Harici pazaryeri beslemeleri için mevcut stok
+                    seviyelerinin statik bir anlık görüntüsünü dışa aktarın.</p>
+                <button
+                    class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
+                    <span class="material-symbols-outlined text-lg">download</span>
+                    XML Dışa Aktar
+                </button>
+            </div>
+        </section>
+        <section class="max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-8">
+                <div class="flex items-center gap-3">
+                    <h2 class="text-2xl font-bold text-slate-900">Canlı Günlükler</h2>
+                    <span
+                        class="px-3 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold tracking-widest uppercase rounded-full">Gerçek
+                        Zamanlı</span>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">refresh</span>
+                    </button>
+                    <button class="p-2 text-slate-400 hover:text-status-error transition-colors">
+                        <span class="material-symbols-outlined">delete_sweep</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden shadow-sm">
+                <div
+                    class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 bg-slate-100/50 text-[11px] font-bold text-slate-400 tracking-wider uppercase">
+                    <div>Zaman</div>
+                    <div>Kaynak</div>
+                    <div>Durum</div>
+                    <div>Mesaj</div>
+                </div>
+                <div class="log-container h-[400px] overflow-y-auto font-mono text-sm">
+                    <div
+                        class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
+                        <div class="text-slate-400">14:52:01</div>
+                        <div class="text-primary font-semibold">ERP_SYNC</div>
+                        <div>
+                            <span
+                                class="text-[10px] font-bold text-status-success px-2 py-0.5 rounded bg-status-success/10">BAŞARILI</span>
+                        </div>
+                        <div class="text-slate-600">WooCommerce'e 24 yeni ürün güncellemesi başarıyla gönderildi.</div>
+                    </div>
+                    <div
+                        class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
+                        <div class="text-slate-400">14:51:45</div>
+                        <div class="text-primary font-semibold">WEB_WORKER</div>
+                        <div>
+                            <span
+                                class="text-[10px] font-bold text-status-warning px-2 py-0.5 rounded bg-status-warning/10">UYARI</span>
+                        </div>
+                        <div class="text-slate-600">Sipariş #8824 senkronizasyon gecikmesi: ERP yanıtı 500ms'yi aştı.
+                        </div>
+                    </div>
+                    <div
+                        class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
+                        <div class="text-slate-400">14:50:12</div>
+                        <div class="text-primary font-semibold">AUTH_SVC</div>
+                        <div>
+                            <span
+                                class="text-[10px] font-bold text-status-error px-2 py-0.5 rounded bg-status-error/10">HATA</span>
+                        </div>
+                        <div class="text-status-error">API Bağlantısı Başarısız: /api/v1/sync uç noktası için geçersiz
+                            belirteç.</div>
+                    </div>
+                    <div
+                        class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
+                        <div class="text-slate-400">14:48:30</div>
+                        <div class="text-primary font-semibold">XML_GEN</div>
+                        <div>
+                            <span
+                                class="text-[10px] font-bold text-status-success px-2 py-0.5 rounded bg-status-success/10">BAŞARILI</span>
+                        </div>
+                        <div class="text-slate-600">Stok anlık görüntüsü oluşturuldu: stock_20241024.xml (1.2MB).</div>
+                    </div>
+                    <div
+                        class="grid grid-cols-[100px_140px_100px_1fr] px-8 py-4 border-b border-slate-100 hover:bg-white transition-colors">
+                        <div class="text-slate-400">14:45:00</div>
+                        <div class="text-primary font-semibold">SİSTEM</div>
+                        <div>
+                            <span
+                                class="text-[10px] font-bold text-slate-400 px-2 py-0.5 rounded bg-slate-200">BİLGİ</span>
+                        </div>
+                        <div class="text-slate-500 italic">Haftalık bakım işlemi sistem cronunda başlatıldı.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="mt-24 pt-12 border-t border-slate-100 flex flex-col items-center">
+            <p class="text-slate-400 text-sm mb-2">© 2024 Gürbüz Oyuncak Senkronizasyon Konsolu</p>
+            <div class="flex items-center gap-2">
+                <span class="size-2 bg-status-success rounded-full"></span>
+                <span class="text-xs font-medium text-slate-500 uppercase tracking-widest">Tüm sistemler
+                    çalışıyor</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('startSyncBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('startSyncBtn');
+            const originalText = btn.innerHTML;
+
+            try {
+                btn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">sync</span> Başlatılıyor...';
+                btn.disabled = true;
+                btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+                const response = await fetch('http://localhost:3001/api/trigger-sync', { method: 'POST' });
+                const data = await response.json();
+
+                alert(data.message);
+            } catch (error) {
+                console.error(error);
+                alert('Bağlantı hatası! Servis çalışıyor mu?');
+            } finally {
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+
+</html>

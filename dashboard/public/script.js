@@ -9,9 +9,17 @@ const systemStatusDot = document.getElementById('system-status-dot');
 const systemStatusText = document.getElementById('system-status-text');
 const dashboardMenuContainer = document.getElementById('dashboard-menu-container');
 const cameraBtn = document.getElementById('camera-btn');
+const headerSyncBtn = document.getElementById('header-sync-btn');
 
 // Defined Menu Structure
 const menuCategories = [
+    {
+        title: 'SİSTEM KONTROL',
+        color: 'bg-indigo-600',
+        items: [
+            { name: 'Manuel Senkronizasyon', icon: 'sync_lock', badge: 'YENİ' }
+        ]
+    },
     {
         title: 'SATIŞ & İŞLEMLER',
         color: 'bg-blue-500',
@@ -128,6 +136,10 @@ function renderDashboard() {
 }
 
 function handleMenuClick(name) {
+    if (name === 'Manuel Senkronizasyon') {
+        triggerManualSync();
+        return;
+    }
     if (name === 'Ürünler') {
         // Example: link to products page if existed
         // window.location.href = '/products';
@@ -141,12 +153,14 @@ function setupCamera() {
     if (cameraBtn) {
         cameraBtn.addEventListener('click', () => {
             addLog('SİSTEM', 'BİLGİ', 'Kamera uygulaması başlatılıyor...');
-            // Attempt to open a camera activity or URL
-            // Since we don't know the exact scheme, we'll try a generic approach or log it.
-            // If this is running in a specific WebView that intercepts links, this might work:
-            // window.location.href = 'camera://scan'; 
         });
     }
+}
+
+if (headerSyncBtn) {
+    headerSyncBtn.addEventListener('click', () => {
+        triggerManualSync();
+    });
 }
 
 // Keep updateButtonStates as no-op or modify if we re-introduce system commands
@@ -398,6 +412,18 @@ async function fetchErrorLogs() {
         }
     } catch (error) {
         errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-red-400"><span class="material-symbols-outlined text-6xl mb-4">report_problem</span><p class="font-bold tracking-widest uppercase text-xs">Hata kayıtları yüklenemedi.</p></div>';
+    }
+}
+
+async function triggerManualSync() {
+    addLog('SİSTEM', 'BİLGİ', 'Manuel senkronizasyon isteği gönderiliyor...');
+    try {
+        const response = await fetch('http://localhost:3001/api/trigger-sync', { method: 'POST' });
+        const data = await response.json();
+        addLog('SİSTEM', data.success ? 'BAŞARILI' : 'UYARI', data.message);
+    } catch (error) {
+        addLog('SİSTEM', 'HATA', 'Senkronizasyon tetiklenemedi. Servis çalışıyor mu? (Port 3001)');
+        console.error(error);
     }
 }
 
