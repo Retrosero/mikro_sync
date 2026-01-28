@@ -376,9 +376,12 @@ class StokProcessor {
 
       // Entegra SQLite product_quantity tablosunu güncelle
       await this.updateEntegraQuantity(webStok);
+      // Entegra SQLite product_description tablosunu güncelle
+      await this.updateEntegraDescription(webStok);
 
       // Fiyat işlemi else'den sonra da çalışsın (yeni ve güncelleme için)
       if (webStok.satis_fiyati !== undefined && webStok.satis_fiyati !== null) {
+        // ... (lines 382-441 of original) ...
         const fiyatResult = await mssqlService.query(
           `SELECT sfiyat_RECno FROM STOK_SATIS_FIYAT_LISTELERI 
            WHERE sfiyat_stokkod = @stokKod AND sfiyat_listesirano = 1`,
@@ -444,6 +447,69 @@ class StokProcessor {
     } catch (error) {
       logger.error(`Stok ERP senkronizasyon hatası (${webStok.stok_kodu}):`, error);
       throw error;
+    }
+  }
+
+  // ... (existing updateEntegraQuantity above) ...
+
+  /**
+   * Entegra SQLite product_description tablosundaki açıklamayı güncelle
+   * @param {Object} webStok - Web stok kaydı
+   */
+  async updateEntegraDescription(webStok) {
+    try {
+      // aciklama tanımlı değilse işlem yapma (string olması ve undefined olmaması yeterli)
+      if (webStok.aciklama === undefined || webStok.aciklama === null) {
+        return;
+      }
+
+      const sqliteService = require('../services/sqlite.service');
+
+      // SQLite bağlantısını aç (yazma modu)
+      sqliteService.connect(false);
+
+      // Önce product tablosundan productCode ile product id bul
+      const product = sqliteService.queryOne(
+        `SELECT id FROM product WHERE productCode = ?`,
+        [webStok.stok_kodu]
+      );
+
+      if (!product) {
+        logger.debug(`Entegra product bulunamadı (açıklama için): ${webStok.stok_kodu}`);
+        sqliteService.disconnect();
+        return;
+      }
+
+      const productId = product.id;
+
+      // product_description tablosunu güncelle
+      const result = sqliteService.run(
+        `UPDATE product_description SET description = ? WHERE product_id = ?`,
+        [webStok.aciklama, productId]
+      );
+
+      // Eğer kayıt yoksa insert yapılabilir ama genelde vardır.
+      // Eğer update sonucu 0 ise insert deneyelim
+      if (result.changes === 0) {
+        const insertResult = sqliteService.run(
+          `INSERT INTO product_description (product_id, description, eanshare_description, sync_ai) 
+                 VALUES (?, ?, '', 0)`,
+          [productId, webStok.aciklama]
+        );
+        if (insertResult.changes > 0) {
+          logger.info(`✓ Entegra SQLite stok açıklaması eklendi: ${webStok.stok_kodu}`);
+        }
+      } else {
+        logger.info(`✓ Entegra SQLite stok açıklaması güncellendi: ${webStok.stok_kodu}`);
+      }
+
+      sqliteService.disconnect();
+
+    } catch (error) {
+      // Entegra güncellemesi ana işlemi durdurmasın
+      logger.debug(`Entegra SQLite açıklama güncelleme hatası (${webStok.stok_kodu}):`, error.message);
+      // Bağlantıyı kapat (hata durumunda açık kalmasın)
+      try { require('../services/sqlite.service').disconnect(); } catch (e) { }
     }
   }
   /**

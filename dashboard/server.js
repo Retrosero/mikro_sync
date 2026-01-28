@@ -297,14 +297,25 @@ io.on('connection', (socket) => {
 });
 
 // Start server
-server.listen(PORT, async () => {
-  console.log(`\n🎉 Dashboard sunucusu başlatıldı!`);
-  console.log(`📍 Adres: http://localhost:${PORT}`);
-  console.log(`\n🌐 Tarayıcı otomatik açılıyor...\n`);
+if (require.main === module) {
+  server.listen(PORT, async () => {
+    console.log(`\n🎉 Dashboard sunucusu başlatıldı!`);
+    console.log(`📍 Adres: http://localhost:${PORT}`);
+    console.log(`\n🌐 Tarayıcı otomatik açılıyor...\n`);
 
-  try {
-    await open(`http://localhost:${PORT}`);
-  } catch (error) {
-    console.log('Tarayıcı otomatik açılamadı. Lütfen manuel olarak açın.');
-  }
-});
+    try {
+      await open(`http://localhost:${PORT}`);
+    } catch (error) {
+      console.log('Tarayıcı otomatik açılamadı. Lütfen manuel olarak açın.');
+    }
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`\n⚠️  Port ${PORT} zaten kullanımda! Dashboard başlatılamadı.`);
+      console.error('Büyük ihtimalle başka bir mikro_sync servisi zaten çalışıyor. Dashboard erişimi için mevcut servisi kullanın.\n');
+    } else {
+      console.error('\n❌ Sunucu başlatma hatası:', err);
+    }
+  });
+}
+
+module.exports = app;

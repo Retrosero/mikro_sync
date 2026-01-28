@@ -126,6 +126,26 @@ async function main() {
       logger.info(`API sunucusu http://localhost:${port} üzerinde çalışıyor`, { context: 'api' });
     });
 
+    // Dashboard Server'ı Başlat
+    const { fork } = require('child_process');
+    const dashboardPath = path.join(__dirname, 'dashboard', 'server.js');
+
+    logger.info('Dashboard paneli başlatılıyor...', { context: 'startup' });
+
+    const dashboardProcess = fork(dashboardPath, [], {
+      stdio: 'inherit',
+      env: { ...process.env, PORT: 3456 }
+    });
+
+    dashboardProcess.on('error', (err) => {
+      logger.error('Dashboard başlatılamadı:', err);
+    });
+
+    // Ana process kapandığında dashboard'u da kapat
+    process.on('exit', () => {
+      dashboardProcess.kill();
+    });
+
     // Senkronizasyonu başlat
     await syncService.start();
   } catch (error) {

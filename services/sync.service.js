@@ -6,11 +6,14 @@ const config = require('../config/sync.config');
 const stockXmlService = require('./stock-xml.service');
 const invoiceSettingsService = require('./invoice-settings.service');
 const entegraSync = require('../scripts/entegra-sync');
+const asortiSync = require('../scripts/sync_asorti_to_sqlite');
+const SyncQueueWorker = require('./sync-queue-worker');
 
 class SyncService {
   constructor() {
     this.isRunning = false;
     this.processors = new Map();
+    this.webToErpWorker = new SyncQueueWorker();
   }
 
   // Processor kaydet
@@ -31,17 +34,21 @@ class SyncService {
 
     while (this.isRunning) {
       try {
-        // PostgreSQL queue'dan işle
-        await this.processPostgreSQLQueue();
+        // PostgreSQL queue'dan işle (Web → ERP)
+        // Artık SyncQueueWorker kullanıyoruz (daha kapsamlı)
+        await this.webToErpWorker.processQueue();
 
-        // MS SQL queue'dan işle
+        // MS SQL queue'dan işle (ERP → Web)
         await this.processMSSQLQueue();
 
         // Pazaryeri Fatura Sıra No Güncelle
         await invoiceSettingsService.syncInvoiceNumbers();
 
-        // Entegra Veri Senkronizasyonu
+        // Entegra Veri Senkronizasyonu (SQLite -> Web)
         await entegraSync.runSync({ disconnect: false });
+
+        // Asorti Ürün Senkronizasyonu (Web -> SQLite)
+        await asortiSync.runAsortiSync();
 
         // Stok XML Oluştur ve Yükle
         await stockXmlService.checkAndRun();
