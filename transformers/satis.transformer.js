@@ -364,7 +364,7 @@ class SatisTransformer {
         sth_special2: '',
         sth_special3: '',
         // Eksik alanlar - referans kaydından alınan değerler
-        sth_isk_mas1: 0,
+        sth_isk_mas1: 1,
         sth_isk_mas2: 1,
         sth_isk_mas3: 1,
         sth_isk_mas4: 1,

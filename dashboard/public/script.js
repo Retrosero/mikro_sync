@@ -11,68 +11,51 @@ const dashboardMenuContainer = document.getElementById('dashboard-menu-container
 const cameraBtn = document.getElementById('camera-btn');
 const headerSyncBtn = document.getElementById('header-sync-btn');
 
+let runningCommands = new Set();
+let commands = [];
+
+// Modal Elements
+const viewErrorsBtn = document.getElementById('view-errors');
+const errorModal = document.getElementById('error-modal');
+const closeModalBtn = document.getElementById('close-modal');
+const clearErrorFileBtn = document.getElementById('clear-error-file');
+const errorLogContent = document.getElementById('error-log-content');
+
+const viewFailedBtn = document.getElementById('view-failed-items');
+const failedModal = document.getElementById('failed-items-modal');
+const closeFailedBtn = document.getElementById('close-failed-modal');
+const failedTbody = document.getElementById('failed-items-tbody');
+
 // Defined Menu Structure
 const menuCategories = [
     {
-        title: 'SİSTEM KONTROL',
+        title: 'SENKRONİZASYON',
         color: 'bg-indigo-600',
         items: [
-            { name: 'Manuel Senkronizasyon', icon: 'sync_lock', badge: 'YENİ' }
-        ]
-    },
-    {
-        title: 'SATIŞ & İŞLEMLER',
-        color: 'bg-blue-500',
-        items: [
-            { name: 'Satış', icon: 'point_of_sale' },
-            { name: 'Hızlı Satış', icon: 'shopping_cart_checkout' },
-            { name: 'Alış', icon: 'input' },
-            { name: 'Faturalar', icon: 'receipt_long' },
-            { name: 'Katalog', icon: 'menu_book' },
-            { name: 'PDF Kataloglar', icon: 'picture_as_pdf' },
-            { name: 'Teklif', icon: 'request_quote' }
-        ]
-    },
-    {
-        title: 'E-TİCARET',
-        color: 'bg-purple-500',
-        items: [
-            { name: 'E-Ticaret', icon: 'shopping_bag' },
-            { name: 'Sipariş Toplama', icon: 'playlist_add_check', badge: '1' },
-            { name: 'Sipariş Onay', icon: 'thumb_up' },
-            { name: 'Toplama Listesi', icon: 'checklist', badge: '1' },
-            { name: 'Kargo Çıktısı', icon: 'local_shipping' },
-            { name: 'Ürünler', icon: 'inventory_2', badge: '24' },
-            { name: 'Müşteri Mesajları', icon: 'forum', badge: '1' },
-            { name: 'Depo Mesajları', icon: 'warehouse' }
-        ]
-    },
-    {
-        title: 'STOK & DEPO',
-        color: 'bg-orange-500',
-        items: [
-            { name: 'Stok', icon: 'inventory' },
-            { name: 'Stok Takip', icon: 'analytics' },
-            { name: 'Sayım', icon: '123' },
-            { name: 'İade', icon: 'assignment_return', badge: '99+' },
-            { name: 'Ürün Güncelle', icon: 'unarchive' },
-            { name: 'Barkod', icon: 'qr_code_scanner' },
-            { name: 'Renk Ayarları', icon: 'palette' },
-            { name: 'Siparişler', icon: 'list_alt' },
-            { name: 'Katalog Yönetimi', icon: 'library_books' }
-        ]
-    },
-    {
-        title: 'FİNANS',
-        color: 'bg-teal-500',
-        items: [
-            { name: 'Cari', icon: 'account_balance_wallet' },
-            { name: 'Tahsilat', icon: 'payments' },
-            { name: 'Gün Sonu', icon: 'summarize' },
-            { name: 'Kasa', icon: 'money' },
-            { name: 'Giderler', icon: 'trending_down' },
-            { name: 'Evrak Takip', icon: 'description' },
-            { name: 'Sipariş Analiz', icon: 'monitoring' }
+            {
+                id: 'continuous-sync',
+                name: 'Sürekli Senkronizasyon',
+                icon: 'refresh-cw',
+                description: 'Sistem arka planda sürekli çalışır ve anlık veri senkronizasyonu sağlar.'
+            },
+            {
+                id: 'erp-to-web',
+                name: 'ERP → Web',
+                icon: 'upload-cloud',
+                description: 'Mikro verilerini (Stok, Fiyat, vb.) web sitesine tek yönlü aktarır.'
+            },
+            {
+                id: 'web-to-erp',
+                name: 'Web → ERP',
+                icon: 'download-cloud',
+                description: 'Web siparişlerini ve müşteri carilerini Mikro sistemine aktarır.'
+            },
+            {
+                id: 'entegra-sync',
+                name: 'Entegra Senkronizasyonu',
+                icon: 'waypoints',
+                description: 'Entegra ile ürün ve stok verilerini eşitler.'
+            }
         ]
     }
 ];
@@ -83,8 +66,8 @@ async function init() {
     renderDashboard();
     setupCamera();
 
-    // Load system commands silently (maybe for background or hidden usage)
-    // await loadCommands(); 
+    // Load system commands
+    await loadCommands();
 }
 
 function renderDashboard() {
@@ -102,28 +85,58 @@ function renderDashboard() {
         `;
 
         const gridHtml = document.createElement('div');
-        gridHtml.className = 'grid grid-cols-2 lg:grid-cols-3 gap-3';
+        gridHtml.className = 'grid grid-cols-2 lg:grid-cols-2 gap-4';
 
         category.items.forEach(item => {
-            const btn = document.createElement('button');
-            btn.className = 'group relative flex flex-col items-center justify-center p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 h-24';
+            // Find command details from server but default to static item details
+            const serverCmd = commands.find(c => c.id === item.id) || {};
 
-            // Badge
-            let badgeHtml = '';
-            if (item.badge) {
-                badgeHtml = `<span class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm ring-2 ring-white z-10 animate-in zoom-in">${item.badge}</span>`;
+            // Merge static item details with server details (server details take precedence for status/last_run)
+            const cmd = {
+                name: item.name || serverCmd.name || 'Bilinmeyen',
+                description: item.description || serverCmd.description || '',
+                icon: item.icon || serverCmd.icon || 'circle-alert',
+                last_run: serverCmd.last_run || null
+            };
+
+            const btn = document.createElement('button');
+            btn.className = 'group relative flex flex-col items-start justify-between p-6 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300 h-40 text-left';
+            btn.setAttribute('data-cmd-id', item.id);
+
+            // Last run time formatting
+            let lastRunHtml = '<span class="text-[9px] text-slate-300 font-medium">Hiç çalışmadı</span>';
+            if (cmd.last_run) {
+                const date = new Date(cmd.last_run);
+                const timeStr = date.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+                lastRunHtml = `<span class="text-[9px] text-slate-400 font-mono">Son: ${timeStr}</span>`;
             }
 
             btn.innerHTML = `
-                ${badgeHtml}
-                <div class="mb-2 p-2 bg-slate-50 text-slate-600 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                    <span class="material-symbols-outlined text-xl">${item.icon}</span>
+                <div class="flex items-start justify-between w-full">
+                    <div class="icon-wrapper p-3 bg-slate-50 text-slate-600 rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i data-lucide="${cmd.icon || 'activity'}" class="w-6 h-6"></i>
+                    </div>
+                    ${lastRunHtml}
                 </div>
-                <span class="text-[10px] font-bold text-slate-700 text-center leading-tight group-hover:text-primary transition-colors line-clamp-2">${item.name}</span>
+                
+                <div class="mt-4 w-full">
+                    <h3 class="text-[13px] font-bold text-slate-800 group-hover:text-primary transition-colors mb-1">${cmd.name}</h3>
+                    <p class="text-[10px] text-slate-400 font-medium leading-relaxed line-clamp-2">${cmd.description}</p>
+                </div>
             `;
 
             btn.addEventListener('click', () => {
-                handleMenuClick(item.name);
+                const cmdName = cmd.name || item.name;
+
+                if (runningCommands.has(item.id)) {
+                    // Confirmation before stopping
+                    if (confirm(`${cmdName} işlemini durdurmak istediğinize emin misiniz?`)) {
+                        socket.emit('stop-command', item.id);
+                    }
+                } else {
+                    // Start command
+                    socket.emit('execute-command', item.id);
+                }
             });
 
             gridHtml.appendChild(btn);
@@ -133,6 +146,11 @@ function renderDashboard() {
         categoryDiv.appendChild(gridHtml);
         dashboardMenuContainer.appendChild(categoryDiv);
     });
+
+    // Initialize Lucide icons
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 function handleMenuClick(name) {
@@ -163,9 +181,19 @@ if (headerSyncBtn) {
     });
 }
 
-// Keep updateButtonStates as no-op or modify if we re-introduce system commands
 function updateButtonStates() {
-    // No-op for now unless we add system command buttons back
+    document.querySelectorAll('button[data-cmd-id]').forEach(btn => {
+        const cmdId = btn.getAttribute('data-cmd-id');
+        const iconWrapper = btn.querySelector('.icon-wrapper');
+
+        if (runningCommands.has(cmdId)) {
+            btn.classList.add('border-primary', 'bg-blue-50/30');
+            if (iconWrapper) iconWrapper.classList.add('animate-pulse', 'bg-primary', 'text-white');
+        } else {
+            btn.classList.remove('border-primary', 'bg-blue-50/30');
+            if (iconWrapper) iconWrapper.classList.remove('animate-pulse', 'bg-primary', 'text-white');
+        }
+    });
 }
 
 // Setup socket listeners
@@ -173,6 +201,19 @@ function setupSocketListeners() {
     socket.on('connect', () => {
         setConnectionStatus(true);
         addLog('SİSTEM', 'BİLGİ', 'Sunucuya bağlanıldı.');
+    });
+
+    socket.on('initial-state', (runningIds) => {
+        runningCommands = new Set(runningIds);
+        updateButtonStates();
+        // Also log if there are existing processes
+        if (runningIds.length > 0) {
+            let msg = `Sistem durumu senkronize edildi.`;
+            if (runningIds.includes('continuous-sync')) {
+                msg += ' (Sürekli Senkronizasyon AKTiF)';
+            }
+            addLog('SİSTEM', 'BİLGİ', msg);
+        }
     });
 
     socket.on('disconnect', () => {
@@ -185,12 +226,32 @@ function setupSocketListeners() {
         let type = 'BİLGİ';
         let message = data.message;
 
-        if (data.type === 'error') type = 'HATA';
+        if (data.type === 'error' || data.type === 'stderr') type = 'HATA';
         if (data.type === 'warning') type = 'UYARI';
         if (data.type === 'success') type = 'BAŞARILI';
 
+        if (data.commandId) {
+            // Translate Source Names
+            const cmdNameMap = {
+                'continuous-sync': 'SÜREKLİ SENK.',
+                'erp-to-web': 'ERP → WEB',
+                'web-to-erp': 'WEB → ERP',
+                'entegra-sync': 'ENTEGRA SENK.',
+                'stock-xml': 'STOK XML'
+            };
+            source = cmdNameMap[data.commandId] || data.commandId.toUpperCase();
+        }
+
+        if (data.type === 'info') source = 'SİSTEM';
+
         message = message.replace(/\u001b\[[0-9;]*m/g, '');
         if (message.trim()) addLog(source, type, message);
+
+        // Also update running commands set if not already there
+        if (data.commandId && !runningCommands.has(data.commandId) && data.type !== 'success' && data.type !== 'error') {
+            runningCommands.add(data.commandId);
+            updateButtonStates();
+        }
     });
 
     socket.on('command-finished', (data) => {
@@ -212,7 +273,9 @@ function setupSocketListeners() {
         addLog('SİSTEM', status, `İşlem tamamlandı: ${cmdName}`);
 
         // Refresh commands to show new last run time
-        loadCommands();
+        loadCommands().then(() => {
+            renderDashboard();
+        });
     });
 }
 
@@ -412,6 +475,16 @@ async function fetchErrorLogs() {
         }
     } catch (error) {
         errorLogContent.innerHTML = '<div class="flex flex-col items-center justify-center h-full text-red-400"><span class="material-symbols-outlined text-6xl mb-4">report_problem</span><p class="font-bold tracking-widest uppercase text-xs">Hata kayıtları yüklenemedi.</p></div>';
+    }
+}
+
+async function loadCommands() {
+    try {
+        const response = await fetch('/api/commands');
+        commands = await response.json();
+        updateButtonStates();
+    } catch (error) {
+        console.error('Komutlar yüklenemedi:', error);
     }
 }
 

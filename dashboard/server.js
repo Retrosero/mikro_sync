@@ -63,70 +63,92 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define available commands
 const commands = [
   {
-    id: 'sync',
-    name: 'Mikro to Web',
-    command: 'npm',
-    args: ['run', 'sync'],
-    description: 'ERP verilerini Web\'e aktarır',
-    icon: 'trending_flat'
+    id: 'continuous-sync',
+    name: 'Sürekli Senkronizasyon',
+    command: 'node',
+    args: ['index.js'],
+    description: 'Sistem arka planda sürekli çalışır ve anlık veri senkronizasyonu sağlar.',
+    icon: 'refresh-cw'
   },
   {
-    id: 'sync-web-to-erp',
-    name: 'Web to Mikro',
+    id: 'erp-to-web',
+    name: 'ERP → Web',
     command: 'npm',
-    args: ['run', 'sync-web-to-erp'],
-    description: 'Web verilerini ERP\'ye aktarır',
-    icon: 'terminal'
+    args: ['run', 'sync'],
+    description: 'Mikro verilerini (Stok, Fiyat, vb.) web sitesine tek yönlü aktarır.',
+    icon: 'upload-cloud'
+  },
+  {
+    id: 'web-to-erp',
+    name: 'Web → ERP',
+    command: 'node',
+    args: ['web-to-erp-sync.js', 'sync'],
+    description: 'Web siparişlerini ve müşteri carilerini Mikro sistemine aktarır.',
+    icon: 'download-cloud'
   },
   {
     id: 'entegra-sync',
-    name: 'Entegra to Web',
+    name: 'Entegra Senkronizasyonu',
     command: 'node',
     args: ['scripts/entegra-sync.js'],
-    description: 'Entegra entegrasyonu',
-    icon: 'link'
+    description: 'Entegra ile ürün ve stok verilerini eşitler.',
+    icon: 'waypoints'
   },
   {
     id: 'stock-xml',
     name: 'Stok XML Oluştur',
     command: 'npm',
     args: ['run', 'stock-xml'],
-    description: 'Stok XML dosyası oluşturur',
-    icon: 'description'
-  },
-  {
-    id: 'sync-bidirectional',
-    name: 'Mikro ↔ Web',
-    command: 'npm',
-    args: ['run', 'sync-bidirectional'],
-    description: 'ERP ↔ Web çift yönlü senkronizasyon',
-    icon: 'sync'
-  },
-  {
-    id: 'sync-queue-worker',
-    name: 'Web to Mikro Sürekli Çalış',
-    command: 'npm',
-    args: ['run', 'sync-queue-worker'],
-    description: 'Web\'den ERP\'ye sürekli senkronizasyon',
-    icon: 'engineering'
-  },
-  {
-    id: 'setup-web-to-erp-triggers',
-    name: 'Trigger\'ları Kur/Güncelle',
-    command: 'npm',
-    args: ['run', 'setup-web-to-erp-triggers'],
-    description: 'Web to ERP trigger\'larını günceller',
-    icon: 'bolt'
-  },
-  {
-    id: 'sync-invoice-settings',
-    name: 'Fatura Ayarları',
-    command: 'npm',
-    args: ['run', 'sync-invoice-settings'],
-    description: 'Fatura ayarlarını senkronize eder',
-    icon: 'receipt'
+    description: 'Bayiler için güncel stok XML dosyasını oluşturur.',
+    icon: 'file-spreadsheet'
   }
 ];
+
+// Helper to start a command programmatically
+function startCommand(commandId, socket = null) {
+  const command = commands.find(cmd => cmd.id === commandId);
+  if (!command || runningProcesses.has(commandId)) return;
+
+  console.log(`🚀 ${command.name} başlatılıyor...`);
+
+  const process = spawn(command.command, command.args, {
+    cwd: path.join(__dirname, '..'),
+    shell: true
+  });
+
+  runningProcesses.set(commandId, process);
+
+  process.stdout.on('data', (data) => {
+    const msg = data.toString();
+    if (socket) socket.emit('log', { type: 'stdout', message: msg, commandId });
+    if (msg.toLowerCase().includes('error') || msg.toLowerCase().includes('hata')) {
+      writeToErrorLog(commandId, 'stdout-error', msg);
+    }
+  });
+
+  process.stderr.on('data', (data) => {
+    const msg = data.toString();
+    if (socket) socket.emit('log', { type: 'stderr', message: msg, commandId });
+    writeToErrorLog(commandId, 'stderr', msg);
+  });
+
+  process.on('close', (code) => {
+    runningProcesses.delete(commandId);
+    const status = code === 0 ? 'SUCCESS' : 'FAILED';
+    saveLastRun(commandId, status);
+    if (socket) {
+      if (code === 0) {
+        socket.emit('log', { type: 'success', message: `\n✅ ${command.name} başarıyla tamamlandı!\n` });
+      } else {
+        socket.emit('log', { type: 'error', message: `\n❌ ${command.name} hata ile sonlandı (kod: ${code})\n` });
+      }
+      socket.emit('command-finished', { commandId, code });
+    }
+    console.log(`⏹️ ${command.name} durduruldu (Kod: ${code})`);
+  });
+
+  return process;
+}
 
 // API endpoints
 app.get('/api/commands', async (req, res) => {
@@ -209,74 +231,11 @@ const runningProcesses = new Map();
 io.on('connection', (socket) => {
   console.log('Client connected');
 
+  // Send currently running commands to the new client
+  socket.emit('initial-state', Array.from(runningProcesses.keys()));
+
   socket.on('execute-command', (commandId) => {
-    const command = commands.find(cmd => cmd.id === commandId);
-
-    if (!command) {
-      socket.emit('error', { message: 'Komut bulunamadı' });
-      return;
-    }
-
-    if (runningProcesses.has(commandId)) {
-      socket.emit('log', {
-        type: 'warning',
-        message: `⚠️ ${command.name} zaten çalışıyor!\n`
-      });
-      return;
-    }
-
-    socket.emit('log', {
-      type: 'info',
-      message: `\n🚀 ${command.name} başlatılıyor...\n`
-    });
-
-    const process = spawn(command.command, command.args, {
-      cwd: path.join(__dirname, '..'),
-      shell: true
-    });
-
-    runningProcesses.set(commandId, process);
-
-    process.stdout.on('data', (data) => {
-      const msg = data.toString();
-      socket.emit('log', { type: 'stdout', message: msg });
-      if (msg.toLowerCase().includes('error') || msg.toLowerCase().includes('hata')) {
-        writeToErrorLog(commandId, 'stdout-error', msg);
-      }
-    });
-
-    process.stderr.on('data', (data) => {
-      const msg = data.toString();
-      socket.emit('log', { type: 'stderr', message: msg });
-      writeToErrorLog(commandId, 'stderr', msg);
-    });
-
-    process.on('close', async (code) => {
-      runningProcesses.delete(commandId);
-
-      const status = code === 0 ? 'SUCCESS' : 'FAILED';
-      saveLastRun(commandId, status);
-
-      if (code === 0) {
-        socket.emit('log', {
-          type: 'success',
-          message: `\n✅ ${command.name} başarıyla tamamlandı!\n`
-        });
-      } else {
-        const errMsg = `\n❌ ${command.name} hata ile sonlandı (kod: ${code})\n`;
-        socket.emit('log', { type: 'error', message: errMsg });
-        writeToErrorLog(commandId, 'EXIT-ERROR', errMsg);
-      }
-      socket.emit('command-finished', { commandId, code });
-    });
-
-    process.on('error', (error) => {
-      runningProcesses.delete(commandId);
-      const errMsg = `\n❌ Hata: ${error.message}\n`;
-      socket.emit('log', { type: 'error', message: errMsg });
-      writeToErrorLog(commandId, 'PROCESS-ERROR', errMsg);
-      socket.emit('command-finished', { commandId, code: -1 });
-    });
+    startCommand(commandId, socket);
   });
 
   socket.on('stop-command', (commandId) => {
@@ -303,10 +262,18 @@ if (require.main === module) {
     console.log(`📍 Adres: http://localhost:${PORT}`);
     console.log(`\n🌐 Tarayıcı otomatik açılıyor...\n`);
 
+    // Auto-start continuous sync
+    try {
+      startCommand('continuous-sync');
+    } catch (err) {
+      console.error('⚠️ Otomatik başlatma hatası:', err.message);
+    }
+
+    // Open browser
     try {
       await open(`http://localhost:${PORT}`);
     } catch (error) {
-      console.log('Tarayıcı otomatik açılamadı. Lütfen manuel olarak açın.');
+      console.log('⚠️ Tarayıcı otomatik açılamadı. Lütfen manuel olarak açın.');
     }
   }).on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
