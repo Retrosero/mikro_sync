@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated At: 31.01.2026 14:34:14 -->
+<!-- Generated At: 02.02.2026 15:52:29 -->
 <Products>
   <Metadata>
-    <GeneratedAt>31.01.2026 14:34:14</GeneratedAt>
-    <ProductCount>4203</ProductCount>
+    <GeneratedAt>02.02.2026 15:52:29</GeneratedAt>
+    <ProductCount>4216</ProductCount>
   </Metadata>
   <Product>
     <Product_code>000537</Product_code>
@@ -483,7 +483,7 @@
     <grup_kod>O-43</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197094602</barcode>
-    <stock>21</stock>
+    <stock>20</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
@@ -795,7 +795,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672011028</barcode>
-    <stock>143</stock>
+    <stock>83</stock>
     <Price>90</Price>
     <Price2>212.5</Price2>
     <Pricebayi>81</Pricebayi>
@@ -816,7 +816,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672011042</barcode>
-    <stock>143</stock>
+    <stock>83</stock>
     <Price>65</Price>
     <Price2>181.25</Price2>
     <Pricebayi>58.5</Pricebayi>
@@ -837,7 +837,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672011059</barcode>
-    <stock>143</stock>
+    <stock>83</stock>
     <Price>75</Price>
     <Price2>193.75</Price2>
     <Pricebayi>67.5</Pricebayi>
@@ -858,7 +858,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8682767244273</barcode>
-    <stock>142</stock>
+    <stock>82</stock>
     <Price>70</Price>
     <Price2>187.5</Price2>
     <Pricebayi>63</Pricebayi>
@@ -1738,7 +1738,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672016122</barcode>
-    <stock>14</stock>
+    <stock>0</stock>
     <Price>480</Price>
     <Price2>700</Price2>
     <Pricebayi>432</Pricebayi>
@@ -1760,7 +1760,7 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672016139</barcode>
-    <stock>12</stock>
+    <stock>11</stock>
     <Price>350</Price>
     <Price2>537.5</Price2>
     <Pricebayi>315</Pricebayi>
@@ -1843,7 +1843,7 @@
     <grup_kod>O-37</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672016214</barcode>
-    <stock>63</stock>
+    <stock>51</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -1862,7 +1862,7 @@
     <grup_kod>O-37</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672016221</barcode>
-    <stock>57</stock>
+    <stock>45</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -2628,7 +2628,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680863049112</barcode>
-    <stock>120</stock>
+    <stock>96</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -3476,7 +3476,7 @@
     <grup_kod>O-73</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311239</barcode>
-    <stock>168</stock>
+    <stock>138</stock>
     <Price>130</Price>
     <Price2>262.5</Price2>
     <Pricebayi>117</Pricebayi>
@@ -3577,7 +3577,7 @@
     <grup_kod>O-52</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031319853</barcode>
-    <stock>42</stock>
+    <stock>22</stock>
     <Price>440</Price>
     <Price2>650</Price2>
     <Pricebayi>396</Pricebayi>
@@ -3695,7 +3695,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>86976719402025</barcode>
-    <stock>46</stock>
+    <stock>26</stock>
     <Price>409.5</Price>
     <Price2>611.875</Price2>
     <Pricebayi>368.55</Pricebayi>
@@ -4901,7 +4901,7 @@
     <grup_kod></grup_kod>
     <ana_grup_kod>TOP</ana_grup_kod>
     <barcode>8697197076448</barcode>
-    <stock>5</stock>
+    <stock>4</stock>
     <Price>61.92</Price>
     <Price2>177.4</Price2>
     <Pricebayi>55.728</Pricebayi>
@@ -6064,7 +6064,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680863034125</barcode>
-    <stock>48</stock>
+    <stock>28</stock>
     <Price>420</Price>
     <Price2>625</Price2>
     <Pricebayi>378</Pricebayi>
@@ -7501,7 +7501,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013419700</barcode>
-    <stock>120</stock>
+    <stock>100</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
@@ -7554,8 +7554,8 @@
     <Price2>337.5</Price2>
     <Pricebayi>171</Pricebayi>
     <Images>
-      <Image1>resimler/1973-kapibara-2-li-mini-set-stand-12-42377.jpeg</Image1>
-      <Image2>resimler/1973-kapibara-2-li-mini-set-stand-12-42446.jpg</Image2>
+      <Image1>resimler/1973-kapibara-2-li-mini-set-stand-12-42446.jpg</Image1>
+      <Image2>resimler/1973-kapibara-2-li-mini-set-stand-12-42377.jpeg</Image2>
       <Image3>resimler/1973-kapibara-2-li-mini-set-stand-12-42378.jpeg</Image3>
       <Image4>resimler/1973-kapibara-2-li-mini-set-stand-12-42447.jpeg</Image4>
       <Image5>resimler/1973-kapibara-2-li-mini-set-stand-12-42379.jpeg</Image5>
@@ -7573,7 +7573,7 @@
     <grup_kod>O-20</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694046219742</barcode>
-    <stock>59</stock>
+    <stock>38</stock>
     <Price>440</Price>
     <Price2>650</Price2>
     <Pricebayi>396</Pricebayi>
@@ -7596,7 +7596,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694046219759</barcode>
-    <stock>96</stock>
+    <stock>76</stock>
     <Price>240</Price>
     <Price2>400</Price2>
     <Pricebayi>216</Pricebayi>
@@ -7619,7 +7619,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694022519767</barcode>
-    <stock>120</stock>
+    <stock>96</stock>
     <Price>190</Price>
     <Price2>337.5</Price2>
     <Pricebayi>171</Pricebayi>
@@ -7640,7 +7640,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694440119808</barcode>
-    <stock>12</stock>
+    <stock>-8</stock>
     <Price>618</Price>
     <Price2>872.5</Price2>
     <Pricebayi>556.2</Pricebayi>
@@ -7661,7 +7661,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694440119822</barcode>
-    <stock>60</stock>
+    <stock>40</stock>
     <Price>490</Price>
     <Price2>712.5</Price2>
     <Pricebayi>441</Pricebayi>
@@ -7762,7 +7762,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694018019936</barcode>
-    <stock>78</stock>
+    <stock>58</stock>
     <Price>390</Price>
     <Price2>587.5</Price2>
     <Pricebayi>351</Pricebayi>
@@ -7781,7 +7781,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694018019943</barcode>
-    <stock>24</stock>
+    <stock>3</stock>
     <Price>384</Price>
     <Price2>580</Price2>
     <Pricebayi>345.6</Pricebayi>
@@ -7800,7 +7800,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694018019950</barcode>
-    <stock>48</stock>
+    <stock>28</stock>
     <Price>320</Price>
     <Price2>500</Price2>
     <Pricebayi>288</Pricebayi>
@@ -7819,7 +7819,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694440119969</barcode>
-    <stock>11</stock>
+    <stock>-9</stock>
     <Price>342</Price>
     <Price2>527.5</Price2>
     <Pricebayi>307.8</Pricebayi>
@@ -7858,7 +7858,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694440119983</barcode>
-    <stock>48</stock>
+    <stock>28</stock>
     <Price>420</Price>
     <Price2>625</Price2>
     <Pricebayi>378</Pricebayi>
@@ -8154,7 +8154,7 @@
     <grup_kod>O-62</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694440120101</barcode>
-    <stock>3</stock>
+    <stock>-17</stock>
     <Price>390</Price>
     <Price2>587.5</Price2>
     <Pricebayi>351</Pricebayi>
@@ -8567,7 +8567,7 @@
     <grup_kod>O-29</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>1234567891019</barcode>
-    <stock>120</stock>
+    <stock>108</stock>
     <Price>295</Price>
     <Price2>468.75</Price2>
     <Pricebayi>265.5</Pricebayi>
@@ -8575,6 +8575,22 @@
       <Image1>resimler/2024-labubu-stand-anahtarlik-12-42506.jpeg</Image1>
       <Image2>resimler/2024-labubu-stand-anahtarlik-12-42507.jpeg</Image2>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>2025-2</Product_code>
+    <Name>2025-2 - EMOJİLİ YOYO 4 AST 12</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>5 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8697197100464</barcode>
+    <stock>288</stock>
+    <Price>85</Price>
+    <Price2>206.25</Price2>
+    <Pricebayi>76.5</Pricebayi>
   </Product>
   <Product>
     <Product_code>2025-395</Product_code>
@@ -8587,7 +8603,7 @@
     <grup_kod>O-29</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6984584878467</barcode>
-    <stock>120</stock>
+    <stock>108</stock>
     <Price>295</Price>
     <Price2>468.75</Price2>
     <Pricebayi>265.5</Pricebayi>
@@ -8607,7 +8623,7 @@
     <grup_kod>O-29</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6985868748582</barcode>
-    <stock>120</stock>
+    <stock>108</stock>
     <Price>295</Price>
     <Price2>468.75</Price2>
     <Pricebayi>265.5</Pricebayi>
@@ -8646,7 +8662,7 @@
     <grup_kod>O-52</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694018020420</barcode>
-    <stock>77</stock>
+    <stock>57</stock>
     <Price>140</Price>
     <Price2>275</Price2>
     <Pricebayi>126</Pricebayi>
@@ -8666,7 +8682,7 @@
     <grup_kod>O-52</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694018020437</barcode>
-    <stock>84</stock>
+    <stock>64</stock>
     <Price>160</Price>
     <Price2>300</Price2>
     <Pricebayi>144</Pricebayi>
@@ -8686,7 +8702,7 @@
     <grup_kod>O-52</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694014520481</barcode>
-    <stock>6</stock>
+    <stock>-14</stock>
     <Price>270</Price>
     <Price2>437.5</Price2>
     <Pricebayi>243</Pricebayi>
@@ -8848,7 +8864,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013420584</barcode>
-    <stock>120</stock>
+    <stock>60</stock>
     <Price>220</Price>
     <Price2>375</Price2>
     <Pricebayi>198</Pricebayi>
@@ -8869,7 +8885,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013420591</barcode>
-    <stock>144</stock>
+    <stock>84</stock>
     <Price>230</Price>
     <Price2>387.5</Price2>
     <Pricebayi>207</Pricebayi>
@@ -8890,7 +8906,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013420614</barcode>
-    <stock>120</stock>
+    <stock>100</stock>
     <Price>390</Price>
     <Price2>587.5</Price2>
     <Pricebayi>351</Pricebayi>
@@ -8911,7 +8927,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013420621</barcode>
-    <stock>105</stock>
+    <stock>85</stock>
     <Price>290</Price>
     <Price2>462.5</Price2>
     <Pricebayi>261</Pricebayi>
@@ -9013,7 +9029,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684278471094</barcode>
-    <stock>24</stock>
+    <stock>0</stock>
     <Price>1275</Price>
     <Price2>1693.75</Price2>
     <Pricebayi>1147.5</Pricebayi>
@@ -9242,7 +9258,7 @@
     <grup_kod>O-70</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311123</barcode>
-    <stock>73</stock>
+    <stock>13</stock>
     <Price>175</Price>
     <Price2>318.75</Price2>
     <Pricebayi>157.5</Pricebayi>
@@ -10015,8 +10031,8 @@
     <Pricebayi>324</Pricebayi>
     <Images>
       <Image1>resimler/22052-maske-bestway-3-renk-12-23552.jpeg</Image1>
-      <Image2>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image2>
-      <Image3>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image3>
+      <Image2>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image2>
+      <Image3>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image3>
       <Image4>resimler/22052-maske-bestway-3-renk-12-23555.jpg</Image4>
       <Image5>resimler/bestway-yetiskin-tek-maske-22052-29219.png</Image5>
       <Image6>resimler/bestway-yetiskin-tek-maske-22052-29221.png</Image6>
@@ -10124,8 +10140,8 @@
     <Images>
       <Image1>resimler/22075-maske-tek-bestway-tempered-silikon-37197.png</Image1>
       <Image2>resimler/22075-maske-tek-bestway-tempered-silikon-37198.png</Image2>
-      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image3>
-      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image4>
+      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image3>
+      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -10139,7 +10155,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197095227</barcode>
-    <stock>29</stock>
+    <stock>28</stock>
     <Price>420</Price>
     <Price2>625</Price2>
     <Pricebayi>378</Pricebayi>
@@ -10363,7 +10379,7 @@
     <grup_kod>O-73</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311222</barcode>
-    <stock>126</stock>
+    <stock>96</stock>
     <Price>130</Price>
     <Price2>262.5</Price2>
     <Pricebayi>117</Pricebayi>
@@ -10652,35 +10668,35 @@
   </Product>
   <Product>
     <Product_code>2302002</Product_code>
-    <Name>2302002 - MOON TOP DÜZ RENK 12</Name>
+    <Name>2302002 - MOON TOP RENKLİ KÜÇÜK 7 CM 20</Name>
     <Brand>KIZIL</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Display</mensei>
     <grup_kod></grup_kod>
-    <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8697197097672</barcode>
-    <stock>0</stock>
-    <Price>95</Price>
-    <Price2>204.5</Price2>
-    <Pricebayi>85.5</Pricebayi>
+    <ana_grup_kod>TOP</ana_grup_kod>
+    <barcode>8697197105131</barcode>
+    <stock>320</stock>
+    <Price>130</Price>
+    <Price2>262.5</Price2>
+    <Pricebayi>117</Pricebayi>
   </Product>
   <Product>
     <Product_code>2302013</Product_code>
-    <Name>2302013 - MOON TOP GÖKKUŞAĞI RENKLER 12</Name>
+    <Name>2302013 - MOON TOP GÖKKUŞAĞI KÜÇÜK 7 CM 20</Name>
     <Brand>KIZIL</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
     <alt_baslik2></alt_baslik2>
     <mensei>Display</mensei>
     <grup_kod></grup_kod>
-    <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8697197098846</barcode>
-    <stock>0</stock>
-    <Price>95</Price>
-    <Price2>204.5</Price2>
-    <Pricebayi>85.5</Pricebayi>
+    <ana_grup_kod>TOP</ana_grup_kod>
+    <barcode>8697197105148</barcode>
+    <stock>320</stock>
+    <Price>130</Price>
+    <Price2>262.5</Price2>
+    <Pricebayi>117</Pricebayi>
   </Product>
   <Product>
     <Product_code>2303</Product_code>
@@ -11040,10 +11056,10 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197099331</barcode>
-    <stock>1</stock>
-    <Price>438</Price>
-    <Price2>647.5</Price2>
-    <Pricebayi>394.2</Pricebayi>
+    <stock>97</stock>
+    <Price>490</Price>
+    <Price2>712.5</Price2>
+    <Pricebayi>441</Pricebayi>
     <Images>
       <Image1>resimler/2309033-pelus-havlayan-kopek-25-cm-35235.jpg</Image1>
     </Images>
@@ -11351,7 +11367,7 @@
     <grup_kod>D-07</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8697197095296</barcode>
-    <stock>25</stock>
+    <stock>24</stock>
     <Price>430</Price>
     <Price2>637.5</Price2>
     <Pricebayi>387</Pricebayi>
@@ -12572,7 +12588,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197102826</barcode>
-    <stock>47</stock>
+    <stock>37</stock>
     <Price>372</Price>
     <Price2>565</Price2>
     <Pricebayi>334.8</Pricebayi>
@@ -12615,7 +12631,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197102871</barcode>
-    <stock>126</stock>
+    <stock>124</stock>
     <Price>375</Price>
     <Price2>568.75</Price2>
     <Pricebayi>337.5</Pricebayi>
@@ -12795,6 +12811,38 @@
     <Pricebayi>0</Pricebayi>
   </Product>
   <Product>
+    <Product_code>2505029</Product_code>
+    <Name>2505029 - PELUŞ AT 30 CM 4 AST</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>30 cm</alt_baslik2>
+    <mensei>Poşetli</mensei>
+    <grup_kod>O-03</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8697197105087</barcode>
+    <stock>96</stock>
+    <Price>550</Price>
+    <Price2>787.5</Price2>
+    <Pricebayi>495</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>2505034</Product_code>
+    <Name>2505034 - BİLEĞE TAKILAN PELUŞ HAYVANLAR</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>25 cm</alt_baslik2>
+    <mensei>Poşetli</mensei>
+    <grup_kod>O-03</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8697197105094</barcode>
+    <stock>216</stock>
+    <Price>275</Price>
+    <Price2>443.75</Price2>
+    <Pricebayi>247.5</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>2505125</Product_code>
     <Name>2505125 - YATAK DELİKLİ 180X82 CM 3 AST</Name>
     <Brand>BERMUDA</Brand>
@@ -12821,10 +12869,42 @@
     <grup_kod>O-29</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197105117</barcode>
-    <stock>96</stock>
+    <stock>72</stock>
     <Price>87</Price>
     <Price2>208.75</Price2>
     <Pricebayi>78.3</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>2505169</Product_code>
+    <Name>2505169 - MOON TOP RENKLİ  BÜYÜK BOY 9 CM STAND 12</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>9 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod></grup_kod>
+    <ana_grup_kod>TOP</ana_grup_kod>
+    <barcode>8697197105155</barcode>
+    <stock>144</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>2505170</Product_code>
+    <Name> 2505170 -  MOON TOP GÖKKUŞAĞI BÜYÜK 9 CM STAND 12</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>9 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod></grup_kod>
+    <ana_grup_kod>TOP</ana_grup_kod>
+    <barcode>8697197105162</barcode>
+    <stock>144</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
   </Product>
   <Product>
     <Product_code>2532</Product_code>
@@ -13073,7 +13153,7 @@
     <grup_kod>O-38</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698555800842</barcode>
-    <stock>11</stock>
+    <stock>-9</stock>
     <Price>1300</Price>
     <Price2>1725</Price2>
     <Pricebayi>1170</Pricebayi>
@@ -13414,7 +13494,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>0801293001008</barcode>
-    <stock>144</stock>
+    <stock>84</stock>
     <Price>400</Price>
     <Price2>600</Price2>
     <Pricebayi>360</Pricebayi>
@@ -14300,7 +14380,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313406113</barcode>
-    <stock>43</stock>
+    <stock>40</stock>
     <Price>425</Price>
     <Price2>631.25</Price2>
     <Pricebayi>382.5</Pricebayi>
@@ -15466,7 +15546,7 @@
     <grup_kod>O-74</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311246</barcode>
-    <stock>168</stock>
+    <stock>108</stock>
     <Price>150</Price>
     <Price2>287.5</Price2>
     <Pricebayi>135</Pricebayi>
@@ -18094,6 +18174,70 @@
     <Images>
       <Image1>resimler/3999-5-sports-car-5-li-araba-seti-35198.jpg</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>4006</Product_code>
+    <Name>4006 - LOL SURPRİZ KAPSÜL TOP 6 </Name>
+    <Brand>KEMBAY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8694014440062</barcode>
+    <stock>-30</stock>
+    <Price>190</Price>
+    <Price2>337.5</Price2>
+    <Pricebayi>171</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>4007</Product_code>
+    <Name>4007 - KAPİBARA SURPRİZ KAPSÜL 6 </Name>
+    <Brand>KEMBAY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8694014440079</barcode>
+    <stock>-30</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>4010</Product_code>
+    <Name>4010 - MİNECRAFT SURPRİZ KAPSÜL 6 </Name>
+    <Brand>KEMBAY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8694014440109</barcode>
+    <stock>-30</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>4013</Product_code>
+    <Name>4013 - STİTCH SURPRİZ KAPSÜL 6 </Name>
+    <Brand>KEMBAY</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>15 cm</alt_baslik2>
+    <mensei>Display</mensei>
+    <grup_kod>O-73</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8694014440130</barcode>
+    <stock>-30</stock>
+    <Price>250</Price>
+    <Price2>412.5</Price2>
+    <Pricebayi>225</Pricebayi>
   </Product>
   <Product>
     <Product_code>4015400041467</Product_code>
@@ -21376,8 +21520,8 @@
     <Price2>292.5</Price2>
     <Pricebayi>157.5</Pricebayi>
     <Images>
-      <Image1>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__0142129718754515.jpg</Image1>
-      <Image2>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-29447.png</Image2>
+      <Image1>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-29447.png</Image1>
+      <Image2>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__0142129718754515.jpg</Image2>
       <Image3>https://n11scdn1.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__1228610396129616.jpg</Image3>
       <Image4>https://n11scdn.akamaized.net/a1/1024/spor-outdoor/deniz-aksesuarlari/2li-su-pompasi-61-cm__1513216870949520.jpg</Image4>
       <Image5>resimler/havuz-oyuncagi-2-basli-su-pompasi-61-cm-444-25568.png</Image5>
@@ -22857,8 +23001,11 @@
     <Price2>387.5</Price2>
     <Pricebayi>207</Pricebayi>
     <Images>
-      <Image1>resimler/526-r01-surtmeli-pervaneli-ucak-8-35258.jpg</Image1>
-      <Image2>resimler/526-r01-surtmeli-pervaneli-ucak-8-35259.png</Image2>
+      <Image1>resimler/526-r01-surtmeli-pervaneli-ucak-8-42675.jpeg</Image1>
+      <Image2>resimler/526-r01-surtmeli-pervaneli-ucak-8-35258.jpg</Image2>
+      <Image3>resimler/526-r01-surtmeli-pervaneli-ucak-8-42676.jpeg</Image3>
+      <Image4>resimler/526-r01-surtmeli-pervaneli-ucak-8-35259.png</Image4>
+      <Image5>resimler/526-r01-surtmeli-pervaneli-ucak-8-42677.jpeg</Image5>
     </Images>
   </Product>
   <Product>
@@ -23847,7 +23994,7 @@
     <grup_kod>O-16</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311260</barcode>
-    <stock>120</stock>
+    <stock>60</stock>
     <Price>170</Price>
     <Price2>312.5</Price2>
     <Pricebayi>153</Pricebayi>
@@ -23984,7 +24131,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684356002028</barcode>
-    <stock>56</stock>
+    <stock>35</stock>
     <Price>450</Price>
     <Price2>662.5</Price2>
     <Pricebayi>405</Pricebayi>
@@ -24859,7 +25006,7 @@
     <grup_kod>D-05</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>6941057407456</barcode>
-    <stock>16</stock>
+    <stock>15</stock>
     <Price>1800</Price>
     <Price2>2350</Price2>
     <Pricebayi>1620</Pricebayi>
@@ -25987,7 +26134,7 @@
     <grup_kod>D-21</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>6941057450407</barcode>
-    <stock>75</stock>
+    <stock>72</stock>
     <Price>110</Price>
     <Price2>237.5</Price2>
     <Pricebayi>99</Pricebayi>
@@ -26990,7 +27137,7 @@
     <grup_kod>O-04</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694013460207</barcode>
-    <stock>96</stock>
+    <stock>36</stock>
     <Price>230</Price>
     <Price2>387.5</Price2>
     <Pricebayi>207</Pricebayi>
@@ -28109,7 +28256,7 @@
     <grup_kod>D-19</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>6942138960150</barcode>
-    <stock>2</stock>
+    <stock>1</stock>
     <Price>3050</Price>
     <Price2>3912.5</Price2>
     <Pricebayi>2745</Pricebayi>
@@ -28132,7 +28279,7 @@
     <grup_kod>D-19</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>6942138901733</barcode>
-    <stock>2</stock>
+    <stock>1</stock>
     <Price>720</Price>
     <Price2>1000</Price2>
     <Pricebayi>648</Pricebayi>
@@ -28782,7 +28929,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359084037</barcode>
-    <stock>193</stock>
+    <stock>192</stock>
     <Price>150</Price>
     <Price2>287.5</Price2>
     <Pricebayi>135</Pricebayi>
@@ -29196,7 +29343,7 @@
   </Product>
   <Product>
     <Product_code>6632-45M</Product_code>
-    <Name>6632-45M - Ç/B SESLİ IŞIKLI SPOR ARABA 12</Name>
+    <Name>6632-45SM - Ç/B SESLİ IŞIKLI SPOR ARABA 12</Name>
     <Brand>CANEM</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -29687,7 +29834,7 @@
     <grup_kod>O-74</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311277</barcode>
-    <stock>108</stock>
+    <stock>48</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -29821,7 +29968,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359093800</barcode>
-    <stock>2</stock>
+    <stock>-18</stock>
     <Price>2900</Price>
     <Price2>3725</Price2>
     <Pricebayi>2610</Pricebayi>
@@ -30234,7 +30381,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684278471087</barcode>
-    <stock>48</stock>
+    <stock>28</stock>
     <Price>1050</Price>
     <Price2>1412.5</Price2>
     <Pricebayi>945</Pricebayi>
@@ -31094,7 +31241,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197097832</barcode>
-    <stock>4</stock>
+    <stock>2</stock>
     <Price>282</Price>
     <Price2>452.5</Price2>
     <Pricebayi>253.8</Pricebayi>
@@ -31157,7 +31304,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197100105</barcode>
-    <stock>48</stock>
+    <stock>47</stock>
     <Price>360</Price>
     <Price2>550</Price2>
     <Pricebayi>324</Pricebayi>
@@ -31472,7 +31619,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359102229</barcode>
-    <stock>41</stock>
+    <stock>39</stock>
     <Price>280</Price>
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
@@ -31498,8 +31645,8 @@
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
     <Images>
-      <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image1>
-      <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image2>
+      <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image1>
+      <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image2>
       <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image3>
       <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image4>
       <Image5>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41474.jpeg</Image5>
@@ -31717,7 +31864,7 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031311192</barcode>
-    <stock>165</stock>
+    <stock>105</stock>
     <Price>130</Price>
     <Price2>262.5</Price2>
     <Pricebayi>117</Pricebayi>
@@ -31926,8 +32073,8 @@
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
     <Images>
-      <Image1>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-30220.png</Image1>
-      <Image2>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41893.jpeg</Image2>
+      <Image1>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41893.jpeg</Image1>
+      <Image2>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-30220.png</Image2>
       <Image3>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41894.jpeg</Image3>
       <Image4>resimler/777-2-c-b-yolcu-ucagi-isik-ses-12li-24049.png</Image4>
       <Image5>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41895.jpeg</Image5>
@@ -32173,7 +32320,7 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694046280018</barcode>
-    <stock>72</stock>
+    <stock>67</stock>
     <Price>430</Price>
     <Price2>637.5</Price2>
     <Pricebayi>387</Pricebayi>
@@ -32302,7 +32449,7 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694046280025</barcode>
-    <stock>72</stock>
+    <stock>67</stock>
     <Price>430</Price>
     <Price2>637.5</Price2>
     <Pricebayi>387</Pricebayi>
@@ -32325,7 +32472,7 @@
     <grup_kod>O-39</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694046280032</barcode>
-    <stock>72</stock>
+    <stock>67</stock>
     <Price>430</Price>
     <Price2>0</Price2>
     <Pricebayi>0</Pricebayi>
@@ -32505,10 +32652,16 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8682729636306</barcode>
-    <stock>24</stock>
+    <stock>4</stock>
     <Price>1300</Price>
     <Price2>1725</Price2>
     <Pricebayi>1170</Pricebayi>
+    <Images>
+      <Image1>resimler/806-84-u-k-1-12-sarjli-duman-atan-spor-araba-2-42606.jpeg</Image1>
+      <Image2>resimler/806-84-u-k-1-12-sarjli-duman-atan-spor-araba-2-42607.jpeg</Image2>
+      <Image3>resimler/806-84-u-k-1-12-sarjli-duman-atan-spor-araba-2-42608.jpeg</Image3>
+      <Image4>resimler/806-84-u-k-1-12-sarjli-duman-atan-spor-araba-2-42609.jpeg</Image4>
+    </Images>
   </Product>
   <Product>
     <Product_code>8068A</Product_code>
@@ -35284,7 +35437,7 @@
     <grup_kod>O-73</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031319907</barcode>
-    <stock>144</stock>
+    <stock>114</stock>
     <Price>210</Price>
     <Price2>362.5</Price2>
     <Pricebayi>189</Pricebayi>
@@ -35454,7 +35607,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>86976719402032</barcode>
-    <stock>96</stock>
+    <stock>76</stock>
     <Price>310</Price>
     <Price2>487.5</Price2>
     <Pricebayi>279</Pricebayi>
@@ -36213,7 +36366,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694452191939</barcode>
-    <stock>119</stock>
+    <stock>69</stock>
     <Price>430</Price>
     <Price2>637.5</Price2>
     <Pricebayi>387</Pricebayi>
@@ -37367,7 +37520,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6127779991200</barcode>
-    <stock>64</stock>
+    <stock>44</stock>
     <Price>487.5</Price>
     <Price2>709.375</Price2>
     <Pricebayi>438.75</Pricebayi>
@@ -37792,7 +37945,7 @@
     <grup_kod>O-73</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031319891</barcode>
-    <stock>192</stock>
+    <stock>162</stock>
     <Price>165</Price>
     <Price2>306.25</Price2>
     <Pricebayi>148.5</Pricebayi>
@@ -37926,7 +38079,7 @@
     <grup_kod>O-63</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8681031319952</barcode>
-    <stock>132</stock>
+    <stock>102</stock>
     <Price>250</Price>
     <Price2>412.5</Price2>
     <Pricebayi>225</Pricebayi>
@@ -40594,7 +40747,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697463930672</barcode>
-    <stock>1</stock>
+    <stock>0</stock>
     <Price>90</Price>
     <Price2>212.5</Price2>
     <Pricebayi>81</Pricebayi>
@@ -40736,7 +40889,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6473943331830</barcode>
-    <stock>24</stock>
+    <stock>4</stock>
     <Price>980</Price>
     <Price2>1325</Price2>
     <Pricebayi>882</Pricebayi>
@@ -41381,7 +41534,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>662061320000</barcode>
-    <stock>18</stock>
+    <stock>17</stock>
     <Price>617.5</Price>
     <Price2>871.875</Price2>
     <Pricebayi>555.75</Pricebayi>
@@ -41843,10 +41996,11 @@
     <Pricebayi>225</Pricebayi>
     <Images>
       <Image1>resimler/cnm47-surtmeli-tur-otobus-6-29967.png</Image1>
-      <Image2>resimler/cnm47-surtmeli-tur-otobus-6-29796.png</Image2>
-      <Image3>resimler/cnm47-surtmeli-tur-otobus-6-29797.png</Image3>
-      <Image4>resimler/cnm47-surtmeli-tur-otobus-6-29798.png</Image4>
-      <Image5>resimler/cnm47-surtmeli-tur-otobus-6-29795.png</Image5>
+      <Image2>resimler/cnm47-surtmeli-tur-otobus-6-42655.jpeg</Image2>
+      <Image3>resimler/cnm47-surtmeli-tur-otobus-6-29796.png</Image3>
+      <Image4>resimler/cnm47-surtmeli-tur-otobus-6-29797.png</Image4>
+      <Image5>resimler/cnm47-surtmeli-tur-otobus-6-29798.png</Image5>
+      <Image6>resimler/cnm47-surtmeli-tur-otobus-6-29795.png</Image6>
     </Images>
   </Product>
   <Product>
@@ -42507,7 +42661,7 @@
     <grup_kod>D-12</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8681900554118</barcode>
-    <stock>52</stock>
+    <stock>48</stock>
     <Price>186</Price>
     <Price2>332.5</Price2>
     <Pricebayi>167.4</Pricebayi>
@@ -42636,8 +42790,8 @@
     <Images>
       <Image1>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-37074.png</Image1>
       <Image2>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-36054.jpg</Image2>
-      <Image3>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-37073.png</Image3>
-      <Image4>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-36053.jpg</Image4>
+      <Image3>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-36053.jpg</Image3>
+      <Image4>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-37073.png</Image4>
       <Image5>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-36052.jpg</Image5>
       <Image6>resimler/cnr-51704-tek-maske-yetiskin-tempered-star-diving-36051.jpg</Image6>
     </Images>
@@ -42921,8 +43075,8 @@
       <Image1>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37075.png</Image1>
       <Image2>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35531.jpg</Image2>
       <Image3>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35533.jpg</Image3>
-      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image4>
-      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image5>
+      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image4>
+      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image5>
     </Images>
   </Product>
   <Product>
@@ -43107,7 +43261,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359100225</barcode>
-    <stock>24</stock>
+    <stock>23</stock>
     <Price>490</Price>
     <Price2>712.5</Price2>
     <Pricebayi>441</Pricebayi>
@@ -43128,7 +43282,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>48</stock>
+    <stock>44</stock>
     <Price>490</Price>
     <Price2>712.5</Price2>
     <Pricebayi>441</Pricebayi>
@@ -45630,7 +45784,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8611020200077</barcode>
-    <stock>100</stock>
+    <stock>80</stock>
     <Price>370.5</Price>
     <Price2>563.125</Price2>
     <Pricebayi>333.45</Pricebayi>
@@ -45649,7 +45803,7 @@
     <grup_kod>O-73</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8651489214550</barcode>
-    <stock>480</stock>
+    <stock>440</stock>
     <Price>120</Price>
     <Price2>250</Price2>
     <Pricebayi>108</Pricebayi>
@@ -49250,7 +49404,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8656251080326</barcode>
-    <stock>4</stock>
+    <stock>0</stock>
     <Price>735.8</Price>
     <Price2>1019.75</Price2>
     <Pricebayi>662.22</Pricebayi>
@@ -50411,7 +50565,7 @@
     <grup_kod></grup_kod>
     <ana_grup_kod>TOP</ana_grup_kod>
     <barcode>6132561746609</barcode>
-    <stock>83</stock>
+    <stock>82</stock>
     <Price>160</Price>
     <Price2>300</Price2>
     <Pricebayi>144</Pricebayi>
@@ -50637,7 +50791,7 @@
     <grup_kod>O-43</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698568931182</barcode>
-    <stock>299</stock>
+    <stock>298</stock>
     <Price>104</Price>
     <Price2>230</Price2>
     <Pricebayi>93.6</Pricebayi>
@@ -50937,8 +51091,8 @@
       <Image7>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22540.jpg</Image7>
       <Image8>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22541.jpg</Image8>
       <Image9>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22542.jpg</Image9>
-      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image10>
-      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image11>
+      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image10>
+      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image11>
       <Image12>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22544.jpg</Image12>
       <Image13>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22545.jpg</Image13>
     </Images>
@@ -53847,7 +54001,7 @@
     <grup_kod></grup_kod>
     <ana_grup_kod></ana_grup_kod>
     <barcode></barcode>
-    <stock>8</stock>
+    <stock>4</stock>
     <Price>11.11</Price>
     <Price2>0</Price2>
     <Pricebayi>0</Pricebayi>
@@ -58952,7 +59106,7 @@
     <grup_kod>O-11</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8680863056677</barcode>
-    <stock>72</stock>
+    <stock>42</stock>
     <Price>500</Price>
     <Price2>725</Price2>
     <Pricebayi>450</Pricebayi>
@@ -59494,7 +59648,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>25</stock>
+    <stock>22</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
@@ -60483,7 +60637,7 @@
     <grup_kod>O-06</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683672010120</barcode>
-    <stock>38</stock>
+    <stock>37</stock>
     <Price>280</Price>
     <Price2>450</Price2>
     <Pricebayi>252</Pricebayi>
@@ -60883,7 +61037,7 @@
     <mensei>Display</mensei>
     <grup_kod>O-01</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
-    <barcode>8697197096132</barcode>
+    <barcode>8698555801726</barcode>
     <stock>297</stock>
     <Price>140</Price>
     <Price2>275</Price2>
@@ -61596,7 +61750,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359100928</barcode>
-    <stock>10</stock>
+    <stock>5</stock>
     <Price>980</Price>
     <Price2>1325</Price2>
     <Pricebayi>882</Pricebayi>
@@ -62243,7 +62397,7 @@
     <grup_kod>O-47</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8297445827556</barcode>
-    <stock>108</stock>
+    <stock>105</stock>
     <Price>120</Price>
     <Price2>250</Price2>
     <Pricebayi>108</Pricebayi>
@@ -63457,7 +63611,7 @@
     <grup_kod>O-14</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540309169</barcode>
-    <stock>1</stock>
+    <stock>-9</stock>
     <Price>1750</Price>
     <Price2>2287.5</Price2>
     <Pricebayi>1575</Pricebayi>
@@ -63578,7 +63732,7 @@
     <grup_kod>O-40</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540310004</barcode>
-    <stock>1</stock>
+    <stock>-9</stock>
     <Price>2350</Price>
     <Price2>3037.5</Price2>
     <Pricebayi>2115</Pricebayi>
@@ -63862,7 +64016,7 @@
     <grup_kod>O-40</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540311520</barcode>
-    <stock>1</stock>
+    <stock>-9</stock>
     <Price>1750</Price>
     <Price2>2287.5</Price2>
     <Pricebayi>1575</Pricebayi>
@@ -63878,7 +64032,7 @@
     <grup_kod>O-11</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540311568</barcode>
-    <stock>1</stock>
+    <stock>-9</stock>
     <Price>2100</Price>
     <Price2>2725</Price2>
     <Pricebayi>1890</Pricebayi>
@@ -63894,7 +64048,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540312121</barcode>
-    <stock>2</stock>
+    <stock>-8</stock>
     <Price>3200</Price>
     <Price2>4100</Price2>
     <Pricebayi>2880</Pricebayi>
@@ -63910,7 +64064,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540312169</barcode>
-    <stock>1</stock>
+    <stock>-4</stock>
     <Price>6500</Price>
     <Price2>8225</Price2>
     <Pricebayi>5850</Pricebayi>
@@ -63926,7 +64080,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540312268</barcode>
-    <stock>1</stock>
+    <stock>-4</stock>
     <Price>4800</Price>
     <Price2>6100</Price2>
     <Pricebayi>4320</Pricebayi>
@@ -63942,7 +64096,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540312329</barcode>
-    <stock>2</stock>
+    <stock>-3</stock>
     <Price>5800</Price>
     <Price2>7350</Price2>
     <Pricebayi>5220</Pricebayi>
@@ -63958,7 +64112,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698540312343</barcode>
-    <stock>1</stock>
+    <stock>-9</stock>
     <Price>3200</Price>
     <Price2>4100</Price2>
     <Pricebayi>2880</Pricebayi>
@@ -65733,7 +65887,7 @@
     <grup_kod>O-43</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697417624879</barcode>
-    <stock>8</stock>
+    <stock>0</stock>
     <Price>450</Price>
     <Price2>662.5</Price2>
     <Pricebayi>405</Pricebayi>
@@ -66434,7 +66588,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>0000000426428</barcode>
-    <stock>3</stock>
+    <stock>0</stock>
     <Price>2450</Price>
     <Price2>3162.5</Price2>
     <Pricebayi>2205</Pricebayi>
@@ -66472,7 +66626,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>0000000426435</barcode>
-    <stock>2</stock>
+    <stock>0</stock>
     <Price>2450</Price>
     <Price2>3162.5</Price2>
     <Pricebayi>2205</Pricebayi>
@@ -66488,7 +66642,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8698568928229</barcode>
-    <stock>1</stock>
+    <stock>0</stock>
     <Price>1650</Price>
     <Price2>2162.5</Price2>
     <Pricebayi>1485</Pricebayi>
@@ -67111,7 +67265,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359094890</barcode>
-    <stock>45</stock>
+    <stock>25</stock>
     <Price>700</Price>
     <Price2>975</Price2>
     <Pricebayi>630</Pricebayi>
@@ -67169,7 +67323,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8694359094883</barcode>
-    <stock>45</stock>
+    <stock>23</stock>
     <Price>700</Price>
     <Price2>975</Price2>
     <Pricebayi>630</Pricebayi>
@@ -67474,7 +67628,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501117</barcode>
-    <stock>23</stock>
+    <stock>-27</stock>
     <Price>460</Price>
     <Price2>675</Price2>
     <Pricebayi>414</Pricebayi>
@@ -67495,7 +67649,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501162</barcode>
-    <stock>35</stock>
+    <stock>25</stock>
     <Price>375</Price>
     <Price2>568.75</Price2>
     <Pricebayi>337.5</Pricebayi>
@@ -67516,7 +67670,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501179</barcode>
-    <stock>38</stock>
+    <stock>28</stock>
     <Price>385</Price>
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
@@ -67538,7 +67692,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501209</barcode>
-    <stock>34</stock>
+    <stock>-19</stock>
     <Price>330</Price>
     <Price2>512.5</Price2>
     <Pricebayi>297</Pricebayi>
@@ -67561,7 +67715,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684869501476</barcode>
-    <stock>8</stock>
+    <stock>5</stock>
     <Price>1150</Price>
     <Price2>1537.5</Price2>
     <Pricebayi>1035</Pricebayi>
@@ -67582,7 +67736,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581622018</barcode>
-    <stock>117</stock>
+    <stock>110</stock>
     <Price>150</Price>
     <Price2>287.5</Price2>
     <Pricebayi>135</Pricebayi>
@@ -67601,7 +67755,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581622100</barcode>
-    <stock>6</stock>
+    <stock>3</stock>
     <Price>1600</Price>
     <Price2>2100</Price2>
     <Pricebayi>1440</Pricebayi>
@@ -67643,7 +67797,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581622247</barcode>
-    <stock>23</stock>
+    <stock>13</stock>
     <Price>500</Price>
     <Price2>725</Price2>
     <Pricebayi>450</Pricebayi>
@@ -67686,7 +67840,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581623152</barcode>
-    <stock>65</stock>
+    <stock>52</stock>
     <Price>290</Price>
     <Price2>462.5</Price2>
     <Pricebayi>261</Pricebayi>
@@ -67855,7 +68009,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581624920</barcode>
-    <stock>24</stock>
+    <stock>-36</stock>
     <Price>490</Price>
     <Price2>712.5</Price2>
     <Pricebayi>441</Pricebayi>
@@ -68085,7 +68239,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581628683</barcode>
-    <stock>10</stock>
+    <stock>7</stock>
     <Price>1500</Price>
     <Price2>1975</Price2>
     <Pricebayi>1350</Pricebayi>
@@ -68126,7 +68280,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581629055</barcode>
-    <stock>46</stock>
+    <stock>26</stock>
     <Price>385</Price>
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
@@ -68167,7 +68321,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581629246</barcode>
-    <stock>3</stock>
+    <stock>0</stock>
     <Price>1500</Price>
     <Price2>1975</Price2>
     <Pricebayi>1350</Pricebayi>
@@ -68309,7 +68463,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683581629123</barcode>
-    <stock>3</stock>
+    <stock>0</stock>
     <Price>760</Price>
     <Price2>1050</Price2>
     <Pricebayi>684</Pricebayi>
@@ -68628,7 +68782,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>5553205498875</barcode>
-    <stock>4</stock>
+    <stock>0</stock>
     <Price>390</Price>
     <Price2>587.5</Price2>
     <Pricebayi>351</Pricebayi>
@@ -73503,8 +73657,8 @@
     <Images>
       <Image1>resimler/polesie-cross-yaris-motorsikleti-25-cm-sari-pol-92298-30098.png</Image1>
       <Image2>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25936.jpg</Image2>
-      <Image3>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25938.jpg</Image3>
-      <Image4>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25937.jpg</Image4>
+      <Image3>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25937.jpg</Image3>
+      <Image4>resimler/pol-92281-yaris-motorsikleti-sari-kutulu-25938.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -74527,7 +74681,7 @@
     <grup_kod>D-14</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698540311865</barcode>
-    <stock>17</stock>
+    <stock>0</stock>
     <Price>1100</Price>
     <Price2>1475</Price2>
     <Pricebayi>990</Pricebayi>
@@ -74549,7 +74703,7 @@
     <grup_kod>D-14</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698540311827</barcode>
-    <stock>13</stock>
+    <stock>0</stock>
     <Price>2000</Price>
     <Price2>2600</Price2>
     <Pricebayi>1800</Pricebayi>
@@ -74650,8 +74804,8 @@
     <Images>
       <Image1>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21187.jpg</Image1>
       <Image2>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21188.jpg</Image2>
-      <Image3>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21190.jpg</Image3>
-      <Image4>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21189.jpg</Image4>
+      <Image3>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21189.jpg</Image3>
+      <Image4>resimler/rc-3-kirmizi-u-k-sarjli-jeep-21190.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -74984,6 +75138,22 @@
     </Images>
   </Product>
   <Product>
+    <Product_code>RK-007</Product_code>
+    <Name>RK-007 - SU TABANCASI ŞARJLI KUTULU 28 CM 2 AST</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi></raf_numarasi>
+    <alt_baslik2>25 cm</alt_baslik2>
+    <mensei>Kutulu</mensei>
+    <grup_kod>D-14</grup_kod>
+    <ana_grup_kod>DNZ</ana_grup_kod>
+    <barcode>8697197103236</barcode>
+    <stock>58</stock>
+    <Price>590</Price>
+    <Price2>837.5</Price2>
+    <Pricebayi>531</Pricebayi>
+  </Product>
+  <Product>
     <Product_code>RKT-35</Product_code>
     <Name>RKT-35 - KALİTELİ BADMİNTON TENİS RAKETİ 2 AST</Name>
     <Brand>KIZIL</Brand>
@@ -75296,7 +75466,7 @@
     <grup_kod>O-07</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313403134</barcode>
-    <stock>18</stock>
+    <stock>-2</stock>
     <Price>540</Price>
     <Price2>775</Price2>
     <Pricebayi>486</Pricebayi>
@@ -76675,7 +76845,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313401512</barcode>
-    <stock>20</stock>
+    <stock>10</stock>
     <Price>1025</Price>
     <Price2>1381.25</Price2>
     <Pricebayi>922.5</Pricebayi>
@@ -76703,7 +76873,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313401529</barcode>
-    <stock>24</stock>
+    <stock>14</stock>
     <Price>1025</Price>
     <Price2>1381.25</Price2>
     <Pricebayi>922.5</Pricebayi>
@@ -76731,7 +76901,7 @@
     <grup_kod>O-08</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313401826</barcode>
-    <stock>20</stock>
+    <stock>10</stock>
     <Price>1025</Price>
     <Price2>1381.25</Price2>
     <Pricebayi>922.5</Pricebayi>
@@ -76757,7 +76927,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684313409068</barcode>
-    <stock>21</stock>
+    <stock>1</stock>
     <Price>760</Price>
     <Price2>1050</Price2>
     <Pricebayi>684</Pricebayi>
@@ -76789,7 +76959,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>4</stock>
+    <stock>-6</stock>
     <Price>1150</Price>
     <Price2>1537.5</Price2>
     <Pricebayi>1035</Pricebayi>
@@ -76805,7 +76975,7 @@
     <grup_kod>O-09</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode></barcode>
-    <stock>4</stock>
+    <stock>-6</stock>
     <Price>1150</Price>
     <Price2>1537.5</Price2>
     <Pricebayi>1035</Pricebayi>
@@ -77018,12 +77188,12 @@
       <Image1>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41038.jpeg</Image1>
       <Image2>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41071.jpeg</Image2>
       <Image3>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41039.jpeg</Image3>
-      <Image4>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image4>
-      <Image5>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image5>
-      <Image6>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image6>
-      <Image7>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image7>
-      <Image8>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image8>
-      <Image9>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image9>
+      <Image4>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image4>
+      <Image5>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image5>
+      <Image6>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image6>
+      <Image7>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image7>
+      <Image8>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image8>
+      <Image9>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image9>
       <Image10>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41075.jpeg</Image10>
     </Images>
   </Product>
@@ -79082,7 +79252,7 @@
     <grup_kod>O-43</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8697197099690</barcode>
-    <stock>35</stock>
+    <stock>33</stock>
     <Price>384</Price>
     <Price2>580</Price2>
     <Pricebayi>345.6</Pricebayi>
@@ -79101,7 +79271,7 @@
     <grup_kod>O-35</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8684356000482</barcode>
-    <stock>133</stock>
+    <stock>131</stock>
     <Price>250</Price>
     <Price2>412.5</Price2>
     <Pricebayi>225</Pricebayi>
@@ -80580,7 +80750,7 @@
     <grup_kod>D-14</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8695245666979</barcode>
-    <stock>30</stock>
+    <stock>0</stock>
     <Price>240</Price>
     <Price2>400</Price2>
     <Pricebayi>216</Pricebayi>
@@ -81546,13 +81716,61 @@
     <grup_kod>O-05</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8683704200857</barcode>
-    <stock>13</stock>
+    <stock>-47</stock>
     <Price>156</Price>
     <Price2>295</Price2>
     <Pricebayi>140.4</Pricebayi>
     <Images>
       <Image1>resimler/ys1378-r1-deniz-kizi-kurmali-kartela-35376.png</Image1>
     </Images>
+  </Product>
+  <Product>
+    <Product_code>YS1378-R17</Product_code>
+    <Name>YS1378-R17  - 3 LÜ DENİZ KIZI KURMALI KARTELA 2AST</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi>U-E1</raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Kartela</mensei>
+    <grup_kod>O-05</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode>8697197100396</barcode>
+    <stock>180</stock>
+    <Price>375</Price>
+    <Price2>568.75</Price2>
+    <Pricebayi>337.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>YS1378-R3</Product_code>
+    <Name>YS1378-R3 - TEKLİ DENİZ KIZI KURMALI KARTELA 12</Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi>U-E1</raf_numarasi>
+    <alt_baslik2>20 cm</alt_baslik2>
+    <mensei>Kartela</mensei>
+    <grup_kod>O-05</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode></barcode>
+    <stock>0</stock>
+    <Price>175</Price>
+    <Price2>318.75</Price2>
+    <Pricebayi>157.5</Pricebayi>
+  </Product>
+  <Product>
+    <Product_code>YS1378-R35</Product_code>
+    <Name>YS1378-R35 - 2 Lİ  DENİZ KIZI  KURMALI KARTELA </Name>
+    <Brand>KIZIL</Brand>
+    <alt_baslik></alt_baslik>
+    <raf_numarasi>U-E1</raf_numarasi>
+    <alt_baslik2>18 cm</alt_baslik2>
+    <mensei>Kartela</mensei>
+    <grup_kod>O-05</grup_kod>
+    <ana_grup_kod>OYN</ana_grup_kod>
+    <barcode></barcode>
+    <stock>36</stock>
+    <Price>350</Price>
+    <Price2>537.5</Price2>
+    <Pricebayi>315</Pricebayi>
   </Product>
   <Product>
     <Product_code>YS2689</Product_code>
@@ -81785,7 +82003,7 @@
     <grup_kod>O-03</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>8699114787215</barcode>
-    <stock>47</stock>
+    <stock>46</stock>
     <Price>330</Price>
     <Price2>512.5</Price2>
     <Pricebayi>297</Pricebayi>
@@ -81806,7 +82024,7 @@
     <grup_kod>O-42</grup_kod>
     <ana_grup_kod>OYN</ana_grup_kod>
     <barcode>6920240114975</barcode>
-    <stock>73</stock>
+    <stock>72</stock>
     <Price>300</Price>
     <Price2>475</Price2>
     <Pricebayi>270</Pricebayi>
@@ -81876,7 +82094,7 @@
     <grup_kod>D-12</grup_kod>
     <ana_grup_kod>DNZ</ana_grup_kod>
     <barcode>8698555805595</barcode>
-    <stock>94</stock>
+    <stock>70</stock>
     <Price>180</Price>
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>

@@ -401,7 +401,7 @@ class SatisTransformer {
         sth_masraf_vergi: 0,
         sth_netagirlik: 0,
         sth_odeme_op: 0,
-        sth_aciklama: '',
+        sth_aciklama: (webSatis.notlar || '').substring(0, 255), // satislar.notlar -> sth_aciklama
         sth_sip_recid_dbcno: 0,
         sth_sip_recid_recno: 0,
         sth_fat_recid_dbcno: 0,
