@@ -1,9 +1,9 @@
 {
-  "lastSyncDate": "2026-02-02T14:13:45.448Z",
+  "lastSyncDate": "2026-02-02T15:56:28.278Z",
   "lastFullSyncDate": "2026-02-01T21:04:05.898Z",
   "tables": {
     "pictures": {
-      "lastId": 42742
+      "lastId": 42755
     },
     "product_quantity": {
       "lastId": 19461
@@ -18,13 +18,13 @@
       "lastId": null
     },
     "order": {
-      "lastId": 66640
+      "lastId": 66641
     },
     "messages": {
       "lastId": 9598
     },
     "customer": {
-      "lastId": 62178
+      "lastId": 62179
     },
     "product_description": {
       "lastId": 20121

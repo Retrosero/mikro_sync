@@ -272,12 +272,28 @@ class SatisProcessor {
       ]);
 
       // Web Satışlar tablosunu güncelle (ERP'den alınan seri/sıra no ile)
-      if (webSatis.fatura_seri_no !== evrakSeri || webSatis.fatura_sira_no !== evrakNo) {
-        await pgService.query(
-          'UPDATE satislar SET fatura_seri_no = $1, fatura_sira_no = $2, belge_no = $3 WHERE id = $4',
-          [evrakSeri, evrakNo, evrakSeri + evrakNo, webSatis.id]
+      // Web Satışlar tablosunu güncelle (ERP'den alınan seri/sıra no ile)
+      // Tip dönüşümü yaparak karşılaştır
+      const normalizedEvrakNo = parseInt(evrakNo);
+      const normalizedWebSiraNo = parseInt(webSatis.fatura_sira_no);
+
+      logger.info(`Evrak kontrolü: Web(${webSatis.fatura_seri_no}-${webSatis.fatura_sira_no}) vs ERP(${evrakSeri}-${evrakNo})`);
+
+      if (webSatis.fatura_seri_no !== evrakSeri || normalizedWebSiraNo !== normalizedEvrakNo) {
+        logger.info(`Web satış güncellenecek: ${webSatis.id} => ${evrakSeri}-${evrakNo}`);
+
+        const updateResult = await pgService.query(
+          'UPDATE satislar SET fatura_seri_no = $1, fatura_sira_no = $2, belge_no = $3 WHERE id = $4 RETURNING fatura_seri_no, fatura_sira_no',
+          [evrakSeri, normalizedEvrakNo, evrakSeri + normalizedEvrakNo, webSatis.id]
         );
-        logger.info(`Web satış kaydı güncellendi: ID=${webSatis.id}, Yeni BelgeNo=${evrakSeri + evrakNo}`);
+
+        if (updateResult.length > 0) {
+          logger.info(`✓ Web satış kaydı güncellendi: ID=${webSatis.id}, Yeni=${updateResult[0].fatura_seri_no}-${updateResult[0].fatura_sira_no}`);
+        } else {
+          logger.error(`❌ Web satış kaydı güncellenemedi! ID=${webSatis.id} bulunamadı`);
+        }
+      } else {
+        logger.info(`Web satış zaten güncel: ${webSatis.id} => ${evrakSeri}-${evrakNo}`);
       }
 
       // ÖNEMLİ: ERP'ye gönderim sonrası, Web'deki orijinal kayıtları (erp_recno = NULL) sil
