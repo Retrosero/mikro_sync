@@ -185,6 +185,9 @@ class SatisProcessor {
         for (const kalem of kalemler) {
           const satirData = await satisTransformer.transformSatisKalem(kalem, webSatis);
 
+          // DEBUG: Transform edilen değerleri logla
+          logger.info(`Transform sonucu: iskonto1=${satirData.sth_iskonto1}, aciklama="${satirData.sth_aciklama}"`);
+
           // Başlıktaki evrak numarasını kullan
           satirData.sth_evrakno_sira = baslikData.cha_evrakno_sira;
           satirData.sth_evrakno_seri = baslikData.cha_evrakno_seri;
@@ -523,7 +526,6 @@ class SatisProcessor {
           miktar: 0,
           toplam_tutar: 0,
           kdv_tutari: 0,
-          indirim_tutari: 0,
           iskonto1: 0,
           iskonto2: 0,
           iskonto3: 0,
@@ -540,7 +542,14 @@ class SatisProcessor {
       group.miktar = parseFloat(group.miktar) + parseFloat(kalem.miktar);
       group.toplam_tutar = parseFloat(group.toplam_tutar) + parseFloat(kalem.toplam_tutar || 0);
       group.kdv_tutari = parseFloat(group.kdv_tutari) + parseFloat(kalem.kdv_tutari || 0);
-      group.indirim_tutari = parseFloat(group.indirim_tutari) + parseFloat(kalem.indirim_tutari || 0);
+
+      // İskonto değerlerini topla
+      group.iskonto1 = parseFloat(group.iskonto1 || 0) + parseFloat(kalem.iskonto1 || 0);
+      group.iskonto2 = parseFloat(group.iskonto2 || 0) + parseFloat(kalem.iskonto2 || 0);
+      group.iskonto3 = parseFloat(group.iskonto3 || 0) + parseFloat(kalem.iskonto3 || 0);
+      group.iskonto4 = parseFloat(group.iskonto4 || 0) + parseFloat(kalem.iskonto4 || 0);
+      group.iskonto5 = parseFloat(group.iskonto5 || 0) + parseFloat(kalem.iskonto5 || 0);
+      group.iskonto6 = parseFloat(group.iskonto6 || 0) + parseFloat(kalem.iskonto6 || 0);
 
       // Notları birleştirebiliriz
       if (kalem.notlar && kalem.notlar !== group.notlar) {
@@ -558,7 +567,12 @@ class SatisProcessor {
       miktar: parseFloat(item.miktar.toFixed(4)),
       toplam_tutar: parseFloat(item.toplam_tutar.toFixed(2)),
       kdv_tutari: parseFloat(item.kdv_tutari.toFixed(2)),
-      indirim_tutari: parseFloat(item.indirim_tutari.toFixed(2))
+      iskonto1: parseFloat((item.iskonto1 || 0).toFixed(2)),
+      iskonto2: parseFloat((item.iskonto2 || 0).toFixed(2)),
+      iskonto3: parseFloat((item.iskonto3 || 0).toFixed(2)),
+      iskonto4: parseFloat((item.iskonto4 || 0).toFixed(2)),
+      iskonto5: parseFloat((item.iskonto5 || 0).toFixed(2)),
+      iskonto6: parseFloat((item.iskonto6 || 0).toFixed(2))
     }));
 
     if (results.length < kalemler.length) {

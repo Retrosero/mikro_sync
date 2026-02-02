@@ -1,15 +1,15 @@
 {
-  "lastSyncDate": "2026-02-02T12:52:28.515Z",
+  "lastSyncDate": "2026-02-02T14:13:45.448Z",
   "lastFullSyncDate": "2026-02-01T21:04:05.898Z",
   "tables": {
     "pictures": {
-      "lastId": 42701
+      "lastId": 42742
     },
     "product_quantity": {
-      "lastId": 19459
+      "lastId": 19461
     },
     "product_prices": {
-      "lastId": 19459
+      "lastId": 19461
     },
     "product": {
       "lastId": 19634
@@ -27,7 +27,7 @@
       "lastId": 62178
     },
     "product_description": {
-      "lastId": 20119
+      "lastId": 20121
     }
   }
 }
