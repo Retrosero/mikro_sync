@@ -6,6 +6,7 @@ const path = require('path');
 const open = require('open');
 const fs = require('fs');
 const pgService = require('../services/postgresql.service');
+const productNormalizer = require('../services/product-name-normalizer.service');
 
 const app = express();
 const server = http.createServer(app);
@@ -59,6 +60,8 @@ function saveLastRun(id, status) {
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Define available commands
 const commands = [
@@ -219,6 +222,50 @@ app.post('/api/delete-item/:id', async (req, res) => {
       [req.params.id]
     );
     res.json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Product Name Normalizer Endpoints
+app.get('/api/products/review', async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 10000;
+    const offset = parseInt(req.query.offset) || 0;
+    const search = req.query.search || '';
+
+    let products;
+    if (search) {
+      products = await productNormalizer.searchProducts(search, limit, offset);
+    } else {
+      products = await productNormalizer.getAllProductsForReview(limit, offset);
+    }
+
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/products/stats', async (req, res) => {
+  try {
+    const stats = await productNormalizer.getStats();
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/products/update', async (req, res) => {
+  try {
+    const updates = req.body.updates;
+
+    if (!updates || !Array.isArray(updates)) {
+      return res.status(400).json({ error: 'Geçersiz güncelleme verisi' });
+    }
+
+    const results = await productNormalizer.updateProductNames(updates);
+    res.json(results);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

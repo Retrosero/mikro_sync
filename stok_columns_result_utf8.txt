@@ -1,0 +1,314 @@
+[
+  {
+    "column_name": "aciklama",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "aktif",
+    "data_type": "boolean",
+    "character_maximum_length": null,
+    "udt_name": "bool"
+  },
+  {
+    "column_name": "alis_fiyati",
+    "data_type": "numeric",
+    "character_maximum_length": null,
+    "udt_name": "numeric"
+  },
+  {
+    "column_name": "ambalaj",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "ana_resim_sira",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "ana_stok_id",
+    "data_type": "uuid",
+    "character_maximum_length": null,
+    "udt_name": "uuid"
+  },
+  {
+    "column_name": "asorti_eki",
+    "data_type": "character varying",
+    "character_maximum_length": 255,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "barkod",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "birim_turu",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "display_order",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "ek_resimler",
+    "data_type": "ARRAY",
+    "character_maximum_length": null,
+    "udt_name": "_text"
+  },
+  {
+    "column_name": "eldeki_miktar",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "guncelleme_tarihi",
+    "data_type": "timestamp with time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamptz"
+  },
+  {
+    "column_name": "id",
+    "data_type": "uuid",
+    "character_maximum_length": null,
+    "udt_name": "uuid"
+  },
+  {
+    "column_name": "is_asorti",
+    "data_type": "boolean",
+    "character_maximum_length": null,
+    "udt_name": "bool"
+  },
+  {
+    "column_name": "kategori_id",
+    "data_type": "uuid",
+    "character_maximum_length": null,
+    "udt_name": "uuid"
+  },
+  {
+    "column_name": "kdv_orani",
+    "data_type": "numeric",
+    "character_maximum_length": null,
+    "udt_name": "numeric"
+  },
+  {
+    "column_name": "koliadeti",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "maksimum_stok",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "marka_id",
+    "data_type": "uuid",
+    "character_maximum_length": null,
+    "udt_name": "uuid"
+  },
+  {
+    "column_name": "medusa_id",
+    "data_type": "character varying",
+    "character_maximum_length": 255,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "medusa_variant_id",
+    "data_type": "character varying",
+    "character_maximum_length": 255,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "minimum_stok",
+    "data_type": "integer",
+    "character_maximum_length": null,
+    "udt_name": "int4"
+  },
+  {
+    "column_name": "olcu",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "olusturma_tarihi",
+    "data_type": "timestamp with time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamptz"
+  },
+  {
+    "column_name": "raf_kodu",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "raf_kodu2",
+    "data_type": "character varying",
+    "character_maximum_length": 50,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "raf_kodu3",
+    "data_type": "character varying",
+    "character_maximum_length": 50,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "raf_kodu4",
+    "data_type": "character varying",
+    "character_maximum_length": 50,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "raf_kodu5",
+    "data_type": "character varying",
+    "character_maximum_length": 50,
+    "udt_name": "varchar"
+  },
+  {
+    "column_name": "raf_kodu_tarihi",
+    "data_type": "timestamp without time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamp"
+  },
+  {
+    "column_name": "raf_kodu_tarihi2",
+    "data_type": "timestamp without time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamp"
+  },
+  {
+    "column_name": "raf_kodu_tarihi3",
+    "data_type": "timestamp without time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamp"
+  },
+  {
+    "column_name": "raf_kodu_tarihi4",
+    "data_type": "timestamp without time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamp"
+  },
+  {
+    "column_name": "raf_kodu_tarihi5",
+    "data_type": "timestamp without time zone",
+    "character_maximum_length": null,
+    "udt_name": "timestamp"
+  },
+  {
+    "column_name": "resim_metadata",
+    "data_type": "jsonb",
+    "character_maximum_length": null,
+    "udt_name": "jsonb"
+  },
+  {
+    "column_name": "resim_url",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_10",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_2",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_3",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_4",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_5",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_6",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_7",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_8",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "resim_url_9",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "satis_fiyati",
+    "data_type": "numeric",
+    "character_maximum_length": null,
+    "udt_name": "numeric"
+  },
+  {
+    "column_name": "sth_eldeki_miktar",
+    "data_type": "numeric",
+    "character_maximum_length": null,
+    "udt_name": "numeric"
+  },
+  {
+    "column_name": "stok_adi",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "stok_durumu",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "stok_kodu",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  },
+  {
+    "column_name": "video_url",
+    "data_type": "text",
+    "character_maximum_length": null,
+    "udt_name": "text"
+  }
+]

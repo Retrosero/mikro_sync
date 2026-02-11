@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ürün İsmi Normalizasyon - Gürbüz Oyuncak</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "border-light": "#f1f5f9",
+                        "status-success": "#10b981",
+                        "status-error": "#ef4444",
+                        "status-warning": "#f59e0b",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "monospace"]
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-white text-slate-800 antialiased;
+            }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .changed-row {
+            @apply bg-amber-50/50;
+        }
+
+        .table-container {
+            @apply overflow-x-auto;
+        }
+
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            @apply bg-slate-100 rounded;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            @apply bg-slate-300 rounded hover:bg-slate-400;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen bg-slate-50">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-full mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <a href="/" class="text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </a>
+                    <div>
+                        <h1 class="text-2xl font-bold text-slate-900">Ürün İsmi Normalizasyon</h1>
+                        <p class="text-sm text-slate-500">Ürün isimlerini düzgün formata çevirin</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <div class="text-sm text-slate-500">Toplam Ürün</div>
+                        <div class="text-2xl font-bold text-slate-900" id="totalProducts">-</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-sm text-slate-500">Değişecek</div>
+                        <div class="text-2xl font-bold text-amber-600" id="needsUpdate">-</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-full mx-auto px-6 py-8">
+        <!-- Search and Filters -->
+        <div class="bg-white rounded-2xl shadow-soft p-6 mb-6">
+            <div class="flex items-center gap-4">
+                <div class="flex-1">
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input type="text" id="searchInput" placeholder="Ürün kodu veya ismi ile ara..."
+                            class="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent" />
+                    </div>
+                </div>
+                <button id="searchBtn"
+                    class="px-6 py-3 bg-primary text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">search</span>
+                    Ara
+                </button>
+                <button id="clearSearchBtn"
+                    class="px-6 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                    Temizle
+                </button>
+            </div>
+            <div class="flex items-center gap-4 mt-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" id="showOnlyChanges"
+                        class="rounded border-slate-300 text-primary focus:ring-primary" />
+                    <span class="text-sm text-slate-700">Sadece değişecekleri göster</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Actions Bar -->
+        <div class="bg-white rounded-2xl shadow-soft p-4 mb-6 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <button id="selectAllBtn"
+                    class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm">
+                    Tümünü Seç
+                </button>
+                <button id="deselectAllBtn"
+                    class="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors text-sm">
+                    Seçimi Kaldır
+                </button>
+                <div class="text-sm text-slate-600">
+                    <span id="selectedCount">0</span> ürün seçildi
+                </div>
+            </div>
+            <button id="updateBtn"
+                class="px-6 py-3 bg-status-success text-white rounded-xl hover:bg-green-600 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled>
+                <span class="material-symbols-outlined text-lg">check_circle</span>
+                Seçilenleri Güncelle
+            </button>
+        </div>
+
+        <!-- Products Table -->
+        <div class="bg-white rounded-2xl shadow-soft overflow-hidden">
+            <div class="table-container">
+                <table class="w-full">
+                    <thead class="bg-slate-100 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-4 text-left w-12">
+                                <input type="checkbox" id="selectAllCheckbox"
+                                    class="rounded border-slate-300 text-primary focus:ring-primary" />
+                            </th>
+                            <th
+                                class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider w-32">
+                                Ürün Kodu</th>
+                            <th
+                                class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider w-[35%]">
+                                Mevcut İsim</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-slate-600 uppercase tracking-wider">
+                                Yeni İsim</th>
+                            <th
+                                class="px-6 py-4 text-center text-xs font-bold text-slate-600 uppercase tracking-wider w-32">
+                                Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody" class="divide-y divide-slate-100">
+                        <!-- Products will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="p-12 text-center">
+                <div
+                    class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-slate-200 border-t-primary">
+                </div>
+                <p class="mt-4 text-slate-600">Ürünler yükleniyor...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="p-12 text-center hidden">
+                <span class="material-symbols-outlined text-6xl text-slate-300">inventory_2</span>
+                <p class="mt-4 text-slate-600">Ürün bulunamadı</p>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex items-center justify-between mt-6">
+            <div class="text-sm text-slate-600">
+                Sayfa <span id="currentPage">1</span> / <span id="totalPages">1</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="prevPageBtn"
+                    class="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled>
+                    Önceki
+                </button>
+                <button id="nextPageBtn"
+                    class="px-4 py-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    Sonraki
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-8">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-4">
+                    <span class="material-symbols-outlined text-4xl text-amber-600">warning</span>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Emin misiniz?</h3>
+                <p class="text-slate-600 mb-6">
+                    <span id="confirmCount">0</span> ürünün ismi güncellenecek. Bu işlem geri alınamaz.
+                </p>
+                <div class="flex gap-3">
+                    <button id="cancelBtn"
+                        class="flex-1 px-6 py-3 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-colors">
+                        İptal
+                    </button>
+                    <button id="confirmBtn"
+                        class="flex-1 px-6 py-3 bg-status-success text-white rounded-xl hover:bg-green-600 transition-colors">
+                        Onayla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Modal -->
+    <div id="progressModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center z-50">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full mx-4 p-8">
+            <div class="text-center">
+                <div
+                    class="inline-block animate-spin rounded-full h-16 w-16 border-4 border-slate-200 border-t-primary mb-4">
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Güncelleniyor...</h3>
+                <p class="text-slate-600">
+                    Lütfen bekleyin, ürün isimleri güncelleniyor.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allProducts = [];
+        let filteredProducts = [];
+        let selectedProducts = new Set();
+        let currentPage = 1;
+        const itemsPerPage = 50;
+
+        // Initialize
+        async function init() {
+            await loadStats();
+            await loadProducts();
+            setupEventListeners();
+        }
+
+        // Load statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/products/stats');
+                const stats = await response.json();
+                document.getElementById('totalProducts').textContent = stats.total_products;
+                document.getElementById('needsUpdate').textContent = stats.needs_update;
+            } catch (error) {
+                console.error('İstatistik yükleme hatası:', error);
+            }
+        }
+
+        // Load products
+        async function loadProducts(search = '') {
+            showLoading();
+            try {
+                const url = search
+                    ? `/api/products/review?search=${encodeURIComponent(search)}`
+                    : '/api/products/review';
+
+                const response = await fetch(url);
+                allProducts = await response.json();
+                applyFilters();
+                renderProducts();
+                hideLoading();
+            } catch (error) {
+                console.error('Ürün yükleme hatası:', error);
+                hideLoading();
+                showEmpty();
+            }
+        }
+
+        // Apply filters
+        function applyFilters() {
+            const showOnlyChanges = document.getElementById('showOnlyChanges').checked;
+            filteredProducts = showOnlyChanges
+                ? allProducts.filter(p => p.has_change)
+                : allProducts;
+            currentPage = 1;
+        }
+
+        // Render products
+        function renderProducts() {
+            const tbody = document.getElementById('productsTableBody');
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageProducts = filteredProducts.slice(start, end);
+
+            if (pageProducts.length === 0) {
+                showEmpty();
+                return;
+            }
+
+            tbody.innerHTML = pageProducts.map(product => {
+                const isSelected = selectedProducts.has(product.stok_kodu);
+                const hasChange = product.has_change;
+                const rowClass = hasChange ? 'changed-row' : '';
+
+                return `
+                    <tr class="${rowClass} hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4">
+                            <input type="checkbox" 
+                                class="product-checkbox rounded border-slate-300 text-primary focus:ring-primary" 
+                                data-code="${product.stok_kodu}"
+                                ${isSelected ? 'checked' : ''} />
+                        </td>
+                        <td class="px-6 py-4 font-mono text-sm text-slate-900">${product.stok_kodu}</td>
+                        <td class="px-6 py-4 text-sm text-slate-600">${product.current_name}</td>
+                        <td class="px-6 py-4 text-sm">
+                            <input type="text" 
+                                class="new-name-input w-full px-3 py-1 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-medium ${hasChange ? 'text-primary' : 'text-slate-700'}" 
+                                data-code="${product.stok_kodu}" 
+                                value="${product.normalized_name}" />
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            ${hasChange
+                        ? '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">Değişecek</span>'
+                        : '<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Güncel</span>'
+                    }
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            updatePagination();
+            updateSelectedCount();
+        }
+
+        // Update pagination
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+            document.getElementById('currentPage').textContent = currentPage;
+            document.getElementById('totalPages').textContent = totalPages;
+            document.getElementById('prevPageBtn').disabled = currentPage === 1;
+            document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+        }
+
+        // Update selected count
+        function updateSelectedCount() {
+            const count = selectedProducts.size;
+            document.getElementById('selectedCount').textContent = count;
+            document.getElementById('updateBtn').disabled = count === 0;
+        }
+
+        // Show/hide states
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('productsTableBody').innerHTML = '';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingState').classList.add('hidden');
+        }
+
+        function showEmpty() {
+            document.getElementById('emptyState').classList.remove('hidden');
+            document.getElementById('productsTableBody').innerHTML = '';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search
+            document.getElementById('searchBtn').addEventListener('click', () => {
+                const search = document.getElementById('searchInput').value;
+                loadProducts(search);
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const search = document.getElementById('searchInput').value;
+                    loadProducts(search);
+                }
+            });
+
+            document.getElementById('clearSearchBtn').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                loadProducts();
+            });
+
+            // Filter
+            document.getElementById('showOnlyChanges').addEventListener('change', () => {
+                applyFilters();
+                renderProducts();
+            });
+
+            // Select all/deselect all
+            document.getElementById('selectAllBtn').addEventListener('click', () => {
+                filteredProducts.forEach(p => {
+                    selectedProducts.add(p.stok_kodu);
+                });
+                renderProducts();
+            });
+
+            document.getElementById('deselectAllBtn').addEventListener('click', () => {
+                selectedProducts.clear();
+                renderProducts();
+            });
+
+            // Checkbox in header
+            document.getElementById('selectAllCheckbox').addEventListener('change', (e) => {
+                const start = (currentPage - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+                const pageProducts = filteredProducts.slice(start, end);
+
+                if (e.target.checked) {
+                    pageProducts.forEach(p => {
+                        selectedProducts.add(p.stok_kodu);
+                    });
+                } else {
+                    pageProducts.forEach(p => {
+                        selectedProducts.delete(p.stok_kodu);
+                    });
+                }
+                renderProducts();
+            });
+
+            // Product checkboxes (delegated)
+            document.getElementById('productsTableBody').addEventListener('change', (e) => {
+                if (e.target.classList.contains('product-checkbox')) {
+                    const code = e.target.dataset.code;
+                    if (e.target.checked) {
+                        selectedProducts.add(code);
+                    } else {
+                        selectedProducts.delete(code);
+                    }
+                    updateSelectedCount();
+                }
+
+                if (e.target.classList.contains('new-name-input')) {
+                    const code = e.target.dataset.code;
+                    const newValue = e.target.value;
+                    const product = allProducts.find(p => p.stok_kodu === code);
+                    if (product) {
+                        product.normalized_name = newValue;
+                    }
+                }
+            });
+
+            // Pagination
+            document.getElementById('prevPageBtn').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderProducts();
+                }
+            });
+
+            document.getElementById('nextPageBtn').addEventListener('click', () => {
+                const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderProducts();
+                }
+            });
+
+            // Update button
+            document.getElementById('updateBtn').addEventListener('click', () => {
+                showConfirmModal();
+            });
+
+            // Modal buttons
+            document.getElementById('cancelBtn').addEventListener('click', hideConfirmModal);
+            document.getElementById('confirmBtn').addEventListener('click', performUpdate);
+        }
+
+        // Show confirmation modal
+        function showConfirmModal() {
+            document.getElementById('confirmCount').textContent = selectedProducts.size;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            document.getElementById('confirmModal').classList.add('flex');
+        }
+
+        // Hide confirmation modal
+        function hideConfirmModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+            document.getElementById('confirmModal').classList.remove('flex');
+        }
+
+        // Show progress modal
+        function showProgressModal() {
+            document.getElementById('progressModal').classList.remove('hidden');
+            document.getElementById('progressModal').classList.add('flex');
+        }
+
+        // Hide progress modal
+        function hideProgressModal() {
+            document.getElementById('progressModal').classList.add('hidden');
+            document.getElementById('progressModal').classList.remove('flex');
+        }
+
+        // Perform update
+        async function performUpdate() {
+            const totalToUpdate = selectedProducts.size;
+            hideConfirmModal();
+            showProgressModal();
+
+            const updates = Array.from(selectedProducts)
+                .map(code => {
+                    const product = allProducts.find(p => p.stok_kodu === code);
+                    return product ? {
+                        stok_kodu: code,
+                        new_name: product.normalized_name
+                    } : null;
+                })
+                .filter(u => u !== null);
+
+            let totalSuccess = 0;
+            let totalFailed = 0;
+            const batchSize = 500;
+
+            try {
+                // Batch processing
+                for (let i = 0; i < updates.length; i += batchSize) {
+                    const batch = updates.slice(i, i + batchSize);
+
+                    // Update progress message (optional enhancement)
+                    // document.querySelector('#progressModal p').textContent = `Güncelleniyor... (${i + batch.length} / ${updates.length})`;
+
+                    const response = await fetch('/api/products/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ updates: batch })
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) totalSuccess += result.success.length;
+                    if (result.failed) totalFailed += result.failed.length;
+                }
+
+                hideProgressModal();
+
+                if (totalSuccess > 0) {
+                    let msg = `✅ ${totalSuccess} ürün başarıyla güncellendi!`;
+                    if (totalFailed > 0) msg += `\n⚠️ ${totalFailed} ürün güncellenemedi.`;
+                    alert(msg);
+
+                    selectedProducts.clear();
+                    await loadStats();
+                    await loadProducts();
+                } else if (totalFailed > 0) {
+                    alert(`❌ Güncelleme başarısız oldu. (${totalFailed} ürün)`);
+                } else {
+                    alert('⚠️ Güncellenecek ürün bulunamadı veya işlem iptal edildi.');
+                }
+            } catch (error) {
+                hideProgressModal();
+                console.error('Güncelleme hatası:', error);
+                alert('❌ Güncelleme sırasında kritik hata oluştu: ' + error.message);
+            }
+        }
+
+
+        // Start
+        init();
+    </script>
+</body>
+
+</html>
