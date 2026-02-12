@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated At: 11.02.2026 17:30:31 -->
+<!-- Generated At: 12.02.2026 10:34:54 -->
 <Products>
   <Metadata>
-    <GeneratedAt>11.02.2026 17:30:31</GeneratedAt>
+    <GeneratedAt>12.02.2026 10:34:54</GeneratedAt>
     <ProductCount>4287</ProductCount>
   </Metadata>
   <Product>
@@ -240,7 +240,7 @@
   </Product>
   <Product>
     <Product_code>00591</Product_code>
-    <Name>00591 - LİTTLEST PET SHOP PET NOOK AKSESUARLIFİGÜR</Name>
+    <Name>00591 - Littlest Pet Shop Pet Nook Aksesuarlı</Name>
     <Brand>SUNMAN</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -260,7 +260,7 @@
   </Product>
   <Product>
     <Product_code>00592</Product_code>
-    <Name>00592 - LİTTLEST PET SHOP PET NOOK AKSESUARLIFİGÜR</Name>
+    <Name>00592 - Littlest Pet Shop Pet Nook Aksesuarlı</Name>
     <Brand>SUNMAN</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -280,7 +280,7 @@
   </Product>
   <Product>
     <Product_code>00593</Product_code>
-    <Name>00593 - LİTTLEST PET SHOP PET NOOK AKSESUARLIFİGÜR</Name>
+    <Name>00593 - Littlest Pet Shop Pet Nook Aksesuarlı</Name>
     <Brand>SUNMAN</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -300,7 +300,7 @@
   </Product>
   <Product>
     <Product_code>00594</Product_code>
-    <Name>00594 - LİTTLEST PET SHOP PET NOOK AKSESUARLIFİGÜR</Name>
+    <Name>00594 - Littlest Pet Shop Pet Nook Aksesuarlı</Name>
     <Brand>SUNMAN</Brand>
     <alt_baslik></alt_baslik>
     <raf_numarasi>R</raf_numarasi>
@@ -7586,12 +7586,12 @@
     <Price2>325</Price2>
     <Pricebayi>162</Pricebayi>
     <Images>
-      <Image1>resimler/1973-kapibara-2-li-mini-set-stand-12-42446.jpg</Image1>
-      <Image2>resimler/1973-kapibara-2-li-mini-set-stand-12-42377.jpeg</Image2>
-      <Image3>resimler/1973-kapibara-2-li-mini-set-stand-12-42447.jpeg</Image3>
-      <Image4>resimler/1973-kapibara-2-li-mini-set-stand-12-42378.jpeg</Image4>
-      <Image5>resimler/1973-kapibara-2-li-mini-set-stand-12-42448.jpeg</Image5>
-      <Image6>resimler/1973-kapibara-2-li-mini-set-stand-12-42379.jpeg</Image6>
+      <Image1>resimler/1973-kapibara-2-li-mini-set-stand-12-42377.jpeg</Image1>
+      <Image2>resimler/1973-kapibara-2-li-mini-set-stand-12-42446.jpg</Image2>
+      <Image3>resimler/1973-kapibara-2-li-mini-set-stand-12-42378.jpeg</Image3>
+      <Image4>resimler/1973-kapibara-2-li-mini-set-stand-12-42447.jpeg</Image4>
+      <Image5>resimler/1973-kapibara-2-li-mini-set-stand-12-42379.jpeg</Image5>
+      <Image6>resimler/1973-kapibara-2-li-mini-set-stand-12-42448.jpeg</Image6>
     </Images>
   </Product>
   <Product>
@@ -10063,8 +10063,8 @@
     <Pricebayi>324</Pricebayi>
     <Images>
       <Image1>resimler/22052-maske-bestway-3-renk-12-23552.jpeg</Image1>
-      <Image2>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image2>
-      <Image3>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image3>
+      <Image2>resimler/bestway-yetiskin-tek-maske-22052-29220.png</Image2>
+      <Image3>resimler/22052-maske-bestway-3-renk-12-23554.jpg</Image3>
       <Image4>resimler/22052-maske-bestway-3-renk-12-23555.jpg</Image4>
       <Image5>resimler/bestway-yetiskin-tek-maske-22052-29219.png</Image5>
       <Image6>resimler/bestway-yetiskin-tek-maske-22052-29221.png</Image6>
@@ -10172,8 +10172,8 @@
     <Images>
       <Image1>resimler/22075-maske-tek-bestway-tempered-silikon-37197.png</Image1>
       <Image2>resimler/22075-maske-tek-bestway-tempered-silikon-37198.png</Image2>
-      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image3>
-      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image4>
+      <Image3>resimler/22075-maske-tek-bestway-tempered-silikon-34967.jpg</Image3>
+      <Image4>resimler/22075-maske-tek-bestway-tempered-silikon-34966.jpg</Image4>
     </Images>
   </Product>
   <Product>
@@ -11406,8 +11406,8 @@
     <Images>
       <Image1>resimler/garson-boy-yuzucu-maskesi-2322-37174.png</Image1>
       <Image2>resimler/garson-boy-yuzucu-maskesi-2322-37173.png</Image2>
-      <Image3>resimler/garson-boy-yuzucu-maskesi-2322-29467.png</Image3>
-      <Image4>resimler/garson-boy-yuzucu-maskesi-2322-29468.png</Image4>
+      <Image3>resimler/garson-boy-yuzucu-maskesi-2322-29468.png</Image3>
+      <Image4>resimler/garson-boy-yuzucu-maskesi-2322-29467.png</Image4>
     </Images>
   </Product>
   <Product>
@@ -23777,8 +23777,8 @@
     <Price2>387.5</Price2>
     <Pricebayi>207</Pricebayi>
     <Images>
-      <Image1>resimler/526-r01-surtmeli-pervaneli-ucak-8-35258.jpg</Image1>
-      <Image2>resimler/526-r01-surtmeli-pervaneli-ucak-8-42675.jpeg</Image2>
+      <Image1>resimler/526-r01-surtmeli-pervaneli-ucak-8-42675.jpeg</Image1>
+      <Image2>resimler/526-r01-surtmeli-pervaneli-ucak-8-35258.jpg</Image2>
       <Image3>resimler/526-r01-surtmeli-pervaneli-ucak-8-42676.jpeg</Image3>
       <Image4>resimler/526-r01-surtmeli-pervaneli-ucak-8-35259.png</Image4>
       <Image5>resimler/526-r01-surtmeli-pervaneli-ucak-8-42677.jpeg</Image5>
@@ -32679,8 +32679,8 @@
     <Images>
       <Image1>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41451.jpeg</Image1>
       <Image2>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41472.jpeg</Image2>
-      <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image3>
-      <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image4>
+      <Image3>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41453.jpeg</Image3>
+      <Image4>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41473.jpeg</Image4>
       <Image5>resimler/711-55-surtmeli-is-makinalari-2-ast-8-41474.jpeg</Image5>
     </Images>
   </Product>
@@ -33121,10 +33121,10 @@
     <Price2>462.5</Price2>
     <Pricebayi>261</Pricebayi>
     <Images>
-      <Image1>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41893.jpeg</Image1>
-      <Image2>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-30220.png</Image2>
-      <Image3>resimler/777-2-c-b-yolcu-ucagi-isik-ses-12li-24049.png</Image3>
-      <Image4>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41894.jpeg</Image4>
+      <Image1>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-30220.png</Image1>
+      <Image2>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41893.jpeg</Image2>
+      <Image3>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41894.jpeg</Image3>
+      <Image4>resimler/777-2-c-b-yolcu-ucagi-isik-ses-12li-24049.png</Image4>
       <Image5>resimler/cek-birak-isikli-sesli-yolcu-ucak-15-cm-777-2-41895.jpeg</Image5>
     </Images>
   </Product>
@@ -44086,8 +44086,8 @@
     <Images>
       <Image1>resimler/cnr-51713-maske-set-pc-star-diving-37104.png</Image1>
       <Image2>resimler/cnr-51713-maske-set-pc-star-diving-37085.png</Image2>
-      <Image3>resimler/cnr-51713-maske-set-pc-star-diving-29195.png</Image3>
-      <Image4>resimler/cnr-51713-maske-set-pc-star-diving-29193.png</Image4>
+      <Image3>resimler/cnr-51713-maske-set-pc-star-diving-29193.png</Image3>
+      <Image4>resimler/cnr-51713-maske-set-pc-star-diving-29195.png</Image4>
       <Image5>resimler/cnr-51713-maske-set-pc-star-diving-29196.png</Image5>
       <Image6>resimler/cnr-51713-maske-set-pc-star-diving-29194.png</Image6>
     </Images>
@@ -44198,8 +44198,8 @@
       <Image1>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37075.png</Image1>
       <Image2>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35531.jpg</Image2>
       <Image3>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35533.jpg</Image3>
-      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image4>
-      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image5>
+      <Image4>resimler/cnr-51720-maske-set-tempered-terget-star-diving-35532.jpg</Image4>
+      <Image5>resimler/cnr-51720-maske-set-tempered-terget-star-diving-37076.png</Image5>
     </Images>
   </Product>
   <Product>
@@ -52224,8 +52224,8 @@
       <Image7>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22540.jpg</Image7>
       <Image8>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22541.jpg</Image8>
       <Image9>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22542.jpg</Image9>
-      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image10>
-      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image11>
+      <Image10>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22543.jpg</Image10>
+      <Image11>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22534.jpg</Image11>
       <Image12>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22544.jpg</Image12>
       <Image13>resimler/fy6208-12d-cek-birak-sesli-isikli-jeep-22545.jpg</Image13>
     </Images>
@@ -54350,8 +54350,8 @@
       <Image1>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13699.jpg</Image1>
       <Image2>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13701.jpg</Image2>
       <Image3>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13702.jpg</Image3>
-      <Image4>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13700.jpg</Image4>
-      <Image5>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13703.jpg</Image5>
+      <Image4>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13703.jpg</Image4>
+      <Image5>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13700.jpg</Image5>
       <Image6>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13704.jpg</Image6>
       <Image7>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13705.jpg</Image7>
       <Image8>resimler/barbie-dreamtopia-upuzun-sacli-bebek-gtf37-gtf38-13706.jpg</Image8>
@@ -55877,8 +55877,8 @@
     <Pricebayi>961.2</Pricebayi>
     <Images>
       <Image1>https://n11scdn.akamaized.net/a1/0/02/56/22/05/IMG-506843761324707795.jpg?imformat=generic</Image1>
-      <Image2>https://n11scdn.akamaized.net/a1/0/04/48/42/39/IMG-5858007616219949359.jpg?imformat=generic</Image2>
-      <Image3>https://n11scdn.akamaized.net/a1/0/07/02/90/62/IMG-429474295857925545.jpg?imformat=generic</Image3>
+      <Image2>https://n11scdn.akamaized.net/a1/0/07/02/90/62/IMG-429474295857925545.jpg?imformat=generic</Image2>
+      <Image3>https://n11scdn.akamaized.net/a1/0/04/48/42/39/IMG-5858007616219949359.jpg?imformat=generic</Image3>
       <Image4>https://n11scdn.akamaized.net/a1/0/03/44/55/19/IMG-3126098232065805236.jpg?imformat=generic</Image4>
       <Image5>https://n11scdn.akamaized.net/a1/0/01/92/62/36/IMG-3523590595667183114.jpg?imformat=generic</Image5>
     </Images>
@@ -57923,8 +57923,8 @@
     <Pricebayi>709.02</Pricebayi>
     <Images>
       <Image1>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21526.jpg</Image1>
-      <Image2>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21521.jpg</Image2>
-      <Image3>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21523.jpg</Image3>
+      <Image2>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21523.jpg</Image2>
+      <Image3>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21521.jpg</Image3>
       <Image4>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21524.jpg</Image4>
       <Image5>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21525.jpg</Image5>
       <Image6>resimler/hhx64-barbie-meditasyon-yapiyor-oyun-seti-3-21522.jpg</Image6>
@@ -69434,8 +69434,8 @@
     <Price2>581.25</Price2>
     <Pricebayi>346.5</Pricebayi>
     <Images>
-      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image1>
-      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image2>
+      <Image1>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41079.jpeg</Image1>
+      <Image2>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41082.jpeg</Image2>
       <Image3>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41080.jpeg</Image3>
       <Image4>resimler/pl62905-pelus-hayvan-figur-35-cm-4-ast-41081.jpeg</Image4>
     </Images>
@@ -76225,8 +76225,8 @@
     <Pricebayi>108</Pricebayi>
     <Images>
       <Image1>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37374.png</Image1>
-      <Image2>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37373.png</Image2>
-      <Image3>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37372.png</Image3>
+      <Image2>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37372.png</Image2>
+      <Image3>resimler/silikon-yuzucu-gozlugu-seffaf-tasima-cantali-kulaklik-hediye-rh7100-37373.png</Image3>
     </Images>
   </Product>
   <Product>
@@ -78353,10 +78353,10 @@
       <Image1>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41038.jpeg</Image1>
       <Image2>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41071.jpeg</Image2>
       <Image3>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41039.jpeg</Image3>
-      <Image4>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image4>
-      <Image5>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image5>
-      <Image6>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image6>
-      <Image7>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image7>
+      <Image4>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41040.jpeg</Image4>
+      <Image5>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41072.jpeg</Image5>
+      <Image6>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41073.jpeg</Image6>
+      <Image7>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41041.jpeg</Image7>
       <Image8>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41074.jpeg</Image8>
       <Image9>resimler/sly-1572-pelus-meyveler-28-cm-ejder-meyvesi-41042.jpeg</Image9>
       <Image10>resimler/pelus-meyveler-28-cm-ejder-meyvesi-41075.jpeg</Image10>
@@ -81962,8 +81962,8 @@
     <Price2>387.5</Price2>
     <Pricebayi>207</Pricebayi>
     <Images>
-      <Image1>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36674.png</Image1>
-      <Image2>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36673.jpg</Image2>
+      <Image1>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36673.jpg</Image1>
+      <Image2>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36674.png</Image2>
       <Image3>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36103.png</Image3>
       <Image4>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36675.jpg</Image4>
       <Image5>resimler/xf910-cry-baby-aksesuarli-figur-set-12-36676.jpg</Image5>
