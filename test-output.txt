@@ -1,0 +1,38 @@
+﻿=== DELETE PRODUCT SYNC TEST ===
+
+2026-02-21 11:28:44 [[32minfo[39m]: SQLite ba─şlant─▒s─▒ a├ğ─▒ld─▒: C:\Ana Entegra\db.s3db (readonly: true)
+Ô£ô SQLite ba─şlant─▒s─▒ a├ğ─▒ld─▒
+
+Senkronize edilmemi┼ş silinen ├╝r├╝n: 1886
+
+--- ├ûrnek delete_product kay─▒tlar─▒ (ilk 5) ---
+  id=90336 product_id=7425 supplier=gg productCode=N/A
+  id=90335 product_id=7420 supplier=gg productCode=N/A
+  id=90334 product_id=7419 supplier=gg productCode=N/A
+  id=90333 product_id=7418 supplier=gg productCode=N/A
+  id=90332 product_id=7417 supplier=gg productCode=N/A
+2026-02-21 11:28:44 [[32minfo[39m]: SQLite ba─şlant─▒s─▒ kapat─▒ld─▒
+2026-02-21 11:28:45 [[32minfo[39m] [db-connection]: PostgreSQL ba─şlant─▒s─▒ ba┼şar─▒l─▒
+
+Ô£ô PostgreSQL ba─şlant─▒s─▒ ba┼şar─▒l─▒
+entegra_product kay─▒t say─▒s─▒: 6244
+product_delete tablosu mevcut: false
+2026-02-21 11:28:45 [[32minfo[39m]: SQLite ba─şlant─▒s─▒ a├ğ─▒ld─▒: C:\Ana Entegra\db.s3db (readonly: true)
+
+--- Entegra_product e┼şle┼şme kontrol├╝ ---
+  productCode=T1461: Ô£ô BULUNDU
+  productCode=SD-128: Ô£ô BULUNDU
+  productCode=SD-128: Ô£ô BULUNDU
+  productCode=T1408: Ô£ô BULUNDU
+  productCode=T1408: Ô£ô BULUNDU
+  productCode=CNL-1911: Ô£ô BULUNDU
+  productCode=CNL-1911: Ô£ô BULUNDU
+  productCode=6632-40SM: Ô£ô BULUNDU
+  productCode=6632-40SM: Ô£ô BULUNDU
+  productCode=6632-40SM: Ô£ô BULUNDU
+
+10 kontrolden 10 tanesi entegra_product'ta mevcut
+2026-02-21 11:28:47 [[32minfo[39m]: SQLite ba─şlant─▒s─▒ kapat─▒ld─▒
+2026-02-21 11:28:47 [[32minfo[39m]: PostgreSQL ba─şlant─▒s─▒ kapat─▒ld─▒
+
+=== TEST TAMAMLANDI ===

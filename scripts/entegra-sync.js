@@ -429,6 +429,134 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
 }
 
 /**
+ * Silinen ürünleri entegra_product tablosundan temizle
+ * SQLite delete_product (sync=0) -> product tablosundan productCode bul -> PostgreSQL'den sil -> log
+ */
+async function syncDeletedProducts() {
+    logger.info(`\n${'='.repeat(60)}`);
+    logger.info('Silinen ürün senkronizasyonu başlıyor...');
+    logger.info(`${'='.repeat(60)}`);
+
+    try {
+        // 1. PostgreSQL'de entegra_product_delete tablosu yoksa oluştur
+        await pgService.query(`
+            CREATE TABLE IF NOT EXISTS entegra_product_delete (
+                id SERIAL PRIMARY KEY,
+                product_id INTEGER,
+                product_code TEXT,
+                supplier TEXT,
+                supplier_id TEXT,
+                deleted_at TIMESTAMP,
+                synced_at TIMESTAMP DEFAULT NOW()
+            )
+        `);
+
+        // 2. SQLite'dan sync=0 olan silinen ürünleri al (deleteCdnPicture hariç)
+        const deletedItems = sqliteService.query(
+            `SELECT * FROM delete_product WHERE sync = 0 AND supplier != 'deleteCdnPicture' ORDER BY id ASC`
+        );
+
+        if (deletedItems.length === 0) {
+            logger.info('Senkronize edilecek silinen ürün yok');
+            return { deleted: 0 };
+        }
+
+        logger.info(`${deletedItems.length} silinen ürün bulundu, işleniyor...`);
+
+        let deletedCount = 0;
+        let errorCount = 0;
+        let notFoundCount = 0;
+
+        for (const item of deletedItems) {
+            try {
+                // 3. product_id ile SQLite product tablosundan productCode bul
+                const product = sqliteService.queryOne(
+                    `SELECT id, productCode FROM product WHERE id = ?`,
+                    [item.product_id]
+                );
+
+                if (!product || !product.productCode) {
+                    // Ürün product tablosunda bulunamadı - yine de sync olarak işaretle
+                    logger.debug(`Product bulunamadı (product_id=${item.product_id}), atlanıyor`);
+                    sqliteService.run(
+                        `UPDATE delete_product SET sync = 1 WHERE id = ?`,
+                        [item.id]
+                    );
+                    notFoundCount++;
+                    continue;
+                }
+
+                const productCode = product.productCode;
+
+                // 4. PostgreSQL entegra_product tablosundan sil
+                const deleteResult = await pgService.query(
+                    `DELETE FROM entegra_product WHERE "productCode" = $1`,
+                    [productCode]
+                );
+
+                // 5. İlişkili tabloları da temizle
+                const relatedTables = [
+                    'entegra_product_prices',
+                    'entegra_product_quantity',
+                    'entegra_product_description',
+                    'entegra_product_info'
+                ];
+
+                for (const relTable of relatedTables) {
+                    try {
+                        // Bu tablolarda product_id ile eşleşen kayıtları sil
+                        await pgService.query(
+                            `DELETE FROM "${relTable}" WHERE product_id = $1`,
+                            [item.product_id]
+                        );
+                    } catch (relError) {
+                        // İlişkili tablo hatası ana işlemi durdurmasın
+                        logger.debug(`İlişkili tablo silme hatası (${relTable}): ${relError.message}`);
+                    }
+                }
+
+                // 6. PostgreSQL entegra_product_delete tablosuna log kaydı ekle
+                await pgService.query(
+                    `INSERT INTO entegra_product_delete (product_id, product_code, supplier, supplier_id, deleted_at)
+                     VALUES ($1, $2, $3, $4, $5)`,
+                    [item.product_id, productCode, item.supplier, item.supplier_id, item.date_add || new Date()]
+                );
+
+                // 7. SQLite delete_product tablosunda sync=1 olarak işaretle
+                sqliteService.run(
+                    `UPDATE delete_product SET sync = 1 WHERE id = ?`,
+                    [item.id]
+                );
+
+                deletedCount++;
+
+                if (deletedCount % 50 === 0) {
+                    logger.info(`  ${deletedCount}/${deletedItems.length} silinen ürün işlendi...`);
+                }
+
+            } catch (itemError) {
+                errorCount++;
+                logger.error(`Silinen ürün işleme hatası (id=${item.id}, product_id=${item.product_id}):`, itemError.message);
+                // Hata durumunda da sync=1 yap ki tekrar tekrar denemesin
+                try {
+                    sqliteService.run(
+                        `UPDATE delete_product SET sync = 1, error = 1 WHERE id = ?`,
+                        [item.id]
+                    );
+                } catch (e) { /* sessizce geç */ }
+            }
+        }
+
+        logger.info(`Silinen ürün senkronizasyonu tamamlandı: ${deletedCount} silindi, ${notFoundCount} bulunamadı, ${errorCount} hata`);
+        return { deleted: deletedCount, notFound: notFoundCount, errors: errorCount };
+
+    } catch (error) {
+        logger.error('Silinen ürün senkronizasyon hatası:', error);
+        return { error: error.message };
+    }
+}
+
+/**
  * Web'den SQLite'a invoice_print güncellemelerini yaz
  */
 async function syncInvoicePrintToSQLite() {
@@ -512,6 +640,10 @@ async function runSync(options = { disconnect: true }) {
         const invoicePrintResult = await syncInvoicePrintToSQLite();
         results['invoice_print_sync'] = invoicePrintResult;
 
+        // Silinen ürünleri entegra_product'dan temizle
+        const deleteProductResult = await syncDeletedProducts();
+        results['delete_product_sync'] = deleteProductResult;
+
         // Sync durumunu güncelle ve kaydet
         state.lastSyncDate = new Date().toISOString();
         if (isFirstSync) {
@@ -533,6 +665,8 @@ async function runSync(options = { disconnect: true }) {
                 logger.info(`  ${table}: ${result.success ? '✓' : '✗'} - ${result.count || 0} kayıt`);
             } else if (result.updated !== undefined) {
                 logger.info(`  ${table}: ${result.updated} güncelleme`);
+            } else if (result.deleted !== undefined) {
+                logger.info(`  ${table}: ${result.deleted} silindi`);
             }
         }
 
