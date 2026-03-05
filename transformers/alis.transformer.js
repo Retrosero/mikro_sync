@@ -132,13 +132,20 @@ class AlisTransformer {
                 cha_aciklama: chaAciklama.substring(0, 50),
                 cha_tpoz: chaTpoz,
                 cha_cari_cins: chaCariCins,
-                // İskontolar
-                cha_ft_iskonto1: webAlis.iskonto1 || webAlis.indirim_tutari || 0,
-                cha_ft_iskonto2: webAlis.iskonto2 || webAlis.indirim_tutari2 || 0,
-                cha_ft_iskonto3: webAlis.iskonto3 || webAlis.indirim_tutari3 || 0,
-                cha_ft_iskonto4: webAlis.iskonto4 || webAlis.indirim_tutari4 || 0,
-                cha_ft_iskonto5: webAlis.iskonto5 || webAlis.indirim_tutari5 || 0,
-                cha_ft_iskonto6: webAlis.iskonto6 || webAlis.indirim_tutari6 || 0,
+                // İskontolar (Dip toplamda görünmesi için)
+                // Kullanıcının yeni belirttiği sıra:
+                // 1. indirim_tutari / iskonto_orani
+                // 2. iskonto1
+                // 3. iskonto2
+                // 4. iskonto3
+                // 5. iskonto4
+                // 6. iskonto5
+                cha_ft_iskonto1: parseFloat(webAlis.indirim_tutari || webAlis.iskonto_orani || 0),
+                cha_ft_iskonto2: parseFloat(webAlis.iskonto1 || 0),
+                cha_ft_iskonto3: parseFloat(webAlis.iskonto2 || 0),
+                cha_ft_iskonto4: parseFloat(webAlis.iskonto3 || 0),
+                cha_ft_iskonto5: parseFloat(webAlis.iskonto4 || 0),
+                cha_ft_iskonto6: parseFloat(webAlis.iskonto5 || 0),
                 // Sabit Değerler (Trace Analizinden)
                 cha_evrak_tip: 0,  // Alış Faturası
                 cha_tip: 1,        // Alacak (Borç/Alacak mantığı: Biz borçlanıyoruz)
@@ -231,7 +238,9 @@ class AlisTransformer {
             return {
                 sth_stok_kod: stokKod,
                 sth_miktar: webKalem.miktar,
-                sth_tutar: webKalem.toplam_tutar,
+                // Mikro'da iskontoların fatura alt toplamında net bir şekilde tutar olarak görünmesi için:
+                // sth_tutar (satır tutarı) indirimsiz brüt ana tutar (miktar * birim_fiyat) olmalıdır.
+                sth_tutar: parseFloat(webKalem.miktar || 0) * parseFloat(webKalem.birim_fiyat || 0),
                 sth_vergi: webKalem.kdv_tutari || 0,
                 sth_vergi_pntr: 1,
                 sth_tarih: formatDateOnlyForMSSQL(islemTarihi),
@@ -240,12 +249,19 @@ class AlisTransformer {
                 sth_cikis_depo_no: 1,
                 sth_giris_depo_no: 1,
                 // İskontolar
-                sth_iskonto1: webKalem.iskonto1 || webKalem.indirim_tutari || 0,
-                sth_iskonto2: webKalem.iskonto2 || webKalem.indirim_tutari2 || 0,
-                sth_iskonto3: webKalem.iskonto3 || webKalem.indirim_tutari3 || 0,
-                sth_iskonto4: webKalem.iskonto4 || webKalem.indirim_tutari4 || 0,
-                sth_iskonto5: webKalem.iskonto5 || webKalem.indirim_tutari5 || 0,
-                sth_iskonto6: webKalem.iskonto6 || webKalem.indirim_tutari6 || 0,
+                // Kullanıcının yeni belirttiği sıraya göre:
+                // 1. iskonto_orani -> sth_iskonto1
+                // 2. iskonto1 -> sth_iskonto2
+                // 3. iskonto2 -> sth_iskonto3
+                // 4. iskonto3 -> sth_iskonto4
+                // 5. iskonto4 -> sth_iskonto5
+                // 6. iskonto5 -> sth_iskonto6
+                sth_iskonto1: parseFloat(webKalem.iskonto_orani || webKalem.indirim_tutari || 0),
+                sth_iskonto2: parseFloat(webKalem.iskonto1 || 0),
+                sth_iskonto3: parseFloat(webKalem.iskonto2 || 0),
+                sth_iskonto4: parseFloat(webKalem.iskonto3 || 0),
+                sth_iskonto5: parseFloat(webKalem.iskonto4 || 0),
+                sth_iskonto6: parseFloat(webKalem.iskonto5 || 0),
                 // Sabit Değerler
                 sth_tip: 0,
                 sth_cins: 0,

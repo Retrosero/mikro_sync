@@ -274,6 +274,23 @@ class SyncQueueWorker {
                 // Şimdilik skip ediyoruz - sadece completed olarak işaretliyoruz
                 logger.info(`cari_hesap_hareketleri senkronizasyonu atlandı (ERP'ye yazma henüz uygulanmadı): ${item.entity_id}`);
 
+            } else if (item.entity_type === 'reyon_tanimlari') {
+                // Reyon verilerini çek
+                const reyon = await pgService.query(
+                    `SELECT * FROM reyon_tanimlari WHERE id = $1`,
+                    [item.entity_id]
+                );
+
+                if (reyon.length === 0) {
+                    throw new Error(`Reyon bulunamadı: ${item.entity_id}`);
+                }
+
+                entityData = reyon[0];
+
+                // Processor'a gönder
+                const reyonProcessor = require('../sync-jobs/reyon.processor');
+                await reyonProcessor.syncToERP(entityData);
+
             } else if (item.entity_type === 'entegra_product') {
                 // Web'den ürün güncelleme - SQLite'daki product tablosuna yaz
                 const queueRecord = await pgService.query(

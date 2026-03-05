@@ -1,34 +1,11 @@
-const sqlite = require('../services/sqlite.service');
+const Database = require('better-sqlite3');
+const dbPath = 'C:\\Ana Entegra\\db.s3db';
+const db = new Database(dbPath, { readonly: true });
 
-(async () => {
-    try {
-        console.log('Checking order table schema in SQLite...');
-        const schema = sqlite.getTableSchema('order');
-        if (schema && schema.length > 0) {
-            console.log('Schema found:', schema.map(c => `${c.name} (${c.type})`).join(', '));
+const res = db.prepare("SELECT max(id) as max_id FROM 'order'").get();
+console.log('SQLite Max Order ID:', res.max_id);
 
-            // Query a count to verify table access
-            try {
-                // Testing quote handling
-                const count = sqlite.queryOne("SELECT COUNT(*) as c FROM 'order'");
-                console.log('Row count (with quotes):', count);
-            } catch (e) {
-                console.error('Query with quotes failed:', e.message);
-            }
+const counts = db.prepare("SELECT count(*) as cnt FROM 'order' WHERE date_add >= '2026-03-03 00:00:00'").get();
+console.log('Today/Yesterday Orders in SQLite:', counts.cnt);
 
-            try {
-                // Testing double quote handling
-                const count = sqlite.queryOne('SELECT COUNT(*) as c FROM "order"');
-                console.log('Row count (with double quotes):', count);
-            } catch (e) {
-                console.error('Query with double quotes failed:', e.message);
-            }
-        } else {
-            console.error('Table "order" not found or empty schema.');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    } finally {
-        sqlite.disconnect();
-    }
-})();
+db.close();

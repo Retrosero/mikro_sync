@@ -356,6 +356,7 @@ class StokProcessor {
           sto_yabanci_isim = @yabanciIsim,
           sto_ambalaj_kodu = @ambalaj,
           sto_reyon_kodu = @rafKodu,
+          sto_yer_kod = @rafKodu,
           sto_sektor_kodu = @olcu,
           sto_birim1_ad = @birimTuru
         WHERE sto_RECno = @stoRecno`,
@@ -646,7 +647,7 @@ class StokProcessor {
         sto_perakende_vergi, sto_toptan_vergi,
         sto_satis_dursun, sto_siparis_dursun, sto_malkabul_dursun,
         sto_iskon_yapilamaz, sto_tasfiyede,
-        sto_sektor_kodu, sto_reyon_kodu, sto_ambalaj_kodu,
+        sto_sektor_kodu, sto_reyon_kodu, sto_yer_kod, sto_ambalaj_kodu,
         sto_webe_gonderilecek_fl
       ) VALUES (
         0, 0, 0, 0, 13,
@@ -673,7 +674,7 @@ class StokProcessor {
         4, 4,
         0, 0, 0,
         0, 0,
-        @olcu, @rafKodu, @ambalaj,
+        @olcu, @rafKodu, @rafKodu, @ambalaj,
         0
       );
       SELECT SCOPE_IDENTITY() AS sto_RECno;

@@ -43,7 +43,7 @@ async function syncCategories() {
             const { san_kod, san_isim } = grup;
 
             // Mevcut kaydı kontrol et
-            const existing = await pgService.query('SELECT id FROM kategoriler WHERE erp_id = $1', [san_kod]);
+            const existing = await pgService.query('SELECT id FROM kategoriler WHERE erp_id = $1::text', [san_kod]);
 
             let webId;
             if (existing.length > 0) {
@@ -55,21 +55,21 @@ async function syncCategories() {
                         guncelleme_tarihi = NOW(),
                         is_erp_category = true,
                         path = ARRAY[$2::text]
-                     WHERE id = $2`,
+                     WHERE id = $2::uuid`,
                     [san_isim, webId]
                 );
             } else {
                 // Ekle
                 const result = await pgService.query(
                     `INSERT INTO kategoriler (kategori_adi, is_erp_category, erp_id, level, parent_id) 
-                     VALUES ($1, true, $2, 0, NULL) RETURNING id`,
+                     VALUES ($1, true, $2::text, 0, NULL) RETURNING id`,
                     [san_isim, san_kod]
                 );
                 webId = result[0].id;
 
                 // Path güncelle
                 await pgService.query(
-                    `UPDATE kategoriler SET path = ARRAY[$1::text] WHERE id = $1`,
+                    `UPDATE kategoriler SET path = ARRAY[$1::text] WHERE id = $1::uuid`,
                     [webId]
                 );
             }
@@ -88,7 +88,7 @@ async function syncCategories() {
             }
 
             // Mevcut kaydı kontrol et
-            const existing = await pgService.query('SELECT id FROM kategoriler WHERE erp_id = $1', [sta_kod]);
+            const existing = await pgService.query('SELECT id FROM kategoriler WHERE erp_id = $1::text', [sta_kod]);
 
             if (existing.length > 0) {
                 // Güncelle
@@ -96,26 +96,26 @@ async function syncCategories() {
                 await pgService.query(
                     `UPDATE kategoriler SET 
                         kategori_adi = $1, 
-                        parent_id = $2,
+                        parent_id = $2::uuid,
                         guncelleme_tarihi = NOW(),
                         is_erp_category = true,
                         level = 1,
                         path = ARRAY[$2::text, $3::text]
-                     WHERE id = $3`,
+                     WHERE id = $3::uuid`,
                     [sta_isim, parentId, webId]
                 );
             } else {
                 // Ekle
                 const result = await pgService.query(
                     `INSERT INTO kategoriler (kategori_adi, is_erp_category, erp_id, level, parent_id) 
-                     VALUES ($1, true, $2, 1, $3) RETURNING id`,
+                     VALUES ($1, true, $2::text, 1, $3::uuid) RETURNING id`,
                     [sta_isim, sta_kod, parentId]
                 );
                 const webId = result[0].id;
 
                 // Path güncelle
                 await pgService.query(
-                    `UPDATE kategoriler SET path = ARRAY[$1::text, $2::text] WHERE id = $2`,
+                    `UPDATE kategoriler SET path = ARRAY[$1::text, $2::text] WHERE id = $2::uuid`,
                     [parentId, webId]
                 );
             }

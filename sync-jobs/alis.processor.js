@@ -37,6 +37,42 @@ class AlisProcessor {
             // Asorti ürünleri grupla
             const kalemler = await this.groupAsortiKalemler(rawKalemler);
 
+            // *** YENİ ÜRÜNLERİ ERP'YE AKTAR ***
+            const stokProcessor = require('./stok.processor');
+            for (const kalem of kalemler) {
+                if (kalem.stok_id) {
+                    const stokCheck = await pgService.query('SELECT * FROM stoklar WHERE id = $1', [kalem.stok_id]);
+                    if (stokCheck.length > 0) {
+                        const webStok = stokCheck[0];
+                        try {
+                            // Check if this stok_kodu exists in ERP
+                            const erpCheck = await mssqlService.query(
+                                'SELECT sto_RECno FROM STOKLAR WHERE sto_kod = @stokKod',
+                                { stokKod: webStok.stok_kodu }
+                            );
+                            if (erpCheck.length === 0) {
+                                logger.info(`Alışta yeni ürün tespit edildi, ERP'ye aktarılıyor: ${webStok.stok_kodu}`);
+                                await stokProcessor.syncToERP(webStok);
+
+                                // Mapping tablosuna da kaydet (stok.transformer vb. yapmıyorsa)
+                                await pgService.query(`
+                                    INSERT INTO int_kodmap_stok (web_stok_id, erp_stok_kod) 
+                                    VALUES ($1, $2) ON CONFLICT (web_stok_id) DO NOTHING
+                                `, [webStok.id, webStok.stok_kodu]);
+
+                                // Cache tazeleyelim
+                                const lookupTables = require('../mappings/lookup-tables');
+                                await lookupTables.refreshCache();
+                            }
+                        } catch (err) {
+                            logger.error(`Yeni ürün ERP ye aktarılamadı (Stok ID: ${kalem.stok_id}): ${err.message}`);
+                        }
+                    }
+                } else {
+                    throw new Error(`Stok ID bulunamayan kalem var. Satır No: ${kalem.sira_no || 0}`);
+                }
+            }
+
             // Transaction başlat
             let evrakSeri, evrakNo, chaRecno;
 
@@ -180,12 +216,12 @@ class AlisProcessor {
         request.input('cha_ft_masraf2', 0);
         request.input('cha_ft_masraf3', 0);
         request.input('cha_ft_masraf4', 0);
-        request.input('cha_isk_mas1', 0);
-        request.input('cha_isk_mas2', 0);
-        request.input('cha_isk_mas3', 0);
-        request.input('cha_isk_mas4', 0);
-        request.input('cha_isk_mas5', 0);
-        request.input('cha_isk_mas6', 0);
+        request.input('cha_isk_mas1', 1);
+        request.input('cha_isk_mas2', 1);
+        request.input('cha_isk_mas3', 1);
+        request.input('cha_isk_mas4', 1);
+        request.input('cha_isk_mas5', 1);
+        request.input('cha_isk_mas6', 1);
         request.input('cha_isk_mas7', 0);
         request.input('cha_isk_mas8', 0);
         request.input('cha_isk_mas9', 0);
@@ -318,8 +354,9 @@ class AlisProcessor {
         request.input('sth_stok_doviz_cinsi', 0);
         request.input('sth_stok_doviz_kuru', 1);
 
-        // İskonto masraf alanları - Kullanıcı isteği: sth_isk_mas1=0, diğerleri=1
-        request.input('sth_isk_mas1', 0);
+        // İskonto masraf alanları - 1: Tutar, 0: Oran. 
+        // Kullanıcı "dip toplamda iskonto görmek istiyorum" dediği için tutar bazlı gönderiyoruz.
+        request.input('sth_isk_mas1', 1);
         request.input('sth_isk_mas2', 1);
         request.input('sth_isk_mas3', 1);
         request.input('sth_isk_mas4', 1);
