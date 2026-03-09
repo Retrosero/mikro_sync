@@ -44,21 +44,21 @@ const SYNC_STATE_FILE = path.join(__dirname, '../sync-state-entegra.json');
 
 // Tarih alanı eşlemeleri (hangi tabloda hangi tarih alanı kullanılacak)
 const DATE_FIELD_MAPPING = {
-    'order': 'id',
+    'order': 'date_change',
     'order_product': 'order_id',
     'messages': 'id',
     'product': 'date_change',
-    'product_info': 'id',
-    'product_quantity': 'id',
-    'product_prices': 'id',
-    'pictures': 'id',
-    'order_status': null, // Tüm veri her zaman senkronize edilir (az kayıt)
+    'product_info': 'dt',
+    'product_quantity': null, // Tüm tablo senkronize edilecek (küçük tablo)
+    'product_prices': null,   // Tüm tablo senkronize edilecek (küçük tablo)
+    'pictures': null,         // Tüm tablo senkronize edilecek (küçük tablo)
+    'order_status': null,
     'message_template': null,
     'customer': 'id',
     'brand': null,
     'category': null,
     'category2': null,
-    'product_description': 'id'
+    'product_description': null // Tüm tablo senkronize edilecek (küçük tablo)
 };
 
 /**
@@ -319,16 +319,16 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
             // Hedef tablo boş - tüm veriyi aktar
             logger.info('Hedef tablo boş, TÜM VERİ aktarılacak');
             query = `SELECT * FROM '${sourceTable}'`;
-        } else if (['order', 'order_product', 'messages', 'customer'].includes(sourceTable)) {
+        } else if (['order_product', 'messages', 'customer'].includes(sourceTable)) {
             // Kullanıcı isteği: Tablo doluysa son id/order_id'yi kontrol et ve sadece yenileri al
             const idField = sourceTable === 'order_product' ? 'order_id' : 'id';
             const result = await pgService.queryOne(`SELECT MAX("${idField}") as max_id FROM "${targetTable}"`);
             const maxId = result ? (result.max_id || 0) : 0;
             logger.info(`Hedef tablodaki son ${idField}: ${maxId}. Yeni kayıtlar aktarılacak.`);
             query = `SELECT * FROM '${sourceTable}' WHERE "${idField}" > ${maxId}`;
-        } else if (sourceTable === 'product') {
-            // Kullanıcı isteği: date_change alanını kontrol et ve sadece güncel verileri aktar
-            const result = await pgService.queryOne(`SELECT MAX("date_change") as max_date FROM "${targetTable}"`);
+        } else if (sourceTable === 'product' || sourceTable === 'order' || sourceTable === 'product_info') {
+            // Kullanıcı isteği: date_change/dt alanını kontrol et ve sadece güncel verileri aktar
+            const result = await pgService.queryOne(`SELECT MAX("${dateField}") as max_date FROM "${targetTable}"`);
             let maxDate = result?.max_date;
 
             if (maxDate) {
@@ -336,15 +336,27 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
                 if (maxDate instanceof Date) {
                     maxDate = maxDate.toISOString().replace('T', ' ').substring(0, 19);
                 }
-                logger.info(`Hedef tablodaki son date_change: ${maxDate}. Güncel kayıtlar aktarılacak.`);
-                query = `SELECT * FROM '${sourceTable}' WHERE "date_change" > '${maxDate}'`;
+                logger.info(`Hedef tablodaki son ${dateField}: ${maxDate}. Güncel kayıtlar aktarılacak.`);
+
+                // order tablosu için date_change null olanlar datetime'a göre de alınabilir ama date_change en iyisi
+                query = `SELECT * FROM '${sourceTable}' WHERE "${dateField}" > '${maxDate}' OR "${dateField}" IS NULL`;
+
+                // Eğer çok fazla NULL varsa performansı etkileyebilir, 
+                // bu yüzden dateField NULL olanları sadece id windowing ile de koruyabiliriz.
+                // Ama Order status update'leri genellikle date_change doldurur.
+                if (sourceTable === 'order') {
+                    // Siparişlerde hem yeni ID'ler hem de değişen tarihler önemli
+                    const resId = await pgService.queryOne(`SELECT MAX(id) as max_id FROM "${targetTable}"`);
+                    const maxId = resId?.max_id || 0;
+                    query = `SELECT * FROM '${sourceTable}' WHERE "${dateField}" > '${maxDate}' OR id > ${maxId}`;
+                }
             } else {
-                logger.info('Hedef tabloda date_change verisi yok, TÜM VERİ aktarılacak.');
+                logger.info(`Hedef tabloda ${dateField} verisi yok, TÜM VERİ aktarılacak.`);
                 query = `SELECT * FROM '${sourceTable}'`;
             }
         } else if (dateField === null) {
-            // Tarih alanı yok ve az kayıtlı tablo - tümünü senkronize et
-            logger.info('Referans tablosu, TÜM VERİ aktarılacak');
+            // Tarih alanı yok ve/veya tümünün senkronize edilmesi isteniyor
+            logger.info('TÜM VERİ aktarılacak (Tam Senkronizasyon)');
             query = `SELECT * FROM '${sourceTable}'`;
         } else if (dateField === 'id') {
             // Tarih alanı yok, ID üzerinden son kayıtları al
@@ -610,6 +622,68 @@ async function syncInvoicePrintToSQLite() {
 }
 
 /**
+ * SQLite'dan iptal edilen siparişleri (status = 9) PostgreSQL'e senkronize et
+ */
+async function syncCancelledOrders() {
+    logger.info(`\n${'='.repeat(60)}`);
+    logger.info('İptal edilen siparişlerin (status=9) kontrolü başlıyor...');
+    logger.info(`${'='.repeat(60)}`);
+
+    try {
+        // Son 2 ayın iptal edilmiş siparişlerini alıyoruz (Tüm DB'yi taramamak için)
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+        const dateStr = twoMonthsAgo.toISOString().split('T')[0];
+
+        // SQLite'dan status=9 olanları al
+        const cancelledOrders = sqliteService.query(
+            `SELECT id, status FROM 'order' WHERE status = '9' AND date_add >= ?`,
+            [dateStr]
+        );
+
+        if (cancelledOrders.length === 0) {
+            logger.info('Senkronize edilecek yeni iptal sipariş yok.');
+            return { updated: 0 };
+        }
+
+        logger.info(`SQLite'da iptal statüsünde (9) olan ${cancelledOrders.length} sipariş bulundu.`);
+
+        let updatedCount = 0;
+
+        // PostgreSQL'deki durumlarını kontrol edip güncelle
+        for (const order of cancelledOrders) {
+            // Web'deki siparişi kontrol et
+            const webOrderResult = await pgService.query(
+                `SELECT id, status FROM "entegra_order" WHERE id = $1`,
+                [order.id]
+            );
+
+            if (webOrderResult.length > 0) {
+                const webOrder = webOrderResult[0];
+                if (webOrder.status !== '9') {
+                    // Web'deki sipariş iptal edilmemişse iptal et
+                    await pgService.query(
+                        `UPDATE "entegra_order" SET status = '9' WHERE id = $1`,
+                        [order.id]
+                    );
+                    updatedCount++;
+                    logger.info(`Order #${order.id} durumu web'de güncellendi: ${webOrder.status} -> 9 (İptal)`);
+                }
+            } else {
+                logger.debug(`Order #${order.id} web'de bulunamadı, status güncellemesi atlanıyor.`);
+            }
+        }
+
+        logger.info(`Toplam ${updatedCount} iptal edilmiş sipariş web'e senkronize edildi.`);
+        return { updated: updatedCount };
+
+    } catch (error) {
+        logger.error('İptal sipariş senkronizasyon hatası:', error);
+        return { error: error.message };
+    }
+}
+
+/**
  * Ana senkronizasyon fonksiyonu
  */
 async function runSync(options = { disconnect: true }) {
@@ -639,6 +713,10 @@ async function runSync(options = { disconnect: true }) {
         // invoice_print güncellemelerini yaz
         const invoicePrintResult = await syncInvoicePrintToSQLite();
         results['invoice_print_sync'] = invoicePrintResult;
+
+        // İptal edilen siparişleri (status=9) web'e yansıt
+        const cancelledOrdersResult = await syncCancelledOrders();
+        results['cancelled_orders_sync'] = cancelledOrdersResult;
 
         // Silinen ürünleri entegra_product'dan temizle
         const deleteProductResult = await syncDeletedProducts();

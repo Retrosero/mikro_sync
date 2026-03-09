@@ -1,0 +1,15 @@
+--- product_prices ---
+id, product_id, product_option_value_id, store_id, supplier, price1, price2, price3, price4, price5, price6, price7, price8, n11_price, n11_discountValue, gg_marketPrice, gg_buyNowPrice, hb_price, trendyol_listPrice, trendyol_salePrice, eptt_price, eptt_iskonto, n11pro_price, n11pro_discountValue, amazon_price, amazon_salePrice, mizu_price1, mizu_price2, zebramo_listPrice, zebramo_salePrice, farmazon_price, farmazon_market_price, farmaBorsaPrice, farmaborsa_psPrice, morhipo_listPrice, morhipo_salePrice, lidyana_listPrice, lidyana_salePrice, pazarama_listPrice, pazarama_salePrice, vfmall_listPrice, vfmall_salePrice, aliniyor_listPrice, aliniyor_salePrice, aliexpress_price, aliexpress_salePrice, modanisa_listPrice, modanisa_salePrice, bpazar_price1, bpazar_price2, flo_listPrice, flo_salePrice, novadan_price, needion_listPrice, needion_salePrice, bisifirat_listPrice, bisifirat_salePrice, iyifiyat_listPrice, iyifiyat_salePrice, turkcellpasaj_listPrice, turkcellpasaj_salePrice, narwoo_price, narwoo_salePrice, joom_price, joom_msrPrice, nevade_listPrice, nevade_salePrice, yapisepeti_listPrice, yapisepeti_salePrice, op1001_listPrice, op1001_salePrice, etsy_price, wish_price, omnitron_price1, omnitron_price2, zoodmall_price, buying_price, sync_ai, old_kdv, new_kdv, auto_change_enable, auto_change, idefix_liste_fiyati, idefix_satis_fiyati, goturc_sale_price, goturc_list_price
+
+--- product_quantity ---
+id, product_id, product_option_value_id, store_id, supplier, quantity, quantity2, sync_ai
+
+--- product_description ---
+id, product_id, description, eanshare_description, eticaret_id, description1, description2, description3, description4, description5, sync_ai
+
+--- pictures ---
+id, product_id, path, default, sync, path2, filesize, supplier, supplier_id, supplier_code, url, downloaded, option_id, option_value_id, group_code, eticaret_id, eticaret_sync, sort_order, zebramo_picture_id, flag, eticaret_varyant_id, sort_order_pov, needion_id, etsy_id, bisifirat_id, filemd5, sync_ai
+
+--- product_info ---
+id, mainId, productMainCode, productCode, main, productName, quantity, currencyType, listPrice, salePrice, barcode, catalogId, category, status, supplier, check, dt, product_id
+

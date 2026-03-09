@@ -73,7 +73,6 @@ class SyncQueueWorker {
             'entegra_order',
             'entegra_order_status',
             'entegra_order_product',
-            'entegra_pictures',
             'entegra_product_quantity',
             'entegra_product_prices',
             'entegra_product_info',
@@ -588,6 +587,83 @@ class SyncQueueWorker {
                         } else {
                             logger.warn(`⚠ SQLite product tablosunda ürün bulunamadı: ProductID=${productId}`);
                         }
+                    }
+                } finally {
+                    sqliteService.disconnect();
+                }
+
+                entityData = recordData;
+
+            } else if (item.entity_type === 'entegra_pictures') {
+                // Web'den gelen resim güncelleme - SQLite'daki pictures tablosuna yaz
+                const queueRecord = await pgService.query(
+                    `SELECT record_data FROM sync_queue WHERE id = $1`,
+                    [item.id]
+                );
+
+                if (queueRecord.length === 0 || !queueRecord[0].record_data) {
+                    throw new Error(`entegra_pictures için record_data bulunamadı: ${item.id}`);
+                }
+
+                const recordData = queueRecord[0].record_data;
+                const pictureId = recordData.id;
+                const productId = recordData.product_id;
+
+                if (!pictureId || !productId) {
+                    throw new Error(`entegra_pictures için geçersiz veri: PictureID=${pictureId}, ProductID=${productId}`);
+                }
+
+                const picturesTable = 'pictures';
+
+                // SQLite bağlantısını aç (yazma modu)
+                sqliteService.connect(false);
+
+                try {
+                    // pictures tablosunda bu id var mı kontrol et
+                    const existingRecord = sqliteService.queryOne(
+                        `SELECT id FROM ${picturesTable} WHERE id = ?`,
+                        [pictureId]
+                    );
+
+                    // SQLite için recordData'dan kolonları ayıkla
+                    const fieldNames = [
+                        'product_id', 'path', 'default', 'sync', 'path2', 'filesize',
+                        'supplier', 'supplier_id', 'supplier_code', 'url', 'downloaded',
+                        'option_id', 'option_value_id', 'group_code', 'eticaret_id',
+                        'eticaret_sync', 'sort_order', 'zebramo_picture_id', 'flag',
+                        'eticaret_varyant_id', 'sort_order_pov', 'needion_id', 'etsy_id',
+                        'bisifirat_id', 'filemd5'
+                    ];
+
+                    const columns = [];
+                    const values = [];
+
+                    fieldNames.forEach(field => {
+                        if (recordData.hasOwnProperty(field)) {
+                            columns.push(field);
+                            values.push(recordData[field]);
+                        }
+                    });
+
+                    // sync_ai alanını her durumda 1 yapalım (sync edildiğini belirtmek için)
+                    columns.push('sync_ai');
+                    values.push(1);
+
+                    if (existingRecord) {
+                        // UPDATE
+                        const setClause = columns.map(col => `${col} = ?`).join(', ');
+                        values.push(pictureId);
+                        const query = `UPDATE ${picturesTable} SET ${setClause} WHERE id = ?`;
+                        sqliteService.run(query, values);
+                        logger.info(`✓ SQLite pictures güncellendi: ID=${pictureId}, ProductID=${productId}`);
+                    } else {
+                        // INSERT
+                        columns.push('id');
+                        values.push(pictureId);
+                        const placeholders = columns.map(() => '?').join(', ');
+                        const query = `INSERT INTO ${picturesTable} (${columns.join(', ')}) VALUES (${placeholders})`;
+                        sqliteService.run(query, values);
+                        logger.info(`✓ SQLite pictures eklendi: ID=${pictureId}, ProductID=${productId}`);
                     }
                 } finally {
                     sqliteService.disconnect();
