@@ -870,7 +870,12 @@ class StokProcessor {
       for (let i = 0; i < uniqueImages.length; i++) {
         const isDefault = i === 0 ? 1 : 0;
         const sortOrder = i;
-        const originalPath = uniqueImages[i];
+        let originalPath = uniqueImages[i];
+
+        // Başlangıçtaki "/" karakterini kaldır
+        if (originalPath.startsWith('/')) {
+          originalPath = originalPath.substring(1);
+        }
 
         // Reformat /images/ to /resimler/
         let newPath = originalPath;

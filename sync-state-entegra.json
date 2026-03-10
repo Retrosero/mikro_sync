@@ -1,5 +1,5 @@
 {
-  "lastSyncDate": "2026-03-10T10:39:20.149Z",
+  "lastSyncDate": "2026-03-10T11:03:08.248Z",
   "lastFullSyncDate": "2026-03-09T21:03:41.961Z",
   "tables": {
     "pictures": {
@@ -24,7 +24,7 @@
       "lastId": 9676
     },
     "customer": {
-      "lastId": 62658
+      "lastId": 62659
     },
     "product_description": {
       "lastId": 20191

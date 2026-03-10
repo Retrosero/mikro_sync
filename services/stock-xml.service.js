@@ -128,8 +128,13 @@ class StockXMLService {
             const rows = await pgService.query(query);
 
             rows.forEach(row => {
-                const img = row.url || row.path;
+                let img = row.url || row.path;
                 if (!img) return;
+
+                // Başlangıçtaki "/" karakterini kaldır
+                if (img.startsWith('/')) {
+                    img = img.substring(1);
+                }
 
                 if (!photoMap.has(row.productCode)) {
                     photoMap.set(row.productCode, []);
