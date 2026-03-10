@@ -845,14 +845,20 @@ class StokProcessor {
           }
 
           const client = url.startsWith('https') ? https : http;
-          client.get(url, (response) => {
-            if (response.statusCode === 200) {
+          const options = url.startsWith('https') ? { rejectUnauthorized: false } : {};
+
+          client.get(url, options, (response) => {
+            // Handle redirects if needed, but for now just check 200
+            if (response.statusCode === 200 || response.statusCode === 201) {
               const file = fs.createWriteStream(targetPath);
               response.pipe(file);
               file.on('finish', () => {
                 file.close();
                 resolve();
               });
+            } else if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+              const redirectUrl = new URL(response.headers.location, url).href;
+              downloadImage(redirectUrl, targetPath).then(resolve).catch(reject);
             } else {
               reject(new Error(`Status Code: ${response.statusCode}`));
             }
@@ -864,7 +870,7 @@ class StokProcessor {
       };
 
       // Base URL for downloading images
-      const baseUrl = process.env.WEB_URL || 'https://gurbuzoyuncak.com';
+      const baseUrl = process.env.WEB_URL || 'https://api.appsgo.cloud';
 
       // Insert new images
       for (let i = 0; i < uniqueImages.length; i++) {
@@ -892,20 +898,20 @@ class StokProcessor {
 
         // Download logic
         try {
-          // Construct the actual download URL based on the original path from web payload
+          // Construct the actual download URL
           let downloadUrl = originalPath;
           if (!downloadUrl.startsWith('http')) {
-            // Ensure correct slash
             const prefix = downloadUrl.startsWith('/') ? '' : '/';
             downloadUrl = `${baseUrl}${prefix}${downloadUrl}`;
           }
 
-          // Generate file name from the new path
           const fileName = pathModule.basename(newPath);
           const targetPath1 = pathModule.join(dir1, fileName);
           const targetPath2 = pathModule.join(dir2, fileName);
 
+          logger.info(`Resim indiriliyor: ${downloadUrl}`);
           await downloadImage(downloadUrl, targetPath1);
+          logger.info(`✓ Resim indirildi: ${fileName}`);
 
           // Copy to resimler2 once downloaded to resimler
           if (fs.existsSync(targetPath1) && !fs.existsSync(targetPath2)) {
@@ -913,7 +919,7 @@ class StokProcessor {
           }
 
         } catch (downloadError) {
-          logger.debug(`Resim indirme hatası (${originalPath}):`, downloadError.message);
+          logger.error(`! Resim indirme hatası (${originalPath}):`, downloadError.message);
         }
       }
 
