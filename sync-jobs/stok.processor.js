@@ -379,6 +379,8 @@ class StokProcessor {
       await this.updateEntegraQuantity(webStok);
       // Entegra SQLite product_description tablosunu güncelle
       await this.updateEntegraDescription(webStok);
+      // Entegra SQLite pictures tablosunu güncelle
+      await this.updateEntegraPictures(webStok);
 
       // Fiyat işlemi else'den sonra da çalışsın (yeni ve güncelleme için)
       if (webStok.satis_fiyati !== undefined && webStok.satis_fiyati !== null) {
@@ -746,6 +748,175 @@ class StokProcessor {
     } catch (error) {
       // Entegra güncellemesi ana işlemi durdurmasın
       logger.debug(`Entegra SQLite miktar güncelleme hatası (${webStok.stok_kodu}):`, error.message);
+    }
+  }
+
+  /**
+   * Entegra SQLite pictures tablosunu stok resimleriyle günceller
+   * @param {Object} webStok - Web stok kaydı
+   */
+  async updateEntegraPictures(webStok) {
+    try {
+      // Collect image URLs
+      const images = [];
+
+      // Check main image and resim_url_X fields
+      if (webStok.resim_url) images.push(webStok.resim_url);
+      if (webStok.resim_url_2) images.push(webStok.resim_url_2);
+      if (webStok.resim_url_3) images.push(webStok.resim_url_3);
+      if (webStok.resim_url_4) images.push(webStok.resim_url_4);
+      if (webStok.resim_url_5) images.push(webStok.resim_url_5);
+      if (webStok.resim_url_6) images.push(webStok.resim_url_6);
+      if (webStok.resim_url_7) images.push(webStok.resim_url_7);
+      if (webStok.resim_url_8) images.push(webStok.resim_url_8);
+      if (webStok.resim_url_9) images.push(webStok.resim_url_9);
+      if (webStok.resim_url_10) images.push(webStok.resim_url_10);
+
+      // Process ek_resimler array if exists and is array or parseable string
+      if (webStok.ek_resimler) {
+        let extraImages = [];
+        if (typeof webStok.ek_resimler === 'string') {
+          try {
+            extraImages = JSON.parse(webStok.ek_resimler);
+          } catch (e) {
+            logger.debug(`Ek resimler parçalanamadı (${webStok.stok_kodu}):`, webStok.ek_resimler);
+          }
+        } else if (Array.isArray(webStok.ek_resimler)) {
+          extraImages = webStok.ek_resimler;
+        }
+
+        if (Array.isArray(extraImages)) {
+          extraImages.forEach((img) => {
+            if (img && typeof img === 'string') images.push(img);
+            else if (img && img.resim_url) images.push(img.resim_url);
+            else if (img && img.path) images.push(img.path);
+          });
+        }
+      }
+
+      // Clean and deduplicate images
+      const uniqueImages = [...new Set(images.filter((img) => img && typeof img === 'string' && img.trim() !== ''))];
+
+      if (uniqueImages.length === 0) {
+        return; // No images to sync
+      }
+
+      const sqliteService = require('../services/sqlite.service');
+
+      // Find product_id in sqlite by stock code
+      sqliteService.connect(false);
+
+      const product = sqliteService.queryOne(
+        `SELECT id FROM product WHERE productCode = ?`,
+        [webStok.stok_kodu]
+      );
+
+      if (!product) {
+        logger.debug(`Resim senkronizasyonu için SQLite product bulunamadı: ${webStok.stok_kodu}`);
+        sqliteService.disconnect();
+        return;
+      }
+
+      const productId = product.id;
+
+      // Delete existing pictures for this product to replace with new ones
+      sqliteService.run(
+        `DELETE FROM pictures WHERE product_id = ?`,
+        [productId]
+      );
+
+      const fs = require('fs');
+      const https = require('https');
+      const http = require('http');
+      const pathModule = require('path');
+
+      // Create target directories if they don't exist
+      const dir1 = 'C:\\Ana Entegra\\resimler';
+      const dir2 = 'C:\\Ana Entegra\\resimler2';
+
+      if (!fs.existsSync(dir1)) fs.mkdirSync(dir1, { recursive: true });
+      if (!fs.existsSync(dir2)) fs.mkdirSync(dir2, { recursive: true });
+
+      // Helper function to download an image
+      const downloadImage = (url, targetPath) => {
+        return new Promise((resolve, reject) => {
+          if (fs.existsSync(targetPath)) {
+            return resolve(); // Already downloaded
+          }
+
+          const client = url.startsWith('https') ? https : http;
+          client.get(url, (response) => {
+            if (response.statusCode === 200) {
+              const file = fs.createWriteStream(targetPath);
+              response.pipe(file);
+              file.on('finish', () => {
+                file.close();
+                resolve();
+              });
+            } else {
+              reject(new Error(`Status Code: ${response.statusCode}`));
+            }
+          }).on('error', (err) => {
+            fs.unlink(targetPath, () => { }); // Delete the file async
+            reject(err);
+          });
+        });
+      };
+
+      // Base URL for downloading images
+      const baseUrl = process.env.WEB_URL || 'https://gurbuzoyuncak.com';
+
+      // Insert new images
+      for (let i = 0; i < uniqueImages.length; i++) {
+        const isDefault = i === 0 ? 1 : 0;
+        const sortOrder = i;
+        const originalPath = uniqueImages[i];
+
+        // Reformat /images/ to /resimler/
+        let newPath = originalPath;
+        if (newPath.includes('/images/')) {
+          newPath = newPath.replace('/images/', '/resimler/');
+        } else if (newPath.startsWith('images/')) {
+          newPath = newPath.replace('images/', 'resimler/');
+        }
+
+        sqliteService.run(
+          `INSERT INTO pictures (product_id, path, "default", sync, sort_order, sync_ai) VALUES (?, ?, ?, 1, ?, 1)`,
+          [productId, newPath, isDefault, sortOrder]
+        );
+
+        // Download logic
+        try {
+          // Construct the actual download URL based on the original path from web payload
+          let downloadUrl = originalPath;
+          if (!downloadUrl.startsWith('http')) {
+            // Ensure correct slash
+            const prefix = downloadUrl.startsWith('/') ? '' : '/';
+            downloadUrl = `${baseUrl}${prefix}${downloadUrl}`;
+          }
+
+          // Generate file name from the new path
+          const fileName = pathModule.basename(newPath);
+          const targetPath1 = pathModule.join(dir1, fileName);
+          const targetPath2 = pathModule.join(dir2, fileName);
+
+          await downloadImage(downloadUrl, targetPath1);
+
+          // Copy to resimler2 once downloaded to resimler
+          if (fs.existsSync(targetPath1) && !fs.existsSync(targetPath2)) {
+            fs.copyFileSync(targetPath1, targetPath2);
+          }
+
+        } catch (downloadError) {
+          logger.debug(`Resim indirme hatası (${originalPath}):`, downloadError.message);
+        }
+      }
+
+      sqliteService.disconnect();
+      logger.info(`✓ Entegra SQLite resimler güncellendi: ${webStok.stok_kodu} (${uniqueImages.length} resim)`);
+    } catch (error) {
+      logger.debug(`Entegra SQLite resim güncelleme hatası (${webStok.stok_kodu}):`, error.message);
+      try { require('../services/sqlite.service').disconnect(); } catch (e) { }
     }
   }
 }
