@@ -23,7 +23,7 @@ class StokTransformer {
         raf_kodu: erpStok.sto_reyon_kodu || '',
         ambalaj: erpStok.sto_ambalaj_kodu || '',
         koliadeti: koliadeti,
-        katalog_adi: erpStok.sto_yabanci_isim || '',
+        katalog_ismi: erpStok.sto_yabanci_isim || '',
         aktif: true,
         olusturma_tarihi: erpStok.sto_create_date || new Date(),
         guncelleme_tarihi: new Date()

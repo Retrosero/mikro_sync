@@ -1,213 +1,189 @@
-# AlanEslesmesi_Satis_Baslik
+# ERP - Web Senkronizasyon Mapping Master Dökümanı
 
-| Web Tablo   | Web Alan               | ERP Tablo              | ERP Alan                                                    | Not                                                                             |
-|:------------|:-----------------------|:-----------------------|:------------------------------------------------------------|:--------------------------------------------------------------------------------|
-| satislar    | satis_tarihi           | CARI_HESAP_HAREKETLERI | cha_tarihi; cha_belge_tarih                                 | Trace'e göre ikisi aynı tarih.                                                  |
-| satislar    | fatura_sira_no         | CARI_HESAP_HAREKETLERI | cha_evrakno_sira                                            | nan                                                                             |
-| satislar    | fatura_seri_no         | CARI_HESAP_HAREKETLERI | cha_evrakno_seri                                            | nan                                                                             |
-| satislar    | cari_hesap_id -> (kod) | CARI_HESAP_HAREKETLERI | cha_kod                                                     | INT_KodMap_Cari ile lookup.                                                     |
-| satislar    | toplam_tutar           | CARI_HESAP_HAREKETLERI | cha_meblag                                                  | Trace örneğinde eşit.                                                           |
-| satislar    | ara_toplam             | CARI_HESAP_HAREKETLERI | cha_aratoplam                                               | nan                                                                             |
-| satislar    | notlar                 | CARI_HESAP_HAREKETLERI | cha_aciklama                                                | nan                                                                             |
-| satislar    | odeme_sekli            | CARI_HESAP_HAREKETLERI | cha_tpoz; cha_cari_cins                                     | Sadece veresiye ise başlık yazılır (cha_tpoz=0; cari_cins=0). Peşinde yazılmaz. |
-| satislar    | indirim_tutari         | CARI_HESAP_HAREKETLERI | cha_ft_iskonto1                                             | nan                                                                             |
-| satislar    | indirim_tutari2        | CARI_HESAP_HAREKETLERI | cha_ft_iskonto2                                             | nan                                                                             |
-| satislar    | indirim_tutari3        | CARI_HESAP_HAREKETLERI | cha_ft_iskonto3                                             | nan                                                                             |
-| satislar    | indirim_tutari4        | CARI_HESAP_HAREKETLERI | cha_ft_iskonto4                                             | nan                                                                             |
-| satislar    | indirim_tutari5        | CARI_HESAP_HAREKETLERI | cha_ft_iskonto5                                             | nan                                                                             |
-| satislar    | indirim_tutari6        | CARI_HESAP_HAREKETLERI | cha_ft_iskonto6                                             | nan                                                                             |
-| (otomatik)  | (—)                    | CARI_HESAP_HAREKETLERI | cha_evrak_tip=63; cha_tip=0; cha_cinsi=6; cha_normal_iade=0 | Satış faturası (normal).                                                        |
+Bu döküman, Mikro ERP ile Web (PostgreSQL) arasındaki tüm alan eşleşmelerini, iş kurallarını ve senkronizasyon mantığını içeren tek ve kapsamlı kaynaktır.
 
-# AlanEslesmesi_Satis_Satir
+## 1. Satış İşlemleri (Web → ERP)
 
-| Web Tablo       | Web Alan               | ERP Tablo              | ERP Alan                                                 | Not                                           |
-|:----------------|:-----------------------|:-----------------------|:---------------------------------------------------------|:----------------------------------------------|
-| satis_kalemleri | satis_id -> (başlık)   | STOK_HAREKETLERI       | sth_fat_recid_recno                                      | Başlıktaki cha_RECno'ya bağlanır (SP içinde). |
-| satis_kalemleri | stok_id -> (stok_kod)  | STOK_HAREKETLERI       | sth_stok_kod                                             | INT_KodMap_Stok ile lookup.                   |
-| satis_kalemleri | miktar                 | STOK_HAREKETLERI       | sth_miktar                                               | nan                                           |
-| satis_kalemleri | indirim_tutari         | STOK_HAREKETLERI       | sth_iskonto1                                             | nan                                           |
-| satis_kalemleri | indirim_tutari2        | STOK_HAREKETLERI       | sth_iskonto2                                             | nan                                           |
-| satis_kalemleri | indirim_tutari3        | STOK_HAREKETLERI       | sth_iskonto3                                             | nan                                           |
-| satis_kalemleri | indirim_tutari4        | STOK_HAREKETLERI       | sth_iskonto4                                             | nan                                           |
-| satis_kalemleri | indirim_tutari5        | STOK_HAREKETLERI       | sth_iskonto5                                             | nan                                           |
-| satis_kalemleri | indirim_tutari6        | STOK_HAREKETLERI       | sth_iskonto6                                             | nan                                           |
-| satis_kalemleri | toplam_tutar           | STOK_HAREKETLERI       | sth_tutar                                                | nan                                           |
-| satis_kalemleri | kdv_tutari             | STOK_HAREKETLERI       | sth_vergi                                                | nan                                           |
-| satis_kalemleri | kdv_orani -> (pointer) | STOK_HAREKETLERI       | sth_vergi_pntr                                           | INT_KdvPointerMap: oran→pntr.                 |
-| satislar        | satis_tarihi           | STOK_HAREKETLERI       | sth_tarih; sth_belge_tarih                               | nan                                           |
-| satislar        | cari_hesap_id -> (kod) | STOK_HAREKETLERI       | sth_cari_kodu                                            | Cari kod ile uyumlu olmalı.                   |
-| konfig          | depo_cikis             | STOK_HAREKETLERI       | sth_cikis_depo_no                                        | INT_DepoMap'ten alınır.                       |
-| konfig          | depo_giris             | STOK_HAREKETLERI       | sth_giris_depo_no                                        | Gerekirse; satışta genellikle çıkış depo.     |
-| (otomatik)      | (—)                    | STOK_HAREKETLERI       | sth_tip=1; sth_cins=0; sth_normal_iade=0; sth_evraktip=4 | Satış stok çıkışı.                            |
-| satislar        | fatura_sira_no         | CARI_HESAP_HAREKETLERI | sth_evrakno_sira                                         | nan                                           |
-| satislar        | fatura_seri_no         | CARI_HESAP_HAREKETLERI | sth_evrakno_seri                                         | nan                                           |
+### 1.1 Satış Başlık (AlanEslesmesi_Satis_Baslik)
+**Web Tablo:** `satislar` | **ERP Tablo:** `CARI_HESAP_HAREKETLERI`
 
-# AlanEslesmesi_Tahsilat
+| Web Alan | ERP Alan | Tip / Mantık | Not |
+| :--- | :--- | :--- | :--- |
+| `satis_tarihi` | `cha_tarihi` | `YYYY-MM-DD 00:00:00.000` | Fatura tarihi |
+| `satis_tarihi` | `cha_belge_tarih` | `YYYY-MM-DD 00:00:00.000` | Belge tarihi |
+| `fatura_seri_no` | `cha_evrakno_seri` | `string(10)` | Fatura seri (Örn: 'A') |
+| `fatura_sira_no` | `cha_evrakno_sira` | `integer` | Sıra no (Otomatik artan) |
+| `belge_no` | `cha_belge_no` | `string(20)` | Varsa belge numarası |
+| `cari_hesap_id` | `cha_kod` | `lookup` | `int_kodmap_cari` üzerinden ERP Kodu |
+| `cari_hesap_id` | `cha_ciro_cari_kodu` | `lookup` | Peşin işlemlerde müşteri kodu buraya |
+| `toplam_tutar` | `cha_meblag` | `float` | Toplam ödenecek tutar |
+| `ara_toplam` | `cha_aratoplam` | `float` | Matrah (KDV hariç) |
+| `notlar` | `cha_aciklama` | `string(50)` | Başlık açıklaması |
+| `odeme_sekli` | `cha_tpoz` | `mapped` | `vadeli` -> 0, `pesin/kart` -> 1 |
+| `odeme_sekli` | `cha_cari_cins` | `mapped` | 0 (Cari), 2 (Banka), 4 (Kasa) |
+| `odeme_sekli` | `cha_grupno` | `mapped` | `vadeli` -> 0, `diğer` -> 1 |
+| `iskonto1-6` | `cha_ft_iskonto1-6` | `float` | Fatura altı iskontolar |
+| `(otomatik)` | `cha_evrak_tip` | 63 | Satış Faturası |
+| `(otomatik)` | `cha_tip` | 0 | Borç |
+| `(otomatik)` | `cha_cinsi` | 6 | Fatura |
+| `satis_tipi` | `cha_normal_Iade` | `boolean` | 'iade' ise 1, değilse 0 |
 
-| Web Tablo   | Web Alan                                                                                 | ERP Tablo                               | ERP Alan                                                                    | Not                                                                                             |
-|:------------|:-----------------------------------------------------------------------------------------|:----------------------------------------|:----------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------|
-| tahsilatlar | tahsilat_tarihi                                                                          | CARI_HESAP_HAREKETLERI                  | cha_tarihi; cha_belge_tarih                                                 | nan                                                                                             |
-| tahsilatlar | cari_hesap_id -> (kod)                                                                   | CARI_HESAP_HAREKETLERI                  | cha_kod                                                                     | INT_KodMap_Cari ile lookup.                                                                     |
-| tahsilatlar | tutar                                                                                    | CARI_HESAP_HAREKETLERI                  | cha_meblag; cha_aratoplam                                                   | nan                                                                                             |
-| tahsilatlar | aciklama                                                                                 | CARI_HESAP_HAREKETLERI                  | cha_aciklama                                                                | nan                                                                                             |
-| tahsilatlar | tahsilat_tipi='nakit'                                                                    | CARI_HESAP_HAREKETLERI                  | cha_tpoz=1; cha_cari_cins=4; cha_kod=<kasa_kodu>                            | Kasadan kapanış. Kasa kodu INT_KodMap_Kasa'dan.                                                 |
-| tahsilatlar | tahsilat_tipi in ('kredi_karti','havale')                                                | CARI_HESAP_HAREKETLERI                  | cha_tpoz=1; cha_cari_cins=2; cha_kod=<banka_kodu>                           | Bankadan kapanış. Banka kodu INT_KodMap_Banka'dan.                                              |
-| tahsilatlar | tahsilatlar.cek_no / tahsilatlar.banka_adi / tahsilatlar.sube_adi / tahsilatlar.hesap_no | CARI_HESAP_HAREKETLERI / ODEME_EMIRLERI | cha_aciklama / sck_no, sck_banka_adres1, sck_sube_adres2, sck_hesapno_sehir | Web→ERP (çek tahsilatı):                                                                        |
-|             |                                                                                          |                                         |                                                                             |   cha_aciklama = '/' + cek_no + '/' + banka_adi + '/' + sube_adi + '/' + hesap_no               |
-|             |                                                                                          |                                         |                                                                             |   (NULL gelen alanları boş string kabul et; sondaki '/' işareti hesap_no boşsa da kalabilir.)   |
-|             |                                                                                          |                                         |                                                                             |                                                                                                 |
-|             |                                                                                          |                                         |                                                                             | ERP→Web (çek tahsilatı):                                                                        |
-|             |                                                                                          |                                         |                                                                             |   1) cha_aciklama değerini '/' karakterine göre parçala.                                        |
-|             |                                                                                          |                                         |                                                                             |   2) Parçalar: ['', cek_no, banka_adi, sube_adi, hesap_no] şeklindedir.                         |
-|             |                                                                                          |                                         |                                                                             |   3) cek_no = parça[1], banka_adi = parça[2], sube_adi = parça[3], hesap_no = parça[4] (varsa). |
-|             |                                                                                          |                                         |                                                                             |                                                                                                 |
-|             |                                                                                          |                                         |                                                                             | Senet tahsilatı için mevcut kural geçerli: cha_aciklama = 'SENET - ' + kullanıcı_notu.          |
-| (konfig)    | (—)                                                                                      | CARI_HESAP_HAREKETLERI                  | cha_evrak_tip; cha_tip; cha_cinsi; cha_normal_iade                          | OdemeYeri & belge türüne göre INT_CariHareketMap'ten çek.                                       |
-| tahsilatlar | tahsilat_sira_no                                                                         | CARI_HESAP_HAREKETLERI                  | cha_evrakno_sira                                                            | nan                                                                                             |
-| tahsilatlar | tahsilat_seri_no                                                                         | CARI_HESAP_HAREKETLERI                  | cha_evrakno_seri                                                            | nan                                                                                             |
-| tahsilatlar | notlar                                                                                   | CARI_HESAP_HAREKETLERI                  | cha_aciklama                                                                | nan                                                                                             |
-| tahsilatlar | nan                                                                                      | CARI_HESAP_HAREKETLERI                  | cha_vade                                                                    | nan                                                                                             |
+### 1.2 Satış Satırları (AlanEslesmesi_Satis_Satir)
+**Web Tablo:** `satis_kalemleri` | **ERP Tablo:** `STOK_HAREKETLERI`
 
-# INT_CariHareketMap
+| Web Alan | ERP Alan | Tip / Mantık | Not |
+| :--- | :--- | :--- | :--- |
+| `stok_id` | `sth_stok_kod` | `lookup` | `int_kodmap_stok` üzerinden ERP Kodu |
+| `miktar` | `sth_miktar` | `float` | Satılan miktar |
+| `toplam_tutar` | `sth_tutar` | `float` | Satır brüt tutarı |
+| `kdv_tutari` | `sth_vergi` | `float` | Satır KDV tutarı |
+| `kdv_orani` | `sth_vergi_pntr` | `lookup` | `int_kdvpointermap` üzerinden |
+| `iskonto1-6` | `sth_iskonto1-6` | `float` | Satır iskontoları |
+| `notlar` | `sth_aciklama` | `string(255)` | Kalem açıklaması |
+| `(otomatik)` | `sth_evraktip` | 4 | Satış Faturası Stok |
+| `(otomatik)` | `sth_tip` | 1 | Çıkış |
+| `(otomatik)` | `sth_cins` | 0 | Stok |
+| `(otomatik)` | `sth_cikis_depo_no`| 1 | Varsayılan Çıkış Deposu |
+| `(otomatik)` | `sth_fiyat_liste_no`| 1 | Varsayılan Fiyat Listesi |
 
-| WebBelgeTuru   | OdemeYeri   |   IadeMi |   cha_evrak_tip |   cha_tip |   cha_cinsi |   cha_normal_iade |   cha_tpoz |   cha_cari_cins | Aciklama                              |
-|:---------------|:------------|---------:|----------------:|----------:|------------:|------------------:|-----------:|----------------:|:--------------------------------------|
-| satis_fatura   | acikhesap   |        0 |              63 |         0 |           6 |                 0 |          0 |               0 | Satış Faturası (veresiye)             |
-| tahsilat       | kasa        |        0 |               1 |         1 |           0 |                 0 |          1 |               4 | Nakitte kasadan kapanış (kurum ayarı) |
-| tahsilat       | banka       |        0 |               1 |         1 |           0 |                 0 |          1 |               2 | Kart/Havale bankadan kapanış          |
-| tahsilat       | cek         |        0 |               1 |         1 |           0 |                 0 |          1 |               0 | Çek tahsilatı (kurum şeması)          |
-| tahsilat       | senet       |        0 |               1 |         1 |           0 |                 0 |          1 |               0 | Senet tahsilatı (kurum şeması)        |
+---
 
-# INT_StokHareketMap
+## 2. Tahsilat İşlemleri (Web → ERP)
 
-| WebBelgeTuru   |   IadeMi |   sth_tip |   sth_cins |   sth_normal_iade |   sth_evraktip | Aciklama                                                                                      |
-|:---------------|---------:|----------:|-----------:|------------------:|---------------:|:----------------------------------------------------------------------------------------------|
-| satis_fatura   |        0 |         1 |          0 |                 0 |              4 | Satış stok çıkışı (trace'e göre kesin)                                                        |
-| alis_fatura    |        0 |         0 |          0 |                 0 |              3 | Alış stok girişi (trace: sth_tip=0, sth_cins=0, sth_normal_iade=0, sth_evraktip=3)            |
-| satis_iade     |        1 |         1 |          0 |                 1 |              4 | Satış iade stok girişi (varsayılan: sth_tip=1, sth_cins=0, sth_normal_iade=1, sth_evraktip=4) |
-| alis_iade      |        1 |         0 |          0 |                 1 |              3 | Alış iade stok çıkışı (trace: sth_tip=0, sth_cins=0, sth_normal_iade=1, sth_evraktip=3)       |
+### 2.1 Tahsilat Başlık (AlanEslesmesi_Tahsilat)
+**Web Tablo:** `tahsilatlar` | **ERP Tablo:** `CARI_HESAP_HAREKETLERI`
 
-# INT_KdvPointerMap
+| Web Alan | ERP Alan | Tip / Mantık | Not |
+| :--- | :--- | :--- | :--- |
+| `tahsilat_tarihi` | `cha_tarihi` | `YYYY-MM-DD` | İşlem tarihi |
+| `tutar` | `cha_meblag` | `float` | Tahsilat tutarı |
+| `cari_hesap_id` | `cha_kod` | `lookup` | Müşteri Cari Kodu |
+| `vade_tarihi` | `cha_vade` | `integer` | `YYYYMMDD` (Örn: 20260321) |
+| `tahsilat_tipi` | `cha_cinsi` | `mapped` | Tip detaylarına bakınız (Bölüm 2.2) |
+| `banka_id / kasa_id`| `cha_kasa_hizkod` | `lookup` | Kasa/Banka ERP Kodu |
+| `tahsilat_tipi` | `cha_kasa_hizmet` | `mapped` | 2 (Banka), 4 (Kasa) |
+| `(otomatik)` | `cha_evrak_tip` | 1 | Makbuz / Fiş |
+| `(otomatik)` | `cha_tip` | 1 | Alacak |
 
-|   KdvOran |   VergiPntr |
-|----------:|------------:|
-|         0 |           0 |
-|         1 |           1 |
-|        10 |           2 |
-|        20 |           3 |
+### 2.2 Tahsilat Tipi Detayları
+| Web `tahsilat_tipi` | `cha_cinsi` | `cha_kasa_hizmet` | `cha_kasa_hizkod` | `cha_sntck_poz` |
+| :--- | :--- | :--- | :--- | :--- |
+| `nakit` | 0 | 4 | Kasa ERP Kodu | 0 |
+| `cek` | 1 | 4 | 'ÇEK' | 0 |
+| `senet` | 2 | 4 | 'SENET' | 0 |
+| `havale` | 17 | 2 | Banka ERP Kodu | 2 |
+| `kredi_karti` | 19 | 2 | Banka ERP Kodu | 2 |
 
-# INT_KodMap_Cari
+---
 
-| web_cari_id   | erp_cari_kod   | Aciklama   |
-|---------------|----------------|------------|
+## 3. Kart Bilgileri (Senkronizasyon)
 
-# INT_KodMap_Stok
+### 3.1 Stok Kartları (AlanEslesmesi_StokKart)
+**Web:** `stoklar` | **ERP:** `STOKLAR`
 
-| web_stok_id   | erp_stok_kod   | Aciklama   |
-|---------------|----------------|------------|
+| Web Alan | ERP Alan | Mantık |
+| :--- | :--- | :--- |
+| `stok_kodu` | `sto_kod` | Birincil Anahtar |
+| `stok_adi` | `sto_isim` | Ürün Adı |
+| `birim_turu` | `sto_birim1_ad` | Adet, KG, Koli vb. |
+| `alis_fiyati` | `sto_standartmaliyet`| |
+| `kategori_id` | `sto_anagrup_kod` | |
+| `marka_id` | `sto_marka_kodu` | |
+| `raf_kodu` | `sto_reyon_kodu` | |
+| `katalog_ismi` | `sto_yabanci_isim` | |
 
-# INT_KodMap_Banka
+### 3.2 Cari Kartlar (AlanEslesmesi_CariKart)
+**Web:** `cari_hesaplar` | **ERP:** `CARI_HESAPLAR`
 
-| web_banka_id   | erp_banka_kod   | Aciklama   |
-|----------------|-----------------|------------|
+| Web Alan | ERP Alan | Mantık |
+| :--- | :--- | :--- |
+| `cari_kodu` | `cari_kod` | Birincil Anahtar |
+| `cari_adi` | `cari_unvan1` | Unvan 1 |
+| `telefon` | `cari_CepTel` | Cep Telefonu |
+| `eposta` | `cari_EMail` | E-Posta |
+| `vergi_no` | `cari_vdaire_no` | Vergi No / TC |
+| `vergi_dairesi` | `cari_vdaire_adi` | |
+| `adres` | `adr_cadde` | `CARI_HESAP_ADRESLERI` (adr_adres_no=0) |
 
-# INT_KodMap_Kasa
+### 3.3 Barkodlar (AlanEslesmesi_BarkodKart)
+**Web:** `urun_barkodlari` | **ERP:** `BARKOD_TANIMLARI`
 
-| web_kasa_id   | erp_kasa_kod   | Aciklama   |
-|---------------|----------------|------------|
+| Web Alan | ERP Alan | Mantık |
+| :--- | :--- | :--- |
+| `barkod` | `bar_kodu` | Barkod Değeri |
+| `stok_id` | `bar_stokkodu` | `int_kodmap_stok` -> ERP Kod |
+| `barkod_tipi` | `bar_barkodtipi` | `ana`->0, `koli`->2, `palet`->3 |
+| `aktif` | `bar_iptal` | `true` -> 0, `false` -> 1 |
 
-# INT_DepoMap
+---
 
-| WebBelgeTuru   | Yon   |   erp_depo_no | Aciklama                   |
-|:---------------|:------|--------------:|:---------------------------|
-| satis_fatura   | cikis |             1 | Satış çıkış deposu örnek 1 |
-| satis_fatura   | giris |           nan | Genelde boş; ihtiyaca göre |
+## 4. Fiyat ve Ödeme Emirleri
 
-# Notlar
+### 4.1 Fiyat Listeleri (AlanEslesmesi_Fiyat)
+**Web:** `urun_fiyat_listeleri` | **ERP:** `STOK_SATIS_FIYAT_LISTELERI`
 
-| Baslik     | Icerik                                                                                      |
-|:-----------|:--------------------------------------------------------------------------------------------|
-| Notlar     | Oluşturulma: 2025-11-12 13:11                                                               |
-| Kullanım   | Bu dosyadaki tablolar senkronizasyon konfigürasyonunu merkezi yönetmek için tasarlanmıştır. |
-| Adım 1     | INT_*Map tablolarını kurumunuza göre doldurun (None olan alanlar).                          |
-| Adım 2     | Kod eşleştirmelerini (Cari/Stok/Banka/Kasa) ilgili şablon tablolara girin.                  |
-| Adım 3     | KDV oran→pntr haritasını güncelleyin.                                                       |
-| Adım 4     | SP'leriniz map tablosundan değerleri çekerek INSERT/UPDATE yapsın.                          |
-| Hatırlatma | SESSION_CONTEXT('SYNC_ORIGIN')='WEB' kullanarak tetikleyici döngülerini engelleyin.         |
+| Web Alan | ERP Alan | Not |
+| :--- | :--- | :--- |
+| `stok_id` | `sfiyat_stokkod` | ERP Stok Kodu |
+| `fiyat` | `sfiyat_fiyati` | |
+| `fiyat_tanimi_id` | `sfiyat_listesirano`| `int_kodmap_fiyat_liste` lookup |
+| `baslangic_tarihi`| `sfiyat_bas_tarih` | |
 
-# AlanEslesmesi_StokKart
+### 4.2 Ödeme Emirleri (AlanEslesmesi_OdemeEmri)
+**Web:** `tahsilatlar` | **ERP:** `ODEME_EMIRLERI`
 
-| Web Tablo   | Web Alan     | ERP Tablo                  | ERP Alan            | Not                                                                                                                                                               |
-|:------------|:-------------|:---------------------------|:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| stoklar     | id           | INT_KodMap_Stok            | web_stok_id         | Senkron için ana kimlik. STOKLAR.sto_kod ile birlikte kullanılacak.                                                                                               |
-| stoklar     | stok_kodu    | STOKLAR                    | sto_kod             | Zorunlu stok kodu. ERP tarafında benzersiz olmalı.                                                                                                                |
-| stoklar     | stok_adi     | STOKLAR                    | sto_isim            | Stok adı / açıklama.                                                                                                                                              |
-| stoklar     | birim_turu   | STOKLAR                    | sto_birim1_ad       | Ana birim adı (adet, kg, koli vb).                                                                                                                                |
-| stoklar     | alis_fiyati  | STOKLAR                    | sto_standartmaliyet | Varsa alış maliyetine ilk değer. Yoksa 0 bırakılabilir.                                                                                                           |
-| stoklar     | satis_fiyati | STOKLAR                    | sto_satisfiyati     | Artık ana fiyat kaynağı urun_fiyat_listeleri tablosu. Buradaki fiyat sadece ilk açılışta default verilebilir (opsiyonel).                                         |
-| stoklar     | stok_kodu    | STOK_SATIS_FIYAT_LISTELERI | sfiyat_stokkod      | Eskiden STOK_SATIS_FIYAT_LISTELERI için kullanılıyordu. Şimdi yalnızca fiyat listeleri senkronunda kullanılacak; stok kartı insert/update akışında zorunlu değil. |
-| stoklar     | kategori_id  | STOKLAR                    | sto_anagrup_kod     | Kategori için ayrı kod mapping gerekir (örn. INT_KodMap_Kategori). Şimdilik Not.                                                                                  |
-| stoklar     | marka_id     | STOKLAR                    | sto_marka_kodu      | Marka için ayrı kod mapping gerekir (örn. INT_KodMap_Marka).                                                                                                      |
-| stoklar     | aciklama     | STOKLAR                    | sto_aciklama        | Varsa ürün açıklaması buraya yazılır.                                                                                                                             |
-| stoklar     | olcu         | STOKLAR                    | sto_sektor_kodu     | ölçü                                                                                                                                                              |
-| stoklar     | raf_kodu     | STOKLAR                    | sto_reyon_kodu      | reyon kodu                                                                                                                                                        |
-| stoklar     | ambalaj      | STOKLAR                    | sto_ambalaj_kodu    | ambalaj                                                                                                                                                           |
-| stoklar     | koliadeti    | STOKLAR                    | sto_kalkon_kodu     | koli adet                                                                                                                                                         |
-| stoklar     | katalog_adi  | STOKLAR                    | sto_yabanci_isim    | katalog ismi                                                                                                                                                      |
+| Web Alan | ERP Alan | Mantık |
+| :--- | :--- | :--- |
+| `cek_no` | `sck_no` | Çek/Senet Numarası |
+| `tutar` | `sck_tutar` | |
+| `vade_tarihi` | `sck_vade` | Vade |
+| `banka_adi` | `sck_banka_adres1` | |
+| `sube_adi` | `sck_sube_adres2` | |
+| `(otomatik)` | `sck_tip` | 0 (Çek), 1 (Senet), 4 (Havale), 6 (KK) |
+| `(otomatik)` | `sck_sonpoz` | 0 (Portföyde) |
 
-# AlanEslesmesi_CariKart
+---
 
-| Web Tablo     | Web Alan      | ERP Tablo            | ERP Alan         | Not                                                                                                                                                                             |
-|:--------------|:--------------|:---------------------|:-----------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| cari_hesaplar | id            | INT_KodMap_Cari      | cari_RECid_DBCno | Senkron için ana kimlik. CARI_HESAPLAR.cari_kod ile eşlenir.                                                                                                                    |
-| cari_hesaplar | cari_kodu     | CARI_HESAPLAR        | cari_kod         | Zorunlu cari kodu. ERP tarafında benzersiz olmalı.                                                                                                                              |
-| cari_hesaplar | cari_adi      | CARI_HESAPLAR        | cari_unvan1      | Cari adı / unvan1.                                                                                                                                                              |
-| cari_hesaplar | cari_adi      | CARI_HESAPLAR        | cari_unvan2      | Kısa ad veya ikinci satır; istenirse boş bırakılabilir.                                                                                                                         |
-| cari_hesaplar | telefon       | CARI_HESAPLAR        | cari_CepTel      | Birincil telefon.                                                                                                                                                               |
-| cari_hesaplar | eposta        | CARI_HESAPLAR        | cari_EMail       | E-posta adresi.                                                                                                                                                                 |
-| cari_hesaplar | adres         | CARI_HESAP_ADRESLERI | adr_cadde        | Temel adres satırı. CARI_HESAP_ADRESLERI tablosunda adr_adres_no=0/1 olan kayıt kullanılacak. ERP→Web senkronunda adr_cadde + mah./sokak birleştirilip web.adres'e yazılabilir. |
-| cari_hesaplar | il            | CARI_HESAP_ADRESLERI | adr_il           | İl bilgisi. CARI_HESAP_ADRESLERI.adr_il                                                                                                                                         |
-| cari_hesaplar | ilce          | CARI_HESAP_ADRESLERI | adr_ilce         | İlçe bilgisi. CARI_HESAP_ADRESLERI.adr_ilce                                                                                                                                     |
-| cari_hesaplar | vergi_dairesi | CARI_HESAPLAR        | cari_vdaire_adi  | Vergi dairesi adı.                                                                                                                                                              |
-| cari_hesaplar | vergi_no      | CARI_HESAPLAR        | cari_vdaire_no   | Vergi numarası / TC.                                                                                                                                                            |
-| cari_hesaplar | posta_kodu    | CARI_HESAP_ADRESLERI | adr_posta_kodu   | Posta kodu. CARI_HESAP_ADRESLERI.adr_posta_kodu                                                                                                                                 |
+## 5. Sabit Eşleşme Tabloları (Internal Lookup Maps)
 
-# AlanEslesmesi_BarkodKart
+### 5.1 KDV Pointer (INT_KdvPointerMap)
+| KdvOran | VergiPntr |
+| :--- | :--- |
+| 0 | 0 |
+| 1 | 1 |
+| 10 | 2 |
+| 20 | 3 |
 
-| Web Tablo       | Web Alan               | ERP Tablo        | ERP Alan     | Not                                                                         |
-|:----------------|:-----------------------|:-----------------|:-------------|:----------------------------------------------------------------------------|
-| urun_barkodlari | id                     | (yok)            | (yok)        | ERP tarafında BARKOD_TANIMLARI için kimlik kullanılmaz; sadece izleme için. |
-| urun_barkodlari | stok_id -> (stok_kodu) | BARKOD_TANIMLARI | bar_stokkodu | stok_id, INT_KodMap_Stok ile sto_kod'a çevrilir.                            |
-| urun_barkodlari | barkod                 | BARKOD_TANIMLARI | bar_kod      | Asıl barkod değeri.                                                         |
-| urun_barkodlari | barkod_tipi            | BARKOD_TANIMLARI | bar_tipi     | Standart / Koli vb. Yoksa varsayılan '1' bırakılabilir.                     |
-| urun_barkodlari | aktif                  | BARKOD_TANIMLARI | bar_pasif_fl | aktif=false ise bar_pasif_fl=1 yapılabilir.                                 |
+### 5.2 Stok Hareket Tipleri (INT_StokHareketMap)
+| WebBelgeTuru | IadeMi | sth_tip | sth_cins | sth_normal_iade | sth_evraktip |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| satis_fatura | 0 | 1 | 0 | 0 | 4 |
+| alis_fatura | 0 | 0 | 0 | 0 | 3 |
+| satis_iade | 1 | 1 | 0 | 1 | 4 |
 
-# AlanEslesmesi_Fiyat
+### 5.3 Cari Hareket Haritası (INT_CariHareketMap)
+| WebBelgeTuru | OdemeYeri | IadeMi | cha_evrak_tip | cha_tip | cha_cinsi | cha_tpoz | cha_cari_cins | Aciklama |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| satis_fatura | acikhesap | 0 | 63 | 0 | 6 | 0 | 0 | Satış Faturası (veresiye) |
+| tahsilat | kasa | 0 | - | - | - | 1 | 4 | Nakitte kasadan kapanış |
+| tahsilat | banka | 0 | - | - | - | 1 | 2 | Kart/Havale bankadan kapanış |
+| tahsilat | cek | 0 | - | - | - | 1 | 0 | Çek tahsilatı |
+| tahsilat | senet | 0 | - | - | - | 1 | 0 | Senet tahsilatı |
 
-| Web Tablo             | Web Alan                      | ERP Tablo                        | ERP Alan            | Not                                                                                                                                                                                                                                                                                                                                                                         |
-|:----------------------|:------------------------------|:---------------------------------|:--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| urun_fiyat_listeleri  | stok_id -> (stok_kodu)        | STOK_SATIS_FIYAT_LISTELERI       | sfiyat_stokkod      | stok_id, INT_KodMap_Stok üzerinden STOKLAR.sto_kod ile eşleştirilecek.                                                                                                                                                                                                                                                                                                      |
-| urun_fiyat_listeleri  | fiyat                         | STOK_SATIS_FIYAT_LISTELERI       | sfiyat_fiyati       | Satış fiyatı.                                                                                                                                                                                                                                                                                                                                                               |
-| urun_fiyat_listeleri  | fiyat_tanimi_id -> (liste_no) | STOK_SATIS_FIYAT_LISTELERI       | sfiyat_listesirano  | fiyat_tanimi_id, INT_KodMap_FiyatListe.erp_liste_no ile eşleşen kayıt üzerinden bulunur.                                                                                                                                                                                                                                                                                    |
-| urun_fiyat_listeleri  | baslangic_tarihi              | STOK_SATIS_FIYAT_LISTELERI       | sfiyat_bas_tarih    | Başlangıç tarihi; NULL ise boş bırakılabilir ya da 1899-12-30 gibi ERP default'u kullanılabilir.                                                                                                                                                                                                                                                                            |
-| urun_fiyat_listeleri  | bitis_tarihi                  | STOK_SATIS_FIYAT_LISTELERI       | sfiyat_bit_tarih    | Bitiş tarihi; NULL ise sınırsız geçerlilik.                                                                                                                                                                                                                                                                                                                                 |
-| fiyat_tanimlari       | id                            | INT_KodMap_FiyatListe            | web_fiyat_tanimi_id | Web tarafındaki fiyat_tanimlari UUID değeri. Ana kimlik.                                                                                                                                                                                                                                                                                                                    |
-| fiyat_tanimlari       | fiyat_adi                     | STOK_SATIS_FIYAT_LISTE_TANIMLARI | sfl_aciklama        | ERP fiyat liste açıklaması. İlk ERP→Web senkronunda INT_KodMap_FiyatListe.web_fiyat_tanimi_id = fiyat_tanimlari.id eşleşmesi üzerinden ilgili STOK_SATIS_FIYAT_LISTE_TANIMLARI.sfl_aciklama değeri web tarafında fiyat_tanimlari.fiyat_adi alanına yazılır. Sonraki senkronlarda bağlantı INT_KodMap_FiyatListe (web_fiyat_tanimi_id, erp_liste_no) üzerinden takip edilir. |
-| fiyat_tanimlari       | liste_no                      | STOK_SATIS_FIYAT_LISTE_TANIMLARI | sfl_sirano          | ERP liste numarası. İstersen web şemasına 'erp_liste_no' şeklinde ek kolon olarak aç.                                                                                                                                                                                                                                                                                       |
-| INT_KodMap_FiyatListe | liste_no                      | STOK_SATIS_FIYAT_LISTE_TANIMLARI | sfl_sirano          | Mapping tablosu: her ERP liste numarası için bir satır.                                                                                                                                                                                                                                                                                                                     |
-| INT_KodMap_FiyatListe | web_fiyat_tanimi_id           | fiyat_tanimlari                  | id                  | Mapping tablosu: ilgili fiyat_tanimlari kaydının UUID'si.                                                                                                                                                                                                                                                                                                                   |
+---
 
-# AlanEslesmesi_OdemeEmri
+## 6. Önemli Notlar ve Formatlar
 
-| Web Tablo   | Web Alan                         | ERP Tablo      | ERP Alan                                          | Not                                                                              |
-|:------------|:---------------------------------|:---------------|:--------------------------------------------------|:---------------------------------------------------------------------------------|
-| tahsilatlar | cek_no                           | ODEME_EMIRLERI | sck_no                                            | Çek/Senet numarası. Web tahsilatlar.cek_no alanından gelir.                      |
-| tahsilatlar | banka_adi                        | ODEME_EMIRLERI | sck_banka_adres1                                  | Bankanın adı. Örn: 'ZİRAAT', 'İŞ BANKASI'.                                       |
-| tahsilatlar | sube_adi                         | ODEME_EMIRLERI | sck_sube_adres2                                   | Şube adı/bilgisi. Örn: 'ANTALYA ŞB.'                                             |
-| tahsilatlar | hesap_no                         | ODEME_EMIRLERI | sck_hesapno_sehir                                 | Hesap numarası veya IBAN'ın ERP tarafında tutulduğu alan.                        |
-| tahsilatlar | tutar                            | ODEME_EMIRLERI | sck_tutar                                         | Çek/Senet tutarı. Tahsilat tutarı ile aynı.                                      |
-| tahsilatlar | cek_vade_tarihi                  | ODEME_EMIRLERI | sck_vade                                          | Çek/Senet vadesi.                                                                |
-| tahsilatlar | tahsilat_tarihi                  | ODEME_EMIRLERI | sck_duzen_tarih                                   | Düzenleme tarihi. Tahsilat işlem tarihi.                                         |
-| tahsilatlar | cari_hesap_id -> (kod)           | ODEME_EMIRLERI | sck_sahip_cari_kodu                               | Çeki veren cari. INT_KodMap_Cari üzerinden cari_kod bulunur.                     |
-| (konfig)    | tahsilat_tipi in ('cek','senet') | ODEME_EMIRLERI | sck_tip=0; sck_doviz=1; sck_odenen=0; sck_iptal=0 | Müşteriden alınan çek/senet. TL varsayılan. Ödeme henüz yapılmadı, sadece giriş. |
+### 6.1 Özel Açıklama Formatları (cha_aciklama)
+* **Çek İşlemleri:** `/ÇekNo/Banka/Şube/HesapNo/` şeklinde parse edilir.
+* **Senet İşlemleri:** `//Adres//Şehir` formatında tutulur.
 
+### 6.2 Peşin Satış Mantığı
+Peşin satışlarda (Nakit, Kredi Kartı vb.) Mikro standartlarına göre fatura başlığı (`CARI_HESAP_HAREKETLERI`) yazılmaz, sadece tahsilat fişi kesilir. Ancak cari takibi isteniyorsa `cha_tpoz=1` ile başlık yazılabilir.
+
+### 6.3 Döngü Engelleme (Trigger Loop Prevention)
+Tetikleyicilerde sonsuz döngüyü engellemek için `SESSION_CONTEXT('SYNC_ORIGIN') = 'WEB'` kontrolü kullanılır.
+
+---
+*Son Güncelleme: 2026-03-21*
+*Bu dosya senkronizasyon yazılımı için tek doğruluk kaynağıdır.*

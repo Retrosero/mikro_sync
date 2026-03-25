@@ -128,7 +128,7 @@ Oluşturulma Tarihi: 21.11.2025 14:22:51
 | stoklar | raf_kodu | STOKLAR | sto_reyon_kodu | reyon kodu |
 | stoklar | ambalaj | STOKLAR | sto_ambalaj_kodu | ambalaj |
 | stoklar | koliadeti | STOKLAR | sto_kalkon_kodu | koli adet |
-| stoklar | katalog_adi | STOKLAR | sto_yabanci_isim | katalog ismi |
+| stoklar | katalog_ismi | STOKLAR | sto_yabanci_isim | katalog ismi |
 
 ## AlanEslesmesi_CariKart
 

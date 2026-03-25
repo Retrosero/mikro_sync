@@ -191,13 +191,14 @@ class StokProcessor {
           stok_adi = $1, birim_turu = $2, alis_fiyati = $3, 
           satis_fiyati = $4, aciklama = $5, olcu = $6, 
           raf_kodu = $7, ambalaj = $8, koliadeti = $9, 
-          kategori_id = $10, olusturma_tarihi = $11, guncelleme_tarihi = NOW()
-         WHERE id = $12`,
+          kategori_id = $10, olusturma_tarihi = $11, katalog_ismi = $12,
+          guncelleme_tarihi = NOW()
+         WHERE id = $13`,
         [
           webStok.stok_adi, webStok.birim_turu, webStok.alis_fiyati,
           webStok.satis_fiyati, webStok.aciklama, webStok.olcu,
           webStok.raf_kodu, webStok.ambalaj, webStok.koliadeti,
-          kategoriId, webStok.olusturma_tarihi, webStokId
+          kategoriId, webStok.olusturma_tarihi, webStok.katalog_ismi, webStokId
         ]
       );
       logger.debug(`Stok güncellendi: ${erpStok.sto_kod}`);
@@ -209,14 +210,14 @@ class StokProcessor {
       const result = await pgService.queryOne(
         `INSERT INTO stoklar (
           stok_kodu, stok_adi, birim_turu, alis_fiyati, satis_fiyati,
-          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif, kategori_id, olusturma_tarihi
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+          aciklama, olcu, raf_kodu, ambalaj, koliadeti, aktif, kategori_id, olusturma_tarihi, katalog_ismi
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
         RETURNING id`,
         [
           webStok.stok_kodu, webStok.stok_adi, webStok.birim_turu,
           webStok.alis_fiyati, webStok.satis_fiyati, webStok.aciklama,
           webStok.olcu, webStok.raf_kodu, webStok.ambalaj,
-          webStok.koliadeti, webStok.aktif, kategoriId, webStok.olusturma_tarihi
+          webStok.koliadeti, webStok.aktif, kategoriId, webStok.olusturma_tarihi, webStok.katalog_ismi
         ]
       );
 
@@ -819,11 +820,12 @@ class StokProcessor {
 
       const productId = product.id;
 
-      // Delete existing pictures for this product to replace with new ones
-      sqliteService.run(
-        `DELETE FROM pictures WHERE product_id = ?`,
+      // Mevcut resimlerin en yüksek sort_order değerini bul
+      const maxSortResult = sqliteService.queryOne(
+        `SELECT MAX(sort_order) as max_sort FROM pictures WHERE product_id = ?`,
         [productId]
       );
+      const startSortOrder = maxSortResult && maxSortResult.max_sort !== null ? maxSortResult.max_sort + 1 : 0;
 
       const fs = require('fs');
       const https = require('https');
@@ -872,10 +874,10 @@ class StokProcessor {
       // Base URL for downloading images
       const baseUrl = process.env.WEB_URL || 'https://api.appsgo.cloud';
 
-      // Insert new images
+      // Insert new images - sort_order mevcut resimlerden devam eder
       for (let i = 0; i < uniqueImages.length; i++) {
         const isDefault = i === 0 ? 1 : 0;
-        const sortOrder = i;
+        const sortOrder = startSortOrder + i; // Mevcut resimlerden sonraki sıradan başla
         let originalPath = uniqueImages[i];
 
         // Başlangıçtaki "/" karakterini kaldır
@@ -924,7 +926,7 @@ class StokProcessor {
       }
 
       sqliteService.disconnect();
-      logger.info(`✓ Entegra SQLite resimler güncellendi: ${webStok.stok_kodu} (${uniqueImages.length} resim)`);
+      logger.info(`✓ Entegra SQLite resimler güncellendi: ${webStok.stok_kodu} (${uniqueImages.length} resim, sort_order: ${startSortOrder}-${startSortOrder + uniqueImages.length - 1})`);
     } catch (error) {
       logger.debug(`Entegra SQLite resim güncelleme hatası (${webStok.stok_kodu}):`, error.message);
       try { require('../services/sqlite.service').disconnect(); } catch (e) { }
@@ -933,4 +935,3 @@ class StokProcessor {
 }
 
 module.exports = new StokProcessor();
-
