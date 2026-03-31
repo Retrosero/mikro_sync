@@ -41,23 +41,32 @@ class SyncQueueWorker {
 
     async processQueue() {
         try {
-            // Bekleyen kayıtları al (en eski önce)
-            const pendingItems = await pgService.query(`
-        SELECT id, entity_type, entity_id, operation, retry_count, record_data
-        FROM sync_queue
-        WHERE status = 'pending'
-        ORDER BY created_at ASC
-        LIMIT 10
+            // ATOMİK İŞLEM: Bekleyen kayıtları al ve aynı anda 'processing' yap
+            // FOR UPDATE SKIP LOCKED sayesinde birden fazla worker çakışmaz
+            const result = await pgService.query(`
+        WITH pending AS (
+          SELECT id 
+          FROM sync_queue 
+          WHERE status = 'pending' 
+          ORDER BY created_at ASC 
+          LIMIT 10
+          FOR UPDATE SKIP LOCKED
+        )
+        UPDATE sync_queue
+        SET status = 'processing'
+        WHERE id IN (SELECT id FROM pending)
+        RETURNING id, entity_type, entity_id, operation, retry_count, record_data
       `);
 
-            if (pendingItems.length === 0) {
+            if (result.length === 0) {
                 return;
             }
 
+            const pendingItems = result;
             logger.info(`${pendingItems.length} bekleyen sync kaydı işleniyor...`);
 
             for (const item of pendingItems) {
-                await this.processItem(item);
+                await this.processItem(item, true); // true: zaten processing yapıldı
             }
 
         } catch (error) {
@@ -65,7 +74,7 @@ class SyncQueueWorker {
         }
     }
 
-    async processItem(item) {
+    async processItem(item, alreadyProcessing = false) {
         // ERP senkronizasyonu gerekmeyen entity tipleri
         // Bu tablolar sadece web tarafında kullanılır, ERP'ye yazılmaz
         const IGNORED_ENTITY_TYPES = [
@@ -100,11 +109,13 @@ class SyncQueueWorker {
                 return;
             }
 
-            // Durumu processing yap
-            await pgService.query(
-                `UPDATE sync_queue SET status = 'processing' WHERE id = $1`,
-                [item.id]
-            );
+            // Durumu processing yap (eğer henüz yapılmadıysa)
+            if (!alreadyProcessing) {
+                await pgService.query(
+                    `UPDATE sync_queue SET status = 'processing' WHERE id = $1`,
+                    [item.id]
+                );
+            }
 
             // Entity verisini çek
             let entityData = null;
@@ -126,7 +137,7 @@ class SyncQueueWorker {
                 // Processor'a gönder
                 await satisProcessor.syncToERP(entityData);
 
-            } else if (item.entity_type === 'tahsilat') {
+            } else if (item.entity_type === 'tahsilat' || item.entity_type === 'tahsilatlar') {
                 // Tahsilat verilerini çek
                 const tahsilat = await pgService.query(
                     `SELECT * FROM tahsilatlar WHERE id = $1`,

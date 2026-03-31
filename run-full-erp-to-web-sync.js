@@ -1,6 +1,7 @@
 require('dotenv').config();
 const stokProcessor = require('./sync-jobs/stok.processor');
 const fiyatProcessor = require('./sync-jobs/fiyat.processor');
+const cariProcessor = require('./sync-jobs/cari.processor');
 const logger = require('./utils/logger');
 const pgService = require('./services/postgresql.service');
 const mssqlService = require('./services/mssql.service');
@@ -42,6 +43,11 @@ async function runFullSync() {
     );
     console.log(`ERP Fiyat: ${erpFiyatCount[0].count}`);
 
+    const erpCariCount = await mssqlService.query(
+      'SELECT COUNT(*) as count FROM CARI_HESAPLAR'
+    );
+    console.log(`ERP Cari: ${erpCariCount[0].count}`);
+
     const webStokCountBefore = await pgService.query('SELECT COUNT(*) as count FROM stoklar');
     console.log(`Web Stok: ${webStokCountBefore[0].count}`);
 
@@ -50,6 +56,9 @@ async function runFullSync() {
 
     const webFiyatCountBefore = await pgService.query('SELECT COUNT(*) as count FROM urun_fiyat_listeleri');
     console.log(`Web Fiyat: ${webFiyatCountBefore[0].count}`);
+
+    const webCariCountBefore = await pgService.query('SELECT COUNT(*) as count FROM cari_hesaplar');
+    console.log(`Web Cari: ${webCariCountBefore[0].count}`);
 
     console.log();
     console.log('='.repeat(70));
@@ -99,6 +108,21 @@ async function runFullSync() {
     }
 
     console.log();
+
+    // 4. CARI SENKRONIZASYONU
+    console.log('4. CARI SENKRONIZASYONU BAŞLIYOR...');
+    console.log('-'.repeat(70));
+    const cariStartTime = Date.now();
+
+    try {
+      const cariCount = await cariProcessor.syncToWeb(null);
+      const cariDuration = ((Date.now() - cariStartTime) / 1000).toFixed(2);
+      console.log(`✓ Cari senkronizasyonu tamamlandı: ${cariCount} kayıt (${cariDuration}s)`);
+    } catch (error) {
+      console.error(`✗ Cari senkronizasyon hatası: ${error.message}`);
+    }
+
+    console.log();
     console.log('='.repeat(70));
     console.log();
 
@@ -117,6 +141,10 @@ async function runFullSync() {
     const webFiyatCountAfter = await pgService.query('SELECT COUNT(*) as count FROM urun_fiyat_listeleri');
     const fiyatDiff = webFiyatCountAfter[0].count - webFiyatCountBefore[0].count;
     console.log(`Web Fiyat: ${webFiyatCountBefore[0].count} → ${webFiyatCountAfter[0].count} (${fiyatDiff >= 0 ? '+' : ''}${fiyatDiff})`);
+
+    const webCariCountAfter = await pgService.query('SELECT COUNT(*) as count FROM cari_hesaplar');
+    const cariDiff = webCariCountAfter[0].count - webCariCountBefore[0].count;
+    console.log(`Web Cari: ${webCariCountBefore[0].count} → ${webCariCountAfter[0].count} (${cariDiff >= 0 ? '+' : ''}${cariDiff})`);
 
     const totalDuration = ((Date.now() - startTime) / 1000).toFixed(2);
     console.log();

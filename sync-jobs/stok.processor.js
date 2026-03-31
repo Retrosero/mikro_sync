@@ -364,7 +364,7 @@ class StokProcessor {
           {
             lastupDate: updateDate,
             stokAdi: this.truncate(webStok.stok_adi, 50),
-            yabanciIsim: this.truncate(webStok.aciklama || webStok.stok_adi, 50),
+            yabanciIsim: this.truncate(webStok.katalog_ismi || webStok.aciklama || webStok.stok_adi, 50),
             ambalaj: this.truncate(webStok.ambalaj, 20),
             rafKodu: this.truncate(webStok.raf_kodu, 20),
             olcu: this.truncate(webStok.olcu, 20),
@@ -686,7 +686,7 @@ class StokProcessor {
       lastupDate: updateDate,
       stokKod: this.truncate(webStok.stok_kodu, 25),
       stokAdi: this.truncate(webStok.stok_adi || webStok.stok_kodu, 50),
-      yabanciIsim: this.truncate(webStok.aciklama || webStok.stok_adi, 50),
+      yabanciIsim: this.truncate(webStok.katalog_ismi || webStok.aciklama || webStok.stok_adi, 50),
       birimTuru: this.truncate(webStok.birim_turu || 'Adet', 10),
       olcu: this.truncate(webStok.olcu, 20),
       rafKodu: this.truncate(webStok.raf_kodu, 20),

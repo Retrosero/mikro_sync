@@ -16,6 +16,7 @@ if (!fs.existsSync(logsDir)) {
 // Processor'ları kaydet
 const stokProcessor = require('./sync-jobs/stok.processor');
 const fiyatProcessor = require('./sync-jobs/fiyat.processor');
+const cariProcessor = require('./sync-jobs/cari.processor');
 
 // Web → ERP
 syncService.registerProcessor('satislar', satisProcessor);
@@ -26,6 +27,7 @@ syncService.registerProcessor('tahsilatlar', tahsilatProcessor);
 syncService.registerProcessor('STOKLAR', stokProcessor);
 syncService.registerProcessor('BARKOD_TANIMLARI', stokProcessor);
 syncService.registerProcessor('STOK_SATIS_FIYAT_LISTELERI', fiyatProcessor);
+syncService.registerProcessor('CARI_HESAPLAR', cariProcessor);
 
 // Graceful shutdown
 process.on('SIGINT', async () => {

@@ -58,21 +58,20 @@ class CariProcessor {
     }
 
     async getChangedRecordsFromERP(lastSyncTime) {
-        let whereClause = 'WHERE 1=1'; // Aktiflik kontrolü gerekirse eklenir (örn. cari_locked=0)
+        let whereClause = 'WHERE 1=1';
         const params = {};
 
         if (lastSyncTime) {
-            whereClause += ' AND cari_lastup_date > @lastSyncTime';
+            whereClause += ' AND (cari_lastup_date > @lastSyncTime OR cari_create_date > @lastSyncTime)';
             params.lastSyncTime = lastSyncTime;
         }
 
-        // Adres bilgisi için LEFT JOIN eklenebilir ama şimdilik basit tutalım
         const query = `
       SELECT 
         cari_kod, cari_unvan1, cari_unvan2, 
         cari_CepTel, cari_EMail, 
         cari_vdaire_adi, cari_vdaire_no,
-        cari_lastup_date,
+        cari_lastup_date, cari_create_date,
         cari_baglanti_tipi
       FROM CARI_HESAPLAR
       ${whereClause}
@@ -86,12 +85,12 @@ class CariProcessor {
         if (batch.length === 0) return;
 
         const rows = batch.map(erpCari => ({
-            cari_kodu: erpCari.cari_kod,
-            cari_adi: (erpCari.cari_unvan1 + ' ' + (erpCari.cari_unvan2 || '')).trim(),
-            telefon: erpCari.cari_CepTel,
-            eposta: erpCari.cari_EMail,
-            vergi_dairesi: erpCari.cari_vdaire_adi,
-            vergi_no: erpCari.cari_vdaire_no,
+            cari_kodu: (erpCari.cari_kod || '').trim(),
+            cari_adi: ((erpCari.cari_unvan1 || '') + ' ' + (erpCari.cari_unvan2 || '')).trim(),
+            telefon: (erpCari.cari_CepTel || '').trim(),
+            eposta: (erpCari.cari_EMail || '').trim(),
+            vergi_dairesi: (erpCari.cari_vdaire_adi || '').trim(),
+            vergi_no: (erpCari.cari_vdaire_no || '').trim(),
             cari_tipi: erpCari.cari_baglanti_tipi === 1 ? 'Tedarikçi' : 'Müşteri',
             guncelleme_tarihi: new Date(),
             kaynak: 'erp'
@@ -137,12 +136,12 @@ class CariProcessor {
 
     async syncSingleCariToWeb(erpCari) {
         const webCari = {
-            cari_kodu: erpCari.cari_kod,
-            cari_adi: (erpCari.cari_unvan1 + ' ' + (erpCari.cari_unvan2 || '')).trim(),
-            telefon: erpCari.cari_CepTel,
-            eposta: erpCari.cari_EMail,
-            vergi_dairesi: erpCari.cari_vdaire_adi,
-            vergi_no: erpCari.cari_vdaire_no,
+            cari_kodu: (erpCari.cari_kod || '').trim(),
+            cari_adi: ((erpCari.cari_unvan1 || '') + ' ' + (erpCari.cari_unvan2 || '')).trim(),
+            telefon: (erpCari.cari_CepTel || '').trim(),
+            eposta: (erpCari.cari_EMail || '').trim(),
+            vergi_dairesi: (erpCari.cari_vdaire_adi || '').trim(),
+            vergi_no: (erpCari.cari_vdaire_no || '').trim(),
             cari_tipi: erpCari.cari_baglanti_tipi === 1 ? 'Tedarikçi' : 'Müşteri',
             guncelleme_tarihi: new Date(),
             kaynak: 'erp'
