@@ -3,7 +3,7 @@ const mssqlService = require('../services/mssql.service');
 
 async function checkFinal() {
     const productCode = '6056902';
-    const dbs = ['MikroDB_V15', 'MikroDB_V15_02', 'MikroDB_V15_03', 'MikroDB_V15_04'];
+    const dbs = ['MikroDB_V15_02'];
 
     for (const db of dbs) {
         try {

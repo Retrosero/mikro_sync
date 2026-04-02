@@ -3,7 +3,7 @@ const mssqlService = require('../services/mssql.service');
 
 async function checkV04() {
     const productCodes = ['6056902', '6056930'];
-    const db = 'MikroDB_V15_04';
+    const db = 'MikroDB_V15_02';
 
     try {
         console.log(`${db} detaylı kontrol ediliyor...`);

@@ -4,13 +4,13 @@ const mssqlService = require('../services/mssql.service');
 async function checkV04Movements() {
     const productCode = '6056902';
     try {
-        console.log(`Mikro (V15_04) Hareketler: ${productCode}`);
+        console.log(`Mikro (V15_02) Hareketler: ${productCode}`);
         const res = await mssqlService.query(`
             SELECT sth_tip, sth_miktar, sth_create_date
-            FROM MikroDB_V15_04.dbo.STOK_HAREKETLERI WITH (NOLOCK)
+            FROM MikroDB_V15_02.dbo.STOK_HAREKETLERI WITH (NOLOCK)
             WHERE sth_stok_kod = '${productCode}'
         `);
-        console.log('V15_04 Hareketleri:', res);
+        console.log('V15_02 Hareketleri:', res);
     } catch (e) {
         console.error(e);
     } finally {

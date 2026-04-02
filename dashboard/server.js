@@ -187,6 +187,265 @@ app.get('/api/errors/clear', (req, res) => {
   res.json({ success: true });
 });
 
+// Yeni: JSON formatında log arama ve filtreleme API
+app.get('/api/logs', async (req, res) => {
+  try {
+    const {
+      level,
+      context,
+      search,
+      limit = 100,
+      offset = 0,
+      date
+    } = req.query;
+
+    const logsDir = path.join(__dirname, '..', 'logs');
+    const logs = [];
+
+    // Belirli bir tarih için log dosyasını oku
+    let targetFiles = [];
+    if (date) {
+      const dateFile = path.join(logsDir, `combined-${date}.log`);
+      if (fs.existsSync(dateFile)) {
+        targetFiles = [dateFile];
+      }
+    } else {
+      // Son 7 günün dosyalarını oku
+      const files = fs.readdirSync(logsDir);
+      const sevenDaysAgo = new Date();
+      sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+      for (const file of files) {
+        if (!file.endsWith('.log')) continue;
+        if (file === 'errors.log') continue; // errors.log ayrı
+
+        const filePath = path.join(logsDir, file);
+        const stats = fs.statSync(filePath);
+
+        if (stats.mtime >= sevenDaysAgo) {
+          targetFiles.push(filePath);
+        }
+      }
+    }
+
+    // Dosyaları oku ve filtrele
+    for (const file of targetFiles) {
+      try {
+        const content = fs.readFileSync(file, 'utf8');
+        const lines = content.split('\n').filter(line => line.trim());
+
+        for (const line of lines) {
+          try {
+            const log = JSON.parse(line);
+
+            // Filtreleme
+            if (level && log.level !== level) continue;
+            if (context && log.context !== context) continue;
+            if (search && !log.message?.toLowerCase().includes(search.toLowerCase())) continue;
+
+            logs.push(log);
+          } catch (e) {
+            // JSON parse edilemeyen satırları atla
+          }
+        }
+      } catch (e) {
+        // Dosya okuma hatası
+      }
+    }
+
+    // Zamana göre sırala (en yeni önce)
+    logs.sort((a, b) => new Date(b.isoTimestamp || b.timestamp) - new Date(a.isoTimestamp || a.timestamp));
+
+    // Limit ve offset uygula
+    const paginatedLogs = logs.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
+
+    res.json({
+      logs: paginatedLogs,
+      total: logs.length,
+      limit: parseInt(limit),
+      offset: parseInt(offset)
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Log istatistikleri
+app.get('/api/logs/stats', async (req, res) => {
+  try {
+    const logsDir = path.join(__dirname, '..', 'logs');
+    const stats = {
+      total: 0,
+      errors: 0,
+      warnings: 0,
+      info: 0,
+      byContext: {},
+      byHour: new Array(24).fill(0),
+      last24Hours: {
+        total: 0,
+        errors: 0,
+        warnings: 0,
+        info: 0
+      }
+    };
+
+    const twentyFourHoursAgo = new Date();
+    twentyFourHoursAgo.setHours(twentyFourHoursAgo.getHours() - 24);
+
+    const files = fs.readdirSync(logsDir);
+
+    for (const file of files) {
+      if (!file.endsWith('.log')) continue;
+
+      const filePath = path.join(logsDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      const lines = content.split('\n').filter(line => line.trim());
+
+      for (const line of lines) {
+        try {
+          const log = JSON.parse(line);
+          stats.total++;
+
+          if (log.level === 'error') stats.errors++;
+          if (log.level === 'warn') stats.warnings++;
+          if (log.level === 'info') stats.info++;
+
+          if (log.context) {
+            stats.byContext[log.context] = (stats.byContext[log.context] || 0) + 1;
+          }
+
+          if (log.timestamp) {
+            const hour = new Date(log.timestamp).getHours();
+            stats.byHour[hour]++;
+
+            // Son 24 saat
+            const logTime = new Date(log.timestamp);
+            if (logTime >= twentyFourHoursAgo) {
+              stats.last24Hours.total++;
+              if (log.level === 'error') stats.last24Hours.errors++;
+              if (log.level === 'warn') stats.last24Hours.warnings++;
+              if (log.level === 'info') stats.last24Hours.info++;
+            }
+          }
+        } catch (e) {
+          // JSON parse hatası
+        }
+      }
+    }
+
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Logları JSON formatında indir
+app.get('/api/logs/export', async (req, res) => {
+  try {
+    const { format = 'json', date } = req.query;
+    const logsDir = path.join(__dirname, '..', 'logs');
+
+    let targetFiles = [];
+    if (date) {
+      const dateFile = path.join(logsDir, `combined-${date}.log`);
+      if (fs.existsSync(dateFile)) {
+        targetFiles = [dateFile];
+      }
+    } else {
+      // Bugünün dosyasını al
+      const today = new Date().toISOString().split('T')[0];
+      const todayFile = path.join(logsDir, `combined-${today}.log`);
+      if (fs.existsSync(todayFile)) {
+        targetFiles = [todayFile];
+      }
+    }
+
+    const logs = [];
+    for (const file of targetFiles) {
+      try {
+        const content = fs.readFileSync(file, 'utf8');
+        const lines = content.split('\n').filter(line => line.trim());
+
+        for (const line of lines) {
+          try {
+            const log = JSON.parse(line);
+            logs.push(log);
+          } catch (e) {
+            // JSON parse edilemeyen satırları atla
+          }
+        }
+      } catch (e) {
+        // Dosya okuma hatası
+      }
+    }
+
+    // Zamana göre sırala
+    logs.sort((a, b) => new Date(b.isoTimestamp || b.timestamp) - new Date(a.isoTimestamp || a.timestamp));
+
+    if (format === 'json') {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Content-Disposition', `attachment; filename="logs-${date || new Date().toISOString().split('T')[0]}.json"`);
+      res.json(logs);
+    } else if (format === 'csv') {
+      const headers = ['logId', 'timestamp', 'level', 'service', 'context', 'message'];
+      const csvRows = [headers.join(',')];
+
+      for (const log of logs) {
+        const row = headers.map(h => {
+          const value = log[h] !== undefined ? log[h] : '';
+          const strValue = String(value).replace(/"/g, '""');
+          return `"${strValue}"`;
+        });
+        csvRows.push(row.join(','));
+      }
+
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="logs-${date || new Date().toISOString().split('T')[0]}.csv"`);
+      res.send(csvRows.join('\n'));
+    } else {
+      res.setHeader('Content-Type', 'text/plain');
+      res.setHeader('Content-Disposition', `attachment; filename="logs-${date || new Date().toISOString().split('T')[0]}.txt"`);
+      res.send(logs.map(log =>
+        `[${log.timestamp}] [${log.level}] [${log.service}] [${log.context || 'N/A'}]: ${log.message}`
+      ).join('\n'));
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Hata loglarını JSON formatında al
+app.get('/api/errors/json', async (req, res) => {
+  try {
+    const logsDir = path.join(__dirname, '..', 'logs');
+    const errorsFile = path.join(logsDir, 'errors.log');
+
+    if (!fs.existsSync(errorsFile)) {
+      return res.json([]);
+    }
+
+    const content = fs.readFileSync(errorsFile, 'utf8');
+    const lines = content.split('\n').filter(line => line.trim());
+    const errors = [];
+
+    for (const line of lines) {
+      try {
+        const log = JSON.parse(line);
+        errors.push(log);
+      } catch (e) {
+        // JSON parse edilemeyen satırları atla
+      }
+    }
+
+    // Zamana göre sırala (en yeni önce)
+    errors.sort((a, b) => new Date(b.isoTimestamp || b.timestamp) - new Date(a.isoTimestamp || a.timestamp));
+
+    res.json(errors);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Sync Queue Failed Items Endpoints
 app.get('/api/failed-items', async (req, res) => {
   try {
@@ -294,6 +553,8 @@ io.on('connection', (socket) => {
         type: 'warning',
         message: `\n⏹️ ${commandId} durduruldu\n`
       });
+      // Client'a durdurulduğunu bildir ki buton durumu güncellensin
+      socket.emit('command-stopped', { commandId });
     }
   });
 

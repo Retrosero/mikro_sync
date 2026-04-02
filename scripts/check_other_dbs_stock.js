@@ -2,7 +2,7 @@ require('dotenv').config();
 const mssqlService = require('../services/mssql.service');
 
 async function checkOtherDBs() {
-    const dbs = ['MikroDB_V15_03', 'MikroDB_V15_04'];
+    const dbs = ['MikroDB_V15_02'];
     const productCode = '6056902';
 
     for (const db of dbs) {

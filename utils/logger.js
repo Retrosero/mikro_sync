@@ -8,103 +8,142 @@ if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir, { recursive: true });
 }
 
-// Özel format: Detaylı hata bilgisi
-const detailedFormat = winston.format.printf(({ timestamp, level, message, service, context, stack, ...meta }) => {
-  let log = `${timestamp} [${level.toUpperCase()}] [${service}]`;
-  
-  if (context) {
-    log += ` [${context}]`;
-  }
-  
-  log += `: ${message}`;
-  
-  // Meta bilgileri ekle
-  if (Object.keys(meta).length > 0) {
-    log += `\n  Meta: ${JSON.stringify(meta, null, 2)}`;
-  }
-  
-  // Stack trace ekle
-  if (stack) {
-    log += `\n  Stack: ${stack}`;
-  }
-  
-  return log;
-});
+// Günlük log dosyası için tarih formatı
+const getDailyFilename = (type) => {
+  const now = new Date();
+  const dateStr = now.toISOString().split('T')[0]; // YYYY-MM-DD
+  return path.join(logsDir, `${type}-${dateStr}.log`);
+};
 
-// Konsol için renkli format
+// Benzersiz log ID oluştur
+const generateLogId = () => {
+  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+};
+
+// JSON formatı - Detaylı ve yapılandırılmış
+const jsonFormat = winston.format.combine(
+  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+  winston.format.errors({ stack: true }),
+  winston.format((info) => {
+    // Her log için benzersiz ID ekle
+    info.logId = generateLogId();
+
+    // Process bilgisi ekle
+    info.pid = process.pid;
+
+    // ISO timestamp ekle (programatik erişim için)
+    info.isoTimestamp = new Date().toISOString();
+
+    return info;
+  })(),
+  winston.format.json()
+);
+
+// Konsol için renkli ve okunabilir format
 const consoleFormat = winston.format.combine(
   winston.format.colorize(),
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-  winston.format.printf(({ timestamp, level, message, context, ...meta }) => {
+  winston.format.printf(({ timestamp, level, message, service, context, ...meta }) => {
     let log = `${timestamp} [${level}]`;
-    
+
+    if (service) {
+      log += ` [${service}]`;
+    }
+
     if (context) {
       log += ` [${context}]`;
     }
-    
+
     log += `: ${message}`;
-    
+
     // Önemli meta bilgileri göster
-    const importantKeys = ['recordId', 'table', 'operation', 'duration', 'error'];
+    const importantKeys = ['recordId', 'table', 'operation', 'duration', 'error', 'entity_id', 'entity_type'];
     const importantMeta = {};
     importantKeys.forEach(key => {
       if (meta[key]) importantMeta[key] = meta[key];
     });
-    
+
     if (Object.keys(importantMeta).length > 0) {
       log += ` ${JSON.stringify(importantMeta)}`;
     }
-    
+
     return log;
   })
 );
+
+// Günlük dosya rotation için custom transport
+class DailyRotateTransport extends winston.transports.File {
+  constructor(options = {}) {
+    const dailyOptions = {
+      ...options,
+      filename: getDailyFilename(options.logType || 'app'),
+      maxsize: 10485760, // 10MB
+      maxFiles: 30, // 30 gün sakla
+    };
+    super(dailyOptions);
+
+    // Her gün yeni dosya oluşturmak için interval
+    this.rotationInterval = setInterval(() => {
+      this.close();
+      this.filename = getDailyFilename(options.logType || 'app');
+      this.open();
+    }, 24 * 60 * 60 * 1000); // 24 saat
+
+    this.rotationInterval.unref(); // Process exit'te engelleme
+  }
+}
 
 // Ana logger
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
   defaultMeta: { service: 'erp-web-sync' },
   transports: [
-    // Hata logları - Detaylı
-    new winston.transports.File({ 
-      filename: path.join(logsDir, 'error.log'), 
+    // Hata logları - Günlük dosya + Tüm hatalar ayrı dosya
+    new DailyRotateTransport({
+      logType: 'error',
       level: 'error',
-      maxsize: 10485760, // 10MB
-      maxFiles: 10,
-      format: winston.format.combine(
-        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        winston.format.errors({ stack: true }),
-        detailedFormat
-      )
+      format: jsonFormat
     }),
-    
-    // Tüm loglar
-    new winston.transports.File({ 
-      filename: path.join(logsDir, 'combined.log'),
-      maxsize: 10485760, // 10MB
-      maxFiles: 10,
-      format: winston.format.combine(
-        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-        winston.format.errors({ stack: true }),
-        detailedFormat
-      )
-    }),
-    
-    // Senkronizasyon logları - Ayrı dosya
+
+    // Tüm hatalar için tek dosya (son 10MB)
     new winston.transports.File({
-      filename: path.join(logsDir, 'sync.log'),
-      level: 'info',
+      filename: path.join(logsDir, 'errors.log'),
+      level: 'error',
       maxsize: 10485760,
       maxFiles: 5,
+      format: jsonFormat
+    }),
+
+    // Senkronizasyon logları - Günlük dosya
+    new DailyRotateTransport({
+      logType: 'sync',
+      level: 'info',
       format: winston.format.combine(
-        winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
         winston.format((info) => {
-          // Sadece sync ile ilgili logları al
-          return info.context && info.context.includes('sync') ? info : false;
+          return (info.context && info.context.includes('sync')) ? info : false;
         })(),
-        detailedFormat
+        jsonFormat
       )
     }),
-    
+
+    // Performans logları - Günlük dosya
+    new DailyRotateTransport({
+      logType: 'performance',
+      level: 'info',
+      format: winston.format.combine(
+        winston.format((info) => {
+          return info.context === 'performance' ? info : false;
+        })(),
+        jsonFormat
+      )
+    }),
+
+    // Tüm loglar - Günlük dosya (kombinasyon)
+    new DailyRotateTransport({
+      logType: 'combined',
+      format: jsonFormat
+    }),
+
     // Konsol çıktısı
     new winston.transports.Console({
       format: consoleFormat
@@ -123,14 +162,15 @@ logger.syncStart = (table, recordId, operation) => {
   });
 };
 
-logger.syncSuccess = (table, recordId, operation, duration) => {
+logger.syncSuccess = (table, recordId, operation, duration, additionalInfo = {}) => {
   logger.info('Senkronizasyon başarılı', {
     context: 'sync-success',
     table,
     recordId,
     operation,
     duration: `${duration}ms`,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    ...additionalInfo
   });
 };
 
@@ -205,6 +245,127 @@ logger.startup = () => {
   console.log('  Node: ' + process.version);
   console.log('  Platform: ' + process.platform);
   console.log('='.repeat(70) + '\n');
+};
+
+// Log arama ve filtreleme için API fonksiyonu
+logger.searchLogs = async (options = {}) => {
+  const {
+    level,
+    context,
+    startDate,
+    endDate,
+    search,
+    limit = 100,
+    offset = 0
+  } = options;
+
+  const logs = [];
+  const logFiles = [];
+
+  // Tarih aralığına göre dosyaları bul
+  const files = fs.readdirSync(logsDir);
+  for (const file of files) {
+    if (!file.endsWith('.log')) continue;
+
+    const filePath = path.join(logsDir, file);
+    const stats = fs.statSync(filePath);
+
+    // Sadece son 7 günün dosyalarını oku
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    if (stats.mtime < sevenDaysAgo) continue;
+
+    logFiles.push(filePath);
+  }
+
+  // Dosyaları oku ve filtrele
+  for (const file of logFiles) {
+    try {
+      const content = fs.readFileSync(file, 'utf8');
+      const lines = content.split('\n').filter(line => line.trim());
+
+      for (const line of lines) {
+        try {
+          const log = JSON.parse(line);
+
+          // Filtreleme
+          if (level && log.level !== level) continue;
+          if (context && log.context !== context) continue;
+          if (search && !log.message?.toLowerCase().includes(search.toLowerCase())) continue;
+
+          if (startDate && log.isoTimestamp < startDate) continue;
+          if (endDate && log.isoTimestamp > endDate) continue;
+
+          logs.push(log);
+        } catch (e) {
+          // JSON parse edilemeyen satırları atla
+        }
+      }
+    } catch (e) {
+      // Dosya okuma hatası
+    }
+  }
+
+  // Sırala ve limit uygula
+  logs.sort((a, b) => new Date(b.isoTimestamp) - new Date(a.isoTimestamp));
+
+  return {
+    logs: logs.slice(offset, offset + limit),
+    total: logs.length,
+    limit,
+    offset
+  };
+};
+
+// Log istatistikleri
+logger.getStats = () => {
+  const stats = {
+    total: 0,
+    errors: 0,
+    warnings: 0,
+    info: 0,
+    byContext: {},
+    byHour: new Array(24).fill(0)
+  };
+
+  try {
+    const files = fs.readdirSync(logsDir);
+
+    for (const file of files) {
+      if (!file.endsWith('.log')) continue;
+
+      const filePath = path.join(logsDir, file);
+      const content = fs.readFileSync(filePath, 'utf8');
+      const lines = content.split('\n').filter(line => line.trim());
+
+      for (const line of lines) {
+        try {
+          const log = JSON.parse(line);
+          stats.total++;
+
+          if (log.level === 'error') stats.errors++;
+          if (log.level === 'warn') stats.warnings++;
+          if (log.level === 'info') stats.info++;
+
+          if (log.context) {
+            stats.byContext[log.context] = (stats.byContext[log.context] || 0) + 1;
+          }
+
+          if (log.timestamp) {
+            const hour = new Date(log.timestamp).getHours();
+            stats.byHour[hour]++;
+          }
+        } catch (e) {
+          // JSON parse hatası
+        }
+      }
+    }
+  } catch (e) {
+    // Dosya okuma hatası
+  }
+
+  return stats;
 };
 
 module.exports = logger;
