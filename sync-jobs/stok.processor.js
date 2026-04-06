@@ -380,8 +380,8 @@ class StokProcessor {
       await this.updateEntegraQuantity(webStok);
       // Entegra SQLite product_description tablosunu güncelle
       await this.updateEntegraDescription(webStok);
-      // Entegra SQLite pictures tablosunu güncelle
-      await this.updateEntegraPictures(webStok);
+      // Entegra SQLite pictures tablosunu güncelle - İptal edildi (Sadece pictures -> stoklar yönünde senkronizasyon olacak)
+      // await this.updateEntegraPictures(webStok);
 
       // Fiyat işlemi else'den sonra da çalışsın (yeni ve güncelleme için)
       if (webStok.satis_fiyati !== undefined && webStok.satis_fiyati !== null) {

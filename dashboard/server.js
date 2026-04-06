@@ -414,6 +414,94 @@ app.get('/api/logs/export', async (req, res) => {
   }
 });
 
+// Gelişmiş log arama - Ürün kodu, kayıt ID'si veya herhangi bir metaya göre ara
+app.get('/api/logs/advanced-search', async (req, res) => {
+  try {
+    const { query, dateFrom, dateTo } = req.query;
+    if (!query || query.trim().length < 2) {
+      return res.status(400).json({ error: 'Arama metni en az 2 karakter olmalıdır.' });
+    }
+    const searchTerm = query.trim().toLowerCase();
+    const logsDir = path.join(__dirname, '..', 'logs');
+    const results = [];
+
+    if (!fs.existsSync(logsDir)) {
+      return res.json({ results: [], total: 0, query });
+    }
+
+    const files = fs.readdirSync(logsDir).filter(f => f.endsWith('.log'));
+
+    for (const file of files) {
+      const filePath = path.join(logsDir, file);
+      let content;
+      try {
+        content = fs.readFileSync(filePath, 'utf8');
+      } catch (e) {
+        continue;
+      }
+      const lines = content.split('\n').filter(l => l.trim());
+
+      for (const line of lines) {
+        try {
+          const log = JSON.parse(line);
+
+          // Tarih filtresi
+          const logDate = log.isoTimestamp || log.timestamp;
+          if (dateFrom && logDate && logDate < dateFrom) continue;
+          if (dateTo && logDate && logDate > dateTo + 'T23:59:59') continue;
+
+          // Arama: mesaj veya tüm meta alanlarında bul
+          const haystack = JSON.stringify(log).toLowerCase();
+          if (!haystack.includes(searchTerm)) continue;
+
+          // Senkronizasyon ile ilgili alanları çıkar
+          results.push({
+            logId: log.logId || null,
+            timestamp: log.timestamp || log.isoTimestamp || null,
+            isoTimestamp: log.isoTimestamp || null,
+            level: log.level || 'info',
+            service: log.service || 'N/A',
+            context: log.context || null,
+            message: log.message || '',
+            // Tablo / veri akışı bilgileri
+            table: log.table || log.entity_type || null,
+            operation: log.operation || null,
+            recordId: log.recordId || log.entity_id || log.id || null,
+            duration: log.duration || null,
+            direction: log.direction || null,
+            // Hata bilgileri
+            error: log.error || null,
+            errorCode: log.errorCode || null,
+            // Kısmi meta (ham, tüm ek alanlar)
+            meta: (() => {
+              const skip = new Set(['logId','timestamp','isoTimestamp','level','service','context','message','table','entity_type','operation','recordId','entity_id','id','duration','direction','error','errorCode','pid','errorStack','stack']);
+              const extra = {};
+              for (const [k, v] of Object.entries(log)) {
+                if (!skip.has(k) && v !== undefined && v !== null && v !== '') extra[k] = v;
+              }
+              return Object.keys(extra).length > 0 ? extra : null;
+            })(),
+            sourceFile: file
+          });
+        } catch (e) {
+          // JSON parse edilemeyen satır
+        }
+      }
+    }
+
+    // En yeni önce
+    results.sort((a, b) => {
+      const ta = a.isoTimestamp || a.timestamp || '';
+      const tb = b.isoTimestamp || b.timestamp || '';
+      return tb.localeCompare(ta);
+    });
+
+    res.json({ results: results.slice(0, 500), total: results.length, query });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Hata loglarını JSON formatında al
 app.get('/api/errors/json', async (req, res) => {
   try {

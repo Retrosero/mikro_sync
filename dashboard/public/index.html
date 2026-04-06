@@ -98,6 +98,13 @@
                     class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform duration-700">sync</span>
                 <span class="text-[10px] font-black tracking-widest uppercase">Senkronizle</span>
             </button>
+            <!-- Gelişmiş Kayıt Takip Butonu -->
+            <button id="open-tracker-btn"
+                class="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-all shadow-sm group"
+                title="Ürün / Kayıt Senkronizasyon Takibi">
+                <span class="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">manage_search</span>
+                <span class="text-[10px] font-black tracking-widest uppercase hidden md:inline">Kayıt Takip</span>
+            </button>
             <button id="camera-btn"
                 class="p-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-primary hover:text-white transition-all shadow-sm group">
                 <span class="material-symbols-outlined group-hover:scale-110 transition-transform">photo_camera</span>
@@ -189,7 +196,7 @@
                     </div>
 
                     <!-- Export Dropdown -->
-                    <div class="relative group">
+                    <div class="relative">
                         <button id="log-export"
                             class="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-white rounded-lg hover:bg-primary/90 transition-all text-[9px] font-black tracking-widest uppercase shadow-sm">
                             <span class="material-symbols-outlined text-sm">download</span>
@@ -197,8 +204,8 @@
                             <span class="material-symbols-outlined text-[12px] opacity-70">expand_more</span>
                         </button>
                         <!-- Dropdown Menu -->
-                        <div
-                            class="absolute right-0 top-full mt-1 py-1 bg-white border border-slate-100 rounded-lg shadow-lg opacity-invisible group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-50 min-w-[140px]">
+                        <div id="export-dropdown"
+                            class="absolute right-0 top-full mt-1 py-1 bg-white border border-slate-100 rounded-lg shadow-lg opacity-0 pointer-events-none transition-all z-50 min-w-[140px]">
                             <button data-format="json"
                                 class="w-full px-4 py-2 text-left hover:bg-slate-50 text-[10px] font-medium text-slate-700 flex items-center gap-2">
                                 <span class="material-symbols-outlined text-sm text-blue-500">data_object</span>
@@ -393,6 +400,98 @@
                     </div>
                 </div>
             </div>
+
+            <!-- =================== GELİŞMİŞ KAYIT TAKİP MODALI =================== -->
+            <div id="tracker-modal"
+                class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-[200] flex items-center justify-center p-4 hidden">
+                <div
+                    class="bg-white w-full max-w-7xl max-h-[93vh] rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden border border-slate-100">
+
+                    <!-- Modal Header -->
+                    <div class="px-8 py-6 border-b border-slate-100 flex items-center justify-between shrink-0 bg-gradient-to-r from-violet-600 to-indigo-600">
+                        <div class="flex items-center gap-4">
+                            <div class="p-3 bg-white/20 rounded-2xl">
+                                <span class="material-symbols-outlined text-white text-2xl">manage_search</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-black text-white tracking-tight">Gelişmiş Kayıt Senkronizasyon Takibi</h3>
+                                <p class="text-[10px] text-violet-200 font-bold uppercase tracking-widest mt-0.5">Ürün kodu, stok kodu veya kayıt ID'si girerek tüm geçmişi görün</p>
+                            </div>
+                        </div>
+                        <button id="close-tracker-modal"
+                            class="p-2 hover:bg-white/20 rounded-full transition-colors text-white">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="px-8 py-5 bg-slate-50 border-b border-slate-100 shrink-0">
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <!-- Main Search Input -->
+                            <div class="relative flex-1 min-w-[260px]">
+                                <input type="text" id="tracker-search-input"
+                                    placeholder="Ürün kodu, stok kodu, kayıt ID, cari kodu..."
+                                    class="w-full pl-11 pr-4 py-3 bg-white border-2 border-slate-200 rounded-xl text-[12px] text-slate-800 placeholder-slate-400 focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-200 font-medium transition-all"
+                                    autocomplete="off" />
+                                <span class="material-symbols-outlined text-violet-400 text-[18px] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none">search</span>
+                            </div>
+
+                            <!-- Date From -->
+                            <div class="flex flex-col gap-0.5">
+                                <label class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Başlangıç</label>
+                                <input type="date" id="tracker-date-from"
+                                    class="px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-700 focus:border-violet-500 focus:outline-none cursor-pointer" />
+                            </div>
+
+                            <!-- Date To -->
+                            <div class="flex flex-col gap-0.5">
+                                <label class="text-[8px] font-black text-slate-400 uppercase tracking-widest">Bitiş</label>
+                                <input type="date" id="tracker-date-to"
+                                    class="px-3 py-2.5 bg-white border border-slate-200 rounded-xl text-[11px] text-slate-700 focus:border-violet-500 focus:outline-none cursor-pointer" />
+                            </div>
+
+                            <!-- Search Button -->
+                            <button id="tracker-search-btn"
+                                class="flex items-center gap-2 px-6 py-3 bg-violet-600 text-white rounded-xl hover:bg-violet-700 transition-all text-[11px] font-black tracking-widest uppercase shadow-md shadow-violet-200 active:scale-95">
+                                <span class="material-symbols-outlined text-[16px]">search</span>
+                                Ara
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div id="tracker-stats-bar" class="hidden px-8 py-3 bg-white border-b border-slate-100 shrink-0 flex items-center gap-6 flex-wrap">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-slate-400 text-sm">format_list_numbered</span>
+                            <span class="text-[10px] font-bold text-slate-500">Toplam: <span id="tracker-total-count" class="text-slate-800 font-black">0</span></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="size-2 rounded-full bg-emerald-400"></span>
+                            <span class="text-[10px] font-bold text-slate-500">Başarılı: <span id="tracker-success-count" class="text-emerald-600 font-black">0</span></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="size-2 rounded-full bg-red-400"></span>
+                            <span class="text-[10px] font-bold text-slate-500">Hatalı: <span id="tracker-error-count" class="text-red-600 font-black">0</span></span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="size-2 rounded-full bg-blue-400"></span>
+                            <span class="text-[10px] font-bold text-slate-500">Tablo Sayısı: <span id="tracker-table-count" class="text-blue-600 font-black">0</span></span>
+                        </div>
+                        <div class="ml-auto text-[9px] text-slate-400 font-medium italic">En yeni kayıtlar önce gösteriliyor</div>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div id="tracker-results" class="flex-1 overflow-y-auto bg-slate-50/50">
+                        <!-- Başlangıç durumu -->
+                        <div id="tracker-placeholder" class="flex flex-col items-center justify-center h-full text-slate-300 py-20">
+                            <span class="material-symbols-outlined text-7xl mb-4">manage_search</span>
+                            <p class="font-black tracking-widest uppercase text-sm mb-2">Kayıt Arama</p>
+                            <p class="text-[11px] font-medium text-slate-400 max-w-sm text-center">Yukarıdaki arama kutusuna bir ürün kodu, stok kodu veya kayıt ID'si girerek o kaydın tüm senkronizasyon geçmişini görüntüleyin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- =================== GELİŞMİŞ KAYIT TAKİP MODALI SONU =================== -->
 
             <!-- Table Header -->
             <div

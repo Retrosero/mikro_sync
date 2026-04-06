@@ -406,9 +406,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logExportBtn && exportDropdown) {
         logExportBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const isVisible = !exportDropdown.classList.contains('opacity-0');
-            exportDropdown.classList.toggle('opacity-0', !isVisible);
-            exportDropdown.classList.toggle('pointer-events-none', !isVisible);
+            exportDropdown.classList.toggle('opacity-0');
+            exportDropdown.classList.toggle('pointer-events-none');
         });
 
         // Export format buttons
@@ -440,3 +439,283 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 init();
+
+// ===================== GELİŞMİŞ KAYIT TAKİP MODALI =====================
+
+const trackerModal       = document.getElementById('tracker-modal');
+const openTrackerBtn     = document.getElementById('open-tracker-btn');
+const closeTrackerBtn    = document.getElementById('close-tracker-modal');
+const trackerSearchInput = document.getElementById('tracker-search-input');
+const trackerDateFrom    = document.getElementById('tracker-date-from');
+const trackerDateTo      = document.getElementById('tracker-date-to');
+const trackerSearchBtn   = document.getElementById('tracker-search-btn');
+const trackerResults     = document.getElementById('tracker-results');
+const trackerStatsBar    = document.getElementById('tracker-stats-bar');
+const trackerPlaceholder = document.getElementById('tracker-placeholder');
+
+// Modal aç/kapat
+function openTrackerModal() {
+    if (!trackerModal) return;
+    trackerModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => trackerSearchInput && trackerSearchInput.focus(), 100);
+}
+
+function closeTrackerModal() {
+    if (!trackerModal) return;
+    trackerModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+if (openTrackerBtn)  openTrackerBtn.addEventListener('click', openTrackerModal);
+if (closeTrackerBtn) closeTrackerBtn.addEventListener('click', closeTrackerModal);
+if (trackerModal) {
+    trackerModal.addEventListener('click', (e) => {
+        if (e.target === trackerModal) closeTrackerModal();
+    });
+}
+
+// ESC ile kapatma
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && trackerModal && !trackerModal.classList.contains('hidden')) {
+        closeTrackerModal();
+    }
+    // Ctrl+F / Cmd+F ile aç
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+        if (trackerModal && trackerModal.classList.contains('hidden')) {
+            e.preventDefault();
+            openTrackerModal();
+        }
+    }
+});
+
+// Enter tuşuyla arama
+if (trackerSearchInput) {
+    trackerSearchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') runTrackerSearch();
+    });
+}
+if (trackerSearchBtn) {
+    trackerSearchBtn.addEventListener('click', runTrackerSearch);
+}
+
+// Bağlam etiketlerini Türkçe'ye çevir
+const CONTEXT_LABELS = {
+    'sync-start':    { label: 'Sync Başladı',  color: 'bg-blue-100 text-blue-700',    icon: 'play_circle' },
+    'sync-success':  { label: 'Sync Başarılı', color: 'bg-emerald-100 text-emerald-700', icon: 'check_circle' },
+    'sync-error':    { label: 'Sync Hatası',   color: 'bg-red-100 text-red-700',       icon: 'error' },
+    'mapping-error': { label: 'Mapping Hatası',color: 'bg-orange-100 text-orange-700', icon: 'link_off' },
+    'db-connection': { label: 'DB Bağlantı',   color: 'bg-violet-100 text-violet-700', icon: 'database' },
+    'queue-status':  { label: 'Kuyruk Durum',  color: 'bg-sky-100 text-sky-700',       icon: 'queue' },
+    'performance':   { label: 'Performans',    color: 'bg-amber-100 text-amber-700',   icon: 'speed' },
+};
+
+const OP_LABELS = {
+    'INSERT': { label: 'Ekleme',     color: 'text-emerald-600' },
+    'UPDATE': { label: 'Güncelleme', color: 'text-blue-600' },
+    'DELETE': { label: 'Silme',      color: 'text-red-600' },
+    'UPSERT': { label: 'Ekle/Güncelle', color: 'text-violet-600' },
+};
+
+function getContextBadge(context) {
+    const c = CONTEXT_LABELS[context];
+    if (c) return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wide ${c.color}"><span class="material-symbols-outlined text-[11px]">${c.icon}</span>${c.label}</span>`;
+    if (context) return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wide bg-slate-100 text-slate-600">${escapeHtml(context)}</span>`;
+    return '<span class="text-[9px] text-slate-300">—</span>';
+}
+
+function getLevelBadge(level) {
+    const map = {
+        'error': 'bg-red-100 text-red-600',
+        'warn':  'bg-amber-100 text-amber-600',
+        'info':  'bg-sky-100 text-sky-600',
+    };
+    return `<span class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase ${map[level] || 'bg-slate-100 text-slate-500'}">${level || 'info'}</span>`;
+}
+
+function getOpBadge(op) {
+    if (!op) return '<span class="text-[9px] text-slate-300">—</span>';
+    const o = OP_LABELS[op.toUpperCase()];
+    return `<span class="text-[10px] font-black ${o ? o.color : 'text-slate-600'}">${o ? o.label : escapeHtml(op)}</span>`;
+}
+
+function formatTrackerTime(ts) {
+    if (!ts) return '—';
+    try {
+        const d = new Date(ts);
+        return d.toLocaleString('tr-TR', {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+        });
+    } catch { return ts; }
+}
+
+// Ana arama fonksiyonu
+async function runTrackerSearch() {
+    const query    = trackerSearchInput?.value?.trim() || '';
+    const dateFrom = trackerDateFrom?.value || '';
+    const dateTo   = trackerDateTo?.value   || '';
+
+    if (query.length < 2) {
+        trackerSearchInput && trackerSearchInput.focus();
+        trackerSearchInput && (trackerSearchInput.className = trackerSearchInput.className.replace('border-slate-200', 'border-red-400'));
+        setTimeout(() => {
+            if (trackerSearchInput) trackerSearchInput.className = trackerSearchInput.className.replace('border-red-400', 'border-slate-200');
+        }, 1500);
+        return;
+    }
+
+    // Yükleniyor durumu
+    if (trackerPlaceholder) trackerPlaceholder.classList.add('hidden');
+    if (trackerStatsBar)    trackerStatsBar.classList.add('hidden');
+    if (trackerResults) {
+        trackerResults.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-full py-20 text-slate-400">
+                <span class="material-symbols-outlined text-5xl mb-4 animate-spin text-violet-400">refresh</span>
+                <p class="font-bold tracking-widest uppercase text-xs text-slate-400">Log dosyaları taranıyor...</p>
+                <p class="text-[10px] mt-2 text-slate-300">"${escapeHtml(query)}" aranıyor</p>
+            </div>
+        `;
+    }
+
+    const btn = trackerSearchBtn;
+    if (btn) { btn.disabled = true; btn.classList.add('opacity-60', 'cursor-not-allowed'); }
+
+    try {
+        let url = `/api/logs/advanced-search?query=${encodeURIComponent(query)}`;
+        if (dateFrom) url += `&dateFrom=${dateFrom}`;
+        if (dateTo)   url += `&dateTo=${dateTo}`;
+
+        const resp = await fetch(url);
+        if (!resp.ok) {
+            const err = await resp.json();
+            throw new Error(err.error || 'API hatası');
+        }
+        const data = await resp.json();
+        renderTrackerResults(data.results, data.total, query);
+    } catch (err) {
+        if (trackerResults) {
+            trackerResults.innerHTML = `
+                <div class="flex flex-col items-center justify-center h-full py-20 text-red-400">
+                    <span class="material-symbols-outlined text-5xl mb-4">report_problem</span>
+                    <p class="font-bold tracking-widest uppercase text-xs">Arama başarısız</p>
+                    <p class="text-[10px] mt-2">${escapeHtml(err.message)}</p>
+                </div>
+            `;
+        }
+    } finally {
+        if (btn) { btn.disabled = false; btn.classList.remove('opacity-60', 'cursor-not-allowed'); }
+    }
+}
+
+function renderTrackerResults(results, total, query) {
+    if (!trackerResults) return;
+
+    if (!results || results.length === 0) {
+        trackerResults.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-full py-20 text-slate-300">
+                <span class="material-symbols-outlined text-7xl mb-4">search_off</span>
+                <p class="font-black tracking-widest uppercase text-sm mb-2">Sonuç Bulunamadı</p>
+                <p class="text-[11px] font-medium text-slate-400 max-w-xs text-center">"${escapeHtml(query)}" için log kayıtlarında herhangi bir eşleşme bulunamadı.</p>
+                <p class="text-[9px] text-slate-300 mt-3">Farklı bir kod veya tarih aralığı deneyin.</p>
+            </div>
+        `;
+        if (trackerStatsBar) trackerStatsBar.classList.add('hidden');
+        return;
+    }
+
+    // İstatistikler
+    const successCount = results.filter(r => r.context === 'sync-success').length;
+    const errorCount   = results.filter(r => r.level === 'error').length;
+    const tables       = new Set(results.filter(r => r.table).map(r => r.table));
+    document.getElementById('tracker-total-count')   && (document.getElementById('tracker-total-count').textContent   = total);
+    document.getElementById('tracker-success-count') && (document.getElementById('tracker-success-count').textContent = successCount);
+    document.getElementById('tracker-error-count')   && (document.getElementById('tracker-error-count').textContent   = errorCount);
+    document.getElementById('tracker-table-count')   && (document.getElementById('tracker-table-count').textContent   = tables.size);
+    if (trackerStatsBar) trackerStatsBar.classList.remove('hidden');
+
+    // Tablo ve timeline render
+    let html = `
+        <div class="p-6 space-y-3">
+            ${total > results.length ? `<div class="mb-4 px-4 py-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[10px] font-bold text-amber-700 flex items-center gap-2"><span class="material-symbols-outlined text-sm">info</span>En güncel ${results.length} kayıt gösteriliyor (toplam ${total} eşleşme bulundu).</div>` : ''}
+    `;
+
+    results.forEach((r, i) => {
+        const levelBorder = r.level === 'error' ? 'border-l-red-400 bg-red-50/30' : r.context === 'sync-success' ? 'border-l-emerald-400' : 'border-l-slate-200';
+        const isError = r.level === 'error';
+
+        html += `
+        <div class="bg-white border border-slate-100 border-l-4 ${levelBorder} rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+            <!-- Kart Başlığı -->
+            <div class="px-5 py-3.5 flex items-center justify-between gap-4 border-b border-slate-50 bg-slate-50/60">
+                <div class="flex items-center gap-2 flex-wrap">
+                    ${getLevelBadge(r.level)}
+                    ${getContextBadge(r.context)}
+                    ${r.operation ? getOpBadge(r.operation) : ''}
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                    <span class="text-[9px] font-mono text-slate-400">${formatTrackerTime(r.isoTimestamp || r.timestamp)}</span>
+                    <span class="text-[9px] font-bold text-primary bg-primary/5 px-2 py-0.5 rounded">${escapeHtml(r.service || 'N/A')}</span>
+                </div>
+            </div>
+
+            <!-- Kart İçeriği -->
+            <div class="px-5 py-4 grid grid-cols-2 gap-x-8 gap-y-3 text-[11px]">
+                <!-- Mesaj -->
+                <div class="col-span-2">
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Mesaj</div>
+                    <div class="font-medium ${isError ? 'text-red-600' : 'text-slate-700'} leading-relaxed">${escapeHtml(r.message)}</div>
+                </div>
+
+                ${r.table ? `
+                <div>
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Tablo / Varlık</div>
+                    <div class="font-mono font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded inline-block">${escapeHtml(r.table)}</div>
+                </div>` : ''}
+
+                ${r.recordId ? `
+                <div>
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Kayıt ID</div>
+                    <div class="font-mono text-violet-700 bg-violet-50 px-2 py-0.5 rounded inline-block break-all">${escapeHtml(String(r.recordId))}</div>
+                </div>` : ''}
+
+                ${r.duration ? `
+                <div>
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Süre</div>
+                    <div class="font-mono font-bold text-amber-600">${escapeHtml(String(r.duration))}</div>
+                </div>` : ''}
+
+                ${r.direction ? `
+                <div>
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Yön</div>
+                    <div class="font-bold text-indigo-600">${escapeHtml(r.direction)}</div>
+                </div>` : ''}
+
+                ${r.error ? `
+                <div class="col-span-2">
+                    <div class="text-[8px] font-black text-red-400 uppercase tracking-widest mb-1">Hata Detayı</div>
+                    <div class="font-medium text-red-600 bg-red-50 px-3 py-2 rounded-lg">${escapeHtml(r.error)}${r.errorCode ? ` <span class="ml-2 font-mono text-[9px] bg-red-100 px-1 rounded">${escapeHtml(r.errorCode)}</span>` : ''}</div>
+                </div>` : ''}
+
+                ${r.meta ? `
+                <div class="col-span-2">
+                    <details>
+                        <summary class="text-[8px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-slate-600 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[11px]">code</span>Ek Meta Veriler
+                        </summary>
+                        <pre class="mt-2 p-3 bg-slate-900 text-emerald-300 rounded-xl text-[9px] font-mono overflow-x-auto whitespace-pre-wrap max-h-36">${escapeHtml(JSON.stringify(r.meta, null, 2))}</pre>
+                    </details>
+                </div>` : ''}
+
+                <div>
+                    <div class="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Log Dosyası</div>
+                    <div class="font-mono text-[9px] text-slate-400">${escapeHtml(r.sourceFile || '—')}</div>
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+    html += '</div>';
+    trackerResults.innerHTML = html;
+}
