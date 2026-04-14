@@ -186,7 +186,14 @@ class SatisProcessor {
           const satirData = await satisTransformer.transformSatisKalem(kalem, webSatis);
 
           // DEBUG: Transform edilen değerleri logla
-          logger.info(`Transform sonucu: iskonto1=${satirData.sth_iskonto1}, aciklama="${satirData.sth_aciklama}"`);
+          logger.info(`Satış kalemi - Stok Kodu: ${satirData.sth_stok_kod}, Miktar: ${satirData.sth_miktar}, Fiyat: ${satirData.sth_tutar}`, {
+            context: 'sync-success',
+            recordId: webSatis.id,
+            table: 'STOK_HAREKETLERI',
+            operation: 'INSERT',
+            entity_id: satirData.sth_stok_kod,
+            entity_type: 'Stok Hareket'
+          });
 
           // Başlıktaki evrak numarasını kullan
           satirData.sth_evrakno_sira = baslikData.cha_evrakno_sira;

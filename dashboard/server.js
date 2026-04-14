@@ -241,7 +241,7 @@ app.get('/api/logs', async (req, res) => {
             // Filtreleme
             if (level && log.level !== level) continue;
             if (context && log.context !== context) continue;
-            if (search && !log.message?.toLowerCase().includes(search.toLowerCase())) continue;
+            if (search && !log.message?.toLocaleLowerCase('tr-TR').includes(search.toLocaleLowerCase('tr-TR'))) continue;
 
             logs.push(log);
           } catch (e) {
@@ -421,7 +421,7 @@ app.get('/api/logs/advanced-search', async (req, res) => {
     if (!query || query.trim().length < 2) {
       return res.status(400).json({ error: 'Arama metni en az 2 karakter olmalıdır.' });
     }
-    const searchTerm = query.trim().toLowerCase();
+    const searchTerm = query.trim().toLocaleLowerCase('tr-TR');
     const logsDir = path.join(__dirname, '..', 'logs');
     const results = [];
 
@@ -451,7 +451,7 @@ app.get('/api/logs/advanced-search', async (req, res) => {
           if (dateTo && logDate && logDate > dateTo + 'T23:59:59') continue;
 
           // Arama: mesaj veya tüm meta alanlarında bul
-          const haystack = JSON.stringify(log).toLowerCase();
+          const haystack = JSON.stringify(log).toLocaleLowerCase('tr-TR');
           if (!haystack.includes(searchTerm)) continue;
 
           // Senkronizasyon ile ilgili alanları çıkar

@@ -58,13 +58,16 @@ class SatisTransformer {
       const isVadeli = oSekli === 'vadeli' || oSekli === 'acik_hesap' || oSekli === 'veresiye' ||
         oSekli === 'açık hesap' || oSekli === 'acik hesap' || oSekli === '';
 
-      // KULLANICI İSTEĞİ: Vadeli satışlarda cha_tpoz=0 ve cha_grupno=0, diğerlerinde 1
-      if (isVadeli) {
-        chaTpoz = 0;
-        chaGrupno = 0;
-      } else {
+      // KULLANICI İSTEĞİ: Sadece kredi kartı ve havale için cha_grupno=1, nakit ve vadeli için 0
+      if (oSekli === 'kredi_karti' || oSekli === 'havale' || (webSatis.banka_id && !isVadeli && oSekli !== 'nakit' && oSekli !== 'cek' && oSekli !== 'senet')) {
         chaTpoz = 1;
         chaGrupno = 1;
+      } else if (oSekli === 'nakit' || (!isVadeli && webSatis.kasa_id)) {
+        chaTpoz = 1;
+        chaGrupno = 0;
+      } else {
+        chaTpoz = 0;
+        chaGrupno = 0;
       }
 
       // Ödeme şekline göre cari_cins belirle

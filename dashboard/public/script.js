@@ -194,13 +194,13 @@ function addLog(source, type, message, rawMessage = null) {
 
 function renderLogs() {
     const filter = logFilterSelect?.value || 'all';
-    const searchTerm = logSearchInput?.value?.toLowerCase() || '';
+    const searchTerm = logSearchInput?.value?.toLocaleLowerCase('tr-TR') || '';
     let filteredLogs = allLogs;
     if (filter !== 'all') {
         const typeMap = { 'errors': 'HATA', 'warnings': 'UYARI', 'success': 'BAŞARILI', 'info': 'BİLGİ' };
         if (typeMap[filter]) filteredLogs = filteredLogs.filter(log => log.type === typeMap[filter]);
     }
-    if (searchTerm) filteredLogs = filteredLogs.filter(log => log.message.toLowerCase().includes(searchTerm) || log.source.toLowerCase().includes(searchTerm));
+    if (searchTerm) filteredLogs = filteredLogs.filter(log => log.message.toLocaleLowerCase('tr-TR').includes(searchTerm) || log.source.toLocaleLowerCase('tr-TR').includes(searchTerm));
     logContainer.innerHTML = '';
     if (filteredLogs.length === 0) {
         logContainer.innerHTML = `<div class="flex flex-col items-center justify-center h-64 text-slate-300"><span class="material-symbols-outlined text-5xl mb-4">inbox</span><p class="text-[11px] font-bold uppercase tracking-widest">Log bulunamadı</p></div>`;
@@ -352,13 +352,13 @@ async function fetchErrorLogs() {
 
 // Render error logs based on filters
 function renderErrorLogs() {
-    const searchTerm = errorLogSearchInput?.value?.toLowerCase() || '';
+    const searchTerm = errorLogSearchInput?.value?.toLocaleLowerCase('tr-TR') || '';
     const levelFilter = errorLogLevelSelect?.value || '';
     const contextFilter = errorLogContextSelect?.value || '';
     let filteredLogs = allErrorLogs;
     if (levelFilter) filteredLogs = filteredLogs.filter(log => log.level === levelFilter);
     if (contextFilter) filteredLogs = filteredLogs.filter(log => log.context === contextFilter);
-    if (searchTerm) filteredLogs = filteredLogs.filter(log => log.message?.toLowerCase().includes(searchTerm) || log.service?.toLowerCase().includes(searchTerm) || log.context?.toLowerCase().includes(searchTerm));
+    if (searchTerm) filteredLogs = filteredLogs.filter(log => log.message?.toLocaleLowerCase('tr-TR').includes(searchTerm) || log.service?.toLocaleLowerCase('tr-TR').includes(searchTerm) || log.context?.toLocaleLowerCase('tr-TR').includes(searchTerm));
     updateErrorLogStats(filteredLogs, allErrorLogs);
     if (filteredLogs.length === 0) {
         errorLogContent.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-slate-300"><span class="material-symbols-outlined text-6xl mb-4">inbox</span><p class="font-bold tracking-widest uppercase text-xs">Filtrelere uygun log bulunamadı</p></div>`;
