@@ -48,6 +48,63 @@ class PostgreSQLService {
     }
   }
 
+  /**
+   * SQLite tipini PostgreSQL tipine dönüştürür
+   */
+  sqliteTypeToPgType(sqliteType) {
+    const type = (sqliteType || 'TEXT').toUpperCase();
+
+    if (type.includes('INT')) return 'INTEGER';
+    if (type.includes('REAL') || type.includes('FLOAT') || type.includes('DOUBLE')) return 'DOUBLE PRECISION';
+    if (type.includes('BLOB')) return 'BYTEA';
+    if (type.includes('BOOL')) return 'BOOLEAN';
+    if (type.includes('DATETIME') || type.includes('TIMESTAMP')) return 'TIMESTAMP';
+    if (type.includes('DATE')) return 'DATE';
+    if (type.includes('TIME')) return 'TIME';
+
+    return 'TEXT';
+  }
+
+  /**
+   * Tablodaki eksik kolonları kontrol eder ve ekler
+   * @param {string} pgTableName - PostgreSQL tablo adı
+   * @param {Array} sqliteColumns - SQLite tablo şeması (name, type vb. içeren dizi)
+   */
+  async ensureTableColumns(pgTableName, sqliteColumns) {
+    try {
+      // Mevcut kolonları al
+      const pgColsResult = await this.query(`
+        SELECT column_name 
+        FROM information_schema.columns 
+        WHERE table_schema = 'public' 
+        AND table_name = $1
+      `, [pgTableName]);
+
+      const pgColNames = pgColsResult.map(c => c.column_name);
+
+      // SQLite'da olup PG'de olmayanları bul
+      const missing = sqliteColumns.filter(sc => !pgColNames.includes(sc.name));
+
+      if (missing.length > 0) {
+        logger.info(`${pgTableName} tablosunda ${missing.length} yeni kolon tespit edildi, ekleniyor...`);
+
+        for (const col of missing) {
+          const pgType = this.sqliteTypeToPgType(col.type);
+          const alterSql = `ALTER TABLE "${pgTableName}" ADD COLUMN "${col.name}" ${pgType}`;
+
+          try {
+            await this.query(alterSql);
+            logger.info(`  Kolon eklendi: ${col.name} (${pgType})`);
+          } catch (err) {
+            logger.error(`  Kolon ekleme hatası (${col.name}): ${err.message}`);
+          }
+        }
+      }
+    } catch (error) {
+      logger.error(`${pgTableName} kolon kontrolü hatası:`, error.message);
+    }
+  }
+
   async disconnect() {
     try {
       await this.pool.end();

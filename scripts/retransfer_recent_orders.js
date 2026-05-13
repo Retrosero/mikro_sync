@@ -12,22 +12,7 @@ const TABLES = {
     'order_product': 'entegra_order_product'
 };
 
-/**
- * SQLite tipini PostgreSQL tipine dönüştür
- */
-function sqliteTypeToPgType(sqliteType) {
-    const type = (sqliteType || 'TEXT').toUpperCase();
 
-    if (type.includes('INT')) return 'INTEGER';
-    if (type.includes('REAL') || type.includes('FLOAT') || type.includes('DOUBLE')) return 'DOUBLE PRECISION';
-    if (type.includes('BLOB')) return 'BYTEA';
-    if (type.includes('BOOL')) return 'BOOLEAN';
-    if (type.includes('DATETIME') || type.includes('TIMESTAMP')) return 'TIMESTAMP';
-    if (type.includes('DATE')) return 'DATE';
-    if (type.includes('TIME')) return 'TIME';
-
-    return 'TEXT';
-}
 
 /**
  * Veri değerini temizle ve PostgreSQL'e uygun hale getir
@@ -123,6 +108,10 @@ async function runReSync() {
         // 1. Order Tablosu
         logger.info('order tablosu işleniyor...');
         const orderCols = sqliteService.getTableSchema('order');
+        
+        // Eksik kolonları kontrol et ve ekle
+        await pgService.ensureTableColumns('entegra_order', orderCols);
+        
         const orders = sqliteService.query(`SELECT * FROM 'order' WHERE date_add >= ?`, [dateStr]);
 
         logger.info(`${orders.length} sipariş bulundu.`);
@@ -142,6 +131,10 @@ async function runReSync() {
         // 2. Order Product Tablosu
         logger.info('order_product tablosu işleniyor...');
         const orderProdCols = sqliteService.getTableSchema('order_product');
+        
+        // Eksik kolonları kontrol et ve ekle
+        await pgService.ensureTableColumns('entegra_order_product', orderProdCols);
+        
         // date_add join ile filtrele
         const orderProducts = sqliteService.query(`
             SELECT op.* FROM order_product op 

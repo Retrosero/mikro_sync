@@ -19,6 +19,7 @@ const path = require('path');
 const sqliteService = require('../services/sqlite.service');
 const pgService = require('../services/postgresql.service');
 const logger = require('../utils/logger');
+const { syncAsortiQuantities } = require('./sync_asorti_quantities_to_web');
 
 // Senkronize edilecek tablo listesi
 const TABLE_MAPPING = {
@@ -102,29 +103,13 @@ function isFirstSyncOfDay(state) {
     return lastSync.toDateString() !== today.toDateString();
 }
 
-/**
- * SQLite tipini PostgreSQL tipine dönüştür
- */
-function sqliteTypeToPgType(sqliteType) {
-    const type = (sqliteType || 'TEXT').toUpperCase();
-
-    if (type.includes('INT')) return 'INTEGER';
-    if (type.includes('REAL') || type.includes('FLOAT') || type.includes('DOUBLE')) return 'DOUBLE PRECISION';
-    if (type.includes('BLOB')) return 'BYTEA';
-    if (type.includes('BOOL')) return 'BOOLEAN';
-    if (type.includes('DATETIME') || type.includes('TIMESTAMP')) return 'TIMESTAMP';
-    if (type.includes('DATE')) return 'DATE';
-    if (type.includes('TIME')) return 'TIME';
-
-    return 'TEXT';
-}
 
 /**
  * PostgreSQL'de tabloyu oluştur
  */
 async function createPgTable(pgTableName, columns) {
     const colDefs = columns.map(col => {
-        const pgType = sqliteTypeToPgType(col.type);
+        const pgType = pgService.sqliteTypeToPgType(col.type);
         const pk = col.pk ? ' PRIMARY KEY' : '';
         const notNull = col.notnull && !col.pk ? ' NOT NULL' : '';
 
@@ -140,6 +125,13 @@ async function createPgTable(pgTableName, columns) {
 
     await pgService.query(sql);
     logger.info(`PostgreSQL tablosu oluşturuldu: ${pgTableName}`);
+}
+
+/**
+ * PostgreSQL tablosundaki eksik kolonları kontrol et ve ekle
+ */
+async function ensurePgTableColumns(pgTableName, sqliteColumns) {
+    await pgService.ensureTableColumns(pgTableName, sqliteColumns);
 }
 
 /**
@@ -302,6 +294,9 @@ async function syncTable(sourceTable, targetTable, state, isFirstSync) {
         if (!tableExists) {
             logger.info(`PostgreSQL'de tablo oluşturuluyor: ${targetTable}`);
             await createPgTable(targetTable, columns);
+        } else {
+            // Tablo varsa eksik kolonları kontrol et ve ekle
+            await ensurePgTableColumns(targetTable, columns);
         }
 
         // Hedef tablodaki kayıt sayısını al
@@ -721,6 +716,15 @@ async function runSync(options = { disconnect: true }) {
         // Silinen ürünleri entegra_product'dan temizle
         const deleteProductResult = await syncDeletedProducts();
         results['delete_product_sync'] = deleteProductResult;
+
+        // ASORTI STOK GÜNCELLEME (Entegra -> Web Stoklar)
+        try {
+            const asortiResult = await syncAsortiQuantities();
+            results['asorti_stock_sync'] = { updated: asortiResult.variantsUpdated + asortiResult.parentsUpdated };
+        } catch (asortiErr) {
+            logger.error('Asorti stok güncelleme hatası:', asortiErr);
+            results['asorti_stock_sync'] = { error: asortiErr.message };
+        }
 
         // Sync durumunu güncelle ve kaydet
         state.lastSyncDate = new Date().toISOString();
