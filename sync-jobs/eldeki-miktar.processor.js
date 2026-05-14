@@ -64,11 +64,14 @@ class EldekiMiktarProcessor {
         const sql = `
           UPDATE stoklar AS s
           SET eldeki_miktar = v.eldeki_miktar::numeric,
+              sth_eldeki_miktar = v.eldeki_miktar::numeric,
               guncelleme_tarihi = v.guncelleme_tarihi::timestamp
           FROM (VALUES ${placeholders.join(', ')}) AS v(id, eldeki_miktar, guncelleme_tarihi)
           WHERE s.id = v.id::uuid
             AND (s.eldeki_miktar IS NULL 
-                 OR s.eldeki_miktar != v.eldeki_miktar::numeric)
+                 OR s.eldeki_miktar != v.eldeki_miktar::numeric
+                 OR s.sth_eldeki_miktar IS NULL
+                 OR s.sth_eldeki_miktar != v.eldeki_miktar::numeric)
         `;
 
         const result = await pgService.query(sql, values);
@@ -136,9 +139,10 @@ class EldekiMiktarProcessor {
       await pgService.query(
         `UPDATE stoklar 
          SET eldeki_miktar = $1,
+             sth_eldeki_miktar = $1,
              guncelleme_tarihi = NOW()
          WHERE id = $2
-           AND (eldeki_miktar IS NULL OR eldeki_miktar != $1)`,
+           AND (eldeki_miktar IS NULL OR eldeki_miktar != $1 OR sth_eldeki_miktar IS NULL OR sth_eldeki_miktar != $1)`,
         [eldekiMiktar, stok.id]
       );
 

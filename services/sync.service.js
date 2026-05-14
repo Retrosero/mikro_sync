@@ -7,6 +7,7 @@ const stockXmlService = require('./stock-xml.service');
 const invoiceSettingsService = require('./invoice-settings.service');
 const entegraSync = require('../scripts/entegra-sync');
 const asortiSync = require('../scripts/sync_asorti_to_sqlite');
+const eldekiMiktarProcessor = require('../sync-jobs/eldeki-miktar.processor');
 const SyncQueueWorker = require('./sync-queue-worker');
 
 class SyncService {
@@ -49,6 +50,9 @@ class SyncService {
 
         // Asorti Ürün Senkronizasyonu (Web -> SQLite)
         await asortiSync.runAsortiSync();
+
+        // Eldeki Miktar Senkronizasyonu (ERP -> Web)
+        await eldekiMiktarProcessor.syncToWeb();
 
         // Stok XML Oluştur ve Yükle
         await stockXmlService.checkAndRun();

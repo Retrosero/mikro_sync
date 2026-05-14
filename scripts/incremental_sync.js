@@ -3,6 +3,7 @@ const fiyatProcessor = require('../sync-jobs/fiyat.processor');
 const cariProcessor = require('../sync-jobs/cari.processor');
 const cariHareketProcessor = require('../sync-jobs/cari-hareket.processor');
 const stokHareketProcessor = require('../sync-jobs/stok-hareket.processor');
+const eldekiMiktarProcessor = require('../sync-jobs/eldeki-miktar.processor');
 const syncStateService = require('../services/sync-state.service');
 const mssqlService = require('../services/mssql.service');
 const pgService = require('../services/postgresql.service');
@@ -63,6 +64,11 @@ async function incrementalSync() {
         stats.stokHareketler = await stokHareketProcessor.syncToWeb();
         console.log(`✅ ${stats.stokHareketler} stok hareket senkronize edildi\n`);
 
+        // 7. ELDEKİ MİKTAR SENKRONIZASYONU
+        console.log('📦 ELDEKİ MİKTAR SENKRONIZASYONU\n');
+        stats.eldekiMiktarlar = await eldekiMiktarProcessor.syncToWeb();
+        console.log(`✅ ${stats.eldekiMiktarlar} eldeki miktar senkronize edildi\n`);
+
         // ÖZET RAPOR
         const endTime = new Date();
         const duration = Math.round((endTime - startTime) / 1000);
@@ -77,6 +83,7 @@ async function incrementalSync() {
         console.log(`   Cari           : ${stats.cariler}`);
         console.log(`   Cari Hareket   : ${stats.cariHareketler}`);
         console.log(`   Stok Hareket   : ${stats.stokHareketler}`);
+        console.log(`   Eldeki Miktar  : ${stats.eldekiMiktarlar}`);
         console.log(`   Süre           : ${duration} saniye\n`);
 
         // Son senkronizasyon durumlarını göster
