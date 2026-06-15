@@ -6,6 +6,7 @@ const logger = require('./utils/logger');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const stockXmlService = require('./services/stock-xml.service');
 
 // Logs klasörünü oluştur
 const logsDir = path.join(__dirname, 'logs');
@@ -122,6 +123,24 @@ async function main() {
     app.post('/api/trigger-sync', (req, res) => {
       const triggered = syncService.triggerSync();
       res.json({ success: true, message: triggered ? 'Senkronizasyon tetiklendi' : 'Senkronizasyon zaten aktif veya başlatılıyor' });
+    });
+
+    app.post('/api/trigger-stock-xml', async (req, res) => {
+      try {
+        const result = await stockXmlService.runNow();
+        res.json(result);
+      } catch (error) {
+        logger.error('Stok XML manuel tetikleme hatası', {
+          context: 'stock-xml',
+          error: error.message,
+          stack: error.stack
+        });
+        res.status(500).json({
+          success: false,
+          message: 'Stok XML tetiklenemedi.',
+          error: error.message
+        });
+      }
     });
 
     app.listen(port, () => {

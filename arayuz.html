@@ -155,13 +155,13 @@
                     class="mb-6 p-4 bg-blue-50 text-primary rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                     <span class="material-symbols-outlined text-3xl">description</span>
                 </div>
-                <h3 class="text-xl font-semibold text-slate-900 mb-2">Generate Stock XML</h3>
+                <h3 class="text-xl font-semibold text-slate-900 mb-2">XML Senkronizasyonu</h3>
                 <p class="text-slate-500 text-sm mb-8 leading-relaxed">Harici pazaryeri beslemeleri için mevcut stok
                     seviyelerinin statik bir anlık görüntüsünü dışa aktarın.</p>
-                <button
+                <button id="startStockXmlBtn"
                     class="w-full py-3 px-6 bg-slate-900 text-white rounded-xl font-medium text-sm hover:bg-primary transition-colors flex items-center justify-center gap-2 mt-auto">
-                    <span class="material-symbols-outlined text-lg">download</span>
-                    XML Dışa Aktar
+                    <span class="material-symbols-outlined text-lg">cloud_upload</span>
+                    XML Senkronize Et
                 </button>
             </div>
         </section>
@@ -281,6 +281,33 @@
                 }, 500);
             }
         });
+
+        const stockXmlBtn = document.getElementById('startStockXmlBtn');
+        if (stockXmlBtn) {
+            stockXmlBtn.addEventListener('click', async () => {
+                const originalText = stockXmlBtn.innerHTML;
+
+                try {
+                    stockXmlBtn.innerHTML = '<span class="material-symbols-outlined text-lg animate-spin">sync</span> Senkronize ediliyor...';
+                    stockXmlBtn.disabled = true;
+                    stockXmlBtn.classList.add('opacity-75', 'cursor-not-allowed');
+
+                    const response = await fetch('http://localhost:3001/api/trigger-stock-xml', { method: 'POST' });
+                    const data = await response.json();
+
+                    alert(data.message || (data.success ? 'XML senkronizasyonu tamamlandı.' : 'XML senkronizasyonu başlatılamadı.'));
+                } catch (error) {
+                    console.error(error);
+                    alert('Bağlantı hatası! XML servis çalışıyor mu?');
+                } finally {
+                    setTimeout(() => {
+                        stockXmlBtn.innerHTML = originalText;
+                        stockXmlBtn.disabled = false;
+                        stockXmlBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    }, 500);
+                }
+            });
+        }
     </script>
 </body>
 

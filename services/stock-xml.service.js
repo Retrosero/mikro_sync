@@ -2,6 +2,7 @@ const mssqlService = require('./mssql.service');
 const pgService = require('./postgresql.service');
 const logger = require('../utils/logger');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -9,12 +10,151 @@ class StockXMLService {
     constructor() {
         this.localFilePath = path.join(__dirname, '..', process.env.FTP_XML_NAME || 'sadece-stoklar.xml');
         this.lastRun = 0;
+        this.isRunning = false;
+    }
+
+    cleanEnvValue(value) {
+        if (value === null || value === undefined) {
+            return '';
+        }
+
+        return String(value)
+            .trim()
+            .replace(/^['"]|['"]$/g, '')
+            .replace(/\s+#.*$/, '')
+            .trim();
+    }
+
+    resolvePrivateKeyPath(rawPath) {
+        const cleanedPath = this.cleanEnvValue(rawPath);
+        if (!cleanedPath) {
+            return null;
+        }
+
+        const normalizedPath = path.normalize(cleanedPath);
+        if (!fs.existsSync(normalizedPath)) {
+            return null;
+        }
+
+        const stat = fs.statSync(normalizedPath);
+        if (stat.isFile()) {
+            return normalizedPath;
+        }
+
+        if (!stat.isDirectory()) {
+            return null;
+        }
+
+        const preferredNames = ['id_ed25519', 'id_rsa', 'id_ecdsa', 'id_dsa', 'ssh'];
+        for (const name of preferredNames) {
+            const candidate = path.join(normalizedPath, name);
+            if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+                return candidate;
+            }
+        }
+
+        const files = fs.readdirSync(normalizedPath)
+            .map(fileName => path.join(normalizedPath, fileName))
+            .filter(filePath => fs.existsSync(filePath) && fs.statSync(filePath).isFile());
+
+        if (files.length === 0) {
+            return null;
+        }
+
+        const rank = (name) => {
+            if (name === 'id_ed25519') return 0;
+            if (name === 'id_rsa') return 1;
+            if (name === 'id_ecdsa') return 2;
+            if (name === 'id_dsa') return 3;
+            if (name === 'ssh') return 4;
+            return 5;
+        };
+
+        files.sort((a, b) => rank(path.basename(a).toLowerCase()) - rank(path.basename(b).toLowerCase()) || a.localeCompare(b));
+        return files[0];
+    }
+
+    runCommand(command, description) {
+        try {
+            execSync(command, { stdio: 'pipe' });
+        } catch (error) {
+            const stderr = error.stderr ? error.stderr.toString('utf8').trim() : '';
+            const stdout = error.stdout ? error.stdout.toString('utf8').trim() : '';
+            const details = stderr || stdout || error.message;
+            throw new Error(`${description} başarısız: ${details}`);
+        }
+    }
+
+    prepareRestrictedKeyFile(sourceKeyPath) {
+        const tempDir = path.join(os.tmpdir(), 'mikro-sync-ssh');
+        if (!fs.existsSync(tempDir)) {
+            fs.mkdirSync(tempDir, { recursive: true });
+        }
+
+        const tempKeyPath = path.join(tempDir, `stock-xml-${process.pid}-${Date.now()}`);
+        fs.copyFileSync(sourceKeyPath, tempKeyPath);
+
+        const aclCommand = `cmd.exe /c icacls "${tempKeyPath}" /inheritance:r /grant:r "%USERNAME%:F"`;
+
+        try {
+            execSync(aclCommand, { stdio: 'pipe' });
+        } catch (error) {
+            try {
+                fs.unlinkSync(tempKeyPath);
+            } catch (cleanupError) {
+                logger.warn(`Geçici anahtar dosyası temizlenemedi: ${cleanupError.message}`, { context: 'stock-xml' });
+            }
+
+            const stderr = error.stderr ? error.stderr.toString('utf8').trim() : '';
+            const stdout = error.stdout ? error.stdout.toString('utf8').trim() : '';
+            const details = stderr || stdout || error.message;
+            throw new Error(`Geçici anahtar izinleri ayarlanamadı: ${details}`);
+        }
+
+        return tempKeyPath;
+    }
+
+    async runNow() {
+        if (this.isRunning) {
+            return {
+                success: false,
+                message: 'Stok XML işlemi zaten çalışıyor.'
+            };
+        }
+
+        this.isRunning = true;
+
+        try {
+            const generated = await this.generateXML();
+            if (!generated) {
+                return {
+                    success: false,
+                    message: 'XML oluşturulamadı.'
+                };
+            }
+
+            const uploaded = await this.uploadToSSH();
+            if (!uploaded) {
+                return {
+                    success: false,
+                    message: 'XML oluşturuldu ama sunucuya yüklenemedi.'
+                };
+            }
+
+            return {
+                success: true,
+                message: 'Stok XML oluşturuldu ve sunucuya yüklendi.'
+            };
+        } finally {
+            this.isRunning = false;
+        }
     }
 
     /**
      * MS SQL'den stok verilerini çekip XML dosyası oluşturur
      */
     async generateXML() {
+        let runtimeKeyPath = null;
         try {
             logger.info('Stok XML verileri MS SQL\'den çekiliyor...', { context: 'stock-xml' });
 
@@ -110,6 +250,14 @@ class StockXMLService {
         } catch (error) {
             logger.error('Stok XML oluşturma hatası:', { context: 'stock-xml', error: error.message });
             return false;
+        } finally {
+            if (runtimeKeyPath && fs.existsSync(runtimeKeyPath)) {
+                try {
+                    fs.unlinkSync(runtimeKeyPath);
+                } catch (cleanupError) {
+                    logger.warn(`Geçici anahtar dosyası silinemedi: ${cleanupError.message}`, { context: 'stock-xml' });
+                }
+            }
         }
     }
 
@@ -288,13 +436,14 @@ class StockXMLService {
      * scp.exe kullanarak dosyayı SSH üzerinden yükler
      */
     async uploadToSSH() {
+        let runtimeKeyPath = null;
         try {
-            const host = process.env.SSH_HOST;
-            const user = process.env.SSH_USER || 'root';
-            const port = process.env.SSH_PORT || '22';
-            const keyPath = process.env.SSH_PRIVATE_KEY_PATH;
-            const remotePath = process.env.SSH_REMOTE_PATH || '/var/www/html/';
-            const fileName = process.env.FTP_XML_NAME || 'sadece-stoklar.xml';
+            const host = this.cleanEnvValue(process.env.SSH_HOST);
+            const user = this.cleanEnvValue(process.env.SSH_USER) || 'root';
+            const port = this.cleanEnvValue(process.env.SSH_PORT) || '22';
+            const keyPath = this.resolvePrivateKeyPath(process.env.SSH_PRIVATE_KEY_PATH);
+            const remotePath = this.cleanEnvValue(process.env.SSH_REMOTE_PATH) || '/var/www/html/';
+            const fileName = this.cleanEnvValue(process.env.FTP_XML_NAME) || 'sadece-stoklar.xml';
 
             if (!host || !keyPath) {
                 logger.warn('SSH bilgileri (host/key path) eksik, yükleme yapılamadı.', { context: 'stock-xml' });
@@ -302,7 +451,7 @@ class StockXMLService {
             }
 
             // Private key dosyasının varlığını kontrol et
-            if (!fs.existsSync(keyPath)) {
+            if (!keyPath) {
                 logger.error(`SSH private key dosyası bulunamadı: ${keyPath}`, { context: 'stock-xml' });
                 return false;
             }
@@ -310,31 +459,48 @@ class StockXMLService {
             logger.info(`SSH (SCP) ile yükleniyor: ${host}...`, { context: 'stock-xml' });
 
             // 1. TEMİZLİK: Önce host üzerindeki eski dosyayı sil
-            const cleanHostCommand = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "rm -f ${remotePath}${fileName}"`;
+            const normalizedRemotePath = remotePath.endsWith('/') ? remotePath : `${remotePath}/`;
+            runtimeKeyPath = this.prepareRestrictedKeyFile(keyPath);
+            const sshBase = `ssh.exe -i "${runtimeKeyPath}" -o IdentitiesOnly=yes -o BatchMode=yes -p ${port} -o StrictHostKeyChecking=no ${user}@${host}`;
+            const scpBase = `scp.exe -i "${runtimeKeyPath}" -o IdentitiesOnly=yes -o BatchMode=yes -P ${port} -o StrictHostKeyChecking=no`;
+
+            const cleanHostCommand = `${sshBase} "rm -f ${normalizedRemotePath}${fileName}"`;
             logger.info('Eski dosya host üzerinden temizleniyor...', { context: 'stock-xml' });
-            try { execSync(cleanHostCommand, { stdio: 'pipe' }); } catch (e) { }
+            try { this.runCommand(cleanHostCommand, 'Eski dosya temizleme'); } catch (e) {
+                logger.warn(`Eski dosya temizlenemedi, yükleme devam ediyor: ${e.message}`, { context: 'stock-xml' });
+            }
 
             // 2. DİZİN HAZIRLA: Hedef dizini oluştur
-            const mkdirCommand = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "mkdir -p ${remotePath}"`;
-            try { execSync(mkdirCommand, { stdio: 'pipe' }); } catch (e) { }
+            const mkdirCommand = `${sshBase} "mkdir -p ${normalizedRemotePath}"`;
+            try { this.runCommand(mkdirCommand, 'Hedef dizin oluşturma'); } catch (e) {
+                logger.warn(`Hedef dizin oluşturulamadı, yükleme denenecek: ${e.message}`, { context: 'stock-xml' });
+            }
 
             // 3. YÜKLE: SCP ile host üzerine yükle
-            const scpCommand = `scp.exe -i "${keyPath}" -P ${port} -o StrictHostKeyChecking=no "${this.localFilePath}" ${user}@${host}:${remotePath}${fileName}`;
+            const scpCommand = `${scpBase} "${this.localFilePath}" ${user}@${host}:${normalizedRemotePath}${fileName}`;
             logger.info(`Dosya yükleniyor: ${scpCommand}`, { context: 'stock-xml' });
-            execSync(scpCommand, { stdio: 'inherit' });
+            try {
+                this.runCommand(scpCommand, 'SCP yükleme');
+            } catch (error) {
+                const lower = error.message.toLowerCase();
+                if (lower.includes('permission denied') || lower.includes('passphrase') || lower.includes('authentication') || lower.includes('publickey')) {
+                    throw new Error('SSH kimlik doğrulaması başarısız. Private key sunucuda yetkili değil, anahtar passphrase istiyor ya da yanlış key kullanılıyor.');
+                }
+                throw error;
+            }
 
             // 4. DAĞIT: xargs kullanarak tüm aktif Docker konteynırları içine kopyalamayı dene
             const distributeCommands = [
-                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/usr/share/nginx/html/${fileName} 2>/dev/null || true`,
-                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/app/public/${fileName} 2>/dev/null || true`,
-                `docker ps -q | xargs -I {} docker cp ${remotePath}${fileName} {}:/app/${fileName} 2>/dev/null || true`
+                `docker ps -q | xargs -I {} docker cp ${normalizedRemotePath}${fileName} {}:/usr/share/nginx/html/${fileName} 2>/dev/null || true`,
+                `docker ps -q | xargs -I {} docker cp ${normalizedRemotePath}${fileName} {}:/app/public/${fileName} 2>/dev/null || true`,
+                `docker ps -q | xargs -I {} docker cp ${normalizedRemotePath}${fileName} {}:/app/${fileName} 2>/dev/null || true`
             ];
 
             logger.info('Docker konteynırları güncelleniyor (xargs)...', { context: 'stock-xml' });
             for (const cmd of distributeCommands) {
-                const fullCmd = `ssh.exe -i "${keyPath}" -p ${port} -o StrictHostKeyChecking=no ${user}@${host} "${cmd}"`;
+                const fullCmd = `${sshBase} "${cmd}"`;
                 try {
-                    execSync(fullCmd, { stdio: 'pipe' });
+                    this.runCommand(fullCmd, 'Docker dağıtımı');
                 } catch (e) { }
             }
             logger.info('✅ Docker konteynırları güncellendi.', { context: 'stock-xml' });
@@ -344,6 +510,14 @@ class StockXMLService {
         } catch (error) {
             logger.error('SSH yükleme hatası:', { context: 'stock-xml', error: error.message });
             return false;
+        } finally {
+            if (runtimeKeyPath && fs.existsSync(runtimeKeyPath)) {
+                try {
+                    fs.unlinkSync(runtimeKeyPath);
+                } catch (cleanupError) {
+                    logger.warn(`GeÃ§ici anahtar dosyasÄ± silinemedi: ${cleanupError.message}`, { context: 'stock-xml' });
+                }
+            }
         }
     }
 

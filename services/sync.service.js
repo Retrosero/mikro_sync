@@ -4,6 +4,7 @@ const logger = require('../utils/logger');
 const { handleError, isRetryable } = require('../utils/error-handler');
 const config = require('../config/sync.config');
 const stockXmlService = require('./stock-xml.service');
+const categorySyncService = require('./category-sync.service');
 const invoiceSettingsService = require('./invoice-settings.service');
 const entegraSync = require('../scripts/entegra-sync');
 const asortiSync = require('../scripts/sync_asorti_to_sqlite');
@@ -41,6 +42,7 @@ class SyncService {
 
         // MS SQL queue'dan işle (ERP → Web)
         await this.processMSSQLQueue();
+        await categorySyncService.syncCategories();
 
         // Pazaryeri Fatura Sıra No Güncelle
         await invoiceSettingsService.syncInvoiceNumbers();

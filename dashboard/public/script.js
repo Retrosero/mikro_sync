@@ -50,7 +50,8 @@ const menuCategories = [
             { id: 'continuous-sync', name: 'Sürekli Senkronizasyon', icon: 'refresh-cw', description: 'Sistem arka planda sürekli çalışır ve anlık veri senkronizasyonu sağlar.' },
             { id: 'erp-to-web', name: 'ERP → Web', icon: 'upload-cloud', description: 'Mikro verilerini (Stok, Fiyat, vb.) web sitesine tek yönlü aktarır.' },
             { id: 'web-to-erp', name: 'Web → ERP', icon: 'download-cloud', description: 'Web siparişlerini ve müşteri carilerini Mikro sistemine aktarır.' },
-            { id: 'entegra-sync', name: 'Entegra Senkronizasyonu', icon: 'waypoints', description: 'Entegra ile ürün ve stok verilerini eşitler.' }
+            { id: 'entegra-sync', name: 'Entegra Senkronizasyonu', icon: 'waypoints', description: 'Entegra ile ürün ve stok verilerini eşitler.' },
+            { id: 'stock-xml', name: 'XML Senkronizasyonu', icon: 'cloud-upload', description: 'Stok XML dosyasını oluşturur ve sunucuya yükler.' }
         ]
     }
 ];
@@ -149,7 +150,7 @@ function setupSocketListeners() {
         if (data.type === 'warning') type = 'UYARI';
         if (data.type === 'success') type = 'BAŞARILI';
         if (data.commandId) {
-            const cmdNameMap = { 'continuous-sync': 'SÜREKLİ SENK.', 'erp-to-web': 'ERP → WEB', 'web-to-erp': 'WEB → ERP', 'entegra-sync': 'ENTEGRA SENK.', 'stock-xml': 'STOK XML' };
+            const cmdNameMap = { 'continuous-sync': 'SÜREKLİ SENK.', 'erp-to-web': 'ERP → WEB', 'web-to-erp': 'WEB → ERP', 'entegra-sync': 'ENTEGRA SENK.', 'stock-xml': 'XML SENK.' };
             source = cmdNameMap[data.commandId] || data.commandId.toUpperCase();
         }
         if (data.type === 'info') source = 'SİSTEM';
@@ -718,4 +719,4 @@ function renderTrackerResults(results, total, query) {
 
     html += '</div>';
     trackerResults.innerHTML = html;
-}
+}
