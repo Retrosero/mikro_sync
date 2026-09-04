@@ -14,6 +14,19 @@ class TahsilatProcessor {
     try {
       let chaRecno = null;
 
+      // Aynı web tahsilatı önceki bir denemede ERP'ye yazıldıysa tekrar evrak
+      // üretme. cha_uuid bu amaçla yalnızca web tahsilat UUID'sini taşır.
+      const existing = await mssqlService.query(
+        `SELECT TOP 1 cha_RECno, cha_evrakno_seri, cha_evrakno_sira
+         FROM CARI_HESAP_HAREKETLERI
+         WHERE cha_uuid = @webTahsilatId`,
+        { webTahsilatId: webTahsilat.id.toString().toUpperCase() }
+      );
+      if (existing.length > 0) {
+        logger.info(`Tahsilat zaten ERP'de mevcut: ${webTahsilat.id}, EvrakNo: ${existing[0].cha_evrakno_seri}-${existing[0].cha_evrakno_sira}`);
+        return;
+      }
+
       await mssqlService.transaction(async (transaction) => {
         let odemeEmriRefno = null;
 
@@ -32,9 +45,28 @@ class TahsilatProcessor {
         // Tahsilat verilerini hazırla (odemeEmriRefno ile)
         const tahsilatData = await tahsilatTransformer.transformTahsilat(webTahsilat, odemeEmriRefno);
 
-        // Sıra numarası kontrolü
-        if (!tahsilatData.cha_evrakno_sira) {
-          tahsilatData.cha_evrakno_sira = await mssqlService.getNextEvrakNo(tahsilatData.cha_evrak_tip, tahsilatData.cha_evrakno_seri);
+        // Kullanıcının verdiği sıra numarası dolu olsa bile aynı evrak anahtarı
+        // Mikro'da varsa yeni ve kilitli bir sıra numarası ayır.
+        const request = transaction.request();
+        request.input('evrakTip', tahsilatData.cha_evrak_tip);
+        request.input('seri', tahsilatData.cha_evrakno_seri);
+        request.input('sira', tahsilatData.cha_evrakno_sira || 0);
+        const evrakKontrol = await request.query(`
+          SELECT
+            CASE WHEN @sira > 0 AND EXISTS (
+              SELECT 1 FROM CARI_HESAP_HAREKETLERI WITH (UPDLOCK, HOLDLOCK)
+              WHERE cha_evrak_tip = @evrakTip
+                AND cha_evrakno_seri = @seri
+                AND cha_evrakno_sira = @sira
+                AND cha_satir_no = 0
+            ) THEN 1 ELSE 0 END AS cakisma,
+            ISNULL(MAX(cha_evrakno_sira), 0) + 1 AS sonraki_sira
+          FROM CARI_HESAP_HAREKETLERI WITH (UPDLOCK, HOLDLOCK)
+          WHERE cha_evrak_tip = @evrakTip AND cha_evrakno_seri = @seri
+        `);
+        if (!tahsilatData.cha_evrakno_sira || evrakKontrol.recordset[0].cakisma) {
+          tahsilatData.cha_evrakno_sira = evrakKontrol.recordset[0].sonraki_sira;
+          logger.warn(`Tahsilat evrak numarası otomatik seçildi: ${tahsilatData.cha_evrakno_seri}-${tahsilatData.cha_evrakno_sira}`);
         }
 
         // CARI_HESAP_HAREKETLERI kaydını oluştur
@@ -82,6 +114,8 @@ class TahsilatProcessor {
   }
 
   async insertCariHareket(data, transaction) {
+    await mssqlService.repairZeroRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', transaction);
+
     const request = transaction.request();
 
     Object.keys(data).forEach(key => {

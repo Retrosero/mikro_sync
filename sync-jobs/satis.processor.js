@@ -1,6 +1,7 @@
 const pgService = require('../services/postgresql.service');
 const mssqlService = require('../services/mssql.service');
 const satisTransformer = require('../transformers/satis.transformer');
+const lookupTables = require('../mappings/lookup-tables');
 const logger = require('../utils/logger');
 
 class SatisProcessor {
@@ -39,6 +40,20 @@ class SatisProcessor {
 
       // Asorti ürünleri grupla
       const kalemler = await this.groupAsortiKalemler(rawKalemler);
+
+      // Mikro transaction'ı açmadan önce bütün stok kodlarını doğrula. XML
+      // ürünlerde stok_id boş olur; xml_stok_id -> xmlurunler.product_code
+      // üzerinden Mikro'daki gerçek stok koduna çözülür.
+      for (const kalem of kalemler) {
+        const stokKod = await lookupTables.getStokKodForSatisKalem(kalem);
+        if (!stokKod) {
+          const kaynak = kalem.stok_id
+            ? `stok_id=${kalem.stok_id}`
+            : `xml_stok_id=${kalem.xml_stok_id || 'YOK'}`;
+          throw new Error(`Stok mapping bulunamadı: ${kaynak}`);
+        }
+        kalem.erp_stok_kod = stokKod;
+      }
 
       // cari_hesap_hareketleri tablosundan hareket_turu, banka_kodu, kasa_kodu ve ERP alanlarını al
       // 1. Önce kesin eşleşme (belge_no = satis_id) ile ara
@@ -338,6 +353,8 @@ class SatisProcessor {
   }
 
   async insertCariHareket(data, transaction) {
+    await mssqlService.repairZeroRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', transaction);
+
     const request = transaction.request();
 
     // Parametreleri ekle
@@ -534,7 +551,9 @@ class SatisProcessor {
         [kalem.stok_id]
       );
 
-      let effectiveStokId = kalem.stok_id;
+      // XML ürünlerinde stok_id NULL'dur. NULL anahtarı kullanılırsa farklı
+      // XML ürünleri yanlışlıkla aynı grup altında toplanır.
+      let effectiveStokId = kalem.stok_id || `xml:${kalem.xml_stok_id || kalem.id}`;
       let usedAsorti = false;
 
       if (stokInfo && stokInfo.is_asorti && stokInfo.ana_stok_id) {
@@ -545,7 +564,9 @@ class SatisProcessor {
       if (!groupedItems[effectiveStokId]) {
         groupedItems[effectiveStokId] = {
           ...kalem,
-          stok_id: effectiveStokId, // Hedef stok ID'si
+          // Sadece asorti ürün ana stoka yönlendirildiğinde stok_id değişir.
+          // XML ürünün kimliği xml_stok_id'de kalmalıdır.
+          stok_id: usedAsorti ? effectiveStokId : kalem.stok_id,
           miktar: 0,
           toplam_tutar: 0,
           kdv_tutari: 0,

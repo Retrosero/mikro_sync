@@ -7,6 +7,7 @@ class LookupTables {
     this.cache = {
       cari: new Map(),
       stok: new Map(),
+      xmlStok: new Map(),
       banka: new Map(),
       kasa: new Map(),
       fiyatListe: new Map(),
@@ -123,6 +124,57 @@ class LookupTables {
       });
     }
     return kod;
+  }
+
+  /**
+   * XML katalog kalemleri stoklar tablosunda bir UUID'ye sahip olmayabilir.
+   * Bu durumda xmlurunler.product_code, Mikro stok kodudur. Kodu ERP'de de
+   * doğrulayarak hatalı/eskimiş XML verisinin evraka yazılmasını engelleriz.
+   */
+  async getStokKodFromXmlId(xmlStokId) {
+    if (!xmlStokId) {
+      return null;
+    }
+
+    if (this.cache.xmlStok.has(xmlStokId)) {
+      return this.cache.xmlStok.get(xmlStokId);
+    }
+
+    const xmlUrun = await pgService.queryOne(
+      'SELECT product_code FROM xmlurunler WHERE id = $1',
+      [xmlStokId]
+    );
+    const productCode = xmlUrun?.product_code?.trim();
+
+    if (!productCode) {
+      logger.mappingError('xml_stok', xmlStokId, {
+        suggestion: 'xmlurunler kaydında product_code bulunmalı'
+      });
+      return null;
+    }
+
+    const erpStok = await mssqlService.query(
+      'SELECT TOP 1 sto_kod FROM STOKLAR WHERE sto_kod = @productCode',
+      { productCode }
+    );
+
+    if (erpStok.length === 0) {
+      logger.mappingError('xml_stok', xmlStokId, {
+        productCode,
+        suggestion: 'XML ürün kodu Mikro STOKLAR tablosunda bulunmalı'
+      });
+      return null;
+    }
+
+    this.cache.xmlStok.set(xmlStokId, productCode);
+    return productCode;
+  }
+
+  async getStokKodForSatisKalem(kalem) {
+    if (kalem.stok_id) {
+      return this.getStokKod(kalem.stok_id);
+    }
+    return this.getStokKodFromXmlId(kalem.xml_stok_id);
   }
 
   async getBankaKod(webBankaId) {

@@ -126,6 +126,42 @@ class MSSQLService {
       throw error;
     }
   }
+  async repairZeroRecIdRecNo(tableName, idColumn, transaction) {
+    try {
+      this.validateIdentifier(tableName);
+      this.validateIdentifier(idColumn);
+
+      const request = transaction ? transaction.request() : (await this.connect()).request();
+      const prefix = idColumn.split('_')[0]; // cha, sth etc.
+      const recIdDbcColumn = `${prefix}_RECid_DBCno`;
+      const recIdColumn = `${prefix}_RECid_RECno`;
+      this.validateIdentifier(recIdDbcColumn);
+      this.validateIdentifier(recIdColumn);
+
+      const result = await request.query(`
+        UPDATE ${tableName}
+        SET ${recIdColumn} = ${idColumn}
+        WHERE ${recIdDbcColumn} = 0
+          AND ${recIdColumn} = 0
+          AND ${idColumn} IS NOT NULL
+          AND ${idColumn} <> 0
+      `);
+
+      const repairedCount = result.rowsAffected?.[0] || 0;
+      if (repairedCount > 0) {
+        logger.warn(`${tableName}: ${repairedCount} adet 0 RECid_RECno kaydi onarildi`);
+      }
+    } catch (error) {
+      logger.error('0 RECid_RECno onarma hatasi:', error);
+      throw error;
+    }
+  }
+
+  validateIdentifier(identifier) {
+    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(identifier)) {
+      throw new Error(`Gecersiz SQL tanimlayici: ${identifier}`);
+    }
+  }
 }
 
 module.exports = new MSSQLService();

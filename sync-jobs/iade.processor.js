@@ -179,6 +179,8 @@ class IadeProcessor {
   }
 
   async insertCariHareket(data, transaction) {
+    await mssqlService.repairZeroRecIdRecNo('CARI_HESAP_HAREKETLERI', 'cha_RECno', transaction);
+
     const request = transaction.request();
     Object.keys(data).forEach(key => request.input(key, data[key]));
 

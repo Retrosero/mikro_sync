@@ -323,12 +323,12 @@ class SatisTransformer {
   // Web → ERP: Satış Satır
   async transformSatisKalem(webKalem, webSatis) {
     try {
-      const stokKod = await lookupTables.getStokKod(webKalem.stok_id);
+      const stokKod = webKalem.erp_stok_kod || await lookupTables.getStokKodForSatisKalem(webKalem);
       const cariKod = await lookupTables.getCariKod(webSatis.cari_hesap_id);
       const kdvPointer = await lookupTables.getKdvPointer(webKalem.kdv_orani);
 
       if (!stokKod) {
-        throw new Error(`Stok mapping bulunamadı: ${webKalem.stok_id}`);
+        throw new Error(`Stok mapping bulunamadı: stok_id=${webKalem.stok_id || 'YOK'}, xml_stok_id=${webKalem.xml_stok_id || 'YOK'}`);
       }
 
       // İade kontrolü

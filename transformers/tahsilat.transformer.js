@@ -271,7 +271,9 @@ class TahsilatTransformer {
         cha_e_islem_turu: 0,
         cha_fatura_belge_turu: 0,
         cha_diger_belge_adi: '',
-        cha_uuid: null,
+        // Web tahsilat UUID'si tekrar denemelerde Mikro kaydını bulmak için
+        // kalıcı idempotency anahtarıdır.
+        cha_uuid: webTahsilat.id ? webTahsilat.id.toString().toUpperCase() : null,
 
         // Code ve Special Alanları
         cha_special1: '', cha_special2: '', cha_special3: '',

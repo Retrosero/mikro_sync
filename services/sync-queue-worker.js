@@ -41,6 +41,8 @@ class SyncQueueWorker {
 
     async processQueue() {
         try {
+            await this.recoverStaleProcessingItems();
+
             // ATOMİK İŞLEM: Bekleyen kayıtları al ve aynı anda 'processing' yap
             // FOR UPDATE SKIP LOCKED sayesinde birden fazla worker çakışmaz
             const result = await pgService.query(`
@@ -53,7 +55,8 @@ class SyncQueueWorker {
           FOR UPDATE SKIP LOCKED
         )
         UPDATE sync_queue
-        SET status = 'processing'
+        SET status = 'processing',
+            processed_at = NOW()
         WHERE id IN (SELECT id FROM pending)
         RETURNING id, entity_type, entity_id, operation, retry_count, record_data
       `);
@@ -71,6 +74,24 @@ class SyncQueueWorker {
 
         } catch (error) {
             logger.error('Queue işleme hatası:', error);
+        }
+    }
+
+    // Uygulama kapanırsa veya işlem yarıda kesilirse kayıtlar kalıcı olarak
+    // "processing" durumunda kalmamalı. İşlemi alalı bir saatten uzun olan
+    // kayıtları güvenle yeniden denemek üzere pending'e döndürürüz.
+    async recoverStaleProcessingItems() {
+        const recovered = await pgService.query(`
+          UPDATE sync_queue
+          SET status = 'pending',
+              error_message = COALESCE(error_message || E'\n', '') || 'Eski processing kaydı otomatik yeniden kuyruğa alındı'
+          WHERE status = 'processing'
+            AND COALESCE(processed_at, created_at) < NOW() - INTERVAL '1 hour'
+          RETURNING id
+        `);
+
+        if (recovered.length > 0) {
+            logger.warn(`${recovered.length} eski processing kaydı yeniden kuyruğa alındı`);
         }
     }
 

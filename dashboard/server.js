@@ -16,10 +16,11 @@ const PORT = 3456;
 const LOGS_DIR = path.join(__dirname, 'logs');
 const ERROR_LOG_FILE = path.join(LOGS_DIR, 'errors.log');
 const LAST_RUNS_FILE = path.join(LOGS_DIR, 'last_runs.json');
+const LAST_RUNS_TMP_FILE = `${LAST_RUNS_FILE}.tmp`;
 
 // Create logs directory if it doesn't exist
 if (!fs.existsSync(LOGS_DIR)) {
-  fs.mkdirSync(LOGS_DIR);
+  fs.mkdirSync(LOGS_DIR, { recursive: true });
 }
 
 function writeToErrorLog(commandId, type, message) {
@@ -33,12 +34,22 @@ function writeToErrorLog(commandId, type, message) {
   }
 }
 
+function parseLastRunsFile() {
+  const content = fs.readFileSync(LAST_RUNS_FILE, 'utf8').trim();
+  if (!content) {
+    return {};
+  }
+
+  const lastRuns = JSON.parse(content);
+  return lastRuns && typeof lastRuns === 'object' && !Array.isArray(lastRuns) ? lastRuns : {};
+}
+
 function getLastRuns() {
   if (fs.existsSync(LAST_RUNS_FILE)) {
     try {
-      return JSON.parse(fs.readFileSync(LAST_RUNS_FILE, 'utf8'));
+      return parseLastRunsFile();
     } catch (err) {
-      console.error('Son çalışma zamanları okunamadı:', err);
+      console.error('Son çalışma zamanları okunamadı:', err.message);
       return {};
     }
   }
@@ -52,7 +63,8 @@ function saveLastRun(id, status) {
     status: status
   };
   try {
-    fs.writeFileSync(LAST_RUNS_FILE, JSON.stringify(lastRuns, null, 2));
+    fs.writeFileSync(LAST_RUNS_TMP_FILE, JSON.stringify(lastRuns, null, 2), 'utf8');
+    fs.renameSync(LAST_RUNS_TMP_FILE, LAST_RUNS_FILE);
   } catch (err) {
     console.error('Son çalışma zamanı kaydedilemedi:', err);
   }
