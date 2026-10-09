@@ -263,38 +263,64 @@ class StockXMLService {
 
     /**
      * Entegra tablolarından stok koduna göre fotoğrafları getiren bir map döner
+     *
+     * Not: entegra_product'ta aynı productCode için birden fazla satır olabiliyor
+     * (eski/pasif kopyalar). Hepsinin resimleri birleştirilirse ürün başına 50'ye
+     * varan mükerrer resim çıkıyordu. Bu yüzden kod başına TEK bir ürün satırı
+     * seçiliyor: önce status=1 olan, sonra en güncel date_change, sonra en büyük id.
+     * Ayrıca aynı dosya birden fazla kez kayıtlı olabildiği için dosya adına göre
+     * tekilleştiriliyor ve sıralama (sort_order, pic.id) ile deterministik hale
+     * getiriliyor - aksi halde her üretimde resim sırası değişiyordu.
      */
     async getEntegraPhotoMap() {
-        try {
-            const photoMap = new Map();
-            const query = `
-                SELECT ep."productCode", pic.url, pic.path
+        const photoMap = new Map();
+        const query = `
+            WITH resimli_urun AS (
+                SELECT ep.id, ep."productCode", ep.status, ep.date_change
                 FROM entegra_product ep
-                JOIN entegra_pictures pic ON ep.id = pic.product_id
-                ORDER BY ep."productCode", pic.sort_order
-            `;
-            const rows = await pgService.query(query);
+                WHERE COALESCE(ep."productCode", '') <> ''
+                  AND EXISTS (
+                      SELECT 1 FROM entegra_pictures p
+                      WHERE p.product_id = ep.id
+                        AND COALESCE(NULLIF(p.url, ''), NULLIF(p.path, '')) IS NOT NULL
+                  )
+            ),
+            secilen_urun AS (
+                SELECT id, "productCode"
+                FROM (
+                    SELECT id, "productCode",
+                           ROW_NUMBER() OVER (
+                               PARTITION BY "productCode"
+                               ORDER BY (status = 1) DESC, date_change DESC NULLS LAST, id DESC
+                           ) AS rn
+                    FROM resimli_urun
+                ) x
+                WHERE rn = 1
+            )
+            SELECT s."productCode",
+                   ltrim(COALESCE(NULLIF(pic.url, ''), NULLIF(pic.path, '')), '/') AS img
+            FROM secilen_urun s
+            JOIN entegra_pictures pic ON pic.product_id = s.id
+            WHERE COALESCE(NULLIF(pic.url, ''), NULLIF(pic.path, '')) IS NOT NULL
+            GROUP BY s."productCode",
+                     ltrim(COALESCE(NULLIF(pic.url, ''), NULLIF(pic.path, '')), '/')
+            ORDER BY s."productCode", MIN(pic.sort_order), MIN(pic.id)
+        `;
 
-            rows.forEach(row => {
-                let img = row.url || row.path;
-                if (!img) return;
+        // Hata YUTULMUYOR: fotoğraflar çekilemezse XML resimsiz üretilip bayilere
+        // yüklenmemeli. Hata yukarı fırlatılır, generateXML false döner, yükleme olmaz.
+        const rows = await pgService.query(query);
 
-                // Başlangıçtaki "/" karakterini kaldır
-                if (img.startsWith('/')) {
-                    img = img.substring(1);
-                }
+        rows.forEach(row => {
+            if (!row.img) return;
+            if (!photoMap.has(row.productCode)) {
+                photoMap.set(row.productCode, []);
+            }
+            photoMap.get(row.productCode).push(row.img);
+        });
 
-                if (!photoMap.has(row.productCode)) {
-                    photoMap.set(row.productCode, []);
-                }
-                photoMap.get(row.productCode).push(img);
-            });
-
-            return photoMap;
-        } catch (error) {
-            logger.warn('Entegra fotoğrafları çekilemedi:', error.message);
-            return new Map();
-        }
+        logger.info(`Entegra fotoğrafları alındı: ${photoMap.size} ürün, ${rows.length} resim`, { context: 'stock-xml' });
+        return photoMap;
     }
 
     /**

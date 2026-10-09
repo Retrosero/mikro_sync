@@ -222,23 +222,14 @@ async function runAsortiSync() {
                     ) VALUES ($1, $2, $3, 0)
                 `, [newProductId, newProductId, product.aciklama || '']);
 
-                // entegra_pictures
-                if (images.length > 0) {
-                    for (let i = 0; i < images.length; i++) {
-                        // ID cakismasi olmamasi icin random veya timestamp based bir ID uretmek gerekebilir PG icin
-                        // Fakat burada basitce bir unique ID uretmeliyiz. 
-                        // SQLite pictures tablosunda ID autoincrement. PG'de de oyleyse ID vermemize gerek yok.
-                        // entegra_pictures semasina bakalim: id (bigint) [NO].
-                        // Eger sequence yoksa manuel vermeliyiz. Cakismalari onlemek icin time + index kullanalim.
-                        const picId = Date.now() + i;
-
-                        await pgService.query(`
-                            INSERT INTO entegra_pictures (
-                                id, product_id, path, "default", sync
-                            ) VALUES ($1, $2, $3, $4, 0)
-                        `, [picId, newProductId, images[i], i === 0 ? 1 : 0]);
-                    }
-                }
+                // entegra_pictures'a BURADAN YAZILMIYOR.
+                //
+                // Resimler yukarida SQLite 'pictures' tablosuna zaten eklendi ve
+                // entegra-sync.js her calismasinda 'pictures' -> 'entegra_pictures'
+                // tam senkronizasyonu yapiyor (gercek Entegra id'leri ile).
+                // Buradan ayrica Date.now() tabanli uydurma id'lerle yazilinca
+                // ayni resim PG'de iki kez olusuyor ve XML'de her urun icin
+                // mukerrer <Image> etiketleri uretiliyordu. Cift yazim kaldirildi.
 
             } catch (pgError) {
                 logger.error(`PostgreSQL Entegra tablolarına yazma hatası: ${productCode}`, pgError);
